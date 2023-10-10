@@ -4,25 +4,29 @@ using UnityEngine;
 
 public abstract class BaseController : MonoBehaviour
 {
-    [Header("몬스터 변수")]
+    [SerializeField] protected GameObject player;
+    protected bool chasePlayer = false;
+    protected LayerMask playerMask =1<<3;
+    
+    [Header("이형체 변수")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float detectDist;
-    [SerializeField] protected GameObject player;
+    [SerializeField] protected float maxChaseDist;
     [SerializeField] protected AnimationState monsterState = AnimationState.Idle;
 
-    void Start()
-    {
-        Init();
-    }
+    void Start(){ Init();}
+
     void Update()
     {
+        DetectPlayer();
         switch (monsterState)
         {
+            //anim.CrossFade("Idle", 0.1f); 애니메이션 이름
             case AnimationState.Idle:
                 UpdateIdle();
                 break;
-            case AnimationState.Walk:
-                UpdateWalk();
+            case AnimationState.Chase:
+                UpdateChase();
                 break;
             case AnimationState.Attack:
                 UpdateAttack();
@@ -31,9 +35,11 @@ public abstract class BaseController : MonoBehaviour
     }
 
     public abstract void Init();
+    protected virtual void DetectPlayer() { }
     protected virtual void UpdateIdle() { }
-    protected virtual void UpdateWalk() { }
+    protected virtual void UpdateChase() { }
     protected virtual void UpdateAttack() { }
+    
 }
 
 /*public virtual AnimationState State

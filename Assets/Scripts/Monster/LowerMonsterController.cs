@@ -5,47 +5,58 @@ using UnityEngine.AI;
 
 public class LowerMonsterController : BaseController
 {
-    [SerializeField] float speed = 5f;
-    [SerializeField] float range= 10f;
-    [SerializeField] GameObject findParticle;
     NavMeshAgent nav;
+    [SerializeField] GameObject findParticle;
     
     public override void Init()
     {
-        moveSpeed = speed;
-        detectDist = range;
         nav = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    protected override void UpdateIdle()
+    protected override void DetectPlayer()
     {
-        GameObject target = GameObject.FindGameObjectWithTag("Player");
-        if (target == null)
-            return;
-        float dist = (target.transform.position - transform.position).magnitude;
-        if (dist <= range)
+        if (chasePlayer) // 쫓던 중 층이 달라지거나 최대 감지 범위를 벗어나면 추격 종료
         {
-            player = target;
-            monsterState = AnimationState.Walk;
+            float yDist = Mathf.Abs(transform.position.y - player.transform.position.y);
+            chasePlayer = (maxChaseDist < (transform.position - player.transform.position).magnitude || yDist > 2.5f) ? false : true;
+        }        
+        else
+        {
+            if (Physics.CheckSphere(transform.position, detectDist, playerMask)) // 감지 범위 내에 플레이어가 있다면 추격
+            {
+                chasePlayer = true;
+                monsterState = AnimationState.Chase;
+            }
         }
     }
-    protected override void UpdateWalk()
+
+    protected override void UpdateIdle(){  }
+    protected override void UpdateChase()
     {
-        if (player != null)
+        if (chasePlayer)
         {
             findParticle.SetActive(true);
-            float distance = (player.transform.position- transform.position).magnitude;
+            float distance = (player.transform.position - transform.position).magnitude;
             Vector3 dir = player.transform.position - transform.position;
-            if(distance > 0.2f)
+            if (distance > 1f)
             {
                 nav.SetDestination(player.transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), moveSpeed * Time.deltaTime);
             }
         }
+        else
+        {
+            monsterState = AnimationState.Idle;
+            nav.SetDestination(transform.position);
+        }
     }
 
-    protected override void UpdateAttack()
-    {
+    protected override void UpdateAttack(){ }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectDist);
     }
 }
