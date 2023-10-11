@@ -8,6 +8,7 @@ public class LowerMonsterController : BaseController
     Rigidbody rb;
     NavMeshAgent nav;
     ParticleSystem findParticle;
+    Vector3 velo = Vector3.zero;
     public override void Init()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -21,8 +22,8 @@ public class LowerMonsterController : BaseController
         if(!patrolMonster)
             Patroll();
         else
-            if (nav.remainingDistance <= nav.stoppingDistance)
-                patrolMonster = false;
+          if (nav.remainingDistance <= nav.stoppingDistance) 
+            patrolMonster = false;
         if (Physics.CheckSphere(transform.position, detectDist, playerMask) && Mathf.Abs(transform.position.y - player.transform.position.y) < 5.5f) // 감지 범위 내에 플레이어가 있다면 추격
         {
             findParticle.Play();
@@ -35,10 +36,10 @@ public class LowerMonsterController : BaseController
     {
         Vector3 point;
         patrolMonster = true;
-        if (RandomPoint(transform.position, detectDist, out point)) //pass in our centre point and radius of area
+        if (RandomPoint(transform.position, detectDist, out point)) 
         {
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
             nav.SetDestination(point);
+            transform.position = Vector3.SmoothDamp(transform.position, nav.nextPosition, ref velo, 0.1f);
         }
     }
 
