@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AnimationState
+public enum EntityStates
 {
-    Idle,
+    Indifference,
+    Watch,
     Chase,
-    Attack
+    Patrol
 }
