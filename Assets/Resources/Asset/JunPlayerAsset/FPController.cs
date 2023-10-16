@@ -10,7 +10,7 @@ public class FPController : MonoBehaviour
     public AudioSource jump;
     public AudioSource land;
 
-    float speed = 0.1f;
+    [SerializeField]float speed = 0.1f;
     float Xsensitivity = 2;
     float Ysensitivity = 2;
     float MinimumX = -90;
