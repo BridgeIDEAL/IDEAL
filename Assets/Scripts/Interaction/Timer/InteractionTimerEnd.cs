@@ -7,7 +7,7 @@ public class InteractionTimerEnd : AbstractInteraction
     [SerializeField] private TimerRoot timerRoot;
     
     protected override string GetDetectedString(){
-        return "TimerEnd Detected!";
+        return "Press E, End Timer!";
     }
 
     protected override void ActInteraction(){

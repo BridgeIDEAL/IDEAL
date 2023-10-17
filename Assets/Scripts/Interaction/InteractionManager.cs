@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
+    public UIManager uIManager;
+
+    
     [SerializeField]
     private GameObject timerStartObject;
 

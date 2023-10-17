@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
 
     private bool[] UIActives = new bool[System.Enum.GetValues(typeof(UIType)).Length];
     
+    [SerializeField]
+    private UIInteraction uIInteraction;
 
     void Awake() {
         for(int i = 0; i < Canvases.Length; i++){
@@ -28,6 +30,8 @@ public class UIManager : MonoBehaviour
             UIActives[i] = false;
         }
 
+        SetUIActive(UIType.InteractionUI, true);
+        DeleteInteractionText();
 
     }
 
@@ -36,5 +40,15 @@ public class UIManager : MonoBehaviour
         UIActives[(int)uIType] = active;
     }
 
+
+    public void PrintInteractionText(string textContents){
+        uIInteraction.SetTextContents(textContents);
+        uIInteraction.SetTextActive(true);
+    }
+
+    public void DeleteInteractionText(){
+        uIInteraction.SetTextContents(null);
+        uIInteraction.SetTextActive(false);
+    }
 
 }

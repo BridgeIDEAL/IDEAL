@@ -4,15 +4,21 @@ using UnityEngine;
 
 public abstract class AbstractInteraction : MonoBehaviour
 {
+    [SerializeField]
+    private InteractionManager interactionManager;
+    
     public void DetectedRay(){
-        Debug.Log("Detected Ray!  " + GetDetectedString());
+        interactionManager.uIManager.PrintInteractionText(GetDetectedString());
+    }
+
+    public void OutOfRay(){
+        interactionManager.uIManager.DeleteInteractionText();
     }
 
     protected abstract string GetDetectedString();
 
 
     public void DetectedInteraction(){
-        Debug.Log("Detected Interaction!");
         ActInteraction();
     }
 

@@ -13,6 +13,7 @@ public class InteractionObject : MonoBehaviour
     }
 
     public void OutOfRay(){
+        abstractInteraction.OutOfRay();
         interactionOutline.SetOutlineObject(false);
     }
 
