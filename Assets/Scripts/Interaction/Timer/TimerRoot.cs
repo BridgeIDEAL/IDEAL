@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TimerRoot : MonoBehaviour
 {
-    [SerializeField]
-    private InteractionManager interactionManager;
     
     public bool timerActive = false;
     
@@ -16,13 +14,13 @@ public class TimerRoot : MonoBehaviour
         spendTime = 0.0f;
         timerActive = true;
         Debug.Log("======= StartTimer");
-        interactionManager.SetTimerEndActive(true);
+        InteractionManager.Instance.SetTimerEndActive(true);
     }
 
     public void StopTimer(){
         timerActive = false;
         Debug.Log("======= StopTimer spendTime:  " + spendTime);
-        interactionManager.SetTimerEndActive(false);
+        InteractionManager.Instance.SetTimerEndActive(false);
     }
     
     void Update(){

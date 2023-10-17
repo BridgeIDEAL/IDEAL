@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-    public UIManager uIManager;
+
+    private static InteractionManager instance = null;
+
+    public static InteractionManager Instance{
+        get{
+            if(instance == null) return null;
+            return instance;
+        }
+    }
 
     
     [SerializeField]
@@ -14,6 +22,17 @@ public class InteractionManager : MonoBehaviour
     private GameObject timerEndObject;
 
 
+    void Awake(){
+        if(instance == null){
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else{
+            Destroy(this.gameObject);
+        }
+    }
+    
+    
     public void SetTimerStartActive(bool active){
         timerStartObject.SetActive(active);
     }

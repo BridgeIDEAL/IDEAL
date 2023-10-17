@@ -14,6 +14,17 @@ public enum UIType{
 
 public class UIManager : MonoBehaviour
 {
+    private static UIManager instance = null;
+
+    public static UIManager Instance{
+        get{
+            if(instance == null) return null;
+            return instance;
+        }
+    }
+    
+    
+    
     [SerializeField]
     private GameObject[] Canvases;
 
@@ -23,6 +34,14 @@ public class UIManager : MonoBehaviour
     private UIInteraction uIInteraction;
 
     void Awake() {
+        if(instance == null){
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else{
+            Destroy(this.gameObject);
+        }
+        
         for(int i = 0; i < Canvases.Length; i++){
             Canvases[i].SetActive(false);
         }
