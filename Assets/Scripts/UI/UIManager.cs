@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UIInteraction uIInteraction;
 
+
     void Awake() {
         if(instance == null){
             instance = this;
@@ -52,6 +53,14 @@ public class UIManager : MonoBehaviour
         SetUIActive(UIType.InteractionUI, true);
         DeleteInteractionText();
 
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.F1)){
+            UIActives[(int)UIType.MoveSettingUI] = !UIActives[(int)UIType.MoveSettingUI];
+            SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
+            Cursor.lockState = UIActives[(int)UIType.MoveSettingUI] ? CursorLockMode.None : CursorLockMode.Locked;
+        }
     }
 
     public void SetUIActive(UIType uIType, bool active){
