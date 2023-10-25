@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Student : BaseEntity
 {
     State<Student>[] states;
     StateMachine<Student> stateMachine;
-
+    NavMeshAgent nav;
+    public float chaseSpeed;
+    public float patrolSpeed;
     public EntityStates CurrentType { private set; get; }
+    public float Speed { set { nav.speed = value; }}
     public override void Setup()
     {
         base.Setup();
@@ -19,6 +23,7 @@ public class Student : BaseEntity
         states[(int)EntityStates.Patrol] = new StudentState.Patrol();
         stateMachine = new StateMachine<Student>();
         stateMachine.Setup(this, states[(int)CurrentType]);
+        nav = GetComponent<NavMeshAgent>();
     }
 
     public override void UpdateBehavior()
@@ -31,8 +36,10 @@ public class Student : BaseEntity
         stateMachine.ChangeState(states[(int)newState]);
     }
 
-    public void DetectPlayer()
+    public void ChasePlayer()
     {
-       
+        Vector3 dir = playerObject.transform.position - transform.position;
+        nav.SetDestination(playerObject.transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
     }
 }

@@ -11,7 +11,9 @@ public class StateMachine<T> where T : class
 	public void Setup(T own, State<T> state)
     {
 		ownEntity = own;
-		currentState = state;
+		currentState = null;
+		globalState = null;
+		ChangeState(state);
 	}
 
 	public void Execute()

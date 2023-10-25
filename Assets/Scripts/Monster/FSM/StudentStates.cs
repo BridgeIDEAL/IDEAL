@@ -14,6 +14,8 @@ namespace StudentState
         public override void Execute(Student entity)
         {
             Debug.Log("계속 무관심하다.");
+            if (entity.DetectPlayer())
+                entity.ChangeState(EntityStates.Watch);
         }
 
         public override void Exit(Student entity)
@@ -25,17 +27,19 @@ namespace StudentState
     {
         public override void Enter(Student entity)
         {
-            Debug.Log("무관심 상태이다.");
+            Debug.Log("관찰 상태이다.");
         }
 
         public override void Execute(Student entity)
         {
-            Debug.Log("계속 무관심하다.");
+            Debug.Log("계속 관찰한다.");
+            if(!entity.DetectPlayer())
+                entity.ChangeState(EntityStates.Chase);
         }
 
         public override void Exit(Student entity)
         {
-            Debug.Log("무관심 상태가 아니다.");
+            Debug.Log("관찰 상태가 아니다.");
         }
     }
 
@@ -43,17 +47,19 @@ namespace StudentState
     {
         public override void Enter(Student entity)
         {
-            Debug.Log("무관심 상태이다.");
+            Debug.Log("쫓는 상태이다.");
+            entity.Speed = entity.chaseSpeed;
         }
 
         public override void Execute(Student entity)
         {
-            Debug.Log("계속 무관심하다.");
+            Debug.Log("계속 쫓는중이다.");
+            entity.ChasePlayer();
         }
 
         public override void Exit(Student entity)
         {
-            Debug.Log("무관심 상태가 아니다.");
+            Debug.Log("더이상 쫓지 않는다.");
         }
     }
 
@@ -62,17 +68,18 @@ namespace StudentState
     {
         public override void Enter(Student entity)
         {
-            Debug.Log("무관심 상태이다.");
+            Debug.Log("순찰 상태이다.");
+            entity.Speed = entity.patrolSpeed;
         }
 
         public override void Execute(Student entity)
         {
-            Debug.Log("계속 무관심하다.");
+            Debug.Log("계속 순찰중이다.");
         }
 
         public override void Exit(Student entity)
         {
-            Debug.Log("무관심 상태가 아니다.");
+            Debug.Log("더이상 순찰 상태가 아니다.");
         }
     }
 }
