@@ -6,7 +6,7 @@ public class FSMController : MonoBehaviour
 {
     private List<BaseEntity> entityList;
     public GameObject instantiateEntity;
-    public Vector3 spawnPosition;
+    public Transform spawnPosition;
     private void Awake()
     {
         entityList = new List<BaseEntity>();
@@ -15,10 +15,10 @@ public class FSMController : MonoBehaviour
     void Spawn()
     {
         GameObject go = Instantiate(instantiateEntity);
-        Student bear = go.GetComponent<Student>();
+        LowerLv bear = go.GetComponentInChildren<LowerLv>();
         bear.Setup();
         entityList.Add(bear);
-        go.transform.position = spawnPosition;
+        go.transform.position = spawnPosition.position;
         go.name = instantiateEntity.name;
     }
 

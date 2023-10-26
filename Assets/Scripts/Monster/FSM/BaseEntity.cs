@@ -7,7 +7,7 @@ public abstract class BaseEntity : MonoBehaviour
     public float sightAngle;
     protected bool findPlayer = false;
     protected LayerMask playerMask = 1<<3;
-    protected GameObject playerObject;
+    public GameObject playerObject;
     public virtual void Setup() { playerObject = GameObject.FindGameObjectWithTag("Player"); }
     public abstract void UpdateBehavior();
     public bool DetectPlayer()
@@ -19,13 +19,27 @@ public abstract class BaseEntity : MonoBehaviour
             float theta = Mathf.Acos(dot);
             float degree = Mathf.Rad2Deg * theta;
             if (degree <= sightAngle / 2f)
-                findPlayer = true;
+            {
+                if (Physics.Raycast(transform.position, transform.forward, sightDistance))
+                    findPlayer = true;
+                else
+                    findPlayer = false;
+            }   
             else
                 findPlayer = false;
         }
         else
             findPlayer = false;
         if (findPlayer)
+            return true;
+        else
+            return false;
+    }
+
+    public bool CheckDistance()
+    {
+        Vector3 interV = playerObject.transform.position - transform.position;
+        if (interV.magnitude <= sightDistance)
             return true;
         else
             return false;
