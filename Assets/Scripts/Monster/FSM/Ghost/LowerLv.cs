@@ -10,7 +10,6 @@ public class LowerLv : BaseEntity
     NavMeshAgent nav;
     public float chaseSpeed;
     public float patrolSpeed;
-    public GameObject headObject;
     public EntityStates CurrentType { private set; get; }
     public float Speed { set { nav.speed = value; } }
     public override void Setup()
@@ -42,18 +41,5 @@ public class LowerLv : BaseEntity
         Vector3 dir = playerObject.transform.position - transform.position;
         nav.SetDestination(playerObject.transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
-    }
-
-    public void WatchPlayer()
-    {
-        headObject.transform.LookAt(playerObject.transform);
-        /*
-        Vector3 dir = playerObject.transform.position - transform.position;
-        headObject.transform.rotation=Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);*/
-    }
-
-    public void ExitWatchPlayer()
-    {
-        headObject.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.zero), chaseSpeed * Time.deltaTime);
     }
 }
