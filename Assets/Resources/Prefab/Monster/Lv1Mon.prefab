@@ -145,7 +145,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35ffa5c486d7abb499b827545756fbe4, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,9 +260,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3947304912783164726}
   - component: {fileID: 4274642057003654728}
-  - component: {fileID: 2036728936890633450}
   - component: {fileID: 6945344221352793310}
   - component: {fileID: 9182927630158689462}
+  - component: {fileID: 4192673077891712517}
   m_Layer: 0
   m_Name: Lv1Mon
   m_TagString: Untagged
@@ -301,23 +301,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2036728936890633450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297447621354577341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e64edecbdaa26e4d9091a40f3f066b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 20
-  sightAngle: 140
-  chaseSpeed: 8
-  patrolSpeed: 2
-  headObject: {fileID: 5394067190656433492}
 --- !u!54 &6945344221352793310
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -356,3 +339,21 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4192673077891712517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297447621354577341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c34873eda99b0740bfd556354e35d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDistance: 10
+  sightAngle: 200
+  playerObject: {fileID: 0}
+  chaseSpeed: 3
+  patrolSpeed: 2
+  headObject: {fileID: 5394067190656433492}

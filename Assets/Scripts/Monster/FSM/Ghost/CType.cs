@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MiddleLv : BaseEntity
+public class CType : BaseEntity
 {
-    State<MiddleLv>[] states;
-    StateMachine<LowerLv> stateMachine;
+    State<CType>[] states;
+    StateMachine<CType> stateMachine;
     NavMeshAgent nav;
-    public float chaseSpeed;
-    public float patrolSpeed;
     public GameObject headObject;
     public EntityStates CurrentType { private set; get; }
     public float Speed { set { nav.speed = value; } }
@@ -17,7 +15,7 @@ public class MiddleLv : BaseEntity
     {
         base.Setup();
         CurrentType = EntityStates.Indifference;
-        states = new State<MiddleLv>[4];
+        states = new State<CType>[4];
         //states[(int)EntityStates.Indifference] = new LowerLevelStates.Indifference();
         //states[(int)EntityStates.Watch] = new LowerLevelStates.Watch();
         //states[(int)EntityStates.Chase] = new LowerLevelStates.Chase();

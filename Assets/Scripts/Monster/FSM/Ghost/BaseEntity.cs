@@ -3,12 +3,23 @@ using UnityEditor;
 
 public abstract class BaseEntity : MonoBehaviour
 {
+    #region 
+    private static int giveID=0;
+    private int id;
+    public int ID
+    {
+        set { id = value; giveID++; }
+        get { return id; }
+    }
     public float sightDistance;
     public float sightAngle;
     protected bool findPlayer = false;
     protected LayerMask playerMask = 1<<3;
     public GameObject playerObject;
-    public virtual void Setup() { playerObject = GameObject.FindGameObjectWithTag("Player"); }
+    public float chaseSpeed;
+    public float patrolSpeed;
+    #endregion
+    public virtual void Setup() { playerObject = GameObject.FindGameObjectWithTag("Player"); ID = giveID; }
     public abstract void UpdateBehavior();
     public bool DetectPlayer()
     {
@@ -20,11 +31,15 @@ public abstract class BaseEntity : MonoBehaviour
             float degree = Mathf.Rad2Deg * theta;
             if (degree <= sightAngle / 2f)
             {
-                if (Physics.Raycast(transform.position, transform.forward, sightDistance))
-                    findPlayer = true;
-                else
-                    findPlayer = false;
-            }   
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, interV, out hit, sightDistance))
+                {
+                    if (hit.collider.CompareTag("Player"))
+                        findPlayer = true;
+                    else
+                        findPlayer = false;
+                }
+            }
             else
                 findPlayer = false;
         }
@@ -51,5 +66,6 @@ public abstract class BaseEntity : MonoBehaviour
         // 시작점, 노말벡터(법선벡터), 방향, 각도, 반지름
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, sightAngle / 2, sightDistance);
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -sightAngle / 2, sightDistance);
+        
     }
 }

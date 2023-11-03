@@ -1,24 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class FSMController : MonoBehaviour
+public class FSMManager : MonoBehaviour
 {
-    private List<BaseEntity> entityList;
+    // 임시 싱글톤
+    public static FSMManager instance;
+
+    [Header("임시 몬스터 스폰 관련 변수")]
     public GameObject instantiateEntity;
-    public Transform spawnPosition;
+    public Transform[] spawnPosition;
+
+    private List<BaseEntity> entityList;
+    
+
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        Spawn<AType>();
         entityList = new List<BaseEntity>();
-        Spawn();    
     }
-    void Spawn()
+
+    void Spawn<T>() where T : BaseEntity
     {
         GameObject go = Instantiate(instantiateEntity);
-        LowerLv bear = go.GetComponentInChildren<LowerLv>();
+        T bear = go.GetComponentInChildren<T>();
         bear.Setup();
         entityList.Add(bear);
-        go.transform.position = spawnPosition.position;
+        go.transform.position = spawnPosition[0].position;
         go.name = instantiateEntity.name;
     }
 
