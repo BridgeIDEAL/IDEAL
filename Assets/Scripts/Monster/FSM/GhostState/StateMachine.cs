@@ -35,4 +35,9 @@ public class StateMachine<T> where T : class
 	{
 		globalState = newState;
 	}
+
+	public bool SendMessage(bool interaction)
+    {
+		return currentState.OnMessage(ownEntity,interaction);
+    }
 }

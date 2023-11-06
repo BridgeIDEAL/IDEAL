@@ -11,75 +11,38 @@ namespace ATypeStates
             Debug.Log("무관심 상태이다.");
         }
 
-        public override void Execute(AType entity)
-        {
-            Debug.Log("계속 무관심하다.");
-            if (entity.DetectPlayer())
-                entity.ChangeState(EntityStates.Watch);
-        }
+        public override void Execute(AType entity){ }
 
         public override void Exit(AType entity)
         {
             Debug.Log("무관심 상태가 아니다.");
         }
+
+        public override bool OnMessage(AType entity, bool interaction)
+        {
+            return false;
+        }
     }
-    public class Watch : State<AType>
+    public class Interaction : State<AType>
     {
         public override void Enter(AType entity)
         {
-            Debug.Log("관찰 상태이다.");
-            entity.transform.LookAt(entity.playerObject.transform);
+            Debug.Log("상호작용을 하고 있습니다.");
         }
 
-        public override void Execute(AType entity)
-        {
-            Debug.Log("계속 관찰한다.");
-            if (!entity.CheckDistance())
-                entity.ChangeState(EntityStates.Indifference);
-        }
+        public override void Execute(AType entity){ }
 
         public override void Exit(AType entity)
         {
-            Debug.Log("관찰 상태가 아니다.");
+            Debug.Log("상호작용을 끝냈습니다.");
         }
-    }
-
-    public class Chase : State<AType>
-    {
-        public override void Enter(AType entity)
+        public override bool OnMessage(AType entity, bool interaction)
         {
-            Debug.Log("쫓는 상태이다.");
-            entity.Speed = entity.chaseSpeed;
-        }
-
-        public override void Execute(AType entity)
-        {
-            Debug.Log("계속 쫓는중이다.");
-            entity.ChasePlayer();   
-        }
-
-        public override void Exit(AType entity)
-        {
-            Debug.Log("더이상 쫓지 않는다.");
-        }
-    }
-
-    public class Patrol : State<AType>
-    {
-        public override void Enter(AType entity)
-        {
-            Debug.Log("순찰 상태이다.");
-            entity.Speed = entity.patrolSpeed;
-        }
-
-        public override void Execute(AType entity)
-        {
-            Debug.Log("계속 순찰중이다.");
-        }
-
-        public override void Exit(AType entity)
-        {
-            Debug.Log("더이상 순찰 상태가 아니다.");
+            if (interaction)
+                Debug.Log("상호작용 성공!");
+            else
+                Debug.Log("상호작용 실패!");
+            return interaction;
         }
     }
 }

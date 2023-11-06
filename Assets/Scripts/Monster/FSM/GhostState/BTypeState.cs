@@ -13,34 +13,64 @@ namespace BTypeStates
 
         public override void Execute(BType entity)
         {
-            //Debug.Log("계속 무관심하다.");
-            if (entity.DetectPlayer())
-                entity.ChangeState(EntityStates.Watch);
         }
 
         public override void Exit(BType entity)
         {
             Debug.Log("무관심 상태가 아니다.");
         }
+
+        public override bool OnMessage(BType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
-    public class Watch : State<BType>
+    public class Interaction : State<BType>
     {
         public override void Enter(BType entity)
         {
-            Debug.Log("관찰 상태이다.");
-            entity.transform.LookAt(entity.playerObject.transform);
+            Debug.Log("상호작용 상태이다.");
+            entity.Speed = entity.patrolSpeed;
         }
 
-        public override void Execute(BType entity)
-        {
-            //Debug.Log("계속 관찰한다.");
-            if (!entity.CheckDistance())
-                entity.ChangeState(EntityStates.Chase);
-        }
+        public override void Execute(BType entity) { }
 
         public override void Exit(BType entity)
         {
-            Debug.Log("관찰 상태가 아니다.");
+            Debug.Log("상호작용을 종료한다.");
+        }
+        public override bool OnMessage(BType entity, bool interaction)
+        {
+            if (interaction)
+            {
+                Debug.Log("상호작용 성공!");
+                entity.ChangeState(BTypeEntityStates.Indifference);
+            }
+            else
+            {
+                Debug.Log("상호작용 실패!");
+                entity.ChangeState(BTypeEntityStates.Aggressive);
+            }
+            return interaction;
+        }
+    }
+
+    public class Aggressive : State<BType>
+    {
+        public override void Enter(BType entity)
+        {
+            Debug.Log("공격 대기중");
+        }
+
+        public override void Execute(BType entity){ }
+
+        public override void Exit(BType entity)
+        {
+            Debug.Log("추격을 하기 위한 준비가 완료된 상태이다.");
+        }
+        public override bool OnMessage(BType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -54,7 +84,6 @@ namespace BTypeStates
 
         public override void Execute(BType entity)
         {
-            //Debug.Log("계속 쫓는중이다.");
             entity.ChasePlayer();
         }
 
@@ -62,24 +91,9 @@ namespace BTypeStates
         {
             Debug.Log("더이상 쫓지 않는다.");
         }
-    }
-
-    public class Patrol : State<BType>
-    {
-        public override void Enter(BType entity)
+        public override bool OnMessage(BType entity, bool interaction)
         {
-            Debug.Log("순찰 상태이다.");
-            entity.Speed = entity.patrolSpeed;
-        }
-
-        public override void Execute(BType entity)
-        {
-            //Debug.Log("계속 순찰중이다.");
-        }
-
-        public override void Exit(BType entity)
-        {
-            Debug.Log("더이상 순찰 상태가 아니다.");
+            throw new System.NotImplementedException();
         }
     }
 }

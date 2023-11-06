@@ -9,17 +9,15 @@ public class AType : BaseEntity
     StateMachine<AType> stateMachine;
     NavMeshAgent nav;
 
-    public EntityStates CurrentType { private set; get; }
+    public ATypeEntityStates CurrentType { private set; get; }
     public float Speed { set { nav.speed = value; } }
     public override void Setup()
     {
         base.Setup();
-        CurrentType = EntityStates.Indifference;
-        states = new State<AType>[4];
-        states[(int)EntityStates.Indifference] = new ATypeStates.Indifference();
-        states[(int)EntityStates.Watch] = new ATypeStates.Watch();
-        states[(int)EntityStates.Chase] = new ATypeStates.Chase();
-        states[(int)EntityStates.Patrol] = new ATypeStates.Patrol();
+        CurrentType = ATypeEntityStates.Indifference;
+        states = new State<AType>[2];
+        states[(int)ATypeEntityStates.Indifference] = new ATypeStates.Indifference();
+        states[(int)ATypeEntityStates.Interaction] = new ATypeStates.Interaction();
         stateMachine = new StateMachine<AType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
@@ -29,22 +27,16 @@ public class AType : BaseEntity
     {
         stateMachine.Execute();
     }
-    public void ChangeState(EntityStates newState)
+    public void ChangeState(ATypeEntityStates newState)
     {
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
 
-    public void ChasePlayer()
+    public bool SendMessage(bool interaction)
     {
-        Vector3 dir = playerObject.transform.position - transform.position;
-        nav.SetDestination(playerObject.transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
+        return stateMachine.SendMessage(interaction);
     }
 
-    public void RepositionEntity()
-    {
-        CurrentType = EntityStates.Indifference;
-        stateMachine.ChangeState(states[(int)CurrentType]);
-    }
+    protected override void OnDrawGizmos() { }
 }

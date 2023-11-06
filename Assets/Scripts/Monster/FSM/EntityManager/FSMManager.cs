@@ -11,15 +11,14 @@ public class FSMManager : MonoBehaviour
     [Header("임시 몬스터 스폰 관련 변수")]
     public GameObject instantiateEntity;
     public Transform[] spawnPosition;
-
     private List<BaseEntity> entityList;
     
-
     private void Awake()
     {
         if (instance == null)
             instance = this;
         Spawn<AType>();
+        EntityDataBase.Instance.SetUp();
         entityList = new List<BaseEntity>();
     }
 

@@ -60,7 +60,7 @@ public abstract class BaseEntity : MonoBehaviour
             return false;
     }
 
-    protected void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Handles.color = (findPlayer)?Color.red:Color.blue;
         // 시작점, 노말벡터(법선벡터), 방향, 각도, 반지름

@@ -9,12 +9,12 @@ public class CType : BaseEntity
     StateMachine<CType> stateMachine;
     NavMeshAgent nav;
     public GameObject headObject;
-    public EntityStates CurrentType { private set; get; }
+    public CTypeEntityStates CurrentType { private set; get; }
     public float Speed { set { nav.speed = value; } }
     public override void Setup()
     {
         base.Setup();
-        CurrentType = EntityStates.Indifference;
+        CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
         //states[(int)EntityStates.Indifference] = new LowerLevelStates.Indifference();
         //states[(int)EntityStates.Watch] = new LowerLevelStates.Watch();
@@ -29,7 +29,7 @@ public class CType : BaseEntity
     {
         stateMachine.Execute();
     }
-    public void ChangeState(EntityStates newState)
+    public void ChangeState(CTypeEntityStates newState)
     {
         CurrentType = newState;
         //stateMachine.ChangeState(states[(int)newState]);

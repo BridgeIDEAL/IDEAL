@@ -15,12 +15,17 @@ namespace CTypeStates
         {
             Debug.Log("계속 무관심하다.");
             if (entity.DetectPlayer())
-                entity.ChangeState(EntityStates.Watch);
+                entity.ChangeState(CTypeEntityStates.Watch);
         }
 
         public override void Exit(CType entity)
         {
             Debug.Log("무관심 상태가 아니다.");
+        }
+
+        public override bool OnMessage(CType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
         }
     }
     public class Watch : State<CType>
@@ -35,12 +40,16 @@ namespace CTypeStates
         {
             Debug.Log("계속 관찰한다.");
             if (!entity.CheckDistance())
-                entity.ChangeState(EntityStates.Indifference);
+                entity.ChangeState(CTypeEntityStates.Indifference);
         }
 
         public override void Exit(CType entity)
         {
             Debug.Log("관찰 상태가 아니다.");
+        }
+        public override bool OnMessage(CType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -62,6 +71,10 @@ namespace CTypeStates
         {
             Debug.Log("더이상 쫓지 않는다.");
         }
+        public override bool OnMessage(CType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class Patrol : State<CType>
@@ -80,6 +93,10 @@ namespace CTypeStates
         public override void Exit(CType entity)
         {
             Debug.Log("더이상 순찰 상태가 아니다.");
+        }
+        public override bool OnMessage(CType entity, bool interaction)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
