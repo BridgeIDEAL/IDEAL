@@ -17,11 +17,6 @@ namespace ATypeStates
         {
             Debug.Log("무관심 상태가 아니다.");
         }
-
-        public override bool OnMessage(AType entity, bool interaction)
-        {
-            return false;
-        }
     }
     public class Interaction : State<AType>
     {
@@ -30,19 +25,11 @@ namespace ATypeStates
             Debug.Log("상호작용을 하고 있습니다.");
         }
 
-        public override void Execute(AType entity){ }
+        public override void Execute(AType entity){ if (!entity.CanInteraction) return; }
 
         public override void Exit(AType entity)
         {
             Debug.Log("상호작용을 끝냈습니다.");
-        }
-        public override bool OnMessage(AType entity, bool interaction)
-        {
-            if (interaction)
-                Debug.Log("상호작용 성공!");
-            else
-                Debug.Log("상호작용 실패!");
-            return interaction;
         }
     }
 }

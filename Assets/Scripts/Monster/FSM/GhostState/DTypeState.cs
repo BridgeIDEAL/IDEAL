@@ -13,19 +13,13 @@ namespace DTypeStates
 
         public override void Execute(DType entity)
         {
-            Debug.Log("계속 무관심하다.");
-            if (entity.DetectPlayer())
-                entity.ChangeState(DTypeEntityStates.Watch);
+            if (!entity.CanInteraction) { return; }
+            if (entity.DetectPlayer()) { entity.ChangeState(DTypeEntityStates.Watch); }
         }
 
         public override void Exit(DType entity)
         {
             Debug.Log("무관심 상태가 아니다.");
-        }
-
-        public override bool OnMessage(DType entity, bool interaction)
-        {
-            throw new System.NotImplementedException();
         }
     }
     public class Watch : State<DType>
@@ -33,70 +27,68 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("관찰 상태이다.");
-            entity.transform.LookAt(entity.playerObject.transform);
         }
 
         public override void Execute(DType entity)
         {
-            Debug.Log("계속 관찰한다.");
-            if (!entity.CheckDistance())
-                entity.ChangeState(DTypeEntityStates.Indifference);
+            if (!entity.CanInteraction) { entity.ChangeState(DTypeEntityStates.Indifference); return; }
+            entity.WatchPlayer();
         }
 
         public override void Exit(DType entity)
         {
             Debug.Log("관찰 상태가 아니다.");
         }
-        public override bool OnMessage(DType entity, bool interaction)
+    }
+    public class Interaction : State<DType>
+    {
+        public override void Enter(DType entity)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("상호작용 상태이다.");
+        }
+
+        public override void Execute(DType entity)
+        {
+  
+        }
+
+        public override void Exit(DType entity)
+        {
+            Debug.Log("상호작용 상태가 아니다。");
         }
     }
+    public class Aggressive : State<DType>
+    {
+        public override void Enter(DType entity)
+        {
+            Debug.Log("공격 대기 상태이다.");
+        }
 
+        public override void Execute(DType entity)
+        {
+            if (!entity.CanInteraction) { entity.ChangeState(DTypeEntityStates.Indifference); }
+        }
+
+        public override void Exit(DType entity)
+        {
+            Debug.Log("공격 상태가 된다。");
+        }
+    }
     public class Chase : State<DType>
     {
         public override void Enter(DType entity)
         {
             Debug.Log("쫓는 상태이다.");
-            entity.Speed = entity.chaseSpeed;
         }
 
         public override void Execute(DType entity)
         {
-            Debug.Log("계속 쫓는중이다.");
             entity.ChasePlayer();
         }
 
         public override void Exit(DType entity)
         {
             Debug.Log("더이상 쫓지 않는다.");
-        }
-        public override bool OnMessage(DType entity, bool interaction)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    public class Patrol : State<DType>
-    {
-        public override void Enter(DType entity)
-        {
-            Debug.Log("순찰 상태이다.");
-            entity.Speed = entity.patrolSpeed;
-        }
-
-        public override void Execute(DType entity)
-        {
-            Debug.Log("계속 순찰중이다.");
-        }
-
-        public override void Exit(DType entity)
-        {
-            Debug.Log("더이상 순찰 상태가 아니다.");
-        }
-        public override bool OnMessage(DType entity, bool interaction)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -5,12 +5,10 @@ using UnityEngine.AI;
 
 public class AType : BaseEntity
 {
+    NavMeshAgent nav;
     State<AType>[] states;
     StateMachine<AType> stateMachine;
-    NavMeshAgent nav;
-
     public ATypeEntityStates CurrentType { private set; get; }
-    public float Speed { set { nav.speed = value; } }
     public override void Setup()
     {
         base.Setup();
@@ -23,20 +21,15 @@ public class AType : BaseEntity
         nav = GetComponent<NavMeshAgent>();
     }
 
-    public override void UpdateBehavior()
-    {
-        stateMachine.Execute();
-    }
+    public override void UpdateBehavior() { stateMachine.Execute(); }
+    public override void RestInteraction() { ChangeState(ATypeEntityStates.Indifference); }
+    public override void StartInteraction() { ChangeState(ATypeEntityStates.Interaction); }
+    public override void FailInteraction() { ChangeState(ATypeEntityStates.Indifference); }
+    public override void SuccessInteraction(){ ChangeState(ATypeEntityStates.Indifference); }
+    
     public void ChangeState(ATypeEntityStates newState)
     {
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
-    public bool SendMessage(bool interaction)
-    {
-        return stateMachine.SendMessage(interaction);
-    }
-
-    protected override void OnDrawGizmos() { }
 }

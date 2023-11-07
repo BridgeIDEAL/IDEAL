@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<T> where T : class 
+public class StateMachine<T> where T : BaseEntity 
 {
 	private T ownEntity;  // 상태머신의 소유주
 	private State<T> currentState;  // 현재 상태
@@ -36,8 +36,4 @@ public class StateMachine<T> where T : class
 		globalState = newState;
 	}
 
-	public bool SendMessage(bool interaction)
-    {
-		return currentState.OnMessage(ownEntity,interaction);
-    }
 }
