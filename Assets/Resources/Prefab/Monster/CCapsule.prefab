@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6188074800882803507}
   - component: {fileID: 7868030624886044578}
   - component: {fileID: 8657588497912903954}
-  - component: {fileID: 3917437596659246285}
   - component: {fileID: 3031756563969757609}
   - component: {fileID: 7131737994650980651}
   - component: {fileID: 357631285478216554}
+  - component: {fileID: 2460586884440386852}
   m_Layer: 0
-  m_Name: DCapsule
+  m_Name: CCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,22 +102,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3917437596659246285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955158522870775276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879ac9381508f1b4b9b0f6df1052dd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 10
-  sightAngle: 130
-  playerObject: {fileID: 0}
-  chaseSpeed: 10
 --- !u!54 &3031756563969757609
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -168,3 +152,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2460586884440386852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955158522870775276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea198958b7a87f24e972137040b2aaea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDistance: 10
+  sightAngle: 130
+  playerObject: {fileID: 0}
+  chaseSpeed: 2

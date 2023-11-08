@@ -14,11 +14,11 @@ public class EntityEvent
             case EventType.StartInteraction:
                 FSMManager.instance.StartAction(entity.ID);
                 break;
-            case EventType.SuccessInteraction: // 상호작용 실패 시
-                FSMManager.instance.FailAction(entity.ID);
+            case EventType.SuccessInteraction: // 상호작용 성공 시
+                FSMManager.instance.SuccessAction(entity.ID);
                 break;
             case EventType.FailInteraction: // 상호작용 실패 시
-                FSMManager.instance.SuccessAction(entity.ID);
+                FSMManager.instance.FailAction(entity.ID);
                 break;
             case EventType.ChaseInteraction: // 상호작용 실패 시
                 FSMManager.instance.ChaseAction(entity.ID);

@@ -9,6 +9,7 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("무관심 상태이다.");
+            entity.SetAnimation(entity.CurrentType);
         }
 
         public override void Execute(DType entity)
@@ -27,6 +28,7 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("관찰 상태이다.");
+            entity.SetAnimation(entity.CurrentType);
         }
 
         public override void Execute(DType entity)
@@ -45,6 +47,7 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("상호작용 상태이다.");
+            entity.SetAnimation(entity.CurrentType);
         }
 
         public override void Execute(DType entity)
@@ -62,11 +65,12 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("공격 대기 상태이다.");
+            entity.SetAnimation(entity.CurrentType);
         }
 
         public override void Execute(DType entity)
         {
-            if (!entity.CanInteraction) { entity.ChangeState(DTypeEntityStates.Indifference); }
+            if (!entity.CanInteraction) { return; }
         }
 
         public override void Exit(DType entity)
@@ -79,6 +83,7 @@ namespace DTypeStates
         public override void Enter(DType entity)
         {
             Debug.Log("쫓는 상태이다.");
+            entity.SetAnimation(entity.CurrentType);
         }
 
         public override void Execute(DType entity)

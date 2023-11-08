@@ -27,8 +27,8 @@ public class BType : BaseEntity
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void RestInteraction()
     {
-        transform.position = initTransform.position;
-        nav.SetDestination(initTransform.position);
+        transform.position = InitTransform.position;
+        nav.SetDestination(InitTransform.position);
         ChangeState(BTypeEntityStates.Indifference);
     }
     public override void StartInteraction() { ChangeState(BTypeEntityStates.Interaction); }

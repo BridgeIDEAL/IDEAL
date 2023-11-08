@@ -11,6 +11,7 @@ public class FSMManager : MonoBehaviour
 
     [Header("임시 몬스터 스폰 관련 변수")]
     public GameObject instantiateEntity;
+    public GameObject ctypeEntity;
     public Transform[] spawnPosition;
 
     [Header("몬스터 정보 저장 관련 변수")]
@@ -29,6 +30,7 @@ public class FSMManager : MonoBehaviour
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<int, BaseEntity>();
         Spawn<DType>();
+        Spawn2<CType>();
         RestAction += RestActionUpdate;
         StartAction += StartActionUpdate;
         SuccessAction += SuccessActionUpdate;
@@ -43,8 +45,21 @@ public class FSMManager : MonoBehaviour
         bear.Setup();
         entityList.Add(bear);
         entityDictionary.Add(bear.ID, bear);
+        bear.InitTransform= spawnPosition[0];
         go.transform.position = spawnPosition[0].position;
         go.name = instantiateEntity.name;
+    }
+
+    void Spawn2<T>() where T : BaseEntity
+    {
+        GameObject go2 = Instantiate(ctypeEntity);
+        T bear2 = go2.GetComponentInChildren<T>();
+        bear2.Setup();
+        entityList.Add(bear2);
+        entityDictionary.Add(bear2.ID, bear2);
+        bear2.InitTransform = spawnPosition[1];
+        go2.transform.position = spawnPosition[1].position;
+        go2.name = ctypeEntity.name;
     }
 
     private void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }

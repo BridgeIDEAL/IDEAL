@@ -26,13 +26,13 @@ public class CType : BaseEntity
     public override void UpdateBehavior(){stateMachine.Execute();}
     public override void RestInteraction()
     {
-        transform.position = initTransform.position;
-        nav.SetDestination(initTransform.position);
+        transform.position = InitTransform.position;
+        nav.SetDestination(InitTransform.position);
         ChangeState(CTypeEntityStates.Indifference);
     }
     public override void StartInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void SuccessInteraction() { ChangeState(CTypeEntityStates.Indifference); }
-    public override void FailInteraction() { ChangeState(CTypeEntityStates.Indifference); }
+    public override void FailInteraction() { ChangeState(CTypeEntityStates.Indifference); Debug.Log("경계시간 초과 페널티 부과!"); }
     public void ChangeState(CTypeEntityStates newState)
     {
         CurrentType = newState;
@@ -47,5 +47,17 @@ public class CType : BaseEntity
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
         else
             ChangeState(CTypeEntityStates.Indifference);
+    }
+
+    public void StartTimer() { StartCoroutine("WatchTimer"); }
+    IEnumerator WatchTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        if (CanInteraction)
+        {
+            FSMManager.instance.entityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
+            ChangeState(CTypeEntityStates.Indifference);
+        }
+        yield break;   
     }
 }

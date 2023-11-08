@@ -26,6 +26,7 @@ namespace CTypeStates
         public override void Enter(CType entity)
         {
             Debug.Log("관찰 상태이다.");
+            entity.StartTimer();
         }
 
         public override void Execute(CType entity)

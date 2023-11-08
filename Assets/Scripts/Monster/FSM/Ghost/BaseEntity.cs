@@ -7,7 +7,7 @@ public abstract class BaseEntity : MonoBehaviour
     private static int giveID=0; // 부여하는 고유 ID 
     private int takeID; // 부여된 고유 ID
     public int ID{ set { takeID = value; giveID++; }get { return takeID; }}
-    protected Transform initTransform; // 초기 위치
+    public Transform InitTransform { get; set; } // 초기 위치
     public bool CanInteraction { get; set; } = true;
     public float sightDistance;
     public float sightAngle;
