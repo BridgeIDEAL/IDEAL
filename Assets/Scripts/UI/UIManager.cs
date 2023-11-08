@@ -61,6 +61,11 @@ public class UIManager : MonoBehaviour
             SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
             Cursor.lockState = UIActives[(int)UIType.MoveSettingUI] ? CursorLockMode.None : CursorLockMode.Locked;
         }
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            UIActives[(int)UIType.InventoryUI] = !UIActives[(int)UIType.InventoryUI];
+            SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
+            Cursor.lockState = UIActives[(int)UIType.InventoryUI] ? CursorLockMode.None : CursorLockMode.Locked;
+        }
     }
 
     public void SetUIActive(UIType uIType, bool active){
