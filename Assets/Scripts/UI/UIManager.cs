@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
+using Cinemachine;
+using StarterAssets;
 using UnityEngine;
 
 public enum UIType{
@@ -29,6 +31,11 @@ public class UIManager : MonoBehaviour
     private GameObject[] Canvases;
 
     private bool[] UIActives = new bool[System.Enum.GetValues(typeof(UIType)).Length];
+
+    [SerializeField]
+    private FirstPersonController firstPersonController;
+    [SerializeField]
+    private CinemachineVirtualCamera cinemachineVirtualCamera;
     
     [SerializeField]
     private UIInteraction uIInteraction;
@@ -68,9 +75,13 @@ public class UIManager : MonoBehaviour
         // Inventory UI 관련 코드
         if(Input.GetKeyDown(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = true;
+            firstPersonController.CameraRotationLock = true;
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = false;
+            firstPersonController.CameraRotationLock = false;
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
             uIInventory.HideHighlightAllSlot();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);

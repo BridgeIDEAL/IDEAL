@@ -18,6 +18,10 @@ namespace StarterAssets
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
+
+		[Tooltip("Camera Rotation Lock")]
+		public bool CameraRotationLock = false;
+
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
@@ -131,6 +135,7 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
+			if(CameraRotationLock) return;
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
