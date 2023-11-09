@@ -67,6 +67,8 @@ public class UIItemSlot : MonoBehaviour
 
     private Image slotImage;
 
+    private Coroutine highlightCoroutine;
+
 
     /// <summary> 현재 하이라이트 알파값 </summary>
     private float currentHLAlpha = 0.0f;
@@ -226,11 +228,32 @@ public class UIItemSlot : MonoBehaviour
         if(!this.IsAccessible) return;
 
         if(show){
-            StartCoroutine(nameof(HighlightFadeInRoutine));
+            if(highlightCoroutine != null){
+                StopCoroutine(highlightCoroutine);
+            }
+            highlightCoroutine = StartCoroutine(HighlightFadeInRoutine());
         }
         else{
+            if(highlightCoroutine != null){
+                StopCoroutine(highlightCoroutine);
+            }
             StartCoroutine(nameof(HighlightFadeOutRoutine));
         }
+    }
+
+    /// <summary> 슬롯에 하이라이트 오브젝트 해제 </summary>
+    public void HideHighlight(){
+        if(highlightCoroutine != null){
+            StopCoroutine(highlightCoroutine);
+        }
+        currentHLAlpha = 0.0f;
+        highlightImage.color = new Color(
+            highlightImage.color.r,
+            highlightImage.color.g,
+            highlightImage.color.b,
+            currentHLAlpha
+        );
+        highlightGameObject.SetActive(false);
     }
 
     /// <summary> 하이라이트 이미지를 아이콘 아미지의 상단/하단으로 표시 </summary>
@@ -251,7 +274,6 @@ public class UIItemSlot : MonoBehaviour
     #region Coroutines
     /// <summary> 하이라이트 알파값 서서히 증가 </summary>
     private IEnumerator HighlightFadeInRoutine(){
-        StopCoroutine(nameof(HighlightFadeOutRoutine));
         highlightGameObject.SetActive(true);
 
         float unit = highlightAlpha / highlightFadeDuration;
@@ -271,7 +293,6 @@ public class UIItemSlot : MonoBehaviour
 
     /// <summary> 하이라이트 알파값 0%까지 서서히 감소 </summary>
     private IEnumerator HighlightFadeOutRoutine(){
-        StopCoroutine(nameof(HighlightFadeInRoutine));
 
         float unit = highlightAlpha / highlightFadeDuration;
 

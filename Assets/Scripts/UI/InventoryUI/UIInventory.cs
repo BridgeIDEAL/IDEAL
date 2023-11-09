@@ -294,6 +294,12 @@ public class UIInventory : MonoBehaviour
         slotUIList[index].gameObject.SetActive(active);
     }
 
+    /// <summary> 하이라이트가 켜져있는 슬롯 UI 하이라이트 끄기 </summary>
+    public void HideHighlightAllSlot(){
+        for(int i = 0; i < verticalSlotCount; i++){
+            slotUIList[i].HideHighlight();
+        }
+    }
     
 
     #endregion

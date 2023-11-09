@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UIInteraction uIInteraction;
 
+    [SerializeField]
+    private UIInventory uIInventory;
+
 
     void Awake() {
         if(instance == null){
@@ -67,7 +70,8 @@ public class UIManager : MonoBehaviour
             UIActives[(int)UIType.InventoryUI] = true;
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
-             UIActives[(int)UIType.InventoryUI] = false;
+            UIActives[(int)UIType.InventoryUI] = false;
+            uIInventory.HideHighlightAllSlot();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
         Cursor.lockState = UIActives[(int)UIType.InventoryUI] ? CursorLockMode.None : CursorLockMode.Locked;
