@@ -237,7 +237,12 @@ public class UIItemSlot : MonoBehaviour
             if(highlightCoroutine != null){
                 StopCoroutine(highlightCoroutine);
             }
-            StartCoroutine(nameof(HighlightFadeOutRoutine));
+            // 오브젝트가 비활성화라면 HideHighlight하고 Coroutine 실행 안함
+            if(!this.gameObject.activeSelf) {
+                HideHighlight();
+                return;
+            }
+            highlightCoroutine = StartCoroutine(nameof(HighlightFadeOutRoutine));
         }
     }
 
