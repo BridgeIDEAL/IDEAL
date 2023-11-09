@@ -28,14 +28,8 @@ public class DType : BaseEntity
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction()
-    {
-        nav.ResetPath();
-        transform.rotation = InitTransform.rotation;
-        transform.position = InitTransform.position;
-        ChangeState(DTypeEntityStates.Indifference);
+    public override void RestInteraction() { StartCoroutine("ResetPosition"); }
 
-    }
     public override void StartInteraction() { ChangeState(DTypeEntityStates.Interaction); }
     public override void FailInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void SuccessInteraction() { ChangeState(DTypeEntityStates.Indifference); }
@@ -81,5 +75,17 @@ public class DType : BaseEntity
                 anim.CrossFade("CHASE", 0.2f);
                 break;
         }
+    }
+
+    IEnumerator ResetPosition()
+    {
+        nav.isStopped = true;
+        nav.ResetPath();
+        ChangeState(DTypeEntityStates.Interaction);
+        yield return new WaitForSeconds(0.4f);
+        transform.rotation = InitTransform.rotation;
+        transform.position = InitTransform.position;
+        ChangeState(DTypeEntityStates.Indifference);
+        nav.isStopped = false;
     }
 }

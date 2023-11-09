@@ -5,9 +5,6 @@ using UnityEngine;
 public class TestScr : MonoBehaviour
 {
     GameObject interObj;
-
-    // Update is called once per frame
-
     private void Awake()
     {
         interObj = this.gameObject;

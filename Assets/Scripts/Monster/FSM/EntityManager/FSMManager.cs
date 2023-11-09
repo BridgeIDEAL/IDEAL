@@ -7,7 +7,7 @@ public class FSMManager : MonoBehaviour
 {
     // 임시 싱글톤
     public static FSMManager instance;
-    public EntityEvent entityEvent;
+    public EntityEventManager entityEvent;
 
     [Header("임시 몬스터 스폰 관련 변수")]
     public GameObject instantiateEntity;
@@ -24,7 +24,7 @@ public class FSMManager : MonoBehaviour
     public Action<int> ChaseAction; // 추격 진행 시
     private void Awake()
     {
-        entityEvent = new EntityEvent();
+        entityEvent = new EntityEventManager();
         if (instance == null)
             instance = this;
         entityList = new List<BaseEntity>();
@@ -42,10 +42,10 @@ public class FSMManager : MonoBehaviour
     {
         GameObject go = Instantiate(instantiateEntity);
         T bear = go.GetComponentInChildren<T>();
+        bear.InitTransform = spawnPosition[0];
         bear.Setup();
         entityList.Add(bear);
         entityDictionary.Add(bear.ID, bear);
-        bear.InitTransform= spawnPosition[0];
         go.transform.position = spawnPosition[0].position;
         go.name = instantiateEntity.name;
     }
