@@ -183,5 +183,4 @@ public class FPController : MonoBehaviour
             Cursor.visible = true;
         }
     }
-
 }
