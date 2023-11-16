@@ -55,7 +55,7 @@ public class CType : BaseEntity
         yield return new WaitForSeconds(10f);
         if (CanInteraction)
         {
-            FSMManager.instance.entityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
+            GameManager.EntityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
             ChangeState(CTypeEntityStates.Indifference);
         }
         yield break;   

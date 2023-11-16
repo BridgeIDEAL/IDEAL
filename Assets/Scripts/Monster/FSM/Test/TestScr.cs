@@ -15,12 +15,12 @@ public class TestScr : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                FSMManager.instance.entityEvent.SendMessage(EventType.ChaseInteraction, interObj);
+                GameManager.EntityEvent.SendMessage(EventType.ChaseInteraction, interObj);
                 Debug.Log("추격 지시");
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
-                FSMManager.instance.entityEvent.SendMessage(EventType.RestInteraction, interObj);
+                GameManager.EntityEvent.SendMessage(EventType.RestInteraction, interObj);
                 Debug.Log("제자리 위치");
             }
         }
