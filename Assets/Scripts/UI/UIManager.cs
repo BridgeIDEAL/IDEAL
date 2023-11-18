@@ -83,6 +83,8 @@ public class UIManager : MonoBehaviour
             firstPersonController.CameraRotationLock = false;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
             uIInventory.HideHighlightAllSlot();
+
+            ActivationLogManager.Instance.InActiveActivationLog();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
         Cursor.lockState = UIActives[(int)UIType.InventoryUI] ? CursorLockMode.None : CursorLockMode.Locked;
