@@ -444,5 +444,27 @@ public class Inventory : MonoBehaviour
         UpdateAllSlot();
     }
 
+
+    /// <summary> itemcode와 일치하는 item이 slots에 있다면 index, 없다면 -1 return </summary>
+    public int FindItemIndex(int _itemcode){
+        for(int i = 0; i < Capacity; i++){
+            if(items[i] == null) break;
+            if(items[i].Data.ID == _itemcode){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary> itemCode에 해당하는 아이템이 있다면 사용하고 true 반환, 없다면 false 반환 </summary>
+    public bool UseItemWithItemCode(int _itemcode){
+        int itemIndex = FindItemIndex(_itemcode);
+        if(itemIndex == -1) return false;
+        else {
+            Use(itemIndex);
+            return true;
+        }
+    }
+
     #endregion
 }
