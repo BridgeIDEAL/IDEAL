@@ -12,5 +12,6 @@ public class InteractionGetPortion_101 : AbstractInteraction
 
     protected override void ActInteraction(){
         Inventory.Instance.Add(portionItemData, 1);
+        ActivationLogManager.Instance.AddActivationLog(4002);
     }
 }
