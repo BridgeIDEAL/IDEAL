@@ -21,11 +21,13 @@ public class HealthPointManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private UIHealthPoint uIHealthPoint;
+
     // 2 == 정상, 1 == 손상,  0 == 제거
     private int[] healthPoint = new int[System.Enum.GetValues(typeof(IdealBodyPart)).Length];
 
-    private int maxHP = 2;
-    private int minHP = 0;
+    public static int maxHP = 2;
+    public static int minHP = 0;
 
     
     void Awake(){
@@ -52,7 +54,7 @@ public class HealthPointManager : MonoBehaviour
         int bodyNum = (int)idealBodyPart;
         healthPoint[bodyNum] -= damage;
         if(healthPoint[bodyNum] < minHP) healthPoint[bodyNum] = minHP;
-        UpdateHealthEffect(idealBodyPart, healthPoint[bodyNum]);
+        UpdateHealthCondition(idealBodyPart, healthPoint[bodyNum]);
     }
 
     public bool Heal(IdealBodyPart idealBodyPart, int repair){
@@ -60,13 +62,18 @@ public class HealthPointManager : MonoBehaviour
         if(healthPoint[bodyNum] > minHP){
             healthPoint[bodyNum] += repair;
             if(healthPoint[bodyNum] > maxHP) healthPoint[bodyNum] = maxHP;
-            UpdateHealthEffect(idealBodyPart, healthPoint[bodyNum]);
+            UpdateHealthCondition(idealBodyPart, healthPoint[bodyNum]);
             return true;
         }
         else{
-            UpdateHealthEffect(idealBodyPart, healthPoint[bodyNum]);
+            UpdateHealthCondition(idealBodyPart, healthPoint[bodyNum]);
             return false;
         }
+    }
+
+    private void UpdateHealthCondition(IdealBodyPart idealBodyPart, int hp){
+        uIHealthPoint.UpdateBodyImage(idealBodyPart, hp);
+        UpdateHealthEffect(idealBodyPart, hp);
     }
 
     private void UpdateHealthEffect(IdealBodyPart idealBodyPart, int hp){
