@@ -54,6 +54,9 @@ public class UIManager : MonoBehaviour
         }
         
         for(int i = 0; i < Canvases.Length; i++){
+            // Canvas 별 해당 Canvas가 꺼져 있더라도 Awake 작업을 해야하는 경우가 있으므로
+            // Awake 부분을 따로 함수로 작동해주어도 Canvas가 꺼져 있으면 제대로 Init함수가 작동하지 않는 경우 발생
+            Canvases[i].SetActive(true);
             Canvases[i].SetActive(false);
         }
         for(int i = 0; i < UIActives.Length; i++){
