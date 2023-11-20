@@ -26,6 +26,7 @@ public class HealthPointManager : MonoBehaviour
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private UIMoveSetting uIMoveSetting;
     [SerializeField] private InteractionDetect interactionDetect;
+    [SerializeField] private UIIngame uIIngame;
 
     // 2 == 정상, 1 == 손상,  0 == 제거
     private int[] healthPoint = new int[System.Enum.GetValues(typeof(IdealBodyPart)).Length];
@@ -36,6 +37,7 @@ public class HealthPointManager : MonoBehaviour
     private float speedReduction = 0.15f;
 
     private float interactionReduction = 0.2f;
+    private float visualReduction = 0.5f;   // 현재는 사용하지 않는 값
     
     void Awake(){
         if(instance == null){
@@ -88,8 +90,8 @@ public class HealthPointManager : MonoBehaviour
             case IdealBodyPart.Head:
                 // TO DO
                 // 머리의 체력에 따라 나타나는 현상
-
                 Debug.Log($"Head HP :{hp}");
+                UpdateHeadCondition();
                 break;
             case IdealBodyPart.Torso:
                 // TO DO
@@ -156,5 +158,30 @@ public class HealthPointManager : MonoBehaviour
         }
 
         interactionDetect.requiredTimeRatio = 1.0f - damage * interactionReduction;
+    }
+
+    private void UpdateHeadCondition(){
+        // damage는 음수 값
+        int damage = healthPoint[(int)IdealBodyPart.Head] - maxHP;
+        if(damage > 0){
+            Debug.Log("UpdateArmCondition: damage > 0");
+            damage = 0;
+        }
+        if(damage < -2) {
+            Debug.Log("UpdateArmCondition: damage < -4");
+            damage = -2;
+        }
+
+        if(damage == 0){
+            uIIngame.SetVisualFilter(0);
+        }
+        else if(damage == -1){
+            uIIngame.SetVisualFilter(0.6f);
+        }
+        else{
+            uIIngame.SetVisualFilter(0.8f);
+        }
+
+        
     }
 }

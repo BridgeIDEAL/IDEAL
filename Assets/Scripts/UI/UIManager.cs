@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UIInventory uIInventory;
 
+    [SerializeField] private UIIngame uIIngame;
+
 
     void Awake() {
         if(instance == null){
@@ -65,6 +67,9 @@ public class UIManager : MonoBehaviour
 
         SetUIActive(UIType.InteractionUI, true);
         DeleteInteractionText();
+
+        SetUIActive(UIType.IngameUI, true);
+        uIIngame.SetVisualFilter(0.0f);
 
     }
 

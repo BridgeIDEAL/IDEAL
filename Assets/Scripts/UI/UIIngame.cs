@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIIngame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Image visualFilter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetVisualFilter(float ratio){
+        Color color = visualFilter.color;
+        color.a = ratio;
+        visualFilter.color = color;
     }
 }
