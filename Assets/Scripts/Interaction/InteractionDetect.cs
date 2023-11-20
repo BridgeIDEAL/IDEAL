@@ -21,6 +21,8 @@ public class InteractionDetect : MonoBehaviour
     private Coroutine interactionCoroutine;
     [SerializeField] private UIInteraction uIInteraction;
 
+    public float requiredTimeRatio = 1.0f;
+
     void Update(){
 
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
@@ -85,7 +87,7 @@ public class InteractionDetect : MonoBehaviour
         if(interactionObject == null){
             yield break;
         }
-        float requiredTime = interactionObject.GetRequiredTime();
+        float requiredTime = interactionObject.GetRequiredTime() * requiredTimeRatio;
         
         if(requiredTime <= 0.0f){
             interactionObject.DetectedInteraction();
