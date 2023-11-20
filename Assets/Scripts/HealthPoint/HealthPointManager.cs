@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public enum IdealBodyPart{
@@ -22,6 +23,8 @@ public class HealthPointManager : MonoBehaviour
     }
 
     [SerializeField] private UIHealthPoint uIHealthPoint;
+    [SerializeField] private FirstPersonController firstPersonController;
+    [SerializeField] private UIMoveSetting uIMoveSetting;
 
     // 2 == 정상, 1 == 손상,  0 == 제거
     private int[] healthPoint = new int[System.Enum.GetValues(typeof(IdealBodyPart)).Length];
@@ -29,6 +32,7 @@ public class HealthPointManager : MonoBehaviour
     public static int maxHP = 2;
     public static int minHP = 0;
 
+    private float speedReduction = 0.15f;
     
     void Awake(){
         if(instance == null){
@@ -81,6 +85,7 @@ public class HealthPointManager : MonoBehaviour
             case IdealBodyPart.Head:
                 // TO DO
                 // 머리의 체력에 따라 나타나는 현상
+
                 Debug.Log($"Head HP :{hp}");
                 break;
             case IdealBodyPart.Torso:
@@ -102,14 +107,34 @@ public class HealthPointManager : MonoBehaviour
                 // TO DO
                 // 왼쪽 다리의 체력에 따라 나타나는 현상
                 Debug.Log($"LeftLeg HP :{hp}");
+                UpdateLegCondition();
                 break;
             case IdealBodyPart.RightLeg:
                 // TO DO
                 // 오른쪽 다리의 체력에 따라 나타나는 현상
                 Debug.Log($"RightLeg HP :{hp}");
+                UpdateLegCondition();
                 break;
             default:
                 break;
         }
+    }
+
+    private void UpdateLegCondition(){
+        // damage는 음수 값
+        int damage = healthPoint[(int)IdealBodyPart.LeftLeg] - maxHP + healthPoint[(int)IdealBodyPart.RightLeg] - maxHP;
+        if(damage > 0){
+            Debug.Log("UpdateLegCondition: damage > 0");
+            damage = 0;
+        }
+        if(damage < -4) {
+            Debug.Log("UpdateLegCondition: damage < -4");
+            damage = -4;
+        }
+
+        firstPersonController.MoveSpeed = firstPersonController.DefaultMoveSpeed * (1.0f + damage * speedReduction);
+        uIMoveSetting.UpdateMoveSpeedValueText();
+        firstPersonController.SprintSpeed = firstPersonController.DefaultSprintSpeed * (1.0f + damage * speedReduction);
+        uIMoveSetting.UpdateSprintSpeedValueText();
     }
 }

@@ -58,12 +58,22 @@ public class UIMoveSetting : MonoBehaviour
     private void ChangeMoveSpeedValue(float value){
         float newSize = Mathf.Lerp(minSize[(int)MoveSettingSlider.MoveSpeed], maxSize[(int)MoveSettingSlider.MoveSpeed], value);
         firstPersonController.MoveSpeed = newSize;
+        firstPersonController.DefaultMoveSpeed = newSize;
+        sliderTexts[(int)MoveSettingSlider.MoveSpeed].text = firstPersonController.MoveSpeed.ToString();
+    }
+
+    public void UpdateMoveSpeedValueText(){
         sliderTexts[(int)MoveSettingSlider.MoveSpeed].text = firstPersonController.MoveSpeed.ToString();
     }
 
     private void ChangeSprintSpeedValue(float value){
         float newSize = Mathf.Lerp(minSize[(int)MoveSettingSlider.SprintSpeed], maxSize[(int)MoveSettingSlider.SprintSpeed], value);
         firstPersonController.SprintSpeed = newSize;
+        firstPersonController.DefaultMoveSpeed = newSize;
+        sliderTexts[(int)MoveSettingSlider.SprintSpeed].text = firstPersonController.SprintSpeed.ToString();
+    }
+
+    public void UpdateSprintSpeedValueText(){
         sliderTexts[(int)MoveSettingSlider.SprintSpeed].text = firstPersonController.SprintSpeed.ToString();
     }
 
