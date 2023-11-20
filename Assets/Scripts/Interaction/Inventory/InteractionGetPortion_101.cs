@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionGetPortion_101 : AbstractInteraction
 {
     [SerializeField] PortionItemData portionItemData;
+    public override float RequiredTime { get => 2.0f;}
 
     protected override string GetDetectedString(){
         return "Press E, Get Portion!";

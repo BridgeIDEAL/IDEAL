@@ -21,4 +21,8 @@ public class InteractionObject : MonoBehaviour
         abstractInteraction.DetectedInteraction();
     }
 
+    public float GetRequiredTime(){
+        return abstractInteraction.RequiredTime;
+    }
+
 }

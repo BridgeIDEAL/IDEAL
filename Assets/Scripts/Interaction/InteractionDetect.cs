@@ -18,6 +18,8 @@ public class InteractionDetect : MonoBehaviour
     private GameObject newGameObject = null;
     private GameObject oldGameObject = null;
 
+    private Coroutine interactionCoroutine;
+    [SerializeField] private UIInteraction uIInteraction;
 
     void Update(){
 
@@ -39,16 +41,34 @@ public class InteractionDetect : MonoBehaviour
                 newInteractionObject?.DetectedRay();
                 // 예전 IO에게는 Ray에서 벗어남을 알린다
                 oldInteractionObject?.OutOfRay();
+
+                // interactionCoroutine이 진행중이라면 정지한다.
+                if(interactionCoroutine != null){
+                    StopInteractionCoroutine();
+                }
             }
 
             if(Input.GetKeyDown(KeyCode.E)){
-                newInteractionObject?.DetectedInteraction();
+                if(interactionCoroutine != null){
+                    StopInteractionCoroutine();
+                }
+                interactionCoroutine = StartCoroutine(ActivateInteractionCoroutine(newInteractionObject));
+            }
+            else if(Input.GetKeyUp(KeyCode.E)){
+                if(interactionCoroutine != null){
+                    StopInteractionCoroutine();
+                }
             }
 
             // 다음 프레임을 위해 newGameObject를 oldGameObject에 넣어줌
             oldGameObject = newGameObject;
         } else{
             // SphereCast에 감지되지 않은 경우
+            // interactionCoroutine이 진행중이라면 중지한다.
+            if(interactionCoroutine != null){
+                StopInteractionCoroutine();
+            }
+            
             // 예전 IO에게 Ray에서 벗어남을 알린다.
             if(oldGameObject != null){
                 InteractionObject oldInteractionObject = oldGameObject.GetComponent<InteractionObject>();
@@ -59,5 +79,30 @@ public class InteractionDetect : MonoBehaviour
             oldGameObject = null;
         }
 
+    }
+
+    private IEnumerator ActivateInteractionCoroutine(InteractionObject interactionObject){
+        if(interactionObject == null){
+            yield break;
+        }
+        float requiredTime = interactionObject.GetRequiredTime();
+        
+        if(requiredTime <= 0.0f){
+            interactionObject.DetectedInteraction();
+            yield break;
+        }
+        float stepTimer = 0.0f;
+        while(stepTimer <= requiredTime){
+            uIInteraction.SetProgressFillAmount(stepTimer / requiredTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        uIInteraction.SetProgressFillAmount(0.0f);
+        interactionObject.DetectedInteraction();
+    }
+
+    private void StopInteractionCoroutine(){
+        uIInteraction.SetProgressFillAmount(0.0f);
+        StopCoroutine(interactionCoroutine);
     }
 }

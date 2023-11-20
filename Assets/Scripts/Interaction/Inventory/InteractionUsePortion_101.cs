@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionUsePortion_101 : AbstractInteraction
 {
     [SerializeField] GameObject cubeObject;
+    public override float RequiredTime { get => 2.0f;}
 
     protected override string GetDetectedString(){
         return "Press E, Use Portion!";

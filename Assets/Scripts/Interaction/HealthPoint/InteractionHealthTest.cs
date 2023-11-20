@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractionHealthTest : AbstractInteraction
 {
     [SerializeField] private IdealBodyPart idealBodyPart;
+    public override float RequiredTime { get => 2.0f;}
 
     protected override string GetDetectedString(){
         return $"Press E, Hurt {idealBodyPart.ToString()}!";
