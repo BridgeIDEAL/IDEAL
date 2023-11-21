@@ -79,9 +79,10 @@ public class UIItemTooltip : MonoBehaviour
         float tooltipWidth = rectTransform.sizeDelta.x;
         float tooltipHeight = rectTransform.sizeDelta.y;
         
-        float dir;
-        dir = (Input.mousePosition.y > (Screen.height / 2)) ? -1 : 1; 
-        rectTransform.position = new Vector2(tooltipWidth / 2 + Input.mousePosition.x, dir * tooltipHeight / 2 + Input.mousePosition.y);
+        float dirY, dirX;
+        dirY = (Input.mousePosition.y > (Screen.height / 2)) ? -1 : 1; 
+        dirX = (Input.mousePosition.x > (Screen.height / 2)) ? -1 : 1;
+        rectTransform.position = new Vector2(dirX * tooltipWidth / 2 + Input.mousePosition.x, dirY * tooltipHeight / 2 + Input.mousePosition.y);
     }
 
     public void Show() => gameObject.SetActive(true);
