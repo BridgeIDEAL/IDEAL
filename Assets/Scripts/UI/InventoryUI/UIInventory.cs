@@ -241,7 +241,7 @@ public class UIInventory : MonoBehaviour
         itemTooltip.SetItemInfo(inventory.GetItemData(slot.Index));
 
         // 툴팁 위치 조정
-        itemTooltip.SetRectPosition(slot.SlotRect);
+        itemTooltip.SetRectPosition();
     }
 
     #endregion

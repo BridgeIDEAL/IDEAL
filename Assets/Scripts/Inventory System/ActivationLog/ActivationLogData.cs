@@ -49,5 +49,6 @@ public class ActivationLogData : MonoBehaviour
         activationLogDictionary.Add(4001, new ActivationLog(4001, "물 맛이 이상하다.", "상한 물 섭취"));
         activationLogDictionary.Add(4002, new ActivationLog(4002, "포션을 획득했다.", "포션 획득"));
         activationLogDictionary.Add(4003, new ActivationLog(4003, "포션을 사용했다.", "포션 사용"));
+        activationLogDictionary.Add(4004, new ActivationLog(4004, "손전등을 획득했다.", "손전등 획득"));
     }
 }

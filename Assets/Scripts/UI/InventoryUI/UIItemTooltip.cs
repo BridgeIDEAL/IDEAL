@@ -75,7 +75,7 @@ public class UIItemTooltip : MonoBehaviour
     }
 
     /// <summary> 툴팁의 위치 조정 </summary>
-    public void SetRectPosition(RectTransform slotRect){
+    public void SetRectPosition(){
         float tooltipWidth = rectTransform.sizeDelta.x;
         float tooltipHeight = rectTransform.sizeDelta.y;
         
