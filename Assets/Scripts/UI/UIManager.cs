@@ -84,18 +84,19 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = true;
             firstPersonController.CameraRotationLock = true;
+            Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = false;
             firstPersonController.CameraRotationLock = false;
+            Cursor.lockState = CursorLockMode.Locked;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
             uIInventory.HideHighlightAllSlot();
 
             ActivationLogManager.Instance.InActiveActivationLog();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
-        Cursor.lockState = UIActives[(int)UIType.InventoryUI] ? CursorLockMode.None : CursorLockMode.Locked;
 
 
     }
