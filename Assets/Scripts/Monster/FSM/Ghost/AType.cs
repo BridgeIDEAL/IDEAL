@@ -9,9 +9,14 @@ public class AType : BaseEntity
     State<AType>[] states;
     StateMachine<AType> stateMachine;
     public ATypeEntityStates CurrentType { private set; get; }
-    public override void Setup()
+    public override void Setup(MonsterData.MonsterStat stat)
     {
-        base.Setup();
+        //base.Setup();
+        nav.speed = stat.speed;
+        speed = stat.speed;
+        InitTransform.position = stat.initTransform;
+        InitTransform.eulerAngles = stat.initRotation;
+        gameObject.name = stat.name;
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[2];
         states[(int)ATypeEntityStates.Indifference] = new ATypeStates.Indifference();

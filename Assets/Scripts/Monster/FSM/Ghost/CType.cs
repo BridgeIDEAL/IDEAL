@@ -9,9 +9,14 @@ public class CType : BaseEntity
     StateMachine<CType> stateMachine;
     NavMeshAgent nav;
     public CTypeEntityStates CurrentType { private set; get; }
-    public override void Setup()
+    public override void Setup(MonsterData.MonsterStat stat)
     {
-        base.Setup();
+        //base.Setup();
+        nav.speed = stat.speed;
+        speed = stat.speed;
+        InitTransform.position = stat.initTransform;
+        InitTransform.eulerAngles = stat.initRotation;
+        gameObject.name = stat.name;
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[3];
         states[(int)CTypeEntityStates.Indifference] = new CTypeStates.Indifference();
@@ -20,7 +25,7 @@ public class CType : BaseEntity
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = chaseSpeed;
+        nav.speed = speed;
     }
 
     public override void UpdateBehavior(){stateMachine.Execute();}
@@ -44,7 +49,7 @@ public class CType : BaseEntity
         float dist = (playerObject.transform.position - transform.position).magnitude;
         Vector3 dir = playerObject.transform.position - transform.position;
         if (sightDistance >= dist)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
         else
             ChangeState(CTypeEntityStates.Indifference);
     }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject go;
-    public Transform tf;
     #region CoreManagers
     // ΩÃ±€≈Ê
     private static GameManager instance;
@@ -31,8 +29,8 @@ public class GameManager : MonoBehaviour
             instance = gameManagerObject.GetComponent<GameManager>();
             DontDestroyOnLoad(gameManagerObject);
         }
-        FSM.Init();
         Data.Init();
+        FSM.Init(); 
     }
 
     private void Update()

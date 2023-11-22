@@ -9,13 +9,23 @@ public class DType : BaseEntity
     StateMachine<DType> stateMachine;
     NavMeshAgent nav;
     Animator anim;
+
     public DTypeEntityStates CurrentType { private set; get; }
-    public override void Setup()
+    public override void Setup(MonsterData.MonsterStat stat)
     {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        InitTransform = this.transform;
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
-        base.Setup();
         CurrentType = DTypeEntityStates.Indifference;
+        nav.speed = stat.speed;
+        speed = stat.speed;
+        //Debug.Log(stat.initTransform);
+        Vector3 vec = stat.initTransform;
+        //transform.position = vec;
+        InitTransform.position = vec;
+        //InitTransform.eulerAngles = stat.initRotation;
+        gameObject.name = stat.name;
         states = new State<DType>[6];
         states[(int)DTypeEntityStates.Indifference] = new DTypeStates.Indifference();
         states[(int)DTypeEntityStates.Interaction] = new DTypeStates.Interaction();
@@ -24,7 +34,6 @@ public class DType : BaseEntity
         states[(int)DTypeEntityStates.Chase] = new DTypeStates.Chase();
         stateMachine = new StateMachine<DType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
-        nav.speed = chaseSpeed;
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
@@ -51,7 +60,7 @@ public class DType : BaseEntity
         float dist = (playerObject.transform.position - transform.position).magnitude;
         Vector3 dir = playerObject.transform.position - transform.position;
         if (sightDistance >= dist)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
         else
             ChangeState(DTypeEntityStates.Indifference);
     }

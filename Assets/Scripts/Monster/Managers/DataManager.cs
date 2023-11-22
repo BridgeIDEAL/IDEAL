@@ -1,24 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 public interface ILoader<Key, Value>
 {
     Dictionary<Key, Value> MakeDict();
 }
 public class DataManager
 {
-  //  public Dictionary<int, Data.Stat> statDict { get; private set; } = new Dictionary<int, Data.Stat>();
-   // public Dictionary<int, ItemInfo> itemDict { get; private set; } = new Dictionary<int, ItemInfo>();
+    public Dictionary<int, MonsterData.MonsterStat> monsterInfoDict { get; private set; } = new Dictionary<int, MonsterData.MonsterStat>();
 
     public void Init()
     {
-        //statDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
-       // itemDict = LoadJson<ItemData, int, ItemInfo>("ItemData").MakeDict();
+        monsterInfoDict = LoadJson<MonsterData.MonsterInfo, int, MonsterData.MonsterStat>("monsterInfo").MakeDict();
+        Debug.Log(monsterInfoDict.Count);
     }
 
-    //Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
-    //{
-    //    TextAsset textAsset = MasterManager.Resource.Load<TextAsset>($"Data/{path}");
-    //    return JsonUtility.FromJson<Loader>(textAsset.text);
-    //}
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = GameManager.Resource.Load<TextAsset>($"Data/{path}");
+        return JsonUtility.FromJson<Loader>(textAsset.text);
+    }
 }

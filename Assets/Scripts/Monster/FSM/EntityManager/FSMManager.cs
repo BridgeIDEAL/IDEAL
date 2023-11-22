@@ -6,7 +6,7 @@ public class FSMManager
 {
     private List<BaseEntity> entityList;
     private Dictionary<int, BaseEntity> entityDictionary;
-   
+    private static int spawnID = 101;
     public void Init()
     {
         entityList = new List<BaseEntity>();
@@ -22,14 +22,13 @@ public class FSMManager
 
     void Spawn<T>() where T : BaseEntity
     {
-        GameObject go = Object.Instantiate<GameObject>(GameManager.Instance.go);
-        T bear = go.GetComponentInChildren<T>();
-        bear.InitTransform = GameManager.Instance.tf;
-        bear.Setup();
-        entityList.Add(bear);
-        entityDictionary.Add(bear.ID, bear);
-        go.transform.position = GameManager.Instance.tf.position;
-        go.name = GameManager.Instance.go.name;
+        MonsterData.MonsterStat stat= GameManager.Data.monsterInfoDict[spawnID];
+        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.name}"));
+        T type = go.GetComponentInChildren<T>();
+        type.Setup(stat);
+        entityList.Add(type);
+        entityDictionary.Add(type.ID, type);
+        spawnID += 1;
     }
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }

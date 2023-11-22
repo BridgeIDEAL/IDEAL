@@ -3,21 +3,19 @@ using UnityEditor;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    #region 
-    private static int giveID=0; // 부여하는 고유 ID 
-    private int takeID; // 부여된 고유 ID
-    public int ID{ set { takeID = value; giveID++; }get { return takeID; }}
-    public Transform InitTransform { get; set; } // 초기 위치
+    #region Common Stat
+    public Transform InitTransform;
+    public int ID { get; set; }
     public bool CanInteraction { get; set; } = true;
     public float sightDistance;
     public float sightAngle;
     protected bool findPlayer = false;
     protected LayerMask playerMask = 1<<3;
     public GameObject playerObject;
-    public float chaseSpeed;
+    public float speed;
     #endregion
 
-    public virtual void Setup() { playerObject = GameObject.FindGameObjectWithTag("Player"); ID = giveID; }
+    public virtual void Setup(MonsterData.MonsterStat stat) {}
     public abstract void UpdateBehavior();
     public virtual void RestInteraction() { } // 휴식 공간에 들어갔을 때
     public virtual void StartInteraction() { } // 상호작용을 시작했을 때

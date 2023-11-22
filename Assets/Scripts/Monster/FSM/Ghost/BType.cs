@@ -9,9 +9,14 @@ public class BType : BaseEntity
     StateMachine<BType> stateMachine;
     NavMeshAgent nav;
     public BTypeEntityStates CurrentType { private set; get; }
-    public override void Setup()
+    public override void Setup(MonsterData.MonsterStat stat)
     {
-        base.Setup();
+        //base.Setup();
+        nav.speed = stat.speed;
+        speed = stat.speed;
+        InitTransform.position = stat.initTransform;
+        InitTransform.eulerAngles = stat.initRotation;
+        gameObject.name = stat.name;
         CurrentType = BTypeEntityStates.Indifference;
         states = new State<BType>[4];
         states[(int)BTypeEntityStates.Indifference] = new BTypeStates.Indifference();
@@ -21,7 +26,7 @@ public class BType : BaseEntity
         stateMachine = new StateMachine<BType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = chaseSpeed;
+        nav.speed = speed;
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
@@ -46,6 +51,6 @@ public class BType : BaseEntity
     {
         Vector3 dir = playerObject.transform.position - transform.position;
         nav.SetDestination(playerObject.transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), chaseSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
     }
 }
