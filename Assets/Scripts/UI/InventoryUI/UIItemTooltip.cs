@@ -24,6 +24,8 @@ public class UIItemTooltip : MonoBehaviour
     ***********************************************************************/
     #region Private Fields
     [SerializeField] private RectTransform rectTransform;
+    private bool activeItemTooltip = false;
+
     #endregion
 
     /***********************************************************************
@@ -32,6 +34,13 @@ public class UIItemTooltip : MonoBehaviour
     #region Unity Events
     private void Awake(){
         Init();
+    }
+
+    private void Update(){
+        if(!activeItemTooltip){
+            gameObject.SetActive(false);
+        }
+        activeItemTooltip = false;
     }
 
     #endregion
@@ -85,9 +94,12 @@ public class UIItemTooltip : MonoBehaviour
         rectTransform.position = new Vector2(dirX * tooltipWidth / 2 + Input.mousePosition.x, dirY * tooltipHeight / 2 + Input.mousePosition.y);
     }
 
-    public void Show() => gameObject.SetActive(true);
+    /// <summary>  툴팁의 활성화, 아무도 툴팁을 활성화하지 않는다면 다음 프레임에서 자동으로 꺼짐 </summary>
+    public void Show(){
+        gameObject.SetActive(true);
+        activeItemTooltip = true;
+    }
 
-    public void Hide() => gameObject.SetActive(false);
 
     #endregion
 

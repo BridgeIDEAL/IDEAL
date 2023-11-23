@@ -41,9 +41,6 @@ public class UIInventory : MonoBehaviour
     private Inventory inventory;
 
     private List<UIItemSlot> slotUIList = new List<UIItemSlot>();
-    private GraphicRaycaster graphicRaycaster;
-    private PointerEventData pointerEventData;
-    private List<RaycastResult> rrList;
 
     private UIItemSlot pointerOverSlot;    // 현재 포인터가 위치한 곳의 슬롯
 
@@ -66,7 +63,6 @@ public class UIInventory : MonoBehaviour
     }
 
     private void Update(){
-        pointerEventData.position = Input.mousePosition;
 
         OnPointerEnterAndExit();
         if(showTooltip) ShowOrHideItemTooltip();
@@ -80,14 +76,6 @@ public class UIInventory : MonoBehaviour
     ***********************************************************************/
     #region Init Methods
     private void Init(){
-        TryGetComponent(out graphicRaycaster);
-        if(graphicRaycaster == null){
-            graphicRaycaster = gameObject.AddComponent<GraphicRaycaster>();
-        }
-
-        // Graphic Raycaster
-        pointerEventData = new PointerEventData(EventSystem.current);
-        rrList = new List<RaycastResult>(10);
 
         // Item Tooltip UI
         if(itemTooltip == null){
@@ -132,20 +120,6 @@ public class UIInventory : MonoBehaviour
     ***********************************************************************/
 
     #region Mouse Event Methods
-    private bool IsOverUI()
-            => EventSystem.current.IsPointerOverGameObject();
-
-    /// <summary> 레이캐스트하여 얻은 첫 번째 UI에서 컴포넌트 찾아 리턴 </summary>
-    private T RaycastAndGetFirstComponent<T>() where T : Component{
-        rrList.Clear();
-
-        graphicRaycaster.Raycast(pointerEventData, rrList);
-        
-        if(rrList.Count == 0)
-            return null;
-
-        return rrList[0].gameObject.GetComponent<T>();
-    }
 
      /// <summary> 슬롯에 포인터가 올라가는 경우, 슬롯에서 포인터가 빠져나가는 경우 </summary>
     private void OnPointerEnterAndExit(){
@@ -153,7 +127,7 @@ public class UIInventory : MonoBehaviour
         var prevSlot = pointerOverSlot;
 
         // 현재 프레임의 슬롯
-        var curSlot = pointerOverSlot = RaycastAndGetFirstComponent<UIItemSlot>();
+        var curSlot = pointerOverSlot = UIRayCaster.Instance.RaycastAndGetFirstComponent<UIItemSlot>();
 
         if (prevSlot == null){
             // Enter
@@ -196,9 +170,6 @@ public class UIInventory : MonoBehaviour
             UpdateTooltipUI(pointerOverSlot);
             itemTooltip.Show();
         }
-        else {
-            itemTooltip.Hide();
-        }
     }
 
     /// <summary> 슬롯에 클릭하는 경우 </summary>
@@ -206,7 +177,7 @@ public class UIInventory : MonoBehaviour
         // Drag 기능은 구현하지 않음
         // Right Click : Use Item
         if(Input.GetMouseButtonDown(rightClick)){
-            UIItemSlot slot = RaycastAndGetFirstComponent<UIItemSlot>();
+            UIItemSlot slot = UIRayCaster.Instance.RaycastAndGetFirstComponent<UIItemSlot>();
 
             if(slot != null && slot.HasItem && slot.IsAccessible){
                 TryUseItem(slot.Index);
