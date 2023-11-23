@@ -63,10 +63,10 @@ public abstract class BaseEntity : MonoBehaviour
 
     protected virtual void OnDrawGizmos()
     {
-        Handles.color = (findPlayer)?Color.red:Color.blue;
-        // 시작점, 노말벡터(법선벡터), 방향, 각도, 반지름
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, sightAngle / 2, sightDistance);
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -sightAngle / 2, sightDistance);
+        //Handles.color = (findPlayer)?Color.red:Color.blue;
+        //// 시작점, 노말벡터(법선벡터), 방향, 각도, 반지름
+        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, sightAngle / 2, sightDistance);
+        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -sightAngle / 2, sightDistance);
         
     }
 }
