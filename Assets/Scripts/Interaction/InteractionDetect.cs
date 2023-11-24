@@ -39,10 +39,11 @@ public class InteractionDetect : MonoBehaviour
 
             if(!System.Object.ReferenceEquals(newGameObject, oldGameObject)){
                 // newGameObject와 oldGameObject가 다를 경우 다르거나 새로운 오브젝트를 가르키는 것이므로
-                // 새로운 IO에게는 Ray에 감지됨을 알리고
-                newInteractionObject?.DetectedRay();
-                // 예전 IO에게는 Ray에서 벗어남을 알린다
+                // 예전 IO에게는 Ray에서 벗어남을 알리고
                 oldInteractionObject?.OutOfRay();
+                // 새로운 IO에게는 Ray에 감지됨을 알린다.
+                newInteractionObject?.DetectedRay();
+                
 
                 // interactionCoroutine이 진행중이라면 정지한다.
                 if(interactionCoroutine != null){
