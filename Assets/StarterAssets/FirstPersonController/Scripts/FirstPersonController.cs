@@ -30,6 +30,9 @@ namespace StarterAssets
 		public float SpeedChangeRate = 10.0f;
 
 		[Space(10)]
+		[Tooltip("Jump Activate")]
+		public bool JumpActive = false;
+
 		[Tooltip("The height the player can jump")]
 		public float JumpHeight = 1.2f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
@@ -221,6 +224,12 @@ namespace StarterAssets
 				}
 
 				// Jump
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				// 게임 특성에 맞춰 Jump 기능 비활성화
+				if(!JumpActive){
+					_input.jump = false;
+				}
+
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
