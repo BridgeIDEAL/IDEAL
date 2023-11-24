@@ -31,6 +31,15 @@ public class UIEquipment : MonoBehaviour
         else rightEquipmentSlot.RemoveItem();
     }
 
+    public void SetSlotActive(bool isLeft, bool active){
+        if(isLeft){
+            leftEquipmentSlot.SetSlotActive(active);
+        }
+        else{
+            rightEquipmentSlot.SetSlotActive(active);
+        }
+    }
+
 
     /***********************************************************************
     *                               Unity Event Methods

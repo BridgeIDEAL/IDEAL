@@ -158,6 +158,21 @@ public class HealthPointManager : MonoBehaviour
         }
 
         interactionDetect.requiredTimeRatio = 1.0f - damage * interactionReduction;
+
+        // 팔 손상으로 인한 장비 슬롯 비활성화
+        if(healthPoint[(int)IdealBodyPart.LeftArm] <= minHP){
+            EquipmentManager.Instance.SetHandActive(true, false);
+        }
+        else{
+            EquipmentManager.Instance.SetHandActive(true, true);
+        }
+
+        if(healthPoint[(int)IdealBodyPart.RightArm] <= minHP){
+            EquipmentManager.Instance.SetHandActive(false, false);
+        }
+        else{
+            EquipmentManager.Instance.SetHandActive(false, true);
+        }
     }
 
     private void UpdateHeadCondition(){

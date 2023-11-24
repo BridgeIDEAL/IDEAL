@@ -14,7 +14,9 @@ public class EquipmentManager : MonoBehaviour
 
     [SerializeField] UIEquipment uIEquipment;
     private Item leftHandItem = null;
+    private bool leftHandActive = true;
     private Item rightHandItem = null;
+    private bool rightHandActive = true;
 
     void Awake(){
         if(instance == null){
@@ -37,6 +39,29 @@ public class EquipmentManager : MonoBehaviour
 
     public Item GetEquipedItem(bool isLeft){
         return isLeft ? leftHandItem : rightHandItem;
+    }
+
+    public bool GetHandActive(bool isLeft){
+        if(isLeft){
+            return leftHandActive;
+        }
+        else{
+            return rightHandActive;
+        }
+    }
+
+    public void SetHandActive(bool isLeft, bool active){
+        if(!active){
+            DetachEquipedItem(isLeft);
+        }
+        uIEquipment.SetSlotActive(isLeft, active);
+
+        if(isLeft){
+            leftHandActive = active;
+        }
+        else{
+            rightHandActive = active;
+        }
     }
 
     public void RemoveEquipedItem(bool isLeft){

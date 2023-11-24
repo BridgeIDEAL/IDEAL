@@ -7,6 +7,9 @@ public class UIEquipmentSlot : MonoBehaviour
 {
     [SerializeField] private GameObject iconGameObject;
     private Image iconImage;
+    private Image backgroundImage;
+    private Color activeColor = Color.white;
+    private Color inactiveColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     public Item currentItem = null;
 
     public bool HasItem => iconImage.sprite != null;
@@ -15,6 +18,7 @@ public class UIEquipmentSlot : MonoBehaviour
 
     private void Awake(){
         iconImage = iconGameObject.GetComponent<Image>();
+        backgroundImage = this.gameObject.GetComponent<Image>();
         iconImage.sprite = null;
     }
     public void EquipItem(Item item){
@@ -27,5 +31,14 @@ public class UIEquipmentSlot : MonoBehaviour
         currentItem = null;
         iconImage.sprite = null;
         iconGameObject.SetActive(false);
+    }
+
+    public void SetSlotActive(bool active){
+        if(active){
+            backgroundImage.color = activeColor;
+        }
+        else{
+            backgroundImage.color = inactiveColor;
+        }
     }
 }

@@ -8,11 +8,13 @@ public class FlashlightItem : EquipmentItem, IUsableItem
     public FlashlightItem(FlashlightItemData data) : base(data) { }
 
     public bool Use(){
-        if(EquipmentManager.Instance.GetEquipedItem(true) == null){
+        if(EquipmentManager.Instance.GetHandActive(true)
+            && EquipmentManager.Instance.GetEquipedItem(true) == null){
             EquipmentManager.Instance.EquipItem(true, this);
             return true;
         }
-        if(EquipmentManager.Instance.GetEquipedItem(false) == null){
+        if( EquipmentManager.Instance.GetHandActive(false)
+            && EquipmentManager.Instance.GetEquipedItem(false) == null){
             EquipmentManager.Instance.EquipItem(false, this);
             return true;
         }
