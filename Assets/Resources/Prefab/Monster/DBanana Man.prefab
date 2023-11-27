@@ -1716,10 +1716,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879ac9381508f1b4b9b0f6df1052dd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitTransform: {fileID: 0}
   sightDistance: 10
   sightAngle: 130
   playerObject: {fileID: 0}
-  chaseSpeed: 3
+  speed: 0
 --- !u!195 &5076832218068732698
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1779,7 +1780,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
