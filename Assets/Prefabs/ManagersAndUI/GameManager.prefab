@@ -331,8 +331,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1202310563507045750}
   - component: {fileID: 1202310563507045737}
+  - component: {fileID: 1202310561960347451}
   m_Layer: 0
-  m_Name: Managers
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,8 +384,28 @@ MonoBehaviour:
   uIHealthPoint: {fileID: 0}
   uIMoveSetting: {fileID: 0}
   uIEquipment: {fileID: 0}
-  activationLogData: {fileID: 1202310563940104682}
+  uIManager: {fileID: 1202310562472822334}
+  interactionManager: {fileID: 1202310563865859231}
   interactionDetect: {fileID: 1202310563865859217}
+  inventory: {fileID: 1202310562995529738}
+  activationLogManager: {fileID: 1202310561929364762}
+  activationLogData: {fileID: 1202310563940104682}
+  healthPointManager: {fileID: 1202310563753237950}
+  equipmentManager: {fileID: 1202310562666417259}
+  conversationManager: {fileID: 1202310562219597083}
+--- !u!114 &1202310561960347451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202310563507045751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad18db802a0da04687d21ecfc033424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptHub: {fileID: 1202310563507045737}
 --- !u!1 &1202310563753237948
 GameObject:
   m_ObjectHideFlags: 0

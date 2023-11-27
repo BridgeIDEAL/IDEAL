@@ -24,12 +24,12 @@ public class InteractionDetect : MonoBehaviour
 
     public float requiredTimeRatio = 1.0f;
 
-    void Awake(){
+    public void Init(){
         playerCamera = scriptHub.playerCamera;
         uIInteraction = scriptHub.uIInteraction;
     }
 
-    void Update(){
+    public void GameUpdate(){
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
         if(Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerVector, out hit, maxDistance)){
             // SphereCast에 감지된 경우

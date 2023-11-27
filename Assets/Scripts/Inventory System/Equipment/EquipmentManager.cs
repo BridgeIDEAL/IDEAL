@@ -19,7 +19,7 @@ public class EquipmentManager : MonoBehaviour
     private Item rightHandItem = null;
     private bool rightHandActive = true;
 
-    void Awake(){
+    public void Init(){
         if(instance == null){
             instance = this;
         }

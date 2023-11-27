@@ -19,7 +19,7 @@ public class ActivationLogManager : MonoBehaviour
 
     private List<int> activationLogList = new List<int>();
 
-    void Awake(){
+    public void Init(){
         if(instance == null){
             instance = this;
         }

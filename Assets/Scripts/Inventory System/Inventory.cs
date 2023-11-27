@@ -67,10 +67,10 @@ public class Inventory : MonoBehaviour
     #endregion
 
     /***********************************************************************
-    *                               Unity Events
+    *                       Unity Events -> Game Manager
     ***********************************************************************/
     #region Unity Events
-    private void Awake(){
+    public void Init(){
         // Singleton 할당
         if(instance == null){
             instance = this;
@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
         uIInventory.SetInventoryReference(this);
     }
 
-    private void Start(){
+    public void GameStart(){
         UpdateAccessibleStatesAll();
     }
 

@@ -22,10 +22,9 @@ public class InteractionManager : MonoBehaviour
     private GameObject timerEndObject;
 
 
-    void Awake(){
+    public void Init(){
         if(instance == null){
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);

@@ -40,7 +40,7 @@ public class HealthPointManager : MonoBehaviour
     private float interactionReduction = 0.2f;
     private float visualReduction = 0.5f;   // 현재는 사용하지 않는 값
     
-    void Awake(){
+    public void Init(){
         if(instance == null){
             instance = this;
         }
@@ -53,10 +53,10 @@ public class HealthPointManager : MonoBehaviour
         uIMoveSetting = scriptHub.uIMoveSetting;
         interactionDetect = scriptHub.interactionDetect;
         uIIngame = scriptHub.uIIngame;
-        Init();
+        InitHealthPoint();
     }
 
-    public void Init(){
+    public void InitHealthPoint(){
         for(int i = 0; i < healthPoint.Length; i++){
             healthPoint[i] = maxHP;
         }

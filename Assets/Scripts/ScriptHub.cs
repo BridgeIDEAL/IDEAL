@@ -23,11 +23,18 @@ public class ScriptHub : MonoBehaviour
     public UIHealthPoint uIHealthPoint;
     public UIMoveSetting uIMoveSetting;
     public UIEquipment uIEquipment;
+    public UIManager uIManager;
 
     [Space(5)]
     [Header("Scripts")]
-    public ActivationLogData activationLogData;
+    public InteractionManager interactionManager;
     public InteractionDetect interactionDetect;
+    public Inventory inventory;
+    public ActivationLogManager activationLogManager;
+    public ActivationLogData activationLogData;
+    public HealthPointManager healthPointManager;
+    public EquipmentManager equipmentManager;
+    public ConversationManager conversationManager;
     
 
 }

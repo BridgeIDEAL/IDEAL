@@ -8,7 +8,7 @@ public class ConversationManager : MonoBehaviour
     [SerializeField] private ScriptHub scriptHub;
     private FirstPersonController firstPersonController;
     
-    void Awake(){
+    public void Init(){
         firstPersonController = scriptHub.firstPersonController;
     }
     public void VisibleMouseCursor(){
