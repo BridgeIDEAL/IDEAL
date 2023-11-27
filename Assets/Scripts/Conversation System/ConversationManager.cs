@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class ConversationManager : MonoBehaviour
 {
-    [SerializeField] FirstPersonController firstPersonController;
+    [SerializeField] private ScriptHub scriptHub;
+    private FirstPersonController firstPersonController;
+    
+    void Awake(){
+        firstPersonController = scriptHub.firstPersonController;
+    }
     public void VisibleMouseCursor(){
         firstPersonController.CameraRotationLock = true;
         Cursor.lockState = CursorLockMode.None;

@@ -25,35 +25,37 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    
+    [SerializeField]
+    private ScriptHub scriptHub;
     
     [SerializeField]
     private GameObject[] Canvases;
 
     private bool[] UIActives = new bool[System.Enum.GetValues(typeof(UIType)).Length];
 
-    [SerializeField]
     private FirstPersonController firstPersonController;
-    [SerializeField]
     private CinemachineVirtualCamera cinemachineVirtualCamera;
     
-    [SerializeField]
     private UIInteraction uIInteraction;
 
-    [SerializeField]
     private UIInventory uIInventory;
 
-    [SerializeField] private UIIngame uIIngame;
+    private UIIngame uIIngame;
 
 
     void Awake() {
         if(instance == null){
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);
         }
+
+        firstPersonController = scriptHub.firstPersonController;
+        cinemachineVirtualCamera = scriptHub.cinemachineVirtualCamera;
+        uIInteraction = scriptHub.uIInteraction;
+        uIInventory = scriptHub.uIInventory;
+        uIIngame = scriptHub.uIIngame;
         
         for(int i = 0; i < Canvases.Length; i++){
             // Canvas 별 해당 Canvas가 꺼져 있더라도 Awake 작업을 해야하는 경우가 있으므로

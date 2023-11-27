@@ -22,11 +22,12 @@ public class HealthPointManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private UIHealthPoint uIHealthPoint;
-    [SerializeField] private FirstPersonController firstPersonController;
-    [SerializeField] private UIMoveSetting uIMoveSetting;
-    [SerializeField] private InteractionDetect interactionDetect;
-    [SerializeField] private UIIngame uIIngame;
+    [SerializeField] private ScriptHub scriptHub;
+    private UIHealthPoint uIHealthPoint;
+    private FirstPersonController firstPersonController;
+    private UIMoveSetting uIMoveSetting;
+    private InteractionDetect interactionDetect;
+    private UIIngame uIIngame;
 
     // 2 == 정상, 1 == 손상,  0 == 제거
     private int[] healthPoint = new int[System.Enum.GetValues(typeof(IdealBodyPart)).Length];
@@ -47,6 +48,11 @@ public class HealthPointManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        uIHealthPoint = scriptHub.uIHealthPoint;
+        firstPersonController = scriptHub.firstPersonController;
+        uIMoveSetting = scriptHub.uIMoveSetting;
+        interactionDetect = scriptHub.interactionDetect;
+        uIIngame = scriptHub.uIIngame;
         Init();
     }
 

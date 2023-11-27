@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionDetect : MonoBehaviour
 {
     [SerializeField]
+    private ScriptHub scriptHub;
     private Camera playerCamera;
 
     private float maxDistance = 3.0f;
@@ -19,14 +20,18 @@ public class InteractionDetect : MonoBehaviour
     private GameObject oldGameObject = null;
 
     private Coroutine interactionCoroutine;
-    [SerializeField] private UIInteraction uIInteraction;
+    private UIInteraction uIInteraction;
 
     public float requiredTimeRatio = 1.0f;
 
-    void Update(){
+    void Awake(){
+        playerCamera = scriptHub.playerCamera;
+        uIInteraction = scriptHub.uIInteraction;
+    }
 
+    void Update(){
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
-        if(Physics.SphereCast(transform.position, sphereRadius, playerVector, out hit, maxDistance)){
+        if(Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerVector, out hit, maxDistance)){
             // SphereCast에 감지된 경우
             Transform objectHit = hit.transform;
             newGameObject = hit.transform.gameObject;

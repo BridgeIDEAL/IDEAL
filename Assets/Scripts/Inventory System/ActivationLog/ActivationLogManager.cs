@@ -13,19 +13,22 @@ public class ActivationLogManager : MonoBehaviour
         }
     }
 
-    [SerializeField] ActivationLogData activationLogData;
-    [SerializeField] UIActivationLogManager uIActivationLogManager;
+    [SerializeField] private ScriptHub scriptHub;
+    private ActivationLogData activationLogData;
+    private UIActivationLogManager uIActivationLogManager;
 
     private List<int> activationLogList = new List<int>();
 
     void Awake(){
         if(instance == null){
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);
         }
+
+        activationLogData = scriptHub.activationLogData;
+        uIActivationLogManager = scriptHub.uIActivationLogManager;
 
         activationLogData.Init();
         activationLogList = new List<int>();

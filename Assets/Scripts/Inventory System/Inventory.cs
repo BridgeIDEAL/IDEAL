@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour
     private int maxCapacity = 32;
 
     [SerializeField]
+    private ScriptHub scriptHub;
     private UIInventory uIInventory; // 연결된 인벤토리 UI
 
     /// <summary> 아이템 목록 </summary>
@@ -73,11 +74,12 @@ public class Inventory : MonoBehaviour
         // Singleton 할당
         if(instance == null){
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);
         }
+
+        uIInventory = scriptHub.uIInventory;
 
         items = new Item[maxCapacity];
         Capacity = initalCapacity;
