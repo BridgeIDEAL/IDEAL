@@ -57,10 +57,13 @@ public class InteractionDetect : MonoBehaviour
             }
 
             if(Input.GetKeyDown(KeyCode.E)){
-                if(interactionCoroutine != null){
+                // 텍스트가 사라지는 중이면 상호작용 불가
+                if(!uIInteraction.textGradiating){
+                    if(interactionCoroutine != null){
                     StopInteractionCoroutine();
-                }
-                interactionCoroutine = StartCoroutine(ActivateInteractionCoroutine(newInteractionObject));
+                    }
+                    interactionCoroutine = StartCoroutine(ActivateInteractionCoroutine(newInteractionObject));
+                }   
             }
             else if(Input.GetKeyUp(KeyCode.E)){
                 if(interactionCoroutine != null){
