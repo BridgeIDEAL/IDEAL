@@ -6,15 +6,16 @@ public class InteractionObject : MonoBehaviour
 {
     [SerializeField] private AbstractInteraction abstractInteraction;
     [SerializeField] private InteractionOutline interactionOutline;
+    [SerializeField] private bool outlineActive = true;
 
     public void DetectedRay(){
         abstractInteraction.DetectedRay();
-        interactionOutline.SetOutlineObject(true);
+        if(outlineActive) interactionOutline.SetOutlineObject(true);
     }
 
     public void OutOfRay(){
         abstractInteraction.OutOfRay();
-        interactionOutline.SetOutlineObject(false);
+        if(outlineActive) interactionOutline.SetOutlineObject(false);
     }
 
     public void DetectedInteraction(){
