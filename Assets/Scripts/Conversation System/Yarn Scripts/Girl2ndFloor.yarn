@@ -1,0 +1,18 @@
+﻿title: Girl2ndFloorStart
+---
+Player: 너가 학생회장이니?
+여학생: ...
+-> Player: 다시 한 번 물어본다.
+    Player: 안녕, 너가 학생회장이니?
+    여학생: 너는 내가 학생회장처럼 보이니?
+    여학생: 눈 좀 똑바로 뜨고 다녀. 내가 도와줄까?
+    <<jump Girl2ndFloorInjuryInvest>>
+-> Player: 상태를 살펴본다.
+    내가 알고있는 학생회장의 특징이 아닌 것 같아.
+===
+title: Girl2ndFloorInjuryInvest
+---
+여학생이 뚜벅뚜벅 걸어온다.
+그리고는 내 눈알 하나를 뽑아서 바닥에 던졌다.
+//머리 손상도 +1
+===
