@@ -1,0 +1,25 @@
+﻿title: SchoolGuard1stFloorStart
+---
+Guard: 자넨 누군가? 처음보는 얼굴인데.
+-> Player: 잠깐 학교 견학 중입니다.
+    Guard: 아, 그런가. 그럼 출입 명부를 작성해야 하는데.
+    Guard: 잠시 수위실로 와주겠나?
+    -> Player: 수위실로 간다.
+        Student: ...
+        // 게임 오버
+        <<GameOver ConversationManager>>
+    -> Player: 가지 않는다.
+        Guard: 명부를 작성하지 않겠다고?
+        Guard: 수상한데, 너 어디에서 왔나.
+        Player: ...
+        // 게임 오버
+        <<GameOver ConversationManager>>
+-> Player: 오늘 전학온 학생입니다.
+    Guard: 아, 그런가. 그런데 왜 여기서 서성이고 있지?
+    Player: 전학 수속때문에 교무센터에 가야 하는데
+    Player: 식사하러 가셨는지 문이 잠겨 있네요.
+    Player: 혹시 잠깐 교무센터 열쇠를 빌려주실 수 있나요?
+    Guard: 흠... 얼른 돌려줘야 하네.
+    // 교무센터 열쇠 획득
+    <<GetTeacherOfficeKey ConversationManager>>
+===

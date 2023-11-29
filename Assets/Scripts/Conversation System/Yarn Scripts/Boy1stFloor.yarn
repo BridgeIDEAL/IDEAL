@@ -1,0 +1,27 @@
+﻿title: Boy1stFloorStart
+---
+남학생: ...
+Player: 어디를 살펴볼까?
+-> Player: 왼손을 살펴본다.
+    남학생의 왼손은 심하게 그을려 있다.
+    남학생: ...
+    남학생: 너도 똑같이 만들어 줄게.
+    <<jump Boy1stFloorInjuryLeftArm>>
+-> Player: 오른발을 살펴본다.
+    남학생의 오른발이 시퍼렇게 멍들어 부어 있다.
+    남학생: ...
+    남학생: 너도 똑같이 만들어 줄게.
+    <<jump Boy1stFloorInjuryRightLeg>>
+===
+title: Boy1stFloorInjuryLeftArm
+---
+남학생이 팔을 잡아챘다.
+// 왼팔 손상도 +1
+<<HurtLeftArm ConversationManager>>
+===
+title: Boy1stFloorInjuryRightLeg
+---
+남학생이 다리를 발로 걷어찼다.
+// 오른다리 손상도 +1
+<<HurtRightLeg ConversationManager>>
+===
