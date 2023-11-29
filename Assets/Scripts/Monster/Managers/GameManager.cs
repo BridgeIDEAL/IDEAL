@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     //Resource
     private ResourceManager resource = new ResourceManager();
     public static ResourceManager Resource { get { return Instance.resource; } }
+    private SoundManager sound = new SoundManager();
+    public static SoundManager Sound { get { return Instance.sound; } }
     #endregion
     private void Awake()
     {
@@ -30,7 +32,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameManagerObject);
         }
         Data.Init();
-        FSM.Init(); 
+        FSM.Init();
+        Sound.Init();
     }
 
     private void Update()
@@ -40,6 +43,6 @@ public class GameManager : MonoBehaviour
 
     public void Clear()
     {
-
+        Sound.Clear();
     }
 }
