@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractionGetItem : AbstractInteraction
 {
     [SerializeField] private InteractionItemData interactionItemData;
-    [SerializeField] private string itemName;
+    [SerializeField] private string detectedStr;
     [SerializeField] private string afterInteractionStr = "";
     [SerializeField] private int activationLogNum = -1;
     [SerializeField] private float requiredTime = 1.0f;
@@ -13,7 +13,7 @@ public class InteractionGetItem : AbstractInteraction
     public override float RequiredTime { get => requiredTime;}
 
     protected override string GetDetectedString(){
-        return $"<sprite=0> {itemName}을(를) 획득한다.";
+        return $"<sprite=0> {detectedStr}";
     }
 
     protected override void ActInteraction(){
