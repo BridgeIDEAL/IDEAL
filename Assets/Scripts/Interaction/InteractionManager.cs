@@ -14,7 +14,8 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    
+    public UIInteraction uIInteraction;
+
     [SerializeField]
     private GameObject timerStartObject;
 

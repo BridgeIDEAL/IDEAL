@@ -204,7 +204,7 @@ public class UIInventory : MonoBehaviour
 
     /// <summary> 툴팁 UI의 슬롯 데이터 갱신 </summary>
     private void UpdateTooltipUI(UIItemSlot slot){
-        if(!slot.IsAccessible || !slot.HasItem){
+        if(!slot.HasItem){
             return;
         }
 

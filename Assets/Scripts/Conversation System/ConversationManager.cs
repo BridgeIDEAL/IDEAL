@@ -10,6 +10,12 @@ public class ConversationManager : MonoBehaviour
     private FirstPersonController firstPersonController;
 
     [SerializeField] private LineView lineView;
+
+
+    [Space(8)]
+    [SerializeField] private InteractionItemData teacherCenterKey;
+    
+    [SerializeField] private InteractionItemData roofTopKey;
     private int normalTypingSpeed = 20;
     private int acceleratedTypingSpeed = 40;
     
@@ -95,14 +101,12 @@ public class ConversationManager : MonoBehaviour
     #region GetItem
     [YarnCommand("GetTeacherCenterKey")]
     public void GetTeacherCenterKey(){
-        // TO DO
-        // 교무실 열쇠 아이템 코드 생성 후 처리
+        Inventory.Instance.Add(teacherCenterKey, 1);
     }
     
     [YarnCommand("GetRoofTopKey")]
     public void GetRoofTopKey(){
-        // TO DO
-        // 옥상 열쇠 아이템 코드 생성 후 처리
+        Inventory.Instance.Add(roofTopKey, 1);
     }
 
     #endregion

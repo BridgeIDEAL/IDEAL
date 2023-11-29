@@ -53,7 +53,8 @@ public class Inventory : MonoBehaviour
     /// <summary> 아이템 데이터 타입별 정렬 가중치 </summary>
     private readonly static Dictionary<Type, int> sortWeightDict = new Dictionary<Type, int>{
         {typeof(PortionItemData), 10000},
-        {typeof(FlashlightItemData), 20000}
+        {typeof(FlashlightItemData), 20000},
+        {typeof(InteractionItemData), 30000}
     };
 
     private class ItemComparer : IComparer<Item>{

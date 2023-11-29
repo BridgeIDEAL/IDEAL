@@ -77,7 +77,7 @@ public class UIItemSlot : MonoBehaviour
     private bool isAccessibleItem = true;
 
     /// <summary> 비활성화된 아이콘 색상 </summary>
-    private static readonly Color InaccessibleIconColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+    private static readonly Color InaccessibleIconColor = new Color(1.0f, 1.0f, 1.0f, 0.9f);
 
     #endregion
 
@@ -152,17 +152,19 @@ public class UIItemSlot : MonoBehaviour
 
     /// <summary> 아이템 활성화 비활성화 여부 설정 </summary>
     public void SetItemAccessibleState(bool value){
-        if(isAccessibleItem == value) return;
-        if(value){
-            iconImage.color = Color.white;
-            amountText.color = Color.white;
-            nameText.color = Color.white;
-        }
-        else{
-            iconImage.color = InaccessibleIconColor;
-            amountText.color = InaccessibleIconColor;
-            nameText.color = InaccessibleIconColor;
-        }
+        // 현재는 accessible이 인벤토리에서 사용 가능한지 안한지만 다루므로 아래 주석처리
+        // 이후 accessible이 다른 기능으로 활용되면 사용 필요할 수도 있음
+        // if(isAccessibleItem == value) return;
+        // if(value){
+        //     iconImage.color = Color.white;
+        //     amountText.color = Color.white;
+        //     nameText.color = Color.white;
+        // }
+        // else{
+        //     iconImage.color = InaccessibleIconColor;
+        //     amountText.color = InaccessibleIconColor;
+        //     nameText.color = InaccessibleIconColor;
+        // }
 
         isAccessibleItem = value;
     }
