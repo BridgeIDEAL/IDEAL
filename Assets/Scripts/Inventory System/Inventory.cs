@@ -146,6 +146,14 @@ public class Inventory : MonoBehaviour
             uIInventory.SetItemIcon(index, item.Data.IconSprite);
             uIInventory.SetItemName(index, item.Data.Name);
 
+            // 인벤토리 UI 에서 사용 불가능한 아이템 처리해주기
+            if(item is INotUseInventoryUI){
+                uIInventory.SetItemAccessibleState(index, false);
+            }
+            else{
+                uIInventory.SetItemAccessibleState(index, true);
+            }
+
             // 1-1. 셀 수 있는 아이템
             if(item is CountableItem ci){
                 // 1-1-1. 수량이 0인 경우, 아이템 제거

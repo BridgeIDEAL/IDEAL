@@ -164,7 +164,7 @@ public class UIInventory : MonoBehaviour
     private void ShowOrHideItemTooltip(){
         // 마우스가 유효한 아이템 아이콘 위에 올라와 있다면 툴팁 보여주기
         bool isValid =
-            pointerOverSlot != null && pointerOverSlot.HasItem && pointerOverSlot.IsAccessible;
+            pointerOverSlot != null && pointerOverSlot.HasItem; // IsAccessible이 해당 아이템을 인벤토리 창에서 사용하나 불가능 하나로 작동
 
         if (isValid){
             UpdateTooltipUI(pointerOverSlot);
@@ -270,6 +270,10 @@ public class UIInventory : MonoBehaviour
         for(int i = 0; i < verticalSlotCount; i++){
             slotUIList[i].HideHighlight();
         }
+    }
+
+    public void SetItemAccessibleState(int index, bool active){
+        slotUIList[index].SetItemAccessibleState(active);
     }
     
 

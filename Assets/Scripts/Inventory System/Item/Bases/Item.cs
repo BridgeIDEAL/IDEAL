@@ -21,3 +21,7 @@ public interface IUsableItem {
     // 아이템 사용 : 성공여부 리턴
     bool Use();
 }
+
+public interface INotUseInventoryUI{
+    // InventoryUI에서 사용 불가능한지 표시해주는 용도
+}
