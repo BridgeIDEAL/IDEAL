@@ -40,3 +40,10 @@ public enum EventType
     FailInteraction, // 실패해도 쫓아오지 않는 개체
     ChaseInteraction // 실패하면 쫓아오는 개체
 }
+
+public enum SoundType
+{
+    Ambience,
+    Effect,
+    MaxSoundCnt
+}
