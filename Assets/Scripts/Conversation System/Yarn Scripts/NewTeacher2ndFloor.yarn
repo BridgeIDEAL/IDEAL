@@ -10,10 +10,16 @@ NewTeacher: 어머! 무슨일이니? 도와줄까?
     -> Player: 혹시 5교시 수업이 뭔가요?
         NewTeacher: 뭐?
         NewTeacher: ...
+        <<wait 2>>
+        // 텍스트 타이핑 속도 증가
+        <<AccelerateTypeSpeed ConversationManager>>
         NewTeacher: 너는눈이없니손이없니저기에붙어있는시간표는왜안보는거니그걸안보고선생님한테물어보면선생님이화가나겠니안나겠니도대체어떡하려고이러니!
+        // 텍스트 타이핑 속도 정상화
+        <<NormalTypeSpeed ConversationManager>>
         NewTeacher: 안되겠다. 손바닥 대.
         그리고 선생님은 회초리로 손바닥을 때렸다.
         //양 팔 손상도 +1
+        <<HurtBothArm ConversationManager>>
         손바닥에서 약간 탄 냄새가 나는 것 같다.
     -> Player: 혹시 5교시 수업을 어디서 하나요?
         NewTeacher: 뭐?

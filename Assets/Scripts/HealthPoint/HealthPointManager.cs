@@ -61,7 +61,7 @@ public class HealthPointManager : MonoBehaviour
             healthPoint[i] = maxHP;
         }
     }
-    private int GetHealthPoint(IdealBodyPart idealBodyPart){
+    public int GetHealthPoint(IdealBodyPart idealBodyPart){
         return healthPoint[(int)idealBodyPart];
     }
 
