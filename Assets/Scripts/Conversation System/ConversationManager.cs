@@ -93,8 +93,8 @@ public class ConversationManager : MonoBehaviour
     #endregion
 
     #region GetItem
-    [YarnCommand("GetTeacherOfficeKey")]
-    public void GetTeacherOfficeKey(){
+    [YarnCommand("GetTeacherCenterKey")]
+    public void GetTeacherCenterKey(){
         // TO DO
         // 교무실 열쇠 아이템 코드 생성 후 처리
     }
