@@ -46,12 +46,22 @@ public class ConversationManager : MonoBehaviour
     }
     #endregion
 
+    #region Interaction
     [YarnCommand("GameOver")]
     public void GameOver(){
         // TO DO
         // 게임 오버 처리 필요
         Debug.Log("======== Game Over ========");
     }
+
+    [YarnCommand("ChalkBoardSuccess")]
+    public void ChalkBoardSuccess(){
+        // TO DO
+        // 2층 자습실 성공 처리 필요
+        Debug.Log("======== Success ChalkBoard");
+    }
+
+    #endregion
 
     #region HurtBodyPart
     [YarnCommand("HurtArm")]
