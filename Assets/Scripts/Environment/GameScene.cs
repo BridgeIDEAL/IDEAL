@@ -10,6 +10,6 @@ public class GameScene : MonoBehaviour
     }
     public void Init()
     {
-        GameManager.Sound.PlaySound("ClassRoomWav",SoundType.Ambience);
+        //GameManager.Sound.PlaySound("ClassRoomWav",SoundType.Ambience);
     }
 }
