@@ -8,7 +8,6 @@ namespace DTypeStates
     {
         public override void Enter(DType entity)
         {
-            Debug.Log("무관심 상태이다.");
             entity.SetAnimation(entity.CurrentType);
         }
 

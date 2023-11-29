@@ -2,11 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager 
+public class SoundManager : MonoBehaviour
 {
     AudioSource[] audioSource = new AudioSource[(int)SoundType.MaxSoundCnt];
     Dictionary<string, AudioClip> audioClipDic= new Dictionary<string,AudioClip>();
-    
+
+    public static SoundManager instance;
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        Init();
+    }
+
     public void Init() // Sound 게임오브젝트와 존재하는 사운드들을 재생할 게임 오브젝트들을 생성
     {
         GameObject root = GameObject.Find("Sound");

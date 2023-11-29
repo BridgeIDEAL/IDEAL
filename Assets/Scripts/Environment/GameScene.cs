@@ -10,6 +10,13 @@ public class GameScene : MonoBehaviour
     }
     public void Init()
     {
+        SoundManager.instance.PlaySound("ClassRoomWav", SoundType.Ambience);
         //GameManager.Sound.PlaySound("ClassRoomWav",SoundType.Ambience);
+    }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S)|| Input.GetKeyDown(KeyCode.D))
+            SoundManager.instance.PlaySound("WoodFootWav");
     }
 }

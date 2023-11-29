@@ -11,7 +11,7 @@ public class EntityEventManager
 
     public void Init()
     {
-
+        
     }
    
     public void SendMessage(EventType eventType, GameObject interactionObject = null) // 어떤 상태이든 이벤트 메시지를 받으면 해당 이벤트를 수행
@@ -23,15 +23,23 @@ public class EntityEventManager
                 RestAction.Invoke();
                 break;
             case EventType.StartInteraction:
+                if (entity == null)
+                    return;
                 StartAction(entity.ID);
                 break;
             case EventType.SuccessInteraction: // 상호작용 성공 시
+                if (entity == null)
+                    return;
                 SuccessAction(entity.ID);
                 break;
             case EventType.FailInteraction: // 상호작용 실패 시
+                if (entity == null)
+                    return;
                 FailAction(entity.ID);
                 break;
             case EventType.ChaseInteraction: // 상호작용 실패 시
+                if (entity == null)
+                    return;
                 ChaseAction(entity.ID);
                 break;
         }

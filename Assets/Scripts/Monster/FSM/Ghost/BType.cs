@@ -13,9 +13,8 @@ public class BType : BaseEntity
     {
         //base.Setup();
         nav.speed = stat.speed;
-        speed = stat.speed;
-        InitTransform.position = stat.initTransform;
-        InitTransform.eulerAngles = stat.initRotation;
+        //InitTransform.position = stat.initTransform;
+        //InitTransform.eulerAngles = stat.initRotation;
         gameObject.name = stat.name;
         CurrentType = BTypeEntityStates.Indifference;
         states = new State<BType>[4];
@@ -26,14 +25,13 @@ public class BType : BaseEntity
         stateMachine = new StateMachine<BType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = speed;
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void RestInteraction()
     {
-        transform.position = InitTransform.position;
-        nav.SetDestination(InitTransform.position);
+        //transform.position = InitTransform.position;
+        //nav.SetDestination(InitTransform.position);
         ChangeState(BTypeEntityStates.Indifference);
     }
     public override void StartInteraction() { ChangeState(BTypeEntityStates.Interaction); }
@@ -51,6 +49,6 @@ public class BType : BaseEntity
     {
         Vector3 dir = playerObject.transform.position - transform.position;
         nav.SetDestination(playerObject.transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), lookSpeed * Time.deltaTime);
     }
 }
