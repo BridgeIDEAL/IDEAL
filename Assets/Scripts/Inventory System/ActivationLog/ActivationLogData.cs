@@ -27,9 +27,11 @@ public class ActivationLogData : MonoBehaviour
         //// ------- 플레이어 상태 관련     1001 부터 1999까지 할당
         /// --------  정신상태 양호 1001부터 1199까지
         activationLogDictionary.Add(1001, new ActivationLog(1001, "팔이 욱씬거린다.", "팔 손상, 정신 상태 양호"));
+        activationLogDictionary.Add(1002, new ActivationLog(1002, "손바닥에서 약간 탄 냄새가 나는 것 같다.", "양손 1씩 손상"));
+
 
         /// -------- 정신상태 불안정 1201부터 1399까지
-        activationLogDictionary.Add(1002, new ActivationLog(1201, "눈 두 개 다리 두 개 팔 하나. 다 있다.", "팔 손상, 정신상태 불안정"));
+        activationLogDictionary.Add(1201, new ActivationLog(1201, "눈 두 개 다리 두 개 팔 하나. 다 있다.", "팔 손상, 정신상태 불안정"));
 
 
 
