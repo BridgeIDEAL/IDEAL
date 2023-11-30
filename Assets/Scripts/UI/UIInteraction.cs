@@ -56,6 +56,7 @@ public class UIInteraction : MonoBehaviour
         }
         textGradiating = false;
         SetTextActive(false);
+        SetTextContents("");
         interactionText.alpha = 1.0f;
     }
     
