@@ -98,6 +98,12 @@ public class ConversationManager : MonoBehaviour
         GameOverManager.Instance.GameOver($"이후 {attempts}번 실종자는 수색 중 잠든 채로 발견. 현재 157시간 동안 눈을 뜨지 않음");
     }
 
+    [YarnCommand("GameOver_Out")]
+    public void GameOver_Out(){
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        GameOverManager.Instance.GameOver($"{attempts}번 실종자는 수색 중 학교 옥상에서 발견, 구출 성공");
+    }
+
     [YarnCommand("ChalkBoardSuccess")]
     public void ChalkBoardSuccess(){
         // TO DO
