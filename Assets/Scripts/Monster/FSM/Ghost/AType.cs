@@ -10,14 +10,14 @@ public class AType : BaseEntity
     Animator anim;
     public ATypeEntityStates CurrentType { private set; get; }
     public override void Setup(MonsterData.MonsterStat stat)
-    {
+    {   
+        // add component
+        anim = GetComponent<Animator>();
         // set information
         playerObject = GameObject.FindGameObjectWithTag("Player");
         transform.position = stat.initTransform;
         transform.eulerAngles = stat.initRotation;
         gameObject.name = stat.name;
-        // add component
-        anim = GetComponent<Animator>();
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[2];

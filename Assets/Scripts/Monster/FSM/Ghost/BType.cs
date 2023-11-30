@@ -11,6 +11,7 @@ public class BType : BaseEntity
     public BTypeEntityStates CurrentType { private set; get; }
     public override void Setup(MonsterData.MonsterStat stat)
     {
+        nav = GetComponent<NavMeshAgent>();
         //base.Setup();
         nav.speed = stat.speed;
         //InitTransform.position = stat.initTransform;
@@ -24,7 +25,7 @@ public class BType : BaseEntity
         states[(int)BTypeEntityStates.Chase] = new BTypeStates.Chase();
         stateMachine = new StateMachine<BType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
-        nav = GetComponent<NavMeshAgent>();
+   
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
