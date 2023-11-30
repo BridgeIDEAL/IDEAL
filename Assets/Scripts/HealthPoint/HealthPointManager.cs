@@ -66,6 +66,7 @@ public class HealthPointManager : MonoBehaviour
     }
 
     public void Hurt(IdealBodyPart idealBodyPart, int damage){
+        if(damage > 0) uIIngame.HurtEffect();
         int bodyNum = (int)idealBodyPart;
         healthPoint[bodyNum] -= damage;
         if(healthPoint[bodyNum] < minHP) healthPoint[bodyNum] = minHP;
