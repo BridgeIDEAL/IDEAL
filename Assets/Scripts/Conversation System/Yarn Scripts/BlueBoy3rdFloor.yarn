@@ -3,23 +3,23 @@
 ...
 가까이서 보니 온몸에 시퍼런 멍이 들었다.
 -> Player: 괜찮니?
-    BlueBoy: ...
+    멍이 든 학생: ...
     Player: 좀 도와줄까?
-    BlueBoy: 진짜...?
+    멍이 든 학생: 진짜...?
     Player: 응. 어떤거 도와줄까? 말만 해.
-    BlueBoy: 그럼 너가...
-    BlueBoy: 나 대신 좀 맞아줘.
-    // 게임 오버
-    <<GameOver ConversationManager>>
+    멍이 든 학생: 그럼 너가...
+    멍이 든 학생: 나 대신 좀 맞아줘.
+    // 게임 오버 - 이후 끌려간 n번 실종자는 학교 구석에서 온몸이 짓뭉개진 채 발견됨.
+    <<GameOver_1 ConversationManager>>
 -> Player: 주먹으로 한 대 쳐본다.
-    BlueBoy: 으아악! 미안해...
-    BlueBoy: 미안... 어떤 게 필요해..?
+    멍이 든 학생: 으아악! 미안해...
+    멍이 든 학생: 미안... 어떤 게 필요해..?
     -> Player: 팔에 감을 붕대 있어?
-        BlueBoy: 아, 응. 여기...
-        팔에 손상을 입었다.
-        <<HurtArm ConversationManager>>
+        멍이 든 학생: 아, 응. 여기...
+        팔을 회복했다.
+        <<HealArm ConversationManager>>
     -> Player: 다리에 감을 붕대 있어?
-        BlueBoy: 아, 응. 여기...
-        다리에 손상을 입었다.
-        <<HurtLeg ConversationManager>>
+        멍이 든 학생: 아, 응. 여기...
+        다리를 회복했다.
+        <<HealLeg ConversationManager>>
 ===

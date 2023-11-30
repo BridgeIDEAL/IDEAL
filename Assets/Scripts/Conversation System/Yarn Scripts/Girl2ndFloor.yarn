@@ -6,14 +6,11 @@ Player: 너가 학생회장이니?
     Player: 안녕, 너가 학생회장이니?
     여학생: 너는 내가 학생회장처럼 보이니?
     여학생: 눈 좀 똑바로 뜨고 다녀. 내가 도와줄까?
-    <<jump Girl2ndFloorInjuryInvest>>
+    // 아래는 제대로 된 값을 받아오는 처리 이후 필요 yarn spinner가 구리다 ㅡㅡ
+    <<declare $attempt = "n">>
+    이후 여학생은 $attempt번 실종자의 한쪽 눈알을 뽑아서 바닥에 던졌다.
+    머리에 손상을 입었다.
+    <<HurtHead ConversationManager>>
 -> Player: 상태를 살펴본다.
     내가 알고있는 학생회장의 특징이 아닌 것 같아.
-===
-title: Girl2ndFloorInjuryInvest
----
-여학생이 뚜벅뚜벅 걸어온다.
-그리고는 내 눈알 하나를 뽑아서 바닥에 던졌다.
-머리에 손상을 입었다.
-<<HurtHead ConversationManager>>
 ===

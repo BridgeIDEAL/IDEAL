@@ -1,35 +1,35 @@
 ﻿title: NewTeacher2ndFloorStart
 ---
-NewTeacher: ...
-NewTeacher: ...
-NewTeacher: ...
-NewTeacher: 어머! 무슨일이니? 도와줄까?
+교생 선생님: ...
+교생 선생님: ...
+교생 선생님: ...
+교생 선생님: 어머! 무슨일이니? 도와줄까?
 -> 도움을 요청한다.
     Player: 안녕하세요. 하나만 여쭤봐도 될까요?
-    NewTeacher: 어머 그래 어떤게 궁금하니?
+    교생 선생님: 어머 그래 어떤게 궁금하니?
     -> Player: 혹시 5교시 수업이 뭔가요?
-        NewTeacher: 뭐?
-        NewTeacher: ...
+        교생 선생님: 뭐?
+        교생 선생님: ...
         <<wait 2>>
         // 텍스트 타이핑 속도 증가
         <<AccelerateTypeSpeed ConversationManager>>
-        NewTeacher: 너는눈이없니손이없니저기에붙어있는시간표는왜안보는거니그걸안보고선생님한테물어보면선생님이화가나겠니안나겠니도대체어떡하려고이러니!
+        교생 선생님: 너는눈이없니손이없니저기에붙어있는시간표는왜안보는거니그걸안보고선생님한테물어보면선생님이화가나겠니안나겠니도대체어떡하려고이러니!
         // 텍스트 타이핑 속도 정상화
         <<NormalTypeSpeed ConversationManager>>
-        NewTeacher: 안되겠다. 손바닥 대.
+        교생 선생님: 안되겠다. 손바닥 대.
         그리고 선생님은 회초리로 손바닥을 때렸다.
-        양팔에 손상을 입었다.
+        이후 교생 선생님은 n번 실종자의 손바닥을 수차례 가격했다.
         <<HurtBothArm ConversationManager>>
-        손바닥에서 약간 탄 냄새가 나는 것 같다.
+        <<HurtBothArmLog ConversationManager>>
     -> Player: 혹시 5교시 수업을 어디서 하나요?
-        NewTeacher: 뭐?
-        NewTeacher: 수업을 어디서 하는지도 모른다고?
+        교생 선생님: 뭐?
+        교생 선생님: 수업을 어디서 하는지도 모른다고?
         Player: 앗, 죄송해요. 어제 전학와서요.
-        NewTeacher: 아, 아, 어머머! 그랬구나~ 미안하다. 몰랐네 선생님이.
-        NewTeacher: 5교시 수업은 자습실에서 할 거야~
-        NewTeacher: 아, 혹시 교실 칠판에 자습실이라고 적어놔줄래?
+        교생 선생님: 아, 아, 어머머! 그랬구나~ 미안하다. 몰랐네 선생님이.
+        교생 선생님: 5교시 수업은 자습실에서 할 거야~
+        교생 선생님: 아, 혹시 교실 칠판에 자습실이라고 적어놔줄래?
         Player: 네 알겠습니다 선생님.
 -> 인사만 하고 물러난다.
     Player: 아니에요. 괜찮습니다.
-    NewTeacher: 어라, 그러니? 그래 알겠다~
+    교생 선생님: 어라, 그러니? 그래 알겠다~
 ===
