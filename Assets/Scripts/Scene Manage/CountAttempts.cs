@@ -16,7 +16,7 @@ public class CountAttempts : MonoBehaviour
     private int attemptCount = 0;
 
     private void Awake(){
-        if(instance == null){
+        if(Instance == null){
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }

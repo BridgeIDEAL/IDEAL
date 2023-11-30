@@ -46,7 +46,8 @@ public class GameManager : MonoBehaviour
         {
             GameObject gameManagerObject = GameObject.Find("GameManager");
             instance = gameManagerObject.GetComponent<GameManager>();
-            DontDestroyOnLoad(gameManagerObject);
+            // 일단은 없애고 이후 생각
+            // DontDestroyOnLoad(gameManagerObject);
         }
         AllocateScripts();
         InitScripts();
