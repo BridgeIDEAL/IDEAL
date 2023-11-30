@@ -5,25 +5,26 @@ using UnityEngine.AI;
 
 public class AType : BaseEntity
 {
-    NavMeshAgent nav;
     State<AType>[] states;
     StateMachine<AType> stateMachine;
+    Animator anim;
     public ATypeEntityStates CurrentType { private set; get; }
     public override void Setup(MonsterData.MonsterStat stat)
     {
-        //base.Setup();
-        nav.speed = stat.speed;
-        speed = stat.speed;
-        InitTransform.position = stat.initTransform;
-        InitTransform.eulerAngles = stat.initRotation;
+        // set information
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        transform.position = stat.initTransform;
+        transform.eulerAngles = stat.initRotation;
         gameObject.name = stat.name;
+        // add component
+        anim = GetComponent<Animator>();
+        // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[2];
         states[(int)ATypeEntityStates.Indifference] = new ATypeStates.Indifference();
         states[(int)ATypeEntityStates.Interaction] = new ATypeStates.Interaction();
         stateMachine = new StateMachine<AType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
-        nav = GetComponent<NavMeshAgent>();
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
@@ -36,5 +37,17 @@ public class AType : BaseEntity
     {
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
+    }
+    public void SetAnimation(ATypeEntityStates entityAnim)
+    {
+        switch (entityAnim)
+        {
+            case ATypeEntityStates.Indifference:
+                anim.CrossFade("IDLE", 0.2f);
+                break;
+            case ATypeEntityStates.Interaction:
+                anim.CrossFade("IDLE", 0.2f);
+                break;
+        }
     }
 }

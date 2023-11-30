@@ -4,7 +4,6 @@ using UnityEditor;
 public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
-    public Transform InitTransform;
     public int ID { get; set; }
     public bool CanInteraction { get; set; } = true;
     public float sightDistance;
@@ -12,7 +11,7 @@ public abstract class BaseEntity : MonoBehaviour
     protected bool findPlayer = false;
     protected LayerMask playerMask = 1<<3;
     public GameObject playerObject;
-    public float speed;
+    protected float lookSpeed = 2f;
     #endregion
 
     public virtual void Setup(MonsterData.MonsterStat stat) {}
@@ -59,14 +58,5 @@ public abstract class BaseEntity : MonoBehaviour
             return true;
         else
             return false;
-    }
-
-    protected virtual void OnDrawGizmos()
-    {
-        //Handles.color = (findPlayer)?Color.red:Color.blue;
-        //// 시작점, 노말벡터(법선벡터), 방향, 각도, 반지름
-        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, sightAngle / 2, sightDistance);
-        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -sightAngle / 2, sightDistance);
-        
     }
 }

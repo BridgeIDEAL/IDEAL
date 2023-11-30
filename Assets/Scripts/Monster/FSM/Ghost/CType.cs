@@ -13,9 +13,6 @@ public class CType : BaseEntity
     {
         //base.Setup();
         nav.speed = stat.speed;
-        speed = stat.speed;
-        InitTransform.position = stat.initTransform;
-        InitTransform.eulerAngles = stat.initRotation;
         gameObject.name = stat.name;
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[3];
@@ -25,14 +22,13 @@ public class CType : BaseEntity
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = speed;
     }
 
     public override void UpdateBehavior(){stateMachine.Execute();}
     public override void RestInteraction()
     {
-        transform.position = InitTransform.position;
-        nav.SetDestination(InitTransform.position);
+        //transform.position = InitTransform.position;
+        //nav.SetDestination(InitTransform.position);
         ChangeState(CTypeEntityStates.Indifference);
     }
     public override void StartInteraction() { ChangeState(CTypeEntityStates.Interaction); }
@@ -49,7 +45,7 @@ public class CType : BaseEntity
         float dist = (playerObject.transform.position - transform.position).magnitude;
         Vector3 dir = playerObject.transform.position - transform.position;
         if (sightDistance >= dist)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), lookSpeed * Time.deltaTime);
         else
             ChangeState(CTypeEntityStates.Indifference);
     }

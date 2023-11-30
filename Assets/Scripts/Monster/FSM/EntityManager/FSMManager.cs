@@ -6,39 +6,36 @@ public class FSMManager
 {
     private List<BaseEntity> entityList;
     private Dictionary<int, BaseEntity> entityDictionary;
-    private static int spawnID = 101;
     public void Init()
     {
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<int, BaseEntity>();
-        Spawn<DType>();
+        foreach(MonsterData.MonsterStat stat in GameManager.Data.monsterInfoDict.Values){ Spawn<BaseEntity>(stat); }     
         GameManager.EntityEvent.RestAction += RestActionUpdate;
         GameManager.EntityEvent.StartAction += StartActionUpdate;
         GameManager.EntityEvent.SuccessAction += SuccessActionUpdate;
         GameManager.EntityEvent.FailAction += FailActionUpdate;
         GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
-        Debug.Log(entityList.Count);
     }
 
-    void Spawn<T>() where T : BaseEntity
+    void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
-        MonsterData.MonsterStat stat= GameManager.Data.monsterInfoDict[spawnID];
         GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.name}"));
         T type = go.GetComponentInChildren<T>();
         type.Setup(stat);
         entityList.Add(type);
+        type.ID = stat.monsterID;
         entityDictionary.Add(type.ID, type);
-        spawnID += 1;
     }
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
     
-    private void RestActionUpdate()
+    private void RestActionUpdate() // 휴식 공간 진입 시
     {
         foreach(KeyValuePair<int,BaseEntity> entities in entityDictionary)
         {
             entities.Value.RestInteraction();
-            entities.Value.CanInteraction = true;
+            entities.Value.CanInteraction = true; // 어그로 해제
         }
     }
     
@@ -67,6 +64,7 @@ public class FSMManager
             entities.Value.CanInteraction = true;
         }
     }
+
     private void ChaseActionUpdate(int _ID)
     {
         foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
