@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
+using Yarn.Unity;
 
 public class ScriptHub : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class ScriptHub : MonoBehaviour
     public HealthPointManager healthPointManager;
     public EquipmentManager equipmentManager;
     public ConversationManager conversationManager;
+    public DialogueRunner dialogueRunner;
     
 
 }

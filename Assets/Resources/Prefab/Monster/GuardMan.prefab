@@ -1658,7 +1658,10 @@ GameObject:
   - component: {fileID: 906639177531747789}
   - component: {fileID: 5916996616153327028}
   - component: {fileID: 6650563279341233428}
-  m_Layer: 0
+  - component: {fileID: 8454958659478929593}
+  - component: {fileID: 8749104403187724167}
+  - component: {fileID: 5997835484015184462}
+  m_Layer: 6
   m_Name: GuardMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1770,6 +1773,51 @@ MonoBehaviour:
   sightDistance: 0
   sightAngle: 0
   playerObject: {fileID: 0}
+--- !u!114 &8454958659478929593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6663753518538831593}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+--- !u!114 &8749104403187724167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6663753518538831593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 5997835484015184462}
+  interactionOutline: {fileID: 8454958659478929593}
+  outlineActive: 0
+--- !u!114 &5997835484015184462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6663753518538831593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueRunner: {fileID: 0}
+  detectedStr: GuardMan
+  dialogueName: SchoolGuard1stFloorStart
 --- !u!1 &6672392954137553384
 GameObject:
   m_ObjectHideFlags: 0

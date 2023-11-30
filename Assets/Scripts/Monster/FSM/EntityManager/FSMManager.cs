@@ -26,16 +26,24 @@ public class FSMManager
         entityList.Add(type);
         type.ID = stat.monsterID;
         entityDictionary.Add(type.ID, type);
+
+        InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();
+        if(interactionConversation != null){
+            interactionConversation.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
+            interactionConversation.detectedStr = stat.detectedStr;
+            interactionConversation.dialogueName = stat.dialogueName;
+        }
+
     }
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
     
-    private void RestActionUpdate() // ÈÞ½Ä °ø°£ ÁøÀÔ ½Ã
+    private void RestActionUpdate() // ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     {
         foreach(KeyValuePair<int,BaseEntity> entities in entityDictionary)
         {
             entities.Value.RestInteraction();
-            entities.Value.CanInteraction = true; // ¾î±×·Î ÇØÁ¦
+            entities.Value.CanInteraction = true; // ï¿½ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
     

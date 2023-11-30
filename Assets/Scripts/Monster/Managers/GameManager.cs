@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public static ResourceManager Resource { get { return Instance.resource; } }
 
     // ScriptHub
-    [SerializeField] private ScriptHub scriptHub;
+    public ScriptHub scriptHub;
     // Interaction
     private InteractionManager interactionManager;  // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     private InteractionDetect interactionDetect;    // Monobehaviour, Coroutine을 실행하기 위해

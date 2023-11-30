@@ -5,6 +5,10 @@ using UnityEngine;
 public class InteractionDoor : AbstractInteraction
 {
     [SerializeField] GameObject doorObject;
+    [SerializeField] private Vector3 destPosition;
+    [SerializeField] private float openRequiredTime = 1.0f;
+    private bool isOpen = false;
+    private Coroutine moveCoroutine;
     [SerializeField] private string detectedStr;
     [SerializeField] private string successInteractionStr = "";
     [SerializeField] private string failInteractionStr = "";
@@ -14,6 +18,7 @@ public class InteractionDoor : AbstractInteraction
     public override float RequiredTime { get => 1.0f;}
 
     protected override string GetDetectedString(){
+        if(isOpen) return "";
         return $"<sprite=0> {detectedStr}";
     }
 
@@ -35,6 +40,22 @@ public class InteractionDoor : AbstractInteraction
     }
 
     private void OpenDoor(){
-        doorObject.SetActive(false);
+        isOpen = true;
+        if(moveCoroutine != null){
+            StopCoroutine(moveCoroutine);
+        }
+        moveCoroutine = StartCoroutine(OpenDoorCoroutine());
+    }
+
+    private IEnumerator OpenDoorCoroutine(){
+        Vector3 startPos = doorObject.transform.position;
+        float stepTimer = 0.0f;
+        while(stepTimer <= openRequiredTime){
+            // TO DO
+            // 등속도 운동과 삼각함수 사용한 거 비교해보고 골라보기
+            doorObject.transform.position = Vector3.Lerp(startPos, destPosition, stepTimer/openRequiredTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 }

@@ -8,9 +8,9 @@ public class InteractionDetect : MonoBehaviour
     private ScriptHub scriptHub;
     private Camera playerCamera;
 
-    private float maxDistance = 3.0f;
+    private float maxDistance = 1.5f;
 
-    private float sphereRadius = 0.5f;
+    private float sphereRadius = 0.3f;
 
     private Vector3 playerVector;
 
@@ -31,7 +31,8 @@ public class InteractionDetect : MonoBehaviour
 
     public void GameUpdate(){
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
-        if(Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerVector, out hit, maxDistance)){
+        int layerMask = 1 << LayerMask.NameToLayer("Interaction"); // Interaciton 레이어만 충돌 체크 
+        if(Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerVector, out hit, maxDistance, layerMask)){
             // SphereCast에 감지된 경우
             Transform objectHit = hit.transform;
             newGameObject = hit.transform.gameObject;

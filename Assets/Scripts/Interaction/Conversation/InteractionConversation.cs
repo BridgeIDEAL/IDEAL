@@ -5,16 +5,19 @@ using Yarn.Unity;
 
 public class InteractionConversation : AbstractInteraction
 {
-    [SerializeField] private DialogueRunner dialogueRunner;
-    [SerializeField] private string detectedStr = "";
-    [SerializeField] private string dialogueName = "";
+    public DialogueRunner dialogueRunner;
+    public string detectedStr = "";
+    public string dialogueName = "";
     public override float RequiredTime { get => 1.0f;}
 
     protected override string GetDetectedString(){
+        if(detectedStr == "") return "";
         return $"<sprite=0> {detectedStr}";
     }
 
     protected override void ActInteraction(){
-        dialogueRunner.StartDialogue(dialogueName);
+        if(dialogueName != ""){
+            dialogueRunner.StartDialogue(dialogueName);
+        }
     }
 }

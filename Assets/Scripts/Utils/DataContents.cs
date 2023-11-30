@@ -13,6 +13,8 @@ namespace MonsterData
         public float speed;
         public Vector3 initTransform;
         public Vector3 initRotation;
+        public string detectedStr = "";
+        public string dialogueName = "";
     }
     public class MonsterInfo : ILoader<int, MonsterStat>
     {
