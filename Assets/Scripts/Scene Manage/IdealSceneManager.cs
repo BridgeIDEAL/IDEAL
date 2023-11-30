@@ -25,6 +25,7 @@ public class IdealSceneManager : MonoBehaviour
     public void LoadGameScene(){
         // 현재는 프로토타입 Load
         Cursor.lockState = CursorLockMode.Locked;
+        LoadingImageManager.Instance.ActiveLoadingImage();
         SceneManager.LoadScene("Prototype");
     }
 
