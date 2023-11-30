@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     // ScriptHub
     public ScriptHub scriptHub;
+    // UIManager
+    private UIManager uIManager;
     // Interaction
     private InteractionManager interactionManager;  // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     private InteractionDetect interactionDetect;    // Monobehaviour, Coroutine을 실행하기 위해
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour
     private void InitScripts(){
         Data.Init();
         FSM.Init();
+        // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
+        uIManager.Init();
         inventory.Init(); 
         interactionManager.Init(); 
         interactionDetect.Init();
@@ -83,6 +87,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void AllocateScripts(){
+        uIManager = scriptHub.uIManager;
         interactionManager = scriptHub.interactionManager;
         interactionDetect = scriptHub.interactionDetect;
         inventory = scriptHub.inventory;

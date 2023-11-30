@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
     private UIIngame uIIngame;
 
 
-    void Awake() {
+    public void Init() {
         if(instance == null){
             instance = this;
         }
@@ -57,14 +57,23 @@ public class UIManager : MonoBehaviour
         uIInventory = scriptHub.uIInventory;
         uIIngame = scriptHub.uIIngame;
         
-        for(int i = 0; i < Canvases.Length; i++){
-            // Canvas 별 해당 Canvas가 꺼져 있더라도 Awake 작업을 해야하는 경우가 있으므로
-            // Awake 부분을 따로 함수로 작동해주어도 Canvas가 꺼져 있으면 제대로 Init함수가 작동하지 않는 경우 발생
-            Canvases[i].SetActive(true);
-            Canvases[i].SetActive(false);
-        }
+        StartCoroutine(ActivateCanvasCoroutine());
+
         for(int i = 0; i < UIActives.Length; i++){
             UIActives[i] = false;
+        }
+
+    }
+
+    private IEnumerator ActivateCanvasCoroutine(){
+        // Canvas 별 해당 Canvas가 꺼져 있더라도 Awake 작업을 해야하는 경우가 있으므로
+        // Awake 부분을 따로 함수로 작동해주어도 Canvas가 꺼져 있으면 제대로 Init함수가 작동하지 않는 경우 발생
+        for(int i = 0; i < Canvases.Length; i++){
+            Canvases[i].SetActive(true);
+        }
+        yield return null;
+        for(int i = 0; i < Canvases.Length; i++){
+            Canvases[i].SetActive(false);
         }
 
         SetUIActive(UIType.InteractionUI, true);
@@ -73,6 +82,7 @@ public class UIManager : MonoBehaviour
         SetUIActive(UIType.IngameUI, true);
         uIIngame.SetVisualFilter(0.0f);
 
+        LoadingImageManager.Instance.DeleteLoadingCanvas();
     }
 
     void Update(){
