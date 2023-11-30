@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class AbstractInteraction : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
     public abstract float RequiredTime {get;}
 
     private Coroutine interactionCoroutine;
@@ -20,6 +21,7 @@ public abstract class AbstractInteraction : MonoBehaviour
 
 
     public void DetectedInteraction(){
+        if(audioSource!= null) audioSource.Play();
         ActInteraction();
     }
 
