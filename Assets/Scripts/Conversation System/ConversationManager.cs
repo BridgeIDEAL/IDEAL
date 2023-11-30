@@ -109,6 +109,7 @@ public class ConversationManager : MonoBehaviour
         // TO DO
         // 2층 자습실 성공 처리 필요
         Debug.Log("======== Success ChalkBoard");
+        ActivationLogManager.Instance.AddActivationLog(4105);
     }
 
     [YarnCommand("GetAttemptsCount")]
@@ -195,11 +196,13 @@ public class ConversationManager : MonoBehaviour
     [YarnCommand("GetTeacherCenterKey")]
     public void GetTeacherCenterKey(){
         Inventory.Instance.Add(teacherCenterKey, 1);
+        ActivationLogManager.Instance.AddActivationLog(4101);
     }
     
     [YarnCommand("GetRoofTopKey")]
     public void GetRoofTopKey(){
         Inventory.Instance.Add(roofTopKey, 1);
+        ActivationLogManager.Instance.AddActivationLog(4107);
     }
 
     #endregion

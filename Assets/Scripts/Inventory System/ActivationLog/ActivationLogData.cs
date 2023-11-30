@@ -52,5 +52,18 @@ public class ActivationLogData : MonoBehaviour
         activationLogDictionary.Add(4002, new ActivationLog(4002, "포션을 획득했다.", "포션 획득"));
         activationLogDictionary.Add(4003, new ActivationLog(4003, "포션을 사용했다.", "포션 사용"));
         activationLogDictionary.Add(4004, new ActivationLog(4004, "손전등을 획득했다.", "손전등 획득"));
+
+
+        activationLogDictionary.Add(4101, new ActivationLog(4101, "교무센터 열쇠를 획득했다.", "교무센터 열쇠 획득"));
+        activationLogDictionary.Add(4102, new ActivationLog(4102, "교무센터 열쇠를 사용했다.", "교무센터 열쇠 사용"));
+
+        activationLogDictionary.Add(4103, new ActivationLog(4103, "1학년 교무실 열쇠를 획득했다.", "1학년 교무실 열쇠 획득"));
+        activationLogDictionary.Add(4104, new ActivationLog(4104, "1학년 교무실 열쇠를 사용했다.", "1학년 교무실 열쇠 사용"));
+
+        activationLogDictionary.Add(4105, new ActivationLog(4105, "칠판에 글귀를 작성했다.", "분필로 칠판에 글씨 적음"));
+
+        activationLogDictionary.Add(4106, new ActivationLog(4106, "알코올램프를 획득했다.", "알코올램프 획득"));
+
+        activationLogDictionary.Add(4107, new ActivationLog(4107, "옥상문 열쇠를 획득했다.", "옥상문 열쇠 획득"));
     }
 }
