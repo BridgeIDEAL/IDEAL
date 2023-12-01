@@ -9,6 +9,7 @@ public class InteractionConversation : AbstractInteraction
     public string detectedStr = "";
     public string dialogueName = "";
     public override float RequiredTime { get => 1.0f;}
+    [SerializeField] private bool lookPlayerwithConversation = true;
 
     protected override string GetDetectedString(){
         if(detectedStr == "") return "";
@@ -17,7 +18,13 @@ public class InteractionConversation : AbstractInteraction
 
     protected override void ActInteraction(){
         if(dialogueName != ""){
+            if(lookPlayerwithConversation) LookPlayer();
             dialogueRunner.StartDialogue(dialogueName);
         }
+    }
+
+    private void LookPlayer(){
+        Transform playerTransform = GameObject.Find("PlayerCapsule").transform;
+        this.transform.LookAt(playerTransform);
     }
 }
