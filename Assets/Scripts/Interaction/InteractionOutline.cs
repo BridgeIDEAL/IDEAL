@@ -10,6 +10,7 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
+    [SerializeField] private bool reverseY = false;
 
     private GameObject outlineObject;
     private Renderer outlineRenderer;
@@ -25,6 +26,14 @@ public class InteractionOutline : MonoBehaviour
     {
         outlineObject = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
         outlineObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        // OutlineObject가 반대로 되어 있을때 y축 반전
+        if(reverseY) {
+            Vector3 currentRotation = outlineObject.transform.rotation.eulerAngles;
+            currentRotation.y += 180f;
+            outlineObject.transform.rotation = Quaternion.Euler(currentRotation);
+        }
+
         Renderer rend = outlineObject.GetComponent<Renderer>();
 
         rend.material = outlineMat;
