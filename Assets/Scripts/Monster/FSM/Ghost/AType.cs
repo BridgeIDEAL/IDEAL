@@ -5,9 +5,10 @@ using UnityEngine.AI;
 
 public class AType : BaseEntity
 {
+    Animator anim;
     State<AType>[] states;
     StateMachine<AType> stateMachine;
-    Animator anim;
+
     public ATypeEntityStates CurrentType { private set; get; }
     public override void Setup(MonsterData.MonsterStat stat)
     {   
@@ -29,7 +30,7 @@ public class AType : BaseEntity
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void RestInteraction() { ChangeState(ATypeEntityStates.Indifference); }
-    public override void StartInteraction() { ChangeState(ATypeEntityStates.Interaction); }
+    public override void ConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void FailInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SuccessInteraction(){ ChangeState(ATypeEntityStates.Indifference); }
     

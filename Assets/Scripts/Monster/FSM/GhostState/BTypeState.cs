@@ -25,7 +25,7 @@ namespace BTypeStates
             Debug.Log("상호작용 상태이다.");
         }
 
-        public override void Execute(BType entity) { if (!entity.CanInteraction) { return; } }
+        public override void Execute(BType entity) {  }
 
         public override void Exit(BType entity)
         {
@@ -40,7 +40,7 @@ namespace BTypeStates
             Debug.Log("공격 대기중");
         }
 
-        public override void Execute(BType entity){ if (!entity.CanInteraction) { entity.ChangeState(BTypeEntityStates.Indifference); } }
+        public override void Execute(BType entity){  }
 
         public override void Exit(BType entity)
         {

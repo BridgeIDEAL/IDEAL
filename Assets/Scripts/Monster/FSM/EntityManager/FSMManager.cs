@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class FSMManager
 {
+    private GameObject playerGameObject;
     private List<BaseEntity> entityList;
     private Dictionary<int, BaseEntity> entityDictionary;
     public void Init()
     {
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<int, BaseEntity>();
+        playerGameObject = GameObject.FindGameObjectWithTag("Player");
         foreach(MonsterData.MonsterStat stat in GameManager.Data.monsterInfoDict.Values){ Spawn<BaseEntity>(stat); }     
         GameManager.EntityEvent.RestAction += RestActionUpdate;
-        GameManager.EntityEvent.StartAction += StartActionUpdate;
+        GameManager.EntityEvent.ConversationAction += ConversationActionUpdate;
         GameManager.EntityEvent.SuccessAction += SuccessActionUpdate;
         GameManager.EntityEvent.FailAction += FailActionUpdate;
         GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
@@ -25,6 +27,7 @@ public class FSMManager
         type.Setup(stat);
         entityList.Add(type);
         type.ID = stat.monsterID;
+        type.playerObject = playerGameObject;
         entityDictionary.Add(type.ID, type);
 
         InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();
@@ -38,47 +41,38 @@ public class FSMManager
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
     
-    private void RestActionUpdate() // �޽� ���� ���� ��
+    private void RestActionUpdate() // 휴식 공간 진입 시
     {
-        foreach(KeyValuePair<int,BaseEntity> entities in entityDictionary)
-        {
-            entities.Value.RestInteraction();
-            entities.Value.CanInteraction = true; // ��׷� ����
-        }
+        GameManager.EntityEvent.CanInteraction = true;
+        foreach (KeyValuePair<int,BaseEntity> entities in entityDictionary){ entities.Value.RestInteraction();}
     }
     
-    private void StartActionUpdate(int _ID)
+    private void ConversationActionUpdate(int _ID) // 대화 시작 시
     {
-        foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
-        {
-            if (entities.Key == _ID) { entities.Value.StartInteraction(); continue; }
-            entities.Value.CanInteraction = false;
-        }
+        GameManager.EntityEvent.CanInteraction = false;
+        entityDictionary[_ID].ConversationInteraction();
     }
 
-    private void SuccessActionUpdate(int _ID)
+    private void SuccessActionUpdate(int _ID) // 상호작용 성공 시
     {
-        foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
-        {
-            if (entities.Key == _ID) { entities.Value.SuccessInteraction(); continue; }
-            entities.Value.CanInteraction = true;
-        }
+        GameManager.EntityEvent.CanInteraction = true;
+        entityDictionary[_ID].SuccessInteraction();
     }
-    private void FailActionUpdate(int _ID)
+    private void FailActionUpdate(int _ID) // 상호작용 실패 시
     {
-        foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
-        {
-            if (entities.Key == _ID) { entities.Value.FailInteraction(); continue; }
-            entities.Value.CanInteraction = true;
-        }
+        GameManager.EntityEvent.CanInteraction = true;
+        entityDictionary[_ID].FailInteraction();
     }
 
-    private void ChaseActionUpdate(int _ID)
+    private void ChaseActionUpdate(int _ID) // 상호작용 불가능, 해당 개체 이외엔 다 휴식 상태로 전환
     {
         foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
         {
-            if (entities.Key == _ID) {  entities.Value.ChaseInteraction();continue;}
-            entities.Value.CanInteraction = false;
+            if (entities.Key == _ID)
+                continue;
+            entities.Value.RestInteraction();     
         }
+        GameManager.EntityEvent.CanInteraction = false;
+        entityDictionary[_ID].ChaseInteraction();
     }
 }

@@ -3,8 +3,9 @@ using UnityEngine;
 using System;
 public class EntityEventManager
 {
+    public bool CanInteraction { get; set; } = true;
     public Action RestAction; // 휴식공간 진입 시
-    public Action<int> StartAction; // 상호작용 시작 시
+    public Action<int> ConversationAction; // 상호작용 시작 시
     public Action<int> SuccessAction; // 상호작용 성공 시
     public Action<int> FailAction; // 상호작용 실패 시
     public Action<int> ChaseAction; // 추격 진행 시
@@ -25,7 +26,7 @@ public class EntityEventManager
             case EventType.StartInteraction:
                 if (entity == null)
                     return;
-                StartAction(entity.ID);
+                ConversationAction(entity.ID);
                 break;
             case EventType.SuccessInteraction: // 상호작용 성공 시
                 if (entity == null)

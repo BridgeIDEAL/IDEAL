@@ -12,7 +12,7 @@ namespace CTypeStates
         }
 
         public override void Execute(CType entity){
-            if (!entity.CanInteraction) { return; }
+            //if (!entity.CanInteraction) { return; }
             if (entity.DetectPlayer()) { entity.ChangeState(CTypeEntityStates.Watch); } 
         }
 
@@ -31,7 +31,7 @@ namespace CTypeStates
 
         public override void Execute(CType entity)
         {
-            if (!entity.CanInteraction) { entity.ChangeState(CTypeEntityStates.Indifference); return; }
+            //if (!entity.CanInteraction) { entity.ChangeState(CTypeEntityStates.Indifference); return; }
             entity.WatchPlayer();
         }
 

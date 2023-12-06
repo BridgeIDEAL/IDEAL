@@ -31,7 +31,7 @@ public class CType : BaseEntity
         //nav.SetDestination(InitTransform.position);
         ChangeState(CTypeEntityStates.Indifference);
     }
-    public override void StartInteraction() { ChangeState(CTypeEntityStates.Interaction); }
+    public override void ConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void SuccessInteraction() { ChangeState(CTypeEntityStates.Indifference); }
     public override void FailInteraction() { ChangeState(CTypeEntityStates.Indifference); Debug.Log("경계시간 초과 페널티 부과!"); }
     public void ChangeState(CTypeEntityStates newState)
@@ -54,7 +54,7 @@ public class CType : BaseEntity
     IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
-        if (CanInteraction)
+        if (GameManager.EntityEvent.CanInteraction)
         {
             GameManager.EntityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
             ChangeState(CTypeEntityStates.Indifference);

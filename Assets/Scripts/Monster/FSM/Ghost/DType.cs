@@ -13,19 +13,17 @@ public class DType : BaseEntity
     Vector3 initRotation;
     public DTypeEntityStates CurrentType { private set; get; }
     public override void Setup(MonsterData.MonsterStat stat)
-    {
+    { // add component
+        nav = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
         // set information
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        CurrentType = DTypeEntityStates.Indifference;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
         nav.speed = stat.speed;
         gameObject.name = stat.name;
-        // add component
-        nav = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
-        CurrentType = DTypeEntityStates.Indifference;
        // set statemachine
         states = new State<DType>[6];
         states[(int)DTypeEntityStates.Indifference] = new DTypeStates.Indifference();
@@ -40,7 +38,7 @@ public class DType : BaseEntity
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void RestInteraction() { StartCoroutine("ResetPosition"); }
 
-    public override void StartInteraction() { ChangeState(DTypeEntityStates.Interaction); }
+    public override void ConversationInteraction() { ChangeState(DTypeEntityStates.Interaction); }
     public override void FailInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void SuccessInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
@@ -53,7 +51,6 @@ public class DType : BaseEntity
 
     public void ChasePlayer()
     {
-        Vector3 dir = playerObject.transform.position - transform.position;
         nav.SetDestination(playerObject.transform.position);
     }
 
@@ -99,5 +96,11 @@ public class DType : BaseEntity
         transform.eulerAngles = initRotation;
         ChangeState(DTypeEntityStates.Indifference);
         nav.isStopped = false;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == playerObject)
+            Debug.Log("ав╬З╫ю╢о╢ы.");
     }
 }

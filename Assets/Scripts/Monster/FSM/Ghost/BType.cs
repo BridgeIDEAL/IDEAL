@@ -35,7 +35,7 @@ public class BType : BaseEntity
         //nav.SetDestination(InitTransform.position);
         ChangeState(BTypeEntityStates.Indifference);
     }
-    public override void StartInteraction() { ChangeState(BTypeEntityStates.Interaction); }
+    public override void ConversationInteraction() { ChangeState(BTypeEntityStates.Interaction); }
     public override void SuccessInteraction() { ChangeState(BTypeEntityStates.Interaction); } 
     public override void FailInteraction() { ChangeState(BTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(BTypeEntityStates.Aggressive); }

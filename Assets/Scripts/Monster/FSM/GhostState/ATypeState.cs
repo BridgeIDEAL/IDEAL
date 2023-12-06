@@ -25,7 +25,7 @@ namespace ATypeStates
             Debug.Log("상호작용을 하고 있습니다.");
         }
 
-        public override void Execute(AType entity){ if (!entity.CanInteraction) return; }
+        public override void Execute(AType entity){  }
 
         public override void Exit(AType entity)
         {
