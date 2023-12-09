@@ -5,18 +5,29 @@ using UnityEngine.AI;
 
 public class BType : BaseEntity
 {
+    #region Component
     State<BType>[] states;
     StateMachine<BType> stateMachine;
     NavMeshAgent nav;
+    //Animator anim;
+    #endregion
+   
     public BTypeEntityStates CurrentType { private set; get; }
+    
     public override void Setup(MonsterData.MonsterStat stat)
     {
+       // add component
         nav = GetComponent<NavMeshAgent>();
-        //base.Setup();
+        //anim = GetComponentInChildren<Animator>();
+        // set information
+        CurrentType = BTypeEntityStates.Indifference;
+        initPosition = stat.initTransform;
+        initRotation = stat.initRotation;
+        transform.position = initPosition;
+        transform.eulerAngles = initRotation;
         nav.speed = stat.speed;
-        //InitTransform.position = stat.initTransform;
-        //InitTransform.eulerAngles = stat.initRotation;
         gameObject.name = stat.name;
+        // set statemachine
         CurrentType = BTypeEntityStates.Indifference;
         states = new State<BType>[4];
         states[(int)BTypeEntityStates.Indifference] = new BTypeStates.Indifference();
@@ -25,18 +36,12 @@ public class BType : BaseEntity
         states[(int)BTypeEntityStates.Chase] = new BTypeStates.Chase();
         stateMachine = new StateMachine<BType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
-   
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction()
-    {
-        //transform.position = InitTransform.position;
-        //nav.SetDestination(InitTransform.position);
-        ChangeState(BTypeEntityStates.Indifference);
-    }
+    public override void RestInteraction() { StartCoroutine("ResetPosition"); }
     public override void ConversationInteraction() { ChangeState(BTypeEntityStates.Interaction); }
-    public override void SuccessInteraction() { ChangeState(BTypeEntityStates.Interaction); } 
+    public override void SuccessInteraction() { ChangeState(BTypeEntityStates.Indifference); } 
     public override void FailInteraction() { ChangeState(BTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(BTypeEntityStates.Aggressive); }
    
@@ -46,10 +51,35 @@ public class BType : BaseEntity
         stateMachine.ChangeState(states[(int)newState]);
     }
     
-    public void ChasePlayer()
+    public void ChasePlayer(){ nav.SetDestination(playerObject.transform.position); }
+
+    public void SetAnimation(BTypeEntityStates entityAnim)
     {
-        Vector3 dir = playerObject.transform.position - transform.position;
-        nav.SetDestination(playerObject.transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), lookSpeed * Time.deltaTime);
+        // switch (entityAnim)
+        // {
+        //     case BTypeEntityStates.Indifference:
+        //         anim.CrossFade("IDLE", 0.2f);
+        //         break;
+        //     case BTypeEntityStates.Interaction:
+        //         anim.CrossFade("IDLE", 0.2f);
+        //         break;
+        //     case BTypeEntityStates.Aggressive:
+        //         anim.CrossFade("ATTACK", 0.2f);
+        //         break;
+        //     case BTypeEntityStates.Chase:
+        //         anim.CrossFade("CHASE", 0.2f);
+        //         break;
+        // }
+    }
+     IEnumerator ResetPosition()
+    {
+        ChangeState(BTypeEntityStates.Interaction);
+        nav.isStopped = true;
+        nav.ResetPath();
+        yield return new WaitForSeconds(0.4f);
+        transform.position = initPosition;
+        transform.eulerAngles = initRotation;
+        ChangeState(BTypeEntityStates.Indifference);
+        nav.isStopped = false;
     }
 }

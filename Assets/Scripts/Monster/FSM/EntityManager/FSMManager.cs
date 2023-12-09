@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FSMManager
 {
@@ -23,6 +24,23 @@ public class FSMManager
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
         GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.name}"));
+        // switch (stat.name){
+        //     case "A":
+        //     go.AddComponent<AType>();            
+        //     break;
+        //     case "B":
+        //       go.AddComponent<BType>();
+        //       go.AddComponent<NavMeshAgent>();
+        //     break;
+        //     case "C":
+        //       go.AddComponent<CType>();
+        //       go.AddComponent<NavMeshAgent>();
+        //     break;
+        //     case "D":
+        //       go.AddComponent<DType>();
+        //       go.AddComponent<NavMeshAgent>();
+        //     break;
+        // }
         T type = go.GetComponentInChildren<T>();
         type.Setup(stat);
         entityList.Add(type);

@@ -4,23 +4,23 @@ using System;
 public class EntityEventManager
 {
     public bool CanInteraction { get; set; } = true;
-    public Action RestAction; // ÈÞ½Ä°ø°£ ÁøÀÔ ½Ã
-    public Action<int> ConversationAction; // »óÈ£ÀÛ¿ë ½ÃÀÛ ½Ã
-    public Action<int> SuccessAction; // »óÈ£ÀÛ¿ë ¼º°ø ½Ã
-    public Action<int> FailAction; // »óÈ£ÀÛ¿ë ½ÇÆÐ ½Ã
-    public Action<int> ChaseAction; // Ãß°Ý ÁøÇà ½Ã
+    public Action RestAction; // ï¿½Þ½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public Action<int> ConversationAction; // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public Action<int> SuccessAction; // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public Action<int> FailAction; // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public Action<int> ChaseAction; // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
     public void Init()
     {
         
     }
    
-    public void SendMessage(EventType eventType, GameObject interactionObject = null) // ¾î¶² »óÅÂÀÌµç ÀÌº¥Æ® ¸Þ½ÃÁö¸¦ ¹ÞÀ¸¸é ÇØ´ç ÀÌº¥Æ®¸¦ ¼öÇà
+    public void SendMessage(EventType eventType, GameObject interactionObject = null) // ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ìºï¿½Æ® ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     { 
         BaseEntity entity = interactionObject.GetComponent<BaseEntity>();
         switch (eventType)
         {
-            case EventType.RestInteraction: // ÈÞ½Ä°ø°£ ÁøÀÔ, Ãþ º¯È¯ ½Ã, »óÈ£ÀÛ¿ë ¼º°ø ½Ã
+            case EventType.RestInteraction: // ï¿½Þ½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½, ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 RestAction.Invoke();
                 break;
             case EventType.StartInteraction:
@@ -28,17 +28,17 @@ public class EntityEventManager
                     return;
                 ConversationAction(entity.ID);
                 break;
-            case EventType.SuccessInteraction: // »óÈ£ÀÛ¿ë ¼º°ø ½Ã
+            case EventType.SuccessInteraction: // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 if (entity == null)
                     return;
                 SuccessAction(entity.ID);
                 break;
-            case EventType.FailInteraction: // »óÈ£ÀÛ¿ë ½ÇÆÐ ½Ã
+            case EventType.FailInteraction: // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 if (entity == null)
                     return;
                 FailAction(entity.ID);
                 break;
-            case EventType.ChaseInteraction: // »óÈ£ÀÛ¿ë ½ÇÆÐ ½Ã
+            case EventType.ChaseInteraction: // ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 if (entity == null)
                     return;
                 ChaseAction(entity.ID);

@@ -5,15 +5,17 @@ using UnityEngine.AI;
 
 public class DType : BaseEntity
 {
+    #region Component
     State<DType>[] states;
     StateMachine<DType> stateMachine;
     NavMeshAgent nav;
     Animator anim;
-    Vector3 initPosition;
-    Vector3 initRotation;
+    #endregion
+
     public DTypeEntityStates CurrentType { private set; get; }
+
     public override void Setup(MonsterData.MonsterStat stat)
-    { // add component
+    {   // add component
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         // set information
@@ -49,11 +51,6 @@ public class DType : BaseEntity
         stateMachine.ChangeState(states[(int)newState]);
     }
 
-    public void ChasePlayer()
-    {
-        nav.SetDestination(playerObject.transform.position);
-    }
-
     public void WatchPlayer()
     {
         float dist = (playerObject.transform.position - transform.position).magnitude;
@@ -63,6 +60,8 @@ public class DType : BaseEntity
         else
             ChangeState(DTypeEntityStates.Indifference);
     }
+
+    public void ChasePlayer(){ nav.SetDestination(playerObject.transform.position);}
 
     public void SetAnimation(DTypeEntityStates entityAnim)
     {
@@ -101,6 +100,6 @@ public class DType : BaseEntity
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject == playerObject)
-            Debug.Log("ав╬З╫ю╢о╢ы.");
+            Debug.Log("Player Dead!");
     }
 }

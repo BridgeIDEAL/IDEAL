@@ -5,20 +5,24 @@ using UnityEngine.AI;
 
 public class AType : BaseEntity
 {
+    #region Component
     Animator anim;
     State<AType>[] states;
     StateMachine<AType> stateMachine;
+    #endregion
 
     public ATypeEntityStates CurrentType { private set; get; }
+    
     public override void Setup(MonsterData.MonsterStat stat)
     {   
         // add component
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         // set information
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        gameObject.name = stat.name; 
+        initPosition = stat.initTransform;
+        initRotation = stat.initRotation;
         transform.position = stat.initTransform;
         transform.eulerAngles = stat.initRotation;
-        gameObject.name = stat.name;
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[2];
@@ -41,7 +45,7 @@ public class AType : BaseEntity
     }
     public void SetAnimation(ATypeEntityStates entityAnim)
     {
-        switch (entityAnim)
+        /*switch (entityAnim)
         {
             case ATypeEntityStates.Indifference:
                 anim.CrossFade("IDLE", 0.2f);
@@ -49,6 +53,6 @@ public class AType : BaseEntity
             case ATypeEntityStates.Interaction:
                 anim.CrossFade("IDLE", 0.2f);
                 break;
-        }
+        }*/
     }
 }
