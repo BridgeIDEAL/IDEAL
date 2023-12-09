@@ -42,6 +42,17 @@ public class UIManager : MonoBehaviour
 
     private UIIngame uIIngame;
 
+    private bool isDialogueActive = false;
+    public bool IsDialogueActive {
+        get {return isDialogueActive;}
+        set { isDialogueActive = value;}
+    }
+    private bool isInventoryActive = false;
+    public bool IsInventoryActive {
+        get{return isInventoryActive;}
+        set{isInventoryActive = value;}
+    }
+
 
     public void Init() {
         if(instance == null){
@@ -95,26 +106,19 @@ public class UIManager : MonoBehaviour
         // Inventory UI 관련 코드
         if(Input.GetKeyDown(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = true;
-            firstPersonController.CameraRotationLock = true;
-            Cursor.lockState = CursorLockMode.None;
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
-
-            uIInteraction.SetTextActive(false);
+            isInventoryActive = true;
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = false;
-            firstPersonController.CameraRotationLock = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
-            uIInventory.HideHighlightAllSlot();
+            isInventoryActive = false;
 
-            uIInteraction.SetTextActive(true);
+            uIInventory.HideHighlightAllSlot();
 
             ActivationLogManager.Instance.InActiveActivationLog();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
-
+        UpdateMouseLock();
     }
 
     public void SetUIActive(UIType uIType, bool active){
@@ -133,4 +137,21 @@ public class UIManager : MonoBehaviour
         uIInteraction.SetTextActive(false);
     }
 
+    private void UpdateMouseLock(){
+        // CameraLock & MouseUnLock이 필요한 경우
+        if(isDialogueActive || isInventoryActive){
+            firstPersonController.CameraRotationLock = true;
+            Cursor.lockState = CursorLockMode.None;
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
+            // 상호작용 텍스트 비활성화
+            uIInteraction.SetTextActive(false);
+        }
+        else{
+            firstPersonController.CameraRotationLock = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
+            // 상호작용 텍스트 활성화
+            uIInteraction.SetTextActive(true);
+        }
+    }
 }
