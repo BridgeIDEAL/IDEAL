@@ -20,17 +20,26 @@ public class IdealSceneManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
+
+        SceneManager.sceneLoaded += AfterSceneLoaded;
+    }
+
+    private void AfterSceneLoaded(Scene scene, LoadSceneMode mode){
+        if(scene.name == "Prototype"){
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if(scene.name == "Lobby"){
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void LoadGameScene(){
         // 현재는 프로토타입 Load
-        Cursor.lockState = CursorLockMode.Locked;
         LoadingImageManager.Instance.ActiveLoadingImage();
         SceneManager.LoadScene("Prototype");
     }
 
     public void LoadLobbyScene(){
-        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Lobby");
     }
 
