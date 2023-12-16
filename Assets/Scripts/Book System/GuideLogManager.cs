@@ -32,16 +32,38 @@ public class GuideLogManager : MonoBehaviour
 
 
         // TO DO 아래 테스트 코드 이후에 지우기
+        GenerateBasicGuideLog();
+        // GenerateTestCase();
+    }
+
+    public void AddGuideLogRecord(int logID, int attempt){
+        GuideLogRecord guideLogRecord = new GuideLogRecord(logID, attempt);
+        guideLogRecordList.Add(guideLogRecord);
+        SortRecordList();
+    }
+
+    public GuideLog GetGuideLog(int logID){
+        return guideLogData.GetGuideLog(logID);
+    }
+
+    private void SortRecordList(){
+        guideLogRecordList.Sort();
+    }
+
+    private void GenerateBasicGuideLog(){
         AddGuideLogRecord(010000, -1);
         AddGuideLogRecord(010100, 1);
+        AddGuideLogRecord(020000, -1);
+    }
+
+    private void GenerateTestCase(){
         AddGuideLogRecord(010101, 2);
         AddGuideLogRecord(010102, 3);
-
-        AddGuideLogRecord(020000, -1);
         AddGuideLogRecord(010103, 4);
         AddGuideLogRecord(010103, -1);
         AddGuideLogRecord(010103, 0);
         AddGuideLogRecord(010103, 1);
+
         AddGuideLogRecord(010103, 2);
         AddGuideLogRecord(010103, 3);
         AddGuideLogRecord(010103, 4);
@@ -62,19 +84,5 @@ public class GuideLogManager : MonoBehaviour
         AddGuideLogRecord(010103, 18);
         AddGuideLogRecord(010103, 19);
         AddGuideLogRecord(010103, 20);
-    }
-
-    public void AddGuideLogRecord(int logID, int attempt){
-        GuideLogRecord guideLogRecord = new GuideLogRecord(logID, attempt);
-        guideLogRecordList.Add(guideLogRecord);
-        SortRecordList();
-    }
-
-    public GuideLog GetGuideLog(int logID){
-        return guideLogData.GetGuideLog(logID);
-    }
-
-    private void SortRecordList(){
-        guideLogRecordList.Sort();
     }
 }
