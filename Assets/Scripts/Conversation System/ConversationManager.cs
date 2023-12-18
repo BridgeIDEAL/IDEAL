@@ -55,45 +55,59 @@ public class ConversationManager : MonoBehaviour
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"{attempts}번 실종자는 ...");
     }
+
+    [YarnCommand("GameOver_ChalkBoard2ndFloor_1")]
+    public void GameOver_ChalkBoard2ndFloor_1(){
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        GameOverManager.Instance.GameOver($"{attempts}번 실종자는 ...");
+    }
+
+    [YarnCommand("GameOver_ChalkBoard2ndFloor_2")]
+    public void GameOver_ChalkBoard2ndFloor_2(){
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        GameOverManager.Instance.GameOver($"{attempts}번 실종자는 ...");
+    }
     
-    [YarnCommand("GameOver_1")]
-    public void GameOver_1(){
+    [YarnCommand("GameOver_BlueBoy3rd_1")]
+    public void GameOver_BlueBoy3rd_1(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 끌려간 {attempts}번 실종자는 학교 구석에서 온몸이 짓뭉개진 채 발견됨");
     }
 
-    [YarnCommand("GameOver_2")]
-    public void GameOver_2(){
+    [YarnCommand("GameOver_SchoolGuard1st_1")]
+    public void GameOver_SchoolGuard1st_1(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"{attempts}번 실종자는 수위실에 들어간 후 통신이 끊김");
+        GuideLogManager.Instance.AddGuideLogRecord(010101, attempts);
     }
 
-    [YarnCommand("GameOver_3")]
-    public void GameOver_3(){
+    [YarnCommand("GameOver_SchoolGuard1st_2")]
+    public void GameOver_SchoolGuard1st_2(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 수위 이형체가 {attempts}번 실종자를 끌고 간 후 통신이 끊김");
+        GuideLogManager.Instance.AddGuideLogRecord(010103, attempts);
     }
 
-    [YarnCommand("GameOver_4")]
-    public void GameOver_4(){
+    [YarnCommand("GameOver_StudentPresident2nd_1")]
+    public void GameOver_StudentPresident2nd_1(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 {attempts}번 실종자와 통신이 끊김");
     }
 
-    [YarnCommand("GameOver_5")]
-    public void GameOver_5(){
+    [YarnCommand("GameOver_StudentPresident2nd_2")]
+    public void GameOver_StudentPresident2nd_2(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 학생회장은 {attempts}번 실종자로 ???를 만들어 학생회실 내부에 전시");
     }
     
-    [YarnCommand("GameOver_6")]
-    public void GameOver_6(){
+    [YarnCommand("GameOver_StudentPresident2nd_3")]
+    public void GameOver_StudentPresident2nd_3(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"{attempts}번 실종자는 가입 이후 매우 즐거워하며 탈출을 포기. 이후 학교 내부에서 목격 증언이 다수 발생");
     }
 
-    [YarnCommand("GameOver_7")]
-    public void GameOver_7(){
+    [YarnCommand("GameOver_StuPreFriend4th_1")]
+    public void GameOver_StuPreFriend4th_1(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 {attempts}번 실종자는 수색 중 잠든 채로 발견. 현재 157시간 동안 눈을 뜨지 않음");
     }

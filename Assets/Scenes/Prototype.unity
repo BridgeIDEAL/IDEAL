@@ -2011,9 +2011,29 @@ PrefabInstance:
       objectReference: {fileID: 1954166897}
     - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
+      propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1536463523}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
       propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1954166900}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1536463523}
     - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
       propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -2021,13 +2041,38 @@ PrefabInstance:
       objectReference: {fileID: 1954166900}
     - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
+      propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_IsDialogueActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
       propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetTextActive
       objectReference: {fileID: 0}
     - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_IsDialogueActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
       propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetTextActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1202310562472822334, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
@@ -2176,6 +2221,18 @@ PrefabInstance:
       objectReference: {fileID: 1954166900}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7800d4f75cd775145986739f75df50c9, type: 3}
+--- !u!114 &1536463523 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1202310562472822334, guid: 7800d4f75cd775145986739f75df50c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536463522}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f810b7e11c6d142bb7053a40966f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1625180620
 GameObject:
   m_ObjectHideFlags: 0
