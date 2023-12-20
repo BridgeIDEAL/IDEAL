@@ -44,6 +44,7 @@ public class IdealBook : MonoBehaviour {
             return BookPanel.rect.height ; 
         }
     }
+    private int heightLevel;
     public Image ClippingPlane;
     public Image NextPageClip;
     public Image Shadow;
@@ -67,8 +68,12 @@ public class IdealBook : MonoBehaviour {
     Vector3 c;
     //Edge Bottom Right
     Vector3 ebr;
+    //Edge Top Right
+    Vector3 etr;
     //Edge Bottom Left
     Vector3 ebl;
+    //Edge Top Left
+    Vector3 etl;
     //follow point 
     Vector3 f;
     bool pageDragging = false;
@@ -108,7 +113,9 @@ public class IdealBook : MonoBehaviour {
     {
         sb = new Vector3(0, -BookPanel.rect.height / 2);
         ebr = new Vector3(BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
+        etr = new Vector3(BookPanel.rect.width / 2, BookPanel.rect.height / 2);
         ebl = new Vector3(-BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
+        etl = new Vector3(-BookPanel.rect.width / 2, BookPanel.rect.height / 2);
         st = new Vector3(0, BookPanel.rect.height / 2);
         radius1 = Vector2.Distance(sb, ebr);
         float pageWidth = BookPanel.rect.width / 2.0f;
@@ -128,10 +135,14 @@ public class IdealBook : MonoBehaviour {
         else if (canvas.renderMode == RenderMode.WorldSpace)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Vector3 globalEBR = transform.TransformPoint(ebr);
-            Vector3 globalEBL = transform.TransformPoint(ebl);
+            Vector3 globalEPR = transform.TransformPoint(ebr);
+            Vector3 globalEPL = transform.TransformPoint(ebl);
+            if(heightLevel == 2){
+                globalEPR = transform.TransformPoint(etr);
+                globalEPL = transform.TransformPoint(etl);
+            }
             Vector3 globalSt = transform.TransformPoint(st);
-            Plane p = new Plane(globalEBR, globalEBL, globalSt);
+            Plane p = new Plane(globalEPR, globalEPL, globalSt);
             float distance;
             p.Raycast(ray, out distance);
             Vector2 localPos = BookPanel.InverseTransformPoint(ray.GetPoint(distance));
@@ -188,27 +199,55 @@ public class IdealBook : MonoBehaviour {
 
         c = Calc_C_Position(followLocation);
         Vector3 t1;
-        float clipAngle = CalcClipAngle(c, ebl, out t1);
+        Vector3 edgePoint = ebl;
+        if(heightLevel == 0){
+            edgePoint = ebl;
+        }
+        else if(heightLevel == 2){
+            edgePoint = etl;
+        }
+        float clipAngle = CalcClipAngle(c, edgePoint, out t1);
         //0 < T0_T1_Angle < 180
         clipAngle = (clipAngle + 180) % 180;
 
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
+        if(heightLevel == 1){
+            ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
 
         //page position and angle
+        
         Left.transform.position = BookPanel.TransformPoint(c);
+        Right.rectTransform.pivot = new Vector2(0,0);
+        Left.rectTransform.pivot = new Vector2(1,0);
+        if(heightLevel == 2){
+            Left.rectTransform.pivot = new Vector2(1,1);
+        }
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
         float C_T1_Angle = Mathf.Atan2(C_T1_dy, C_T1_dx) * Mathf.Rad2Deg;
+        
+        
         Left.transform.localEulerAngles = new Vector3(0, 0, C_T1_Angle - 90 - clipAngle);
+        if(heightLevel == 1){
+            Left.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
 
         NextPageClip.transform.localEulerAngles = new Vector3(0, 0, clipAngle - 90);
+        if(heightLevel == 1){
+            NextPageClip.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
         NextPageClip.transform.position = BookPanel.TransformPoint(t1);
         LeftNext.transform.SetParent(NextPageClip.transform, true);
         Right.transform.SetParent(ClippingPlane.transform, true);
         Right.transform.SetAsFirstSibling();
 
         ShadowLTR.rectTransform.SetParent(Left.rectTransform, true);
+        ShadowLTR.rectTransform.pivot = new Vector2(0, 0.22f);
+        if(heightLevel == 2){
+            ShadowLTR.rectTransform.pivot = new Vector2(0, 0.78f);
+        }
     }
     public void UpdateBookRTLToPoint(Vector3 followLocation)
     {
@@ -224,27 +263,55 @@ public class IdealBook : MonoBehaviour {
         RightNext.transform.SetParent(BookPanel.transform, true);
         c = Calc_C_Position(followLocation);
         Vector3 t1;
-        float clipAngle = CalcClipAngle(c, ebr, out t1);
+        Vector3 edgePoint = ebr;
+        if(heightLevel == 0){
+            edgePoint = ebr;
+        }
+        else if(heightLevel ==2){
+            edgePoint = etr;
+        }
+        float clipAngle = CalcClipAngle(c, edgePoint, out t1);
         if (clipAngle > -90) clipAngle += 180;
 
-        ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
+        // ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
         ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
+        if(heightLevel == 1){
+            ClippingPlane.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
         ClippingPlane.transform.position = BookPanel.TransformPoint(t1);
 
         //page position and angle
         Right.transform.position = BookPanel.TransformPoint(c);
+        Left.rectTransform.pivot = new Vector2(0,0);
+        Right.rectTransform.pivot = new Vector2(0,0);
+        if(heightLevel == 2){
+            Right.rectTransform.pivot = new Vector2(0,1);
+        }
         float C_T1_dy = t1.y - c.y;
         float C_T1_dx = t1.x - c.x;
         float C_T1_Angle = Mathf.Atan2(C_T1_dy, C_T1_dx) * Mathf.Rad2Deg;
-        Right.transform.localEulerAngles = new Vector3(0, 0, C_T1_Angle - (clipAngle + 90));
 
+        Right.transform.localEulerAngles = new Vector3(0, 0, C_T1_Angle - (clipAngle + 90));
+        if(heightLevel == 1){
+            Right.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+
+        
         NextPageClip.transform.localEulerAngles = new Vector3(0, 0, clipAngle + 90);
+        if(heightLevel == 1){
+            NextPageClip.transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+        
         NextPageClip.transform.position = BookPanel.TransformPoint(t1);
         RightNext.transform.SetParent(NextPageClip.transform, true);
         Left.transform.SetParent(ClippingPlane.transform, true);
         Left.transform.SetAsFirstSibling();
 
         Shadow.rectTransform.SetParent(Right.rectTransform, true);
+        Shadow.rectTransform.pivot = new Vector2(1, 0.22f);
+        if(heightLevel == 2){
+            Shadow.rectTransform.pivot = new Vector2(1, 0.78f);
+        }
     }
     private float CalcClipAngle(Vector3 c,Vector3 bookCorner,out  Vector3 t1)
     {
@@ -255,8 +322,12 @@ public class IdealBook : MonoBehaviour {
         float T0_T1_Angle = 90 - T0_CORNER_Angle;
         
         float T1_X = t0.x - T0_CORNER_dy * Mathf.Tan(T0_CORNER_Angle);
-        T1_X = normalizeT1X(T1_X, bookCorner, sb);
-        t1 = new Vector3(T1_X, sb.y, 0);
+        Vector3 sPoint = sb;
+        if(heightLevel == 2){
+            sPoint = st;
+        }
+        T1_X = normalizeT1X(T1_X, bookCorner, sPoint);
+        t1 = new Vector3(T1_X, sPoint.y, 0);
         
         //clipping plane angle=T0_T1_Angle
         float T0_T1_dy = t1.y - t0.y;
@@ -276,24 +347,44 @@ public class IdealBook : MonoBehaviour {
     {
         Vector3 c;
         f = followLocation;
-        float F_SB_dy = f.y - sb.y;
-        float F_SB_dx = f.x - sb.x;
-        float F_SB_Angle = Mathf.Atan2(F_SB_dy, F_SB_dx);
-        Vector3 r1 = new Vector3(radius1 * Mathf.Cos(F_SB_Angle),radius1 * Mathf.Sin(F_SB_Angle), 0) + sb;
+        Vector3 firstPoint = sb;
+        if(heightLevel == 0){
+            firstPoint = sb;
+        }
+        else if(heightLevel == 2){
+            firstPoint = st;
+        }
+        float F_FP_dy = f.y - firstPoint.y;
+        float F_FP_dx = f.x - firstPoint.x;
+        float F_FP_Angle = Mathf.Atan2(F_FP_dy, F_FP_dx);
+        Vector3 r1 = new Vector3(radius1 * Mathf.Cos(F_FP_Angle),radius1 * Mathf.Sin(F_FP_Angle), 0) + firstPoint;
 
-        float F_SB_distance = Vector2.Distance(f, sb);
-        if (F_SB_distance < radius1)
+        float F_FP_distance = Vector2.Distance(f, firstPoint);
+        if (F_FP_distance < radius1){
             c = f;
-        else
+        }
+        else{
             c = r1;
-        float F_ST_dy = c.y - st.y;
-        float F_ST_dx = c.x - st.x;
-        float F_ST_Angle = Mathf.Atan2(F_ST_dy, F_ST_dx);
-        Vector3 r2 = new Vector3(radius2 * Mathf.Cos(F_ST_Angle),
-           radius2 * Mathf.Sin(F_ST_Angle), 0) + st;
-        float C_ST_distance = Vector2.Distance(c, st);
-        if (C_ST_distance > radius2)
+        }
+
+        Vector3 secondPoint = st;
+        if(heightLevel == 0){
+            secondPoint = st;
+        }
+        else if(heightLevel == 2){
+            secondPoint = sb;
+        }
+        float F_SP_dy = c.y - secondPoint.y;
+        float F_SP_dx = c.x - secondPoint.x;
+        float F_SP_Angle = Mathf.Atan2(F_SP_dy, F_SP_dx);
+        Vector3 r2 = new Vector3(radius2 * Mathf.Cos(F_SP_Angle), radius2 * Mathf.Sin(F_SP_Angle), 0) + secondPoint;
+        float C_SP_distance = Vector2.Distance(c, secondPoint);
+        if (C_SP_distance > radius2){
             c = r2;
+        }
+        
+        if(heightLevel == 1)
+            c.y = -1 * Height / 2.0f;
         return c;
     }
     public void DragRightPageToPoint(Vector3 point)
@@ -306,6 +397,10 @@ public class IdealBook : MonoBehaviour {
 
         NextPageClip.rectTransform.pivot = new Vector2(0, 0.12f);
         ClippingPlane.rectTransform.pivot = new Vector2(1, 0.35f);
+        if(heightLevel == 2){
+            NextPageClip.rectTransform.pivot = new Vector2(0, 0.88f);
+            ClippingPlane.rectTransform.pivot = new Vector2(1, 0.65f);
+        }
 
         Left.gameObject.SetActive(true);
         Left.rectTransform.pivot = new Vector2(0, 0);
@@ -367,10 +462,12 @@ public class IdealBook : MonoBehaviour {
         if (enableShadowEffect) Shadow.gameObject.SetActive(true);
         UpdateBookRTLToPoint(f);
     }
-    public void OnMouseDragRightPage()
+    public void OnMouseDragRightPage(int _heightLevel)
     {
-        if (interactable)
-        DragRightPageToPoint(transformPoint(Input.mousePosition));
+        if (interactable){
+            heightLevel = _heightLevel;
+            DragRightPageToPoint(transformPoint(Input.mousePosition));
+        }
         
     }
     public void DragLeftPageToPoint(Vector3 point)
@@ -382,6 +479,10 @@ public class IdealBook : MonoBehaviour {
 
         NextPageClip.rectTransform.pivot = new Vector2(1, 0.12f);
         ClippingPlane.rectTransform.pivot = new Vector2(0, 0.35f);
+        if(heightLevel == 2){
+            NextPageClip.rectTransform.pivot = new Vector2(1, 0.88f);
+            ClippingPlane.rectTransform.pivot = new Vector2(0, 0.65f);
+        }
 
         Right.gameObject.SetActive(true);
         Right.transform.position = LeftNext.transform.position;
@@ -437,11 +538,12 @@ public class IdealBook : MonoBehaviour {
         if (enableShadowEffect) ShadowLTR.gameObject.SetActive(true);
         UpdateBookLTRToPoint(f);
     }
-    public void OnMouseDragLeftPage()
+    public void OnMouseDragLeftPage(int _heightLevel)
     {
-        if (interactable)
-        DragLeftPageToPoint(transformPoint(Input.mousePosition));
-        
+        if (interactable){
+            heightLevel = _heightLevel;
+            DragLeftPageToPoint(transformPoint(Input.mousePosition));
+        }
     }
     public void OnMouseRelease()
     {
@@ -502,10 +604,20 @@ public class IdealBook : MonoBehaviour {
     }
     public void TweenForward()
     {
-        if(mode== FlipMode.RightToLeft)
-        currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f, () => { Flip(); }));
-        else
-        currentCoroutine = StartCoroutine(TweenTo(ebr, 0.15f, () => { Flip(); }));
+        if(mode== FlipMode.RightToLeft){
+            Vector3 edgePoint = ebl;
+            if(heightLevel == 2){
+                edgePoint = etl;
+            }
+            currentCoroutine = StartCoroutine(TweenTo(edgePoint, 0.15f, () => { Flip(); }));
+        }
+        else{
+            Vector3 edgePoint = ebr;
+            if(heightLevel == 2){
+                edgePoint = etr;
+            }
+            currentCoroutine = StartCoroutine(TweenTo(edgePoint, 0.15f, () => { Flip(); }));
+        }
     }
     void Flip()
     {
@@ -530,7 +642,11 @@ public class IdealBook : MonoBehaviour {
     {
         if (mode == FlipMode.RightToLeft)
         {
-            currentCoroutine = StartCoroutine(TweenTo(ebr,0.15f,
+            Vector3 edgePoint = ebr;
+            if(heightLevel == 2){
+                edgePoint = etr;
+            }
+            currentCoroutine = StartCoroutine(TweenTo(edgePoint, 0.15f,
                 () =>
                 {
                     UpdateSprites();
@@ -545,7 +661,11 @@ public class IdealBook : MonoBehaviour {
         }
         else
         {
-            currentCoroutine = StartCoroutine(TweenTo(ebl, 0.15f,
+            Vector3 edgePoint = ebl;
+            if(heightLevel == 2){
+                edgePoint = etl;
+            }
+            currentCoroutine = StartCoroutine(TweenTo(edgePoint, 0.15f,
                 () =>
                 {
                     UpdateSprites();
