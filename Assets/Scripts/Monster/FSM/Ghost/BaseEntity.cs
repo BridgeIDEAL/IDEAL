@@ -20,6 +20,7 @@ public abstract class BaseEntity : MonoBehaviour
     public virtual void SuccessInteraction() { } 
     public virtual void FailInteraction() { } 
     public virtual void ChaseInteraction() { }
+    public virtual void SpeechlessInteraction() { }
     public bool DetectPlayer()
     {
         Vector3 interV = playerObject.transform.position - transform.position;

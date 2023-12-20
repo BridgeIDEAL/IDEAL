@@ -42,4 +42,10 @@ namespace DTypeStates
         public override void Execute(DType entity){ entity.ChasePlayer();}
         public override void Exit(DType entity){ }
     }
+    public class Speechless : State<DType>
+    {
+        public override void Enter(DType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Execute(DType entity) { }
+        public override void Exit(DType entity) { }
+    }
 }

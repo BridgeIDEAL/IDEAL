@@ -25,9 +25,10 @@ public class AType : BaseEntity
         transform.eulerAngles = stat.initRotation;
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
-        states = new State<AType>[2];
+        states = new State<AType>[3];
         states[(int)ATypeEntityStates.Indifference] = new ATypeStates.Indifference();
         states[(int)ATypeEntityStates.Interaction] = new ATypeStates.Interaction();
+        states[(int)ATypeEntityStates.Speechless] = new ATypeStates.Speechless();
         stateMachine = new StateMachine<AType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
@@ -37,7 +38,7 @@ public class AType : BaseEntity
     public override void ConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void FailInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SuccessInteraction(){ ChangeState(ATypeEntityStates.Indifference); }
-    
+    public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
     public void ChangeState(ATypeEntityStates newState)
     {
         CurrentType = newState;

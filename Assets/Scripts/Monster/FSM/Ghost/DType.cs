@@ -33,6 +33,7 @@ public class DType : BaseEntity
         states[(int)DTypeEntityStates.Watch] = new DTypeStates.Watch();
         states[(int)DTypeEntityStates.Aggressive] = new DTypeStates.Aggressive();
         states[(int)DTypeEntityStates.Chase] = new DTypeStates.Chase();
+        states[(int)DTypeEntityStates.Speechless] = new DTypeStates.Speechless();
         stateMachine = new StateMachine<DType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
@@ -44,7 +45,7 @@ public class DType : BaseEntity
     public override void FailInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void SuccessInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
-
+    public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
     public void ChangeState(DTypeEntityStates newState)
     {
         CurrentType = newState;

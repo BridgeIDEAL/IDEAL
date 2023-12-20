@@ -16,5 +16,11 @@ namespace ATypeStates
         public override void Execute(AType entity){  }
         public override void Exit(AType entity) { }
     }
+    public class Speechless : State<AType>
+    {
+        public override void Enter(AType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Execute(AType entity) { }
+        public override void Exit(AType entity) { }
+    }
 }
 

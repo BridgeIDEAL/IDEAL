@@ -29,11 +29,12 @@ public class BType : BaseEntity
         gameObject.name = stat.name;
         // set statemachine
         CurrentType = BTypeEntityStates.Indifference;
-        states = new State<BType>[4];
+        states = new State<BType>[5];
         states[(int)BTypeEntityStates.Indifference] = new BTypeStates.Indifference();
         states[(int)BTypeEntityStates.Interaction] = new BTypeStates.Interaction();
         states[(int)BTypeEntityStates.Aggressive] = new BTypeStates.Aggressive();
         states[(int)BTypeEntityStates.Chase] = new BTypeStates.Chase();
+        states[(int)BTypeEntityStates.Speechless] = new BTypeStates.Speechless();
         stateMachine = new StateMachine<BType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
@@ -44,7 +45,7 @@ public class BType : BaseEntity
     public override void SuccessInteraction() { ChangeState(BTypeEntityStates.Indifference); } 
     public override void FailInteraction() { ChangeState(BTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(BTypeEntityStates.Aggressive); }
-   
+    public override void SpeechlessInteraction() { ChangeState(BTypeEntityStates.Speechless); }
     public void ChangeState(BTypeEntityStates newState)
     {
         CurrentType = newState;

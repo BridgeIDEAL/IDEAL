@@ -88,7 +88,7 @@ public class FSMManager
         {
             if (entities.Key == _ID)
                 continue;
-            entities.Value.RestInteraction();     
+            entities.Value.SpeechlessInteraction();     
         }
         GameManager.EntityEvent.CanInteraction = false;
         entityDictionary[_ID].ChaseInteraction();

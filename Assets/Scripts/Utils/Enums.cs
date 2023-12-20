@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ATypeEntityStates // 추격, 경계 x
 {
     Indifference,
-    Interaction
+    Interaction,
+    Speechless
 }
 
 public enum BTypeEntityStates // 추격 o, 경계 x
@@ -13,14 +14,16 @@ public enum BTypeEntityStates // 추격 o, 경계 x
     Indifference,
     Interaction,
     Aggressive,
-    Chase
+    Chase,
+    Speechless
 }
 
 public enum CTypeEntityStates // 추격 x, 경계 o
 {
     Indifference,
     Interaction,
-    Watch
+    Watch,
+    Speechless
 }
 
 public enum DTypeEntityStates // 추격 o, 경계 o
@@ -29,7 +32,8 @@ public enum DTypeEntityStates // 추격 o, 경계 o
     Interaction,
     Watch,
     Aggressive,
-    Chase
+    Chase,
+    Speechless
 }
 
 public enum EventType

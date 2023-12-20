@@ -19,6 +19,12 @@ namespace CTypeStates
 
     public class Interaction : State<CType>
     {
+        public override void Enter(CType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Execute(CType entity) { }
+        public override void Exit(CType entity) { }
+    }
+    public class Speechless : State<CType>
+    {
         public override void Enter(CType entity){entity.SetAnimation(entity.CurrentType); }
         public override void Execute(CType entity){ }
         public override void Exit(CType entity){ }

@@ -28,10 +28,11 @@ public class CType : BaseEntity
         nav.speed = stat.speed;
         gameObject.name = stat.name;
         // set statemachine
-        states = new State<CType>[3];
+        states = new State<CType>[4];
         states[(int)CTypeEntityStates.Indifference] = new CTypeStates.Indifference();
         states[(int)CTypeEntityStates.Watch] = new CTypeStates.Watch();
         states[(int)CTypeEntityStates.Interaction] = new CTypeStates.Interaction();
+        states[(int)CTypeEntityStates.Speechless] = new CTypeStates.Speechless();
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
         nav = GetComponent<NavMeshAgent>();
@@ -41,6 +42,7 @@ public class CType : BaseEntity
     public override void ConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void SuccessInteraction() { ChangeState(CTypeEntityStates.Indifference); }
     public override void FailInteraction() { ChangeState(CTypeEntityStates.Indifference); }
+    public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
     public void ChangeState(CTypeEntityStates newState)
     {
         CurrentType = newState;
@@ -78,7 +80,7 @@ public class CType : BaseEntity
     IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
-        if (GameManager.EntityEvent.CanInteraction)
+        if (CurrentType == CTypeEntityStates.Watch)
         {
             GameManager.EntityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
             ChangeState(CTypeEntityStates.Indifference);
