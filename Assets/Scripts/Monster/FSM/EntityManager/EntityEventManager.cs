@@ -5,10 +5,9 @@ public class EntityEventManager
 {
     public bool CanInteraction { get; set; } = true;
     public Action RestAction; 
-    public Action<int> ConversationAction; 
-    public Action<int> SuccessAction;
-    public Action<int> FailAction; 
-    public Action<int> ChaseAction;
+    public Action<string> StartConversationAction; 
+    public Action<string> EndConversationAction;
+    public Action<string> ChaseAction;
 
     public void Init()
     {
@@ -26,22 +25,17 @@ public class EntityEventManager
             case EventType.StartInteraction:
                 if (entity == null)
                     return;
-                ConversationAction(entity.ID);
+                StartConversationAction(entity.monsterName);
                 break;
-            case EventType.SuccessInteraction: 
+            case EventType.EndInteraction: 
                 if (entity == null)
                     return;
-                SuccessAction(entity.ID);
-                break;
-            case EventType.FailInteraction: 
-                if (entity == null)
-                    return;
-                FailAction(entity.ID);
+                EndConversationAction(entity.monsterName);
                 break;
             case EventType.ChaseInteraction: 
                 if (entity == null)
                     return;
-                ChaseAction(entity.ID);
+                ChaseAction(entity.monsterName);
                 break;
         }
     }

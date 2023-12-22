@@ -1654,13 +1654,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6283005438270401619}
   - component: {fileID: 131049677453375017}
-  - component: {fileID: 5076832218068732698}
   - component: {fileID: 906639177531747789}
   - component: {fileID: 5916996616153327028}
   - component: {fileID: 8454958659478929593}
   - component: {fileID: 8749104403187724167}
   - component: {fileID: 5997835484015184462}
-  - component: {fileID: 4948111172515789494}
   m_Layer: 6
   m_Name: GuardMan
   m_TagString: Untagged
@@ -1706,28 +1704,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!195 &5076832218068732698
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6663753518538831593}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!136 &906639177531747789
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1806,21 +1782,6 @@ MonoBehaviour:
   detectedStr: GuardMan
   dialogueName: SchoolGuard1stFloorStart
   lookPlayerwithConversation: 1
---- !u!114 &4948111172515789494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6663753518538831593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879ac9381508f1b4b9b0f6df1052dd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 10
-  sightAngle: 360
-  playerObject: {fileID: 0}
 --- !u!1 &6672392954137553384
 GameObject:
   m_ObjectHideFlags: 0

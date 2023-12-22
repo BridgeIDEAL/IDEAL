@@ -7,46 +7,46 @@ public class FSMManager
 {
     private GameObject playerGameObject;
     private List<BaseEntity> entityList;
-    private Dictionary<int, BaseEntity> entityDictionary;
+    private Dictionary<string, BaseEntity> entityDictionary;
     public void Init()
     {
         entityList = new List<BaseEntity>();
-        entityDictionary = new Dictionary<int, BaseEntity>();
+        entityDictionary = new Dictionary<string, BaseEntity>();
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
         foreach(MonsterData.MonsterStat stat in GameManager.Data.monsterInfoDict.Values){ Spawn<BaseEntity>(stat); }     
         GameManager.EntityEvent.RestAction += RestActionUpdate;
-        GameManager.EntityEvent.ConversationAction += ConversationActionUpdate;
-        GameManager.EntityEvent.SuccessAction += SuccessActionUpdate;
-        GameManager.EntityEvent.FailAction += FailActionUpdate;
+        GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
+        GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
         GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
     }
 
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
-        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.name}"));
-        // switch (stat.name){
-        //     case "A":
-        //     go.AddComponent<AType>();            
-        //     break;
-        //     case "B":
-        //       go.AddComponent<BType>();
-        //       go.AddComponent<NavMeshAgent>();
-        //     break;
-        //     case "C":
-        //       go.AddComponent<CType>();
-        //       go.AddComponent<NavMeshAgent>();
-        //     break;
-        //     case "D":
-        //       go.AddComponent<DType>();
-        //       go.AddComponent<NavMeshAgent>();
-        //     break;
-        // }
+        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.monsterPrefabName}"));
+        switch (stat.monsterType)
+        {
+            case "A":
+                go.AddComponent<AType>();
+                break;
+            case "B":
+                go.AddComponent<BType>();
+                go.AddComponent<NavMeshAgent>();
+                break;
+            case "C":
+                go.AddComponent<CType>();
+                go.AddComponent<NavMeshAgent>();
+                break;
+            case "D":
+                go.AddComponent<DType>();
+                go.AddComponent<NavMeshAgent>();
+                break;
+        }
         T type = go.GetComponentInChildren<T>();
         type.Setup(stat);
         entityList.Add(type);
-        type.ID = stat.monsterID;
+        type.monsterName = stat.monsterName;
         type.playerObject = playerGameObject;
-        entityDictionary.Add(type.ID, type);
+        entityDictionary.Add(type.monsterName, type);
 
         InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();
         if(interactionConversation != null){
@@ -54,7 +54,6 @@ public class FSMManager
             interactionConversation.detectedStr = stat.detectedStr;
             interactionConversation.dialogueName = stat.dialogueName;
         }
-
     }
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
@@ -62,35 +61,29 @@ public class FSMManager
     private void RestActionUpdate() // 휴식 공간 진입 시
     {
         GameManager.EntityEvent.CanInteraction = true;
-        foreach (KeyValuePair<int,BaseEntity> entities in entityDictionary){ entities.Value.RestInteraction();}
+        foreach (KeyValuePair<string,BaseEntity> entities in entityDictionary){ entities.Value.RestInteraction();}
     }
     
-    private void ConversationActionUpdate(int _ID) // 대화 시작 시
+    private void StartConversationActionUpdate(string _Key) // 대화 시작 시
     {
         GameManager.EntityEvent.CanInteraction = false;
-        entityDictionary[_ID].ConversationInteraction();
+        entityDictionary[_Key].StartConversationInteraction();
     }
 
-    private void SuccessActionUpdate(int _ID) // 상호작용 성공 시
+    private void EndConversationActionUpdate(string _Key) // 대화 종료 시
     {
         GameManager.EntityEvent.CanInteraction = true;
-        entityDictionary[_ID].SuccessInteraction();
+        entityDictionary[_Key].EndConversationInteraction();
     }
-    private void FailActionUpdate(int _ID) // 상호작용 실패 시
+    private void ChaseActionUpdate(string _Key) // 상호작용 불가능, 해당 개체 이외엔 다 휴식 상태로 전환
     {
-        GameManager.EntityEvent.CanInteraction = true;
-        entityDictionary[_ID].FailInteraction();
-    }
-
-    private void ChaseActionUpdate(int _ID) // 상호작용 불가능, 해당 개체 이외엔 다 휴식 상태로 전환
-    {
-        foreach (KeyValuePair<int, BaseEntity> entities in entityDictionary)
+        foreach (KeyValuePair<string, BaseEntity> entities in entityDictionary)
         {
-            if (entities.Key == _ID)
+            if (entities.Key == _Key)
                 continue;
             entities.Value.SpeechlessInteraction();     
         }
         GameManager.EntityEvent.CanInteraction = false;
-        entityDictionary[_ID].ChaseInteraction();
+        entityDictionary[_Key].ChaseInteraction();
     }
 }

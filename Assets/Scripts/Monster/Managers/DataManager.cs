@@ -8,11 +8,11 @@ public interface ILoader<Key, Value>
 }
 public class DataManager
 {
-    public Dictionary<int, MonsterData.MonsterStat> monsterInfoDict { get; private set; } = new Dictionary<int, MonsterData.MonsterStat>();
+    public Dictionary<string, MonsterData.MonsterStat> monsterInfoDict { get; private set; } = new Dictionary<string, MonsterData.MonsterStat>();
 
     public void Init()
     {
-        monsterInfoDict = LoadJson<MonsterData.MonsterInfo, int, MonsterData.MonsterStat>("monsterInfo").MakeDict();
+        monsterInfoDict = LoadJson<MonsterData.MonsterInformation, string, MonsterData.MonsterStat>("monsterInformation").MakeDict();
         Debug.Log(monsterInfoDict.Count);
     }
 

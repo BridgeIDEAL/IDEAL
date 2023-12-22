@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AType : BaseEntity
 {
     #region Component
-    Animator anim;
+    //Animator anim;
     State<AType>[] states;
     StateMachine<AType> stateMachine;
     #endregion
@@ -18,7 +18,7 @@ public class AType : BaseEntity
         // add component
         //anim = GetComponent<Animator>();
         // set information
-        gameObject.name = stat.name; 
+        gameObject.name = stat.monsterName; 
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = stat.initTransform;
@@ -35,9 +35,8 @@ public class AType : BaseEntity
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void RestInteraction() { ChangeState(ATypeEntityStates.Indifference); }
-    public override void ConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
-    public override void FailInteraction() { ChangeState(ATypeEntityStates.Indifference); }
-    public override void SuccessInteraction(){ ChangeState(ATypeEntityStates.Indifference); }
+    public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
+    public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
     public void ChangeState(ATypeEntityStates newState)
     {
@@ -46,14 +45,17 @@ public class AType : BaseEntity
     }
     public void SetAnimation(ATypeEntityStates entityAnim)
     {
-        /*switch (entityAnim)
-        {
-            case ATypeEntityStates.Indifference:
-                anim.CrossFade("IDLE", 0.2f);
-                break;
-            case ATypeEntityStates.Interaction:
-                anim.CrossFade("IDLE", 0.2f);
-                break;
-        }*/
+        //switch (entityAnim)
+        //{
+        //    case ATypeEntityStates.Indifference:
+        //        anim.CrossFade("Idle", 0.2f);
+        //        break;
+        //    case ATypeEntityStates.Interaction:
+        //        anim.CrossFade("Interaction", 0.2f);
+        //        break;
+        //    case ATypeEntityStates.Speechless:
+        //        anim.CrossFade("Idle", 0.2f);
+        //        break;
+        //}
     }
 }

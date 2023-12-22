@@ -6,13 +6,13 @@ namespace BTypeStates
 {
     public class Indifference : State<BType>
     {
-        public override void Enter(BType entity) {entity.SetAnimation(entity.CurrentType);}
+        public override void Enter(BType entity) {entity.LookOriginal(); entity .SetAnimation(entity.CurrentType);}
         public override void Execute(BType entity){ }
         public override void Exit(BType entity) { }
     }
     public class Interaction : State<BType>
     {
-        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType);}
+        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType); entity.LookPlayer(); }
         public override void Execute(BType entity) {  }
         public override void Exit(BType entity) { }
     }
@@ -28,11 +28,11 @@ namespace BTypeStates
     {
         public override void Enter(BType entity) {entity.SetAnimation(entity.CurrentType);}
         public override void Execute(BType entity) { entity.ChasePlayer(); }
-        public override void Exit(BType entity){ }
+        public override void Exit(BType entity){ entity.LookOriginal(); }
     }
     public class Speechless : State<BType>
     {
-        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType);}
         public override void Execute(BType entity) { }
         public override void Exit(BType entity) { }
     }

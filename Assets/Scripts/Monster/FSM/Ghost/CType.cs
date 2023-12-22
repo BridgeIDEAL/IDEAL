@@ -8,8 +8,8 @@ public class CType : BaseEntity
     #region Component
     State<CType>[] states;
     StateMachine<CType> stateMachine;
-    NavMeshAgent nav;
-    Animator anim;
+    //Animator anim;
+    bool onceWatch = false;
     #endregion
 
     public CTypeEntityStates CurrentType { private set; get; }
@@ -17,17 +17,15 @@ public class CType : BaseEntity
     public override void Setup(MonsterData.MonsterStat stat)
     {
         // add component
-        nav = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
+        //anim = GetComponentInChildren<Animator>();
         // set information
-        CurrentType = CTypeEntityStates.Indifference;
+        gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
-        nav.speed = stat.speed;
-        gameObject.name = stat.name;
         // set statemachine
+        CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
         states[(int)CTypeEntityStates.Indifference] = new CTypeStates.Indifference();
         states[(int)CTypeEntityStates.Watch] = new CTypeStates.Watch();
@@ -35,13 +33,11 @@ public class CType : BaseEntity
         states[(int)CTypeEntityStates.Speechless] = new CTypeStates.Speechless();
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
-        nav = GetComponent<NavMeshAgent>();
     }
     public override void UpdateBehavior(){stateMachine.Execute();}
-    public override void RestInteraction(){ StartCoroutine("ResetPosition");}
-    public override void ConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
-    public override void SuccessInteraction() { ChangeState(CTypeEntityStates.Indifference); }
-    public override void FailInteraction() { ChangeState(CTypeEntityStates.Indifference); }
+    public override void RestInteraction(){ ChangeState(CTypeEntityStates.Indifference); }
+    public override void StartConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
+    public override void EndConversationInteraction() { ChangeState(CTypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
     public void ChangeState(CTypeEntityStates newState)
     {
@@ -49,55 +45,47 @@ public class CType : BaseEntity
         stateMachine.ChangeState(states[(int)newState]);
     }
 
-    public void WatchPlayer()
+    public void CheckNearPlayer()
     {
-        float dist = (playerObject.transform.position - transform.position).magnitude;
-        Vector3 dir = playerObject.transform.position - transform.position;
-        if (sightDistance >= dist)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), lookSpeed * Time.deltaTime);
-        else
+        if (onceWatch)
+            return;
+        if (CheckDistance())
+            ChangeState(CTypeEntityStates.Watch);
+    }
+
+    public void MaintainWatch()
+    {
+        if (!CheckDistance())
             ChangeState(CTypeEntityStates.Indifference);
     }
 
-    public void SetAnimation(CTypeEntityStates entityAnim)
-    {
-        switch (entityAnim)
-        {
-            case CTypeEntityStates.Indifference:
-                anim.CrossFade("IDLE", 0.2f);
-                break;
-            case CTypeEntityStates.Watch:
-                anim.CrossFade("IDLE", 0.2f);
-                break;
-            case CTypeEntityStates.Interaction:
-                anim.CrossFade("IDLE", 0.2f);
-                break;
-        }
-    }
-
     public void StartTimer() { StartCoroutine("WatchTimer"); }
-
-    IEnumerator WatchTimer()
+    public void EndTimer () { StopCoroutine("WatchTimer"); }
+ 
+    public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
-        if (CurrentType == CTypeEntityStates.Watch)
+        if (CurrentType == CTypeEntityStates.Watch && !onceWatch)
         {
-            GameManager.EntityEvent.SendMessage(EventType.FailInteraction, this.gameObject);
+            onceWatch = true;
+            GameManager.EntityEvent.SendMessage(EventType.EndInteraction, this.gameObject);
             ChangeState(CTypeEntityStates.Indifference);
         }
         yield break;   
     }
-    
-      IEnumerator ResetPosition()
+    public void SetAnimation(CTypeEntityStates entityAnim)
     {
-        ChangeState(CTypeEntityStates.Indifference);
-        nav.isStopped = true;
-        nav.ResetPath();
-        yield return new WaitForSeconds(0.4f);
-        transform.position = initPosition;
-        transform.eulerAngles = initRotation;
-        ChangeState(CTypeEntityStates.Indifference);
-        nav.isStopped = false;
+        //switch (entityAnim)
+        //{
+        //    case CTypeEntityStates.Indifference:
+        //        anim.CrossFade("IDLE", 0.2f);
+        //        break;
+        //    case CTypeEntityStates.Watch:
+        //        anim.CrossFade("IDLE", 0.2f);
+        //        break;
+        //    case CTypeEntityStates.Interaction:
+        //        anim.CrossFade("IDLE", 0.2f);
+        //        break;
+        //}
     }
-
 }

@@ -6,27 +6,19 @@ namespace DTypeStates
 {
     public class Indifference : State<DType>
     {
-        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType);}
-        public override void Execute(DType entity)
-        {
-            if (!GameManager.EntityEvent.CanInteraction) { return; }
-            if (entity.DetectPlayer()) { entity.ChangeState(DTypeEntityStates.Watch); }
-        }
+        public override void Enter(DType entity){ entity.LookOriginal(); entity.SetAnimation(entity.CurrentType);}
+        public override void Execute(DType entity) { entity.CheckNearPlayer(); }
         public override void Exit(DType entity){ }
     }
     public class Watch : State<DType>
     {
-        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType);}
-        public override void Execute(DType entity)
-        {
-            if (!GameManager.EntityEvent.CanInteraction) { entity.ChangeState(DTypeEntityStates.Indifference); return; }
-            entity.WatchPlayer();
-        }
-        public override void Exit(DType entity){ }
+        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType); entity.StartTimer(); }
+        public override void Execute(DType entity){ entity.LookPlayer(); entity.MaintainWatch(); }
+        public override void Exit(DType entity){ entity.EndTimer(); }
     }
     public class Interaction : State<DType>
     {
-        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType);}
+        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType); entity.LookPlayer(); }
         public override void Execute(DType entity){ }
         public override void Exit(DType entity){ }
     }
@@ -44,7 +36,7 @@ namespace DTypeStates
     }
     public class Speechless : State<DType>
     {
-        public override void Enter(DType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Enter(DType entity) { entity.LookOriginal(); entity.SetAnimation(entity.CurrentType); }
         public override void Execute(DType entity) { }
         public override void Exit(DType entity) { }
     }
