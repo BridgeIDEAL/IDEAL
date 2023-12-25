@@ -13,7 +13,7 @@ public class FSMManager
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<string, BaseEntity>();
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
-        foreach(MonsterData.MonsterStat stat in GameManager.Data.monsterInfoDict.Values){ Spawn<BaseEntity>(stat); }     
+        foreach(MonsterData.MonsterStat stat in GameManager.Data.initMonsterInfoDict.Values){ Spawn<BaseEntity>(stat); }     
         GameManager.EntityEvent.RestAction += RestActionUpdate;
         GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
         GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
@@ -85,5 +85,12 @@ public class FSMManager
         }
         GameManager.EntityEvent.CanInteraction = false;
         entityDictionary[_Key].ChaseInteraction();
+    }
+
+    public void EventTest(string _Name)
+    {
+        Spawn<BaseEntity>(GameManager.Data.spawnMonsterInfoDict[_Name]);
+        //if (entityDictionary[_Name] == null)
+           
     }
 }

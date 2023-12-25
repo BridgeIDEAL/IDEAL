@@ -8,12 +8,13 @@ public interface ILoader<Key, Value>
 }
 public class DataManager
 {
-    public Dictionary<string, MonsterData.MonsterStat> monsterInfoDict { get; private set; } = new Dictionary<string, MonsterData.MonsterStat>();
+    public Dictionary<string, MonsterData.MonsterStat> initMonsterInfoDict { get; private set; } = new Dictionary<string, MonsterData.MonsterStat>();
+    public Dictionary<string, MonsterData.MonsterStat> spawnMonsterInfoDict { get; private set; } = new Dictionary<string, MonsterData.MonsterStat>();
 
     public void Init()
     {
-        monsterInfoDict = LoadJson<MonsterData.MonsterInformation, string, MonsterData.MonsterStat>("monsterInformation").MakeDict();
-        Debug.Log(monsterInfoDict.Count);
+        initMonsterInfoDict = LoadJson<MonsterData.InitMonsterInformation, string, MonsterData.MonsterStat>("initMonsterInformation").MakeDict();
+        spawnMonsterInfoDict = LoadJson<MonsterData.SpawnMonsterInformation, string, MonsterData.MonsterStat>("spawnMonsterInformation").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
