@@ -18,6 +18,10 @@ public class GuideLogRecord : IComparable<GuideLogRecord>
         return this.attempt;
     }
 
+    public void SetAttempt(int _attempt){
+        this.attempt = _attempt;
+    }
+
     // IComparable<T> 인터페이스를 구현하여 정렬 기준 제공
     public int CompareTo(GuideLogRecord other){
         // guideLogID를 먼저 비교

@@ -85,6 +85,9 @@ public class UIGuideLogManager : MonoBehaviour
                 int redDegree = (int)Mathf.Lerp(redHigh, redLow, (float)colorDegree / colorLevel);
 
                 string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.4f, 0.4f));
+                if(attempt <= -2){
+                    hexColor = "FFFFFF00";
+                }
                 colorStart = $"<color=#{hexColor}>";
                 colorEnd = "</color>";
             }

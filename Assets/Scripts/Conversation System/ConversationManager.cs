@@ -78,14 +78,14 @@ public class ConversationManager : MonoBehaviour
     public void GameOver_SchoolGuard1st_1(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"{attempts}번 실종자는 수위실에 들어간 후 통신이 끊김");
-        GuideLogManager.Instance.AddGuideLogRecord(010101, attempts);
+        GuideLogManager.Instance.UpdateGuideLogRecord(010101, attempts);
     }
 
     [YarnCommand("GameOver_SchoolGuard1st_2")]
     public void GameOver_SchoolGuard1st_2(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"이후 수위 이형체가 {attempts}번 실종자를 끌고 간 후 통신이 끊김");
-        GuideLogManager.Instance.AddGuideLogRecord(010103, attempts);
+        GuideLogManager.Instance.UpdateGuideLogRecord(010103, attempts);
     }
 
     [YarnCommand("GameOver_StudentPresident2nd_1")]

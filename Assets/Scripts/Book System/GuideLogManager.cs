@@ -32,6 +32,7 @@ public class GuideLogManager : MonoBehaviour
 
 
         // TO DO 아래 테스트 코드 이후에 지우기
+        GenerateGuideLogRecordList();
         GenerateBasicGuideLog();
         // GenerateTestCase();
     }
@@ -42,6 +43,16 @@ public class GuideLogManager : MonoBehaviour
         SortRecordList();
     }
 
+    public void UpdateGuideLogRecord(int logID, int attempt){
+        for(int i = 0; i < guideLogRecordList.Count; i++){
+            if(logID == guideLogRecordList[i].GetGuideLogID()){
+                if(guideLogRecordList[i].GetAttempt() <= -2){
+                    guideLogRecordList[i].SetAttempt(attempt);
+                }
+            }
+        }
+    }
+
     public GuideLog GetGuideLog(int logID){
         return guideLogData.GetGuideLog(logID);
     }
@@ -50,39 +61,45 @@ public class GuideLogManager : MonoBehaviour
         guideLogRecordList.Sort();
     }
 
+    private void GenerateGuideLogRecordList(){
+        foreach(var keyValuePair in guideLogData.guideLogDictionary){
+            AddGuideLogRecord(keyValuePair.Key, -2);
+        }
+    }
+
     private void GenerateBasicGuideLog(){
-        AddGuideLogRecord(010000, -1);
-        AddGuideLogRecord(010100, 1);
-        AddGuideLogRecord(020000, -1);
+        UpdateGuideLogRecord(010000, -1);
+        UpdateGuideLogRecord(010100, 1);
+        UpdateGuideLogRecord(020000, -1);
     }
 
     private void GenerateTestCase(){
-        AddGuideLogRecord(010101, 2);
-        AddGuideLogRecord(010102, 3);
-        AddGuideLogRecord(010103, 4);
-        AddGuideLogRecord(010103, -1);
-        AddGuideLogRecord(010103, 0);
-        AddGuideLogRecord(010103, 1);
+        UpdateGuideLogRecord(010101, 2);
+        UpdateGuideLogRecord(010102, 3);
+        UpdateGuideLogRecord(010103, 4);
+        UpdateGuideLogRecord(010103, -1);
+        UpdateGuideLogRecord(010103, 0);
+        UpdateGuideLogRecord(010103, 1);
 
-        AddGuideLogRecord(010103, 2);
-        AddGuideLogRecord(010103, 3);
-        AddGuideLogRecord(010103, 4);
-        AddGuideLogRecord(010103, 5);
-        AddGuideLogRecord(010103, 6);
-        AddGuideLogRecord(010103, 7);
-        AddGuideLogRecord(010103, 8);
-        AddGuideLogRecord(010103, 9);
-        AddGuideLogRecord(010103, 10);
+        UpdateGuideLogRecord(010103, 2);
+        UpdateGuideLogRecord(010103, 3);
+        UpdateGuideLogRecord(010103, 4);
+        UpdateGuideLogRecord(010103, 5);
+        UpdateGuideLogRecord(010103, 6);
+        UpdateGuideLogRecord(010103, 7);
+        UpdateGuideLogRecord(010103, 8);
+        UpdateGuideLogRecord(010103, 9);
+        UpdateGuideLogRecord(010103, 10);
 
-        AddGuideLogRecord(010103, 11);
-        AddGuideLogRecord(010103, 12);
-        AddGuideLogRecord(010103, 13);
-        AddGuideLogRecord(010103, 14);
-        AddGuideLogRecord(010103, 15);
-        AddGuideLogRecord(010103, 16);
-        AddGuideLogRecord(010103, 17);
-        AddGuideLogRecord(010103, 18);
-        AddGuideLogRecord(010103, 19);
-        AddGuideLogRecord(010103, 20);
+        UpdateGuideLogRecord(010103, 11);
+        UpdateGuideLogRecord(010103, 12);
+        UpdateGuideLogRecord(010103, 13);
+        UpdateGuideLogRecord(010103, 14);
+        UpdateGuideLogRecord(010103, 15);
+        UpdateGuideLogRecord(010103, 16);
+        UpdateGuideLogRecord(010103, 17);
+        UpdateGuideLogRecord(010103, 18);
+        UpdateGuideLogRecord(010103, 19);
+        UpdateGuideLogRecord(010103, 20);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuideLogData : MonoBehaviour
 {
     // 가이드 ID는 0A0B0C로 대 중 소로 구분되며 각 단위에서 99개까지 가능
-    Dictionary <int, GuideLog> guideLogDictionary; // GuideLog 저장 Dictionary
+    public Dictionary <int, GuideLog> guideLogDictionary; // GuideLog 저장 Dictionary
 
 
     public GuideLog GetGuideLog(int _ID){
