@@ -34,7 +34,6 @@ public class AType : BaseEntity
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }

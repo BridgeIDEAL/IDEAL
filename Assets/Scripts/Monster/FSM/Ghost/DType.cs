@@ -40,9 +40,9 @@ public class DType : BaseEntity
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction() { ChangeState(DTypeEntityStates.Indifference); StartCoroutine("ResetPosition"); }
     public override void StartConversationInteraction() { ChangeState(DTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
+    public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
     public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
     public void ChangeState(DTypeEntityStates newState)
@@ -76,13 +76,13 @@ public class DType : BaseEntity
         if (CurrentType == DTypeEntityStates.Watch && !onceWatch)
         {
             onceWatch = true;
-            GameManager.EntityEvent.SendMessage(EventType.EndInteraction, this.gameObject);
-            ChangeState(DTypeEntityStates.Indifference);
+            InjureInteraction();
         }
         yield break;
     }
 
-    IEnumerator ResetPosition()
+    public void SetReposition() { StartCoroutine("ResetPosition"); }
+    public IEnumerator ResetPosition()
     {
         nav.isStopped = true;
         nav.ResetPath();

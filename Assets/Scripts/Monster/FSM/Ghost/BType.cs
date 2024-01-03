@@ -39,7 +39,6 @@ public class BType : BaseEntity
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction() { ChangeState(BTypeEntityStates.Indifference); StartCoroutine("ResetPosition"); }
     public override void StartConversationInteraction() { ChangeState(BTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(BTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(BTypeEntityStates.Aggressive); }
@@ -70,8 +69,8 @@ public class BType : BaseEntity
         //         break;
         // }
     }
-
-    IEnumerator ResetPosition()
+    public void SetReposition() { StartCoroutine("ResetPosition"); }
+    public IEnumerator ResetPosition()
     {
         nav.isStopped = true;
         nav.ResetPath();

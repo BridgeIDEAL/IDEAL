@@ -28,7 +28,7 @@ namespace BTypeStates
     {
         public override void Enter(BType entity) {entity.SetAnimation(entity.CurrentType);}
         public override void Execute(BType entity) { entity.ChasePlayer(); }
-        public override void Exit(BType entity){ entity.LookOriginal(); }
+        public override void Exit(BType entity) { entity.ResetPosition(); }
     }
     public class Speechless : State<BType>
     {

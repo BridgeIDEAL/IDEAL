@@ -4,39 +4,35 @@ using System;
 public class EntityEventManager
 {
     public bool CanInteraction { get; set; } = true;
-    public Action RestAction; 
-    public Action<string> StartConversationAction; 
-    public Action<string> EndConversationAction;
-    public Action<string> ChaseAction;
+    public Action<string> StartConversationAction; // make monsterstate speechless without talk monster (talk monster state = interaction)
+    public Action EndConversationAction; // make all monsterstate indifference
+    public Action<string> ChaseAction; // make talk monsterstate chase
+    public Action<string> SpawnAction; // spawn monster
 
     public void Init()
     {
         
     }
    
-    public void SendMessage(EventType eventType, GameObject interactionObject = null) 
+    public void SendStateEventMessage(StateEventType _StateEventType, string _Name = null) 
     { 
-        BaseEntity entity = interactionObject.GetComponent<BaseEntity>();
-        switch (eventType)
+        switch (_StateEventType)
         {
-            case EventType.RestInteraction:
-                RestAction.Invoke();
-                break;
-            case EventType.StartInteraction:
-                if (entity == null)
+            case StateEventType.StartInteraction:
+                if (_Name == null)
                     return;
-                StartConversationAction(entity.monsterName);
+                StartConversationAction(_Name);
                 break;
-            case EventType.EndInteraction: 
-                if (entity == null)
-                    return;
-                EndConversationAction(entity.monsterName);
+            case StateEventType.EndInteraction: 
+                EndConversationAction();
                 break;
-            case EventType.ChaseInteraction: 
-                if (entity == null)
+            case StateEventType.ChaseInteraction: 
+                if (_Name == null)
                     return;
-                ChaseAction(entity.monsterName);
+                ChaseAction(_Name);
                 break;
         }
     }
+
+    public void SendSpawnEventMessage(string _Name) { SpawnAction(_Name); }
 }

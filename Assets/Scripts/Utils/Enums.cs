@@ -36,12 +36,11 @@ public enum DTypeEntityStates // 추격 o, 경계 o
     Speechless
 }
 
-public enum EventType
+public enum StateEventType
 {
-    RestInteraction, // 휴식 공간에 들어갔을 때 or 층이 변했을 때
-    StartInteraction, // 상호작용 시작할 때
-    EndInteraction,
-    ChaseInteraction // 실패하면 쫓아오는 개체
+    StartInteraction, // 상호작용을 하는 상태
+    EndInteraction, // 상호작용 종료, 어그로 해제된 상태
+    ChaseInteraction, // 플레이어가 쫓기는 상태
 }
 
 public enum SoundType

@@ -4,21 +4,21 @@ using UnityEditor;
 public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
-    public string monsterName;
-    protected float sightDistance = 10f;
-    protected LayerMask playerMask = 1<<3;
     public GameObject playerObject;
-    protected Vector3 initPosition;
-    protected Vector3 initRotation;
+    [SerializeField] protected float sightDistance = 10f;
+    [SerializeField] protected LayerMask playerMask = 1<<3;
+    [SerializeField] protected Vector3 initPosition;
+    [SerializeField] protected Vector3 initRotation;
     #endregion
 
     public virtual void Setup(MonsterData.MonsterStat stat) {}
     public abstract void UpdateBehavior();
-    public virtual void RestInteraction() { } 
     public virtual void StartConversationInteraction() { }
     public virtual void EndConversationInteraction() { }
+    public virtual void InjureInteraction() { }
     public virtual void ChaseInteraction() { }
     public virtual void SpeechlessInteraction() { }
+
     //public bool DetectPlayer()
     //{
     //    Vector3 interV = playerObject.transform.position - transform.position;
@@ -51,8 +51,10 @@ public abstract class BaseEntity : MonoBehaviour
 
     public void LookOriginal()
     {
-        Quaternion originalDir = Quaternion.Euler(initRotation);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, originalDir, 5 * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.Euler(initRotation);
+        transform.rotation = targetRotation;
+        //Quaternion originalDir = Quaternion.Euler(initRotation);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, originalDir, 5 * Time.deltaTime);
         //transform.rotation = Quaternion.Slerp(transform.rotation, , 5 * Time.deltaTime);
     }
 }

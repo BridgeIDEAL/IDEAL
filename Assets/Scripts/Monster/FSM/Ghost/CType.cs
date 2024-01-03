@@ -35,9 +35,9 @@ public class CType : BaseEntity
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
     public override void UpdateBehavior(){stateMachine.Execute();}
-    public override void RestInteraction(){ ChangeState(CTypeEntityStates.Indifference); }
     public override void StartConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(CTypeEntityStates.Indifference); }
+    public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(CTypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
     public void ChangeState(CTypeEntityStates newState)
     {
@@ -68,8 +68,7 @@ public class CType : BaseEntity
         if (CurrentType == CTypeEntityStates.Watch && !onceWatch)
         {
             onceWatch = true;
-            GameManager.EntityEvent.SendMessage(EventType.EndInteraction, this.gameObject);
-            ChangeState(CTypeEntityStates.Indifference);
+            InjureInteraction();            
         }
         yield break;   
     }
