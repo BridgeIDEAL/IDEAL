@@ -11,7 +11,7 @@ public class EntityEventManager
 
     public void Init()
     {
-        
+       
     }
    
     public void SendStateEventMessage(StateEventType _StateEventType, string _Name = null) 
