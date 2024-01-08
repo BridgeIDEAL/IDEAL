@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class UIInteraction : MonoBehaviour
 {
     [SerializeField]
+    ScriptHub scriptHub;
+    InteractionDetect interactionDetect;
+    [SerializeField]
     GameObject interactionTextGameObject;
 
     TextMeshProUGUI interactionText;
@@ -20,6 +23,7 @@ public class UIInteraction : MonoBehaviour
     void Awake(){
         interactionText = interactionTextGameObject.GetComponent<TextMeshProUGUI>();
         progressImage.fillAmount = 0.0f;
+        interactionDetect = scriptHub.interactionDetect;
     }
     
     public void SetTextActive(bool active){
@@ -55,9 +59,9 @@ public class UIInteraction : MonoBehaviour
             yield return null;
         }
         textGradiating = false;
-        SetTextActive(false);
         SetTextContents("");
         interactionText.alpha = 1.0f;
+        interactionDetect.SetOldGameObject(null);
     }
     
     private void StopGradientTextCoroutine(){

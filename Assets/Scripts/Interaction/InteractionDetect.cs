@@ -29,6 +29,10 @@ public class InteractionDetect : MonoBehaviour
         uIInteraction = scriptHub.uIInteraction;
     }
 
+    public void SetOldGameObject(GameObject gameObject_){
+        oldGameObject = gameObject_;
+    }
+
     public void GameUpdate(){
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
         int layerMask = 1 << LayerMask.NameToLayer("Interaction"); // Interaciton 레이어만 충돌 체크 
