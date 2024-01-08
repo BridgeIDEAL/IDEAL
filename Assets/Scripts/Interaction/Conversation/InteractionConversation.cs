@@ -8,6 +8,7 @@ public class InteractionConversation : AbstractInteraction
     public DialogueRunner dialogueRunner;
     public string detectedStr = "";
     public string dialogueName = "";
+    public string monsterName = "";
     public override float RequiredTime { get => 1.0f;}
     [SerializeField] private bool lookPlayerwithConversation = true;
 
@@ -24,7 +25,7 @@ public class InteractionConversation : AbstractInteraction
     }
 
     private void LookPlayer(){
-        Transform playerTransform = GameObject.Find("PlayerCapsule").transform;
-        this.transform.LookAt(playerTransform);
+        //Transform playerTransform = GameObject.Find("PlayerCapsule").transform;
+        //this.transform.LookAt(playerTransform);
     }
 }

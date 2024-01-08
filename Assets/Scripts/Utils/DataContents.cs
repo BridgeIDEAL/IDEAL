@@ -8,24 +8,40 @@ namespace MonsterData
     [Serializable]
     public class MonsterStat
     {
-        public int monsterID;
-        public string name;
-        public float speed;
+        public string monsterName; // =monsterID
+        public string monsterType; // A,B,C,D
+        public string monsterPrefabName; // =monsterPrefab
+        public float monsterSpeed;
         public Vector3 initTransform;
         public Vector3 initRotation;
         public string detectedStr = "";
         public string dialogueName = "";
     }
-    public class MonsterInfo : ILoader<int, MonsterStat>
+    public class InitMonsterInformation : ILoader<string, MonsterStat>
     {
-        public List<MonsterStat> monsterInfo = new List<MonsterStat>();
-        public Dictionary<int, MonsterStat> MakeDict()
+        public List<MonsterStat> initMonsterInformation = new List<MonsterStat>();
+        public Dictionary<string, MonsterStat> MakeDict()
         {
-            Dictionary<int, MonsterStat> dict = new Dictionary<int, MonsterStat>();
+            Dictionary<string, MonsterStat> dict = new Dictionary<string, MonsterStat>();
             {
-                foreach (MonsterStat monsterStat in monsterInfo)
+                foreach (MonsterStat monsterStat in initMonsterInformation)
                 {
-                    dict.Add(monsterStat.monsterID, monsterStat);
+                    dict.Add(monsterStat.monsterName, monsterStat);
+                }
+                return dict;
+            }
+        }
+    }
+    public class SpawnMonsterInformation : ILoader<string, MonsterStat>
+    {
+        public List<MonsterStat> spawnMonsterInformation = new List<MonsterStat>();
+        public Dictionary<string, MonsterStat> MakeDict()
+        {
+            Dictionary<string, MonsterStat> dict = new Dictionary<string, MonsterStat>();
+            {
+                foreach (MonsterStat monsterStat in spawnMonsterInformation)
+                {
+                    dict.Add(monsterStat.monsterName, monsterStat);
                 }
                 return dict;
             }

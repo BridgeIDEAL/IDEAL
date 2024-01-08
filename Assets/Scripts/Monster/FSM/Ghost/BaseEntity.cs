@@ -4,52 +4,36 @@ using UnityEditor;
 public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
-    public int ID { get; set; }
-    public bool CanInteraction { get; set; } = true;
-    public float sightDistance;
-    public float sightAngle;
-    protected bool findPlayer = false;
-    protected LayerMask playerMask = 1<<3;
     public GameObject playerObject;
-    protected float lookSpeed = 2f;
+    [SerializeField] protected float sightDistance = 10f;
+    [SerializeField] protected LayerMask playerMask = 1<<3;
+    [SerializeField] protected Vector3 initPosition;
+    [SerializeField] protected Vector3 initRotation;
     #endregion
 
     public virtual void Setup(MonsterData.MonsterStat stat) {}
     public abstract void UpdateBehavior();
-    public virtual void RestInteraction() { } // 휴식 공간에 들어갔을 때
-    public virtual void StartInteraction() { } // 상호작용을 시작했을 때
-    public virtual void SuccessInteraction() { } // 상호작용을 성공했을 때
-    public virtual void FailInteraction() { } // 상호작용을 실패했을 때 (정신력 감소)
-    public virtual void ChaseInteraction() { } // 상호작용을 실패했을 때 (도망쳐야 할 때)
-    public bool DetectPlayer()
-    {
-        Vector3 interV = playerObject.transform.position - transform.position;
-        if (interV.magnitude <= sightDistance)
-        {
-            float dot = Vector3.Dot(interV.normalized, transform.forward);
-            float theta = Mathf.Acos(dot);
-            float degree = Mathf.Rad2Deg * theta;
-            if (degree <= sightAngle / 2f)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, interV, out hit, sightDistance))
-                {
-                    if (hit.collider.CompareTag("Player"))
-                        findPlayer = true;
-                    else
-                        findPlayer = false;
-                }
-            }
-            else
-                findPlayer = false;
-        }
-        else
-            findPlayer = false;
-        if (findPlayer)
-            return true;
-        else
-            return false;
-    }
+    public virtual void StartConversationInteraction() { }
+    public virtual void EndConversationInteraction() { }
+    public virtual void InjureInteraction() { }
+    public virtual void ChaseInteraction() { }
+    public virtual void SpeechlessInteraction() { }
+
+    //public bool DetectPlayer()
+    //{
+    //    Vector3 interV = playerObject.transform.position - transform.position;
+    //    float dist = interV.magnitude;
+    //    if (dist <= sightDistance)
+    //    {
+    //        RaycastHit hit;
+    //        if (Physics.Raycast(transform.position, interV, out hit, sightDistance))
+    //        {
+    //            if (hit.collider.CompareTag("Player"))
+    //                return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
     public bool CheckDistance()
     {
@@ -58,5 +42,19 @@ public abstract class BaseEntity : MonoBehaviour
             return true;
         else
             return false;
+    }
+    public void LookPlayer()
+    {
+        Vector3 dir = playerObject.transform.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 5 * Time.deltaTime);
+    }
+
+    public void LookOriginal()
+    {
+        Quaternion targetRotation = Quaternion.Euler(initRotation);
+        transform.rotation = targetRotation;
+        //Quaternion originalDir = Quaternion.Euler(initRotation);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, originalDir, 5 * Time.deltaTime);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, , 5 * Time.deltaTime);
     }
 }

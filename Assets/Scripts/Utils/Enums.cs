@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ATypeEntityStates // 추격, 경계 x
 {
     Indifference,
-    Interaction
+    Interaction,
+    Speechless
 }
 
 public enum BTypeEntityStates // 추격 o, 경계 x
@@ -13,14 +14,16 @@ public enum BTypeEntityStates // 추격 o, 경계 x
     Indifference,
     Interaction,
     Aggressive,
-    Chase
+    Chase,
+    Speechless
 }
 
 public enum CTypeEntityStates // 추격 x, 경계 o
 {
     Indifference,
     Interaction,
-    Watch
+    Watch,
+    Speechless
 }
 
 public enum DTypeEntityStates // 추격 o, 경계 o
@@ -29,16 +32,15 @@ public enum DTypeEntityStates // 추격 o, 경계 o
     Interaction,
     Watch,
     Aggressive,
-    Chase
+    Chase,
+    Speechless
 }
 
-public enum EventType
+public enum StateEventType
 {
-    RestInteraction, // 휴식 공간에 들어갔을 때 or 층이 변했을 때
-    StartInteraction, // 상호작용 시작할 때
-    SuccessInteraction, // 모든 개체들이 성공했을 때
-    FailInteraction, // 실패해도 쫓아오지 않는 개체
-    ChaseInteraction // 실패하면 쫓아오는 개체
+    StartInteraction, // 상호작용을 하는 상태
+    EndInteraction, // 상호작용 종료, 어그로 해제된 상태
+    ChaseInteraction, // 플레이어가 쫓기는 상태
 }
 
 public enum SoundType

@@ -1654,10 +1654,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6283005438270401619}
   - component: {fileID: 131049677453375017}
-  - component: {fileID: 5076832218068732698}
   - component: {fileID: 906639177531747789}
   - component: {fileID: 5916996616153327028}
-  - component: {fileID: 6650563279341233428}
   - component: {fileID: 8454958659478929593}
   - component: {fileID: 8749104403187724167}
   - component: {fileID: 5997835484015184462}
@@ -1706,28 +1704,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!195 &5076832218068732698
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6663753518538831593}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!136 &906639177531747789
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1758,21 +1734,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6650563279341233428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6663753518538831593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c34873eda99b0740bfd556354e35d31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sightDistance: 0
-  sightAngle: 0
-  playerObject: {fileID: 0}
 --- !u!114 &8454958659478929593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,6 +1749,7 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  reverseY: 0
 --- !u!114 &8749104403187724167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1815,9 +1777,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
   dialogueRunner: {fileID: 0}
   detectedStr: GuardMan
   dialogueName: SchoolGuard1stFloorStart
+  lookPlayerwithConversation: 1
 --- !u!1 &6672392954137553384
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,7 +78,8 @@ public class GameManager : MonoBehaviour
     {
         FSM.Update();
         interactionDetect.GameUpdate();
-
+        if (Input.GetKeyDown(KeyCode.Z))
+            EntityEvent.SendSpawnEventMessage("303");
     }
 
     public void Clear()

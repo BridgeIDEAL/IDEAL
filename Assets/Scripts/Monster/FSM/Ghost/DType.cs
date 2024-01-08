@@ -5,66 +5,97 @@ using UnityEngine.AI;
 
 public class DType : BaseEntity
 {
+    #region Component
     State<DType>[] states;
     StateMachine<DType> stateMachine;
     NavMeshAgent nav;
     Animator anim;
-    Vector3 initPosition;
-    Vector3 initRotation;
+    bool onceWatch = false;
+    #endregion
+
     public DTypeEntityStates CurrentType { private set; get; }
+
     public override void Setup(MonsterData.MonsterStat stat)
-    {
+    {   // add component
+        nav = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
         // set information
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
-        nav.speed = stat.speed;
-        gameObject.name = stat.name;
-        // add component
-        nav = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
+        nav.speed = stat.monsterSpeed;
+        // set statemachine
         CurrentType = DTypeEntityStates.Indifference;
-       // set statemachine
         states = new State<DType>[6];
         states[(int)DTypeEntityStates.Indifference] = new DTypeStates.Indifference();
         states[(int)DTypeEntityStates.Interaction] = new DTypeStates.Interaction();
         states[(int)DTypeEntityStates.Watch] = new DTypeStates.Watch();
         states[(int)DTypeEntityStates.Aggressive] = new DTypeStates.Aggressive();
         states[(int)DTypeEntityStates.Chase] = new DTypeStates.Chase();
+        states[(int)DTypeEntityStates.Speechless] = new DTypeStates.Speechless();
         stateMachine = new StateMachine<DType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
 
     public override void UpdateBehavior() { stateMachine.Execute(); }
-    public override void RestInteraction() { StartCoroutine("ResetPosition"); }
-
-    public override void StartInteraction() { ChangeState(DTypeEntityStates.Interaction); }
-    public override void FailInteraction() { ChangeState(DTypeEntityStates.Indifference); }
-    public override void SuccessInteraction() { ChangeState(DTypeEntityStates.Indifference); }
+    public override void StartConversationInteraction() { ChangeState(DTypeEntityStates.Interaction); }
+    public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
+    public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
-
+    public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
     public void ChangeState(DTypeEntityStates newState)
     {
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
 
-    public void ChasePlayer()
+    public void ChasePlayer(){ nav.SetDestination(playerObject.transform.position);}
+
+    public void CheckNearPlayer()
     {
-        Vector3 dir = playerObject.transform.position - transform.position;
-        nav.SetDestination(playerObject.transform.position);
+        if (onceWatch)
+            return;
+        if (CheckDistance())
+            ChangeState(DTypeEntityStates.Watch);
     }
 
-    public void WatchPlayer()
+    public void MaintainWatch()
     {
-        float dist = (playerObject.transform.position - transform.position).magnitude;
-        Vector3 dir = playerObject.transform.position - transform.position;
-        if (sightDistance >= dist)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), lookSpeed * Time.deltaTime);
-        else
+        if (!CheckDistance())
             ChangeState(DTypeEntityStates.Indifference);
+    }
+
+    public void StartTimer() { StartCoroutine("WatchTimer"); }
+    public void EndTimer() { StopCoroutine("WatchTimer"); }
+
+    public IEnumerator WatchTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        if (CurrentType == DTypeEntityStates.Watch && !onceWatch)
+        {
+            onceWatch = true;
+            InjureInteraction();
+        }
+        yield break;
+    }
+
+    public void SetReposition() { StartCoroutine("ResetPosition"); }
+    public IEnumerator ResetPosition()
+    {
+        nav.isStopped = true;
+        nav.ResetPath();
+        yield return new WaitForSeconds(0.4f);
+        transform.position = initPosition;
+        transform.eulerAngles = initRotation;
+        nav.isStopped = false;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == playerObject)
+            Debug.Log("Player Dead!");
     }
 
     public void SetAnimation(DTypeEntityStates entityAnim)
@@ -87,17 +118,5 @@ public class DType : BaseEntity
                 anim.CrossFade("CHASE", 0.2f);
                 break;
         }
-    }
-
-    IEnumerator ResetPosition()
-    {
-        ChangeState(DTypeEntityStates.Indifference);
-        nav.isStopped = true;
-        nav.ResetPath();
-        yield return new WaitForSeconds(0.4f);
-        transform.position = initPosition;
-        transform.eulerAngles = initRotation;
-        ChangeState(DTypeEntityStates.Indifference);
-        nav.isStopped = false;
     }
 }
