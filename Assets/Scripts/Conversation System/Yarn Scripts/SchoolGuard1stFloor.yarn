@@ -7,13 +7,13 @@
     -> Player: 수위실로 간다.
         Student: ...
         // 게임 오버 - n번 실종자는 수위실에 들어간 후 통신이 끊김. 2
-        <<GameOver_SchoolGuard1st_1 ConversationManager>>
+        <<GameOver "$attempts번 실종자는 수위실에 들어간 후 통신이 끊김" 010101>>
     -> Player: 가지 않는다.
         수위 아저씨: 명부를 작성하지 않겠다고?
         수위 아저씨: 수상한데, 너 어디에서 왔나.
         Player: ...
         // 게임 오버 - 이후 수위 이형체가 n번 실종자를 끌고 간 후 통신이 끊김.
-        <<GameOver_SchoolGuard1st_2 ConversationManager>>
+        <<GameOver "이후 수위 이형체가 $attempts번 실종자를 끌고 간 후 통신이 끊김" 010103>>
 -> Player: 오늘 전학온 학생입니다.
     수위 아저씨: 아, 그런가. 그런데 왜 여기서 서성이고 있지?
     Player: 전학 수속때문에 교무센터에 가야 하는데
@@ -21,5 +21,5 @@
     Player: 혹시 잠깐 교무센터 열쇠를 빌려주실 수 있나요?
     수위 아저씨: 흠... 얼른 돌려줘야 하네.
     교무센터 열쇠를 획득했다.
-    <<GetTeacherCenterKey ConversationManager>>
+    <<GetTeacherCenterKey>>
 ===

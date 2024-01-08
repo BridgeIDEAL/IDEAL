@@ -11,7 +11,7 @@ Player: 안녕하세요.
         학생회장: 그래. 입부 희망서를 작성해야 하는데 잠깐 따라오겠나?
         ...
         //게임 오버 - 이후 n번 실종자와 통신이 끊김
-        <<GameOver_StudentPresident2nd_1 ConversationManager>>
+        <<GameOver "이후 $attempts번 실종자와 통신이 끊김" -1>>
     -> Player: 다른 방법은 없을까요?
         학생회장: 흠...
         Player: 꼭 부탁드립니다.
@@ -21,15 +21,15 @@ Player: 안녕하세요.
         -> ???를 준다.
             학생회장: 고마워. 열쇠는 쓰고 학생회실에 놓으면 돼.
             옥상 열쇠를 획득했다.
-            <<GetRoofTopKey ConversationManager>>
+            <<GetRoofTopKey>>
         -> ???를 주지 않는다.
             학생회장: 지금 나랑 장난하자는 건가?
             학생회장: 안되겠네. 잠깐 학생회실에서 교육이 필요하겠어.
             //게임 오버 - 이후 학생회장은 n번 실종자로 ???를 만들어 학생회실 내부에 전시.
-            <<GameOver_StudentPresident2nd_2 ConversationManager>>
+            <<GameOver "이후 학생회장은 $attempts번 실종자로 ???를 만들어 학생회실 내부에 전시" -1>>
 -> Player: 학생회에 가입하고 싶은데요.
     학생회장: 그래. 입부 희망서를 작성해야 하는데 잠깐 따라오겠나?
     ...
     //게임 오버 - n번 실종자는 가입 이후 매우 즐거워하며 탈출을 포기. 이후 학교 내부에서 목격 증언이 다수 발생.
-    <<GameOver_StudentPresident2nd_3 ConversationManager>>
+    <<GameOver "$attempts번 실종자는 가입 이후 매우 즐거워하며 탈출을 포기. 이후 학교 내부에서 목격 증언이 다수 발생" -1>>
 ===
