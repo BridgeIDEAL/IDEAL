@@ -78,10 +78,11 @@ public class ConversationManager : MonoBehaviour
         if(str.Contains("$attempts")){
             str = str.Replace("$attempts", attempts.ToString());
         }
-        GameOverManager.Instance.GameOver(str);
-        if(guideLogID <= -1){
+        if(guideLogID > -1){
             GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
         }
+        GameOverManager.Instance.GameOver(str);
+        
     }
     
     public void GameOver_Out(){
