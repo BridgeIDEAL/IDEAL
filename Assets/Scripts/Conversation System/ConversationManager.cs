@@ -8,6 +8,7 @@ public class ConversationManager : MonoBehaviour
 {
     [SerializeField] private ScriptHub scriptHub;
     private FirstPersonController firstPersonController;
+    private DialogueRunner dialogueRunner;
 
     [SerializeField] private LineView lineView;
 
@@ -21,6 +22,8 @@ public class ConversationManager : MonoBehaviour
     
     public void Init(){
         firstPersonController = scriptHub.firstPersonController;
+        dialogueRunner = scriptHub.dialogueRunner;
+        RegisterFunction();
     }
     public void VisibleMouseCursor(){
         firstPersonController.CameraRotationLock = true;
@@ -47,10 +50,23 @@ public class ConversationManager : MonoBehaviour
     #endregion
 
     #region Interaction
-    // Yarn Spinner에서 매개변수 받는 것을 사이트와 동일하게 했지만 전혀 통하지 않음! 으악
-    // 일단 노가다로 해결하고 이후 해결방법을 고려해보도록 하겠음
+    // Yarn Spinner에서 매개변수 받는 방법을 전해받음
+    private void RegisterFunction(){
+        dialogueRunner.AddCommandHandler<string,int>("GameOver", GameOver);
+    }
+
+    public void GameOver(string str, int guideLogID = -1){
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        if(str.Contains("$attempts")){
+            str = str.Replace("$attempts", attempts.ToString());
+        }
+        GameOverManager.Instance.GameOver(str);
+        if(guideLogID != -1){
+            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
+        }
+    }
     
-    [YarnCommand("GameOver")]
+    [YarnCommand("GameOvers")]
     public void GameOver(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
         GameOverManager.Instance.GameOver($"{attempts}번 실종자는 ...");
