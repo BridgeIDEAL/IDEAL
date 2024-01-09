@@ -93,8 +93,8 @@ public class ConversationManager : MonoBehaviour
 
     public void ChalkBoardSuccess(){
         // TO DO
-        // 2층 자습실 성공 처리 필요
-        Debug.Log("======== Success ChalkBoard");
+        // 1층 자습 성공 처리 필요
+        ChalkBoardText.Instance.SetChalkBoardText("다음 시간\n자습");
         ActivationLogManager.Instance.AddActivationLog(4105);
     }
 
