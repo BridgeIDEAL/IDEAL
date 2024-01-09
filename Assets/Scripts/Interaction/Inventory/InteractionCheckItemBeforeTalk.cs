@@ -6,6 +6,7 @@ using Yarn.Unity;
 public class InteractionCheckItemBeforeTalk : AbstractInteraction
 {
     [SerializeField] private DialogueRunner dialogueRunner;
+    [SerializeField] private ConversationManager conversationManager;
     [SerializeField] private string detectedStr = "";
     [SerializeField] private string dialogueName = "";
     [SerializeField] private int needItemCode = -1;
@@ -19,6 +20,7 @@ public class InteractionCheckItemBeforeTalk : AbstractInteraction
 
     protected override void ActInteraction(){
         if(Inventory.Instance.FindItemIndex(needItemCode) != -1){
+            conversationManager.SetTalkerName("");
             dialogueRunner.StartDialogue(dialogueName);
             if(successInteractionStr != ""){
                 InteractionManager.Instance.uIInteraction.GradientText(successInteractionStr);

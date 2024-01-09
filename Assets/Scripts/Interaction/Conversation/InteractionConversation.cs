@@ -6,6 +6,7 @@ using Yarn.Unity;
 public class InteractionConversation : AbstractInteraction
 {
     public DialogueRunner dialogueRunner;
+    public ConversationManager conversationManager;
     public string detectedStr = "";
     public string dialogueName = "";
     public string monsterName = "";
@@ -20,6 +21,7 @@ public class InteractionConversation : AbstractInteraction
     protected override void ActInteraction(){
         if(dialogueName != ""){
             if(lookPlayerwithConversation) LookPlayer();
+            conversationManager.SetTalkerName(monsterName);
             dialogueRunner.StartDialogue(dialogueName);
         }
     }

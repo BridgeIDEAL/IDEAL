@@ -9,6 +9,7 @@ public class ConversationManager : MonoBehaviour
     [SerializeField] private ScriptHub scriptHub;
     private FirstPersonController firstPersonController;
     private DialogueRunner dialogueRunner;
+    private string nowTalkerName = "";
 
     [SerializeField] private LineView lineView;
 
@@ -23,17 +24,34 @@ public class ConversationManager : MonoBehaviour
     public void Init(){
         firstPersonController = scriptHub.firstPersonController;
         dialogueRunner = scriptHub.dialogueRunner;
+        dialogueRunner.onDialogueStart.AddListener(ConversationStart);
+        dialogueRunner.onDialogueComplete.AddListener(ConversationEnd);
         RegisterFunction();
     }
-    public void VisibleMouseCursor(){
-        firstPersonController.CameraRotationLock = true;
-        Cursor.lockState = CursorLockMode.None;
+
+    #region Dialogue Event
+    public void SetTalkerName(string name_){
+        nowTalkerName = name_;
+    }
+    public void ConversationStart(){
+        if(nowTalkerName != ""){
+            GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartInteraction, nowTalkerName);
+        }
     }
 
-    public void InvisibleMouseCursor(){
-        firstPersonController.CameraRotationLock = false;
-        Cursor.lockState = CursorLockMode.Locked;
+    public void ConversationEnd(){
+        if(nowTalkerName != ""){
+            GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndInteraction, nowTalkerName);
+        }
     }
+
+    public void MonsterChase(){
+        if(nowTalkerName != ""){
+            GameManager.EntityEvent.SendStateEventMessage(StateEventType.ChaseInteraction, nowTalkerName);
+        }
+    }
+
+    #endregion
 
     #region Typing Effect
     public void AccelerateTypeSpeed(){
@@ -52,6 +70,9 @@ public class ConversationManager : MonoBehaviour
     private void RegisterFunction(){
         dialogueRunner.AddCommandHandler<string,int>("GameOver", GameOver);
         dialogueRunner.AddCommandHandler("GameOver_Out", GameOver_Out);
+
+        dialogueRunner.AddCommandHandler<string>("SetTalkerName", SetTalkerName);
+        dialogueRunner.AddCommandHandler("MonsterChase", MonsterChase);
 
         dialogueRunner.AddCommandHandler("ChalkBoardSuccess", ChalkBoardSuccess);
         dialogueRunner.AddCommandHandler("GetTeacherCenterKey", GetTeacherCenterKey);

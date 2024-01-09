@@ -51,6 +51,7 @@ public class FSMManager
         InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();
         if(interactionConversation != null){
             interactionConversation.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
+            interactionConversation.conversationManager = GameManager.Instance.scriptHub.conversationManager;
             interactionConversation.detectedStr = stat.detectedStr;
             interactionConversation.dialogueName = stat.dialogueName;
             interactionConversation.monsterName = stat.monsterName;
