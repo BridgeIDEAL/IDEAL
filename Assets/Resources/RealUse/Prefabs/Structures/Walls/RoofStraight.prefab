@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1030989492
+--- !u!1 &1030986388
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,81 +8,81 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1030989493}
-  - component: {fileID: 1030989494}
-  - component: {fileID: 1030989495}
+  - component: {fileID: 1030986389}
+  - component: {fileID: 1030986390}
+  - component: {fileID: 1030986391}
   m_Layer: 0
-  m_Name: SM_StairsInterior_U
+  m_Name: RoofStraight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1030989493
+--- !u!4 &1030986389
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989492}
+  m_GameObject: {fileID: 1030986388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1030989497}
-  - {fileID: 1030989501}
-  - {fileID: 1030989505}
-  - {fileID: 1030989509}
+  - {fileID: 1030986393}
+  - {fileID: 1030986397}
+  - {fileID: 1030986401}
+  - {fileID: 1030986405}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &1030989494
+--- !u!205 &1030986390
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989492}
+  m_GameObject: {fileID: 1030986388}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: -1.999999, y: 2.090429, z: 0.999999}
-  m_Size: 9.378036
+  m_LocalReferencePoint: {x: -0.2, y: 0.2, z: 1}
+  m_Size: 2.096282
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.09
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1030989498}
   - screenRelativeHeight: 0.02
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 1030989502}
+    - renderer: {fileID: 1030986394}
   - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 1030989506}
+    - renderer: {fileID: 1030986398}
+  - screenRelativeHeight: 0
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1030986402}
   - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 1030989510}
+    - renderer: {fileID: 1030986406}
     - renderer: {fileID: 0}
   m_Enabled: 1
---- !u!64 &1030989495
+--- !u!64 &1030986391
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989492}
+  m_GameObject: {fileID: 1030986388}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: abc00000000002741042564715004411, type: 3}
---- !u!1 &1030989496
+  m_Mesh: {fileID: 4300008, guid: abc00000000013204721354823090031, type: 3}
+--- !u!1 &1030986392
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,37 +90,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1030989497}
-  - component: {fileID: 1030989498}
-  - component: {fileID: 1030989499}
+  - component: {fileID: 1030986393}
+  - component: {fileID: 1030986394}
+  - component: {fileID: 1030986395}
   m_Layer: 0
-  m_Name: SM_StairsInterior_U_LOD0
+  m_Name: SM_RoofLedge_straight_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1030989497
+--- !u!4 &1030986393
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989496}
+  m_GameObject: {fileID: 1030986392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1030989493}
+  m_Father: {fileID: 1030986389}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1030989498
+--- !u!23 &1030986394
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989496}
+  m_GameObject: {fileID: 1030986392}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -133,8 +133,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abc00000000017440646065068948768, type: 2}
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
+  - {fileID: 2100000, guid: abc00000000000544188944331328194, type: 2}
+  - {fileID: 2100000, guid: abc00000000002311739872105525551, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,15 +156,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1030989499
+--- !u!33 &1030986395
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989496}
-  m_Mesh: {fileID: 4300000, guid: abc00000000002741042564715004411, type: 3}
---- !u!1 &1030989500
+  m_GameObject: {fileID: 1030986392}
+  m_Mesh: {fileID: 4300000, guid: abc00000000013204721354823090031, type: 3}
+--- !u!1 &1030986396
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,37 +172,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1030989501}
-  - component: {fileID: 1030989502}
-  - component: {fileID: 1030989503}
+  - component: {fileID: 1030986397}
+  - component: {fileID: 1030986398}
+  - component: {fileID: 1030986399}
   m_Layer: 0
-  m_Name: SM_StairsInterior_U_LOD1
+  m_Name: SM_RoofLedge_straight_01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1030989501
+--- !u!4 &1030986397
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989500}
+  m_GameObject: {fileID: 1030986396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1030989493}
+  m_Father: {fileID: 1030986389}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1030989502
+--- !u!23 &1030986398
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989500}
+  m_GameObject: {fileID: 1030986396}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -215,8 +215,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
+  - {fileID: 2100000, guid: abc00000000000544188944331328194, type: 2}
+  - {fileID: 2100000, guid: abc00000000002311739872105525551, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,15 +238,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1030989503
+--- !u!33 &1030986399
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989500}
-  m_Mesh: {fileID: 4300002, guid: abc00000000002741042564715004411, type: 3}
---- !u!1 &1030989504
+  m_GameObject: {fileID: 1030986396}
+  m_Mesh: {fileID: 4300002, guid: abc00000000013204721354823090031, type: 3}
+--- !u!1 &1030986400
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,37 +254,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1030989505}
-  - component: {fileID: 1030989506}
-  - component: {fileID: 1030989507}
+  - component: {fileID: 1030986401}
+  - component: {fileID: 1030986402}
+  - component: {fileID: 1030986403}
   m_Layer: 0
-  m_Name: SM_StairsInterior_U_LOD2
+  m_Name: SM_RoofLedge_straight_01_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1030989505
+--- !u!4 &1030986401
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989504}
+  m_GameObject: {fileID: 1030986400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1030989493}
+  m_Father: {fileID: 1030986389}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1030989506
+--- !u!23 &1030986402
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989504}
+  m_GameObject: {fileID: 1030986400}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -297,8 +297,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
+  - {fileID: 2100000, guid: abc00000000000544188944331328194, type: 2}
+  - {fileID: 2100000, guid: abc00000000002311739872105525551, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -320,15 +320,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1030989507
+--- !u!33 &1030986403
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989504}
-  m_Mesh: {fileID: 4300004, guid: abc00000000002741042564715004411, type: 3}
---- !u!1 &1030989508
+  m_GameObject: {fileID: 1030986400}
+  m_Mesh: {fileID: 4300004, guid: abc00000000013204721354823090031, type: 3}
+--- !u!1 &1030986404
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,37 +336,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1030989509}
-  - component: {fileID: 1030989510}
-  - component: {fileID: 1030989511}
+  - component: {fileID: 1030986405}
+  - component: {fileID: 1030986406}
+  - component: {fileID: 1030986407}
   m_Layer: 0
-  m_Name: SM_StairsInterior_U_LOD3
+  m_Name: SM_RoofLedge_straight_01_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1030989509
+--- !u!4 &1030986405
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989508}
+  m_GameObject: {fileID: 1030986404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1030989493}
+  m_Father: {fileID: 1030986389}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1030989510
+--- !u!23 &1030986406
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989508}
+  m_GameObject: {fileID: 1030986404}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -379,8 +379,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
-  - {fileID: 2100000, guid: abc00000000000574349497253863854, type: 2}
+  - {fileID: 2100000, guid: abc00000000000544188944331328194, type: 2}
+  - {fileID: 2100000, guid: abc00000000002311739872105525551, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -402,11 +402,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1030989511
+--- !u!33 &1030986407
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030989508}
-  m_Mesh: {fileID: 4300006, guid: abc00000000002741042564715004411, type: 3}
+  m_GameObject: {fileID: 1030986404}
+  m_Mesh: {fileID: 4300006, guid: abc00000000013204721354823090031, type: 3}
