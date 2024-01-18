@@ -19,6 +19,8 @@ public abstract class BaseEntity : MonoBehaviour
     public virtual void ChaseInteraction() { }
     public virtual void SpeechlessInteraction() { }
 
+    public virtual void GazeAtInteraction(MonsterData.MonsterStat stat) { }
+
     //public bool DetectPlayer()
     //{
     //    Vector3 interV = playerObject.transform.position - transform.position;
