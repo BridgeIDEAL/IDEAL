@@ -17,7 +17,7 @@ public class UIArrow : MonoBehaviour
     [SerializeField] private GraphicRaycaster graphicRaycaster;
     private PointerEventData pointerEventData;
     [SerializeField] private EventSystem eventSystem;
-
+    [SerializeField] private GameObject BookArea;
     private bool CheckIfMouseOverUI(){
         pointerEventData = new PointerEventData(eventSystem);
         pointerEventData.position = Input.mousePosition;
@@ -28,6 +28,7 @@ public class UIArrow : MonoBehaviour
         return results.Count > 0;
     }
     void Update() {
+        if(BookArea.activeSelf) return;
         parentMouseOver = currentMouseOver;
         currentMouseOver = CheckIfMouseOverUI();
         if(parentMouseOver == false && currentMouseOver == true){

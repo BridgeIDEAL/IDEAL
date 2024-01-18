@@ -59,7 +59,7 @@ public class UIGuideLogManager : MonoBehaviour
         // 겉 표지 Front
         int nowAttempt = -1;
         if(CountAttempts.Instance != null){
-            nowAttempt = CountAttempts.Instance.GetAttemptCount();
+            nowAttempt = CountAttempts.Instance.GetAttemptCount() + 1;
         }
         bookPages.Add($"\n\n\n<align=center><size={titleFontSize}>실종 기록 일지</size></align>\n\n<align=right><size={bigFontSize}>-{nowAttempt}번째 실종자-</size></align>");
         bookPages.Add("");
