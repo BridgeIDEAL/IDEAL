@@ -92,6 +92,7 @@ public class UIManager : MonoBehaviour
 
         SetUIActive(UIType.IngameUI, true);
         uIIngame.SetVisualFilter(0.0f);
+        uIIngame.FadeInEffect();
 
         LoadingImageManager.Instance.DeleteLoadingCanvas();
     }
