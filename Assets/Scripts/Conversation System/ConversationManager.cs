@@ -18,6 +18,8 @@ public class ConversationManager : MonoBehaviour
     [SerializeField] private InteractionItemData teacherCenterKey;
     
     [SerializeField] private InteractionItemData roofTopKey;
+
+    [SerializeField] private InteractionItemData handCream;
     private int normalTypingSpeed = 20;
     private int acceleratedTypingSpeed = 40;
     
@@ -69,6 +71,7 @@ public class ConversationManager : MonoBehaviour
     // Yarn Spinner에서 매개변수 받는 방법을 전해받음
     private void RegisterFunction(){
         dialogueRunner.AddCommandHandler<string,int>("GameOver", GameOver);
+        dialogueRunner.AddCommandHandler<int>("AddGuideLog", AddGuideLog);
         dialogueRunner.AddCommandHandler("GameOver_Out", GameOver_Out);
 
         dialogueRunner.AddCommandHandler<string>("SetTalkerName", SetTalkerName);
@@ -76,7 +79,9 @@ public class ConversationManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("ChalkBoardSuccess", ChalkBoardSuccess);
         dialogueRunner.AddCommandHandler("GetTeacherCenterKey", GetTeacherCenterKey);
-        dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey);
+        dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey); 
+        dialogueRunner.AddCommandHandler("Active_01F_Medicine", Active_01F_Medicine);
+        dialogueRunner.AddCommandHandler("GetHandCream", GetHandCream);
 
         dialogueRunner.AddCommandHandler("AccelerateTypeSpeed", AccelerateTypeSpeed);
         dialogueRunner.AddCommandHandler("NormalTypeSpeed", NormalTypeSpeed);
@@ -104,6 +109,13 @@ public class ConversationManager : MonoBehaviour
         }
         GameOverManager.Instance.GameOver(str);
         
+    }
+
+    public void AddGuideLog(int guideLogID = -1){
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        if(guideLogID > -1){
+            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
+        }
     }
     
     public void GameOver_Out(){
@@ -200,6 +212,14 @@ public class ConversationManager : MonoBehaviour
     public void GetRoofTopKey(){
         Inventory.Instance.Add(roofTopKey, 1);
         ActivationLogManager.Instance.AddActivationLog(4107);
+    }
+
+    public void Active_01F_Medicine(){
+        ActiveInteraction.Instance.Active_01F_Medicine();
+    }
+
+    public void GetHandCream(){
+        Inventory.Instance.Add(handCream, 1);
     }
 
     #endregion

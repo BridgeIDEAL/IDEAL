@@ -65,6 +65,16 @@ public class HealthPointManager : MonoBehaviour
         return healthPoint[(int)idealBodyPart];
     }
 
+    public bool NoDamage(){
+        bool nodamage = true;
+        for(int i = 0; i < healthPoint.Length; i++){
+            if(healthPoint[i] != maxHP){
+                nodamage = false;
+            }
+        }
+        return nodamage;
+    }
+
     public void Hurt(IdealBodyPart idealBodyPart, int damage){
         if(damage > 0) uIIngame.HurtEffect();
         int bodyNum = (int)idealBodyPart;
