@@ -24,6 +24,7 @@ public class InteractionDoor : AbstractInteraction
 
     protected override void ActInteraction(){
         if(Inventory.Instance.UseItemWithItemCode(needItem)){
+            audioSource.Play();
             OpenDoor();
             if(activationLogNum != -1){
                 ActivationLogManager.Instance.AddActivationLog(activationLogNum);
