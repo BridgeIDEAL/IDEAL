@@ -33,7 +33,7 @@ public class GuideLogManager : MonoBehaviour
 
         // TO DO 아래 테스트 코드 이후에 지우기
         GenerateGuideLogRecordList();
-        GenerateBasicGuideLog();
+        GenerateTransparentGuideLog();
         // GenerateTestCase();
     }
 
@@ -67,39 +67,32 @@ public class GuideLogManager : MonoBehaviour
         }
     }
 
-    private void GenerateBasicGuideLog(){
-        UpdateGuideLogRecord(010000, -1);
-        UpdateGuideLogRecord(010100, 1);
-        UpdateGuideLogRecord(020000, -1);
+    private void GenerateTransparentGuideLog(){
+        UpdateGuideLogRecord(010100, -1);
+        UpdateGuideLogRecord(020100, -1);
+        UpdateGuideLogRecord(030101, -1);
+        UpdateGuideLogRecord(030102, -1);
+        UpdateGuideLogRecord(040100, -1);
+        UpdateGuideLogRecord(060100, -1);
+        UpdateGuideLogRecord(070101, -1);
+        UpdateGuideLogRecord(090100, -1);
+        UpdateGuideLogRecord(090200, -1);
+        UpdateGuideLogRecord(100101, -1);
+        UpdateGuideLogRecord(110100, -1);
+        UpdateGuideLogRecord(110301, -1);
+        UpdateGuideLogRecord(130101, -1);
+        UpdateGuideLogRecord(130102, -1);
+        UpdateGuideLogRecord(130104, -1);
+        UpdateGuideLogRecord(130105, -1);
+        UpdateGuideLogRecord(130106, -1);
+        UpdateGuideLogRecord(140101, -1);
+        UpdateGuideLogRecord(160200, -1);
+        UpdateGuideLogRecord(200101, -1);
+
     }
 
     private void GenerateTestCase(){
-        UpdateGuideLogRecord(010101, 2);
-        UpdateGuideLogRecord(010102, 3);
-        UpdateGuideLogRecord(010103, 4);
-        UpdateGuideLogRecord(010103, -1);
-        UpdateGuideLogRecord(010103, 0);
-        UpdateGuideLogRecord(010103, 1);
 
-        UpdateGuideLogRecord(010103, 2);
-        UpdateGuideLogRecord(010103, 3);
-        UpdateGuideLogRecord(010103, 4);
-        UpdateGuideLogRecord(010103, 5);
-        UpdateGuideLogRecord(010103, 6);
-        UpdateGuideLogRecord(010103, 7);
-        UpdateGuideLogRecord(010103, 8);
-        UpdateGuideLogRecord(010103, 9);
-        UpdateGuideLogRecord(010103, 10);
 
-        UpdateGuideLogRecord(010103, 11);
-        UpdateGuideLogRecord(010103, 12);
-        UpdateGuideLogRecord(010103, 13);
-        UpdateGuideLogRecord(010103, 14);
-        UpdateGuideLogRecord(010103, 15);
-        UpdateGuideLogRecord(010103, 16);
-        UpdateGuideLogRecord(010103, 17);
-        UpdateGuideLogRecord(010103, 18);
-        UpdateGuideLogRecord(010103, 19);
-        UpdateGuideLogRecord(010103, 20);
     }
 }

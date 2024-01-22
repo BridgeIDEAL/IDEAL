@@ -59,11 +59,14 @@ public class UIGuideLogManager : MonoBehaviour
         // 겉 표지 Front
         int nowAttempt = -1;
         if(CountAttempts.Instance != null){
-            nowAttempt = CountAttempts.Instance.GetAttemptCount();
+            nowAttempt = CountAttempts.Instance.GetAttemptCount() + 1;
         }
         bookPages.Add($"\n\n\n<align=center><size={titleFontSize}>실종 기록 일지</size></align>\n\n<align=right><size={bigFontSize}>-{nowAttempt}번째 실종자-</size></align>");
         bookPages.Add("");
         int bookindex = 1;
+        
+        // 큰 규칙의 번호가 바뀌면 간격을 띄우기 위해
+        int nowBigGuideID = 0;
         for(int i = 0 ; i < guideLogRecordList.Count; i++){
             GuideLog guideLog = guideLogManager.GetGuideLog(guideLogRecordList[i].GetGuideLogID());
             string curStr = bookPages[bookindex];
@@ -77,19 +80,25 @@ public class UIGuideLogManager : MonoBehaviour
             // TO DO 규칙 대중 하에 따라 크기 및 bold 처리
             string sizeStart = "", sizeEnd = "</size>";
             string indentStart = "", indentEnd = "</indent>";
+
+            // attempt가 -2 == 기본 검정,  -1 == 투명  0 이상 == 현재 시도와 가까울수록 진한 색
             string colorStart = "", colorEnd = "";
+            int colorDegree = Mathf.Abs(nowAttempt - attempt);
+            int redDegree = (int)Mathf.Lerp(redHigh, redLow, (float)colorDegree / colorLevel);
+
+            string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.4f, 0.4f));
+            if(attempt <= -2){
+                hexColor = "000000FF";
+            }
+            else if(attempt == -1){
+                hexColor = "FFFFFF00";
+            }
+            colorStart = $"<color=#{hexColor}>";
+            colorEnd = "</color>";
+
             if(guideLog.GetID() % 100 != 0){    // 소 규칙
                 sizeStart = $"<size={smallFontSize}>";
                 indentStart = $"<indent={smallIndent}>";
-                int colorDegree = Mathf.Abs(nowAttempt - attempt);
-                int redDegree = (int)Mathf.Lerp(redHigh, redLow, (float)colorDegree / colorLevel);
-
-                string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.4f, 0.4f));
-                if(attempt <= -2){
-                    hexColor = "FFFFFF00";
-                }
-                colorStart = $"<color=#{hexColor}>";
-                colorEnd = "</color>";
             }
             else if(guideLog.GetID() % 10000 != 0){ // 중 규칙
                 sizeStart = $"<size={middleFontSize}>";
@@ -101,7 +110,15 @@ public class UIGuideLogManager : MonoBehaviour
             }
 
             
-            string nextStr = curStr + sizeStart + indentStart + colorStart + guideText + colorEnd + indentEnd + sizeEnd + "\n";
+            string nextStr;
+            if(nowBigGuideID != guideLog.GetID() / 10000){
+                // 큰 규칙의 번호가 바뀌면 \n 1번
+                nextStr = curStr + "\n" + sizeStart + indentStart + colorStart + guideText + colorEnd + indentEnd + sizeEnd + "\n";
+                nowBigGuideID = guideLog.GetID() / 10000;
+            }
+            else {
+                nextStr = curStr + sizeStart + indentStart + colorStart + guideText + colorEnd + indentEnd + sizeEnd + "\n";
+            }
             if(CheckOverFlow(nextStr)){
                 bookPages.Add("");
                 bookindex++;

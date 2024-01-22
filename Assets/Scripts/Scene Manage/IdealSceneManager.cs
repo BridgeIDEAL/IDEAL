@@ -46,4 +46,14 @@ public class IdealSceneManager : MonoBehaviour
     public void AddAttemptCount(){
         CountAttempts.Instance.AddAttemptCount();
     }
+
+    public void ExitGame(){
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        Debug.Log("isPlaying = false");
+#else
+        Application.Quit();
+        Debug.Log("Application.Quit");
+#endif
+    }
 }

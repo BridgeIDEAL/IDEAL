@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class AbstractInteraction : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
+    public AudioSource audioSource;     // 상속받은 클래스에서 ActInteraction 부분에서 상호작용 성공 or  실패시 가져다가 쓰도록
     public abstract float RequiredTime {get;}
 
     private Coroutine interactionCoroutine;
@@ -21,7 +21,6 @@ public abstract class AbstractInteraction : MonoBehaviour
 
 
     public void DetectedInteraction(){
-        if(audioSource!= null) audioSource.Play();
         ActInteraction();
     }
 
