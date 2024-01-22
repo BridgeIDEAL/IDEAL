@@ -35,7 +35,7 @@ public class FSMManager
                 break;
             case "B":
                 go.AddComponent<BType>();
-                go.AddComponent<NavMeshAgent>();
+                //go.AddComponent<NavMeshAgent>();
                 break;
             case "D":
                 go.AddComponent<DType>();

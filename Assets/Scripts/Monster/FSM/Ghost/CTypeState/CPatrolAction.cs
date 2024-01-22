@@ -16,6 +16,7 @@ public class CPatrolAction : CType
     #region Override
     public override void AdditionalSetup()
     {
+        this.gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
         nav.speed = patrolSpeed;
         patrolPoints = new List<Vector3>();

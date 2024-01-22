@@ -6,11 +6,11 @@ using UnityEngine.AI;
 public class DType : BaseEntity
 {
     #region Component
-    State<DType>[] states;
-    StateMachine<DType> stateMachine;
-    NavMeshAgent nav;
-    Animator anim;
-    bool onceWatch = false;
+    protected Animator anim;
+    protected NavMeshAgent nav;
+    protected State<DType>[] states;
+    protected StateMachine<DType> stateMachine;
+    protected bool onceWatch = false;
     #endregion
 
     public DTypeEntityStates CurrentType { private set; get; }

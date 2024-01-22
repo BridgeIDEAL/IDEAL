@@ -24,16 +24,16 @@ public class CType : BaseEntity
     #region Override
     public override void Setup(MonsterData.MonsterStat stat)
     {
-        // add component
-        anim = GetComponentInChildren<Animator>();
         // set information
         gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
+        // add component
+        AdditionalSetup();
+        anim = GetComponentInChildren<Animator>();
         // set statemachine
-        
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
         states[(int)CTypeEntityStates.Indifference] = new CTypeStates.Indifference();
@@ -41,7 +41,6 @@ public class CType : BaseEntity
         states[(int)CTypeEntityStates.Interaction] = new CTypeStates.Interaction();
         states[(int)CTypeEntityStates.Speechless] = new CTypeStates.Speechless();
         stateMachine = new StateMachine<CType>();
-        AdditionalSetup();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
     public override void UpdateBehavior(){stateMachine.Execute();}

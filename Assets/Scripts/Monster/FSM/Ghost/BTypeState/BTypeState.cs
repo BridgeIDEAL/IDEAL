@@ -12,8 +12,8 @@ namespace BTypeStates
     }
     public class Interaction : State<BType>
     {
-        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType); entity.LookPlayer(); }
-        public override void Execute(BType entity) {  }
+        public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType); }
+        public override void Execute(BType entity) { entity.LookPlayer(); }
         public override void Exit(BType entity) { }
     }
 
