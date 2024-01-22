@@ -2803,7 +2803,11 @@ GameObject:
   - component: {fileID: 9054330171289768196}
   - component: {fileID: 7311623811926995792}
   - component: {fileID: 368530766458497452}
-  m_Layer: 0
+  - component: {fileID: 4435901758424060568}
+  - component: {fileID: -3612241468224302897}
+  - component: {fileID: -971021168407998216}
+  - component: {fileID: -2910555449340394902}
+  m_Layer: 6
   m_Name: HealthTeacher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2868,6 +2872,75 @@ CapsuleCollider:
   m_Height: 1.4000001
   m_Direction: 1
   m_Center: {x: 0, y: 1.2, z: 0.1}
+--- !u!114 &4435901758424060568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8569402299924106174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1a36e5da62a284aab7b1eae6732518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
+  sightDistance: 10
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  initPosition: {x: 0, y: 0, z: 0}
+  initRotation: {x: 0, y: 0, z: 0}
+--- !u!114 &-3612241468224302897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8569402299924106174}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  reverseY: 0
+--- !u!114 &-971021168407998216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8569402299924106174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: -2910555449340394902}
+  interactionOutline: {fileID: -3612241468224302897}
+  outlineActive: 0
+--- !u!114 &-2910555449340394902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8569402299924106174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  dialogueRunner: {fileID: 0}
+  conversationManager: {fileID: 0}
+  detectedStr: 
+  dialogueName: 
+  monsterName: 
+  lookPlayerwithConversation: 1
 --- !u!1 &8638585015240104388
 GameObject:
   m_ObjectHideFlags: 0

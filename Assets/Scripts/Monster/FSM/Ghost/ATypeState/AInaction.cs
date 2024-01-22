@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class AInaction : AType
 {
+    #region Override
     public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
+    #endregion
 }

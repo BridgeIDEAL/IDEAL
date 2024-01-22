@@ -12,6 +12,7 @@ public abstract class BaseEntity : MonoBehaviour
     #endregion
 
     public virtual void Setup(MonsterData.MonsterStat stat) {}
+    public virtual void AdditionalSetup() { }
     public abstract void UpdateBehavior();
     public virtual void StartConversationInteraction() { }
     public virtual void EndConversationInteraction() { }

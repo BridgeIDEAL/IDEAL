@@ -9,10 +9,14 @@ public class AType : BaseEntity
     protected Animator anim;
     protected State<AType>[] states;
     protected StateMachine<AType> stateMachine;
+    public ATypeEntityStates CurrentType { protected set; get; }
     #endregion
 
-    public ATypeEntityStates CurrentType { private set; get; }
-    
+    #region Virtual
+    public virtual void SetAnimation(ATypeEntityStates entityAnim) { }
+    #endregion
+
+    #region Override
     public override void Setup(MonsterData.MonsterStat stat)
     {   
         // add component
@@ -32,8 +36,10 @@ public class AType : BaseEntity
         stateMachine = new StateMachine<AType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
-
     public override void UpdateBehavior() { stateMachine.Execute(); }
+    #endregion
+
+    #region Method
     public void ChangeState(ATypeEntityStates newState){ CurrentType = newState; stateMachine.ChangeState(states[(int)newState]); }
-    public virtual void SetAnimation(ATypeEntityStates entityAnim){ }
+    #endregion
 }

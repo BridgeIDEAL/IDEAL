@@ -24,27 +24,28 @@ public class FSMManager
 
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
-        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.monsterPrefabName}"));
+        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/MonsterPrefab/{stat.monsterPrefabName}"));
         switch (stat.monsterType)
         {
-            case "A":
-                go.AddComponent<AType>();
+            case "AL":
+                go.AddComponent<ALowAction>();
+                break;
+            case "AH":
+                go.AddComponent<AHighAction>();
                 break;
             case "B":
                 go.AddComponent<BType>();
-                go.AddComponent<NavMeshAgent>();
-                break;
-            case "C":
-                go.AddComponent<CType>();
                 go.AddComponent<NavMeshAgent>();
                 break;
             case "D":
                 go.AddComponent<DType>();
                 go.AddComponent<NavMeshAgent>();
                 break;
+            default:
+                break;
         }
 
-        T type = go.GetComponentInChildren<T>();
+        T type = go.GetComponentInChildren<T>(); 
         type.Setup(stat);
         type.playerObject = playerGameObject;
         entityList.Add(type);

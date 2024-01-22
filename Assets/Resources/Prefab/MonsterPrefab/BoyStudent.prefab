@@ -285,7 +285,10 @@ GameObject:
   - component: {fileID: 6363991327328319440}
   - component: {fileID: 1251761352356263943}
   - component: {fileID: 990917176163466036}
-  m_Layer: 0
+  - component: {fileID: -5293746042079566047}
+  - component: {fileID: -8384357254901398534}
+  - component: {fileID: 5248455276239744806}
+  m_Layer: 6
   m_Name: BoyStudent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,6 +372,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-5293746042079566047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741741107498431874}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  reverseY: 0
+--- !u!114 &-8384357254901398534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741741107498431874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 5248455276239744806}
+  interactionOutline: {fileID: -5293746042079566047}
+  outlineActive: 0
+--- !u!114 &5248455276239744806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741741107498431874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  dialogueRunner: {fileID: 0}
+  conversationManager: {fileID: 0}
+  detectedStr: 
+  dialogueName: 
+  monsterName: 
+  lookPlayerwithConversation: 1
 --- !u!1 &1009105356196156204
 GameObject:
   m_ObjectHideFlags: 0

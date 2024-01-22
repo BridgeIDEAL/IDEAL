@@ -6,18 +6,26 @@ using UnityEngine.AI;
 public class CType : BaseEntity
 {
     #region Component
-    State<CType>[] states;
-    StateMachine<CType> stateMachine;
-    //Animator anim;
-    bool onceWatch = false;
-    #endregion
+    protected float turnSpeed = 5f;
+    protected bool onceWatch = false;
+    protected Animator anim;
+    protected State<CType>[] states;
+    protected StateMachine<CType> stateMachine;
 
     public CTypeEntityStates CurrentType { private set; get; }
+    #endregion
 
+    #region Virtual
+    public virtual void IndifferenceExecute() { } // 무관심 상태일때 실행
+    public virtual void WatchEnter() { } // 경계 상태로 진입할 때 실행
+    public virtual void SetAnimation(CTypeEntityStates entityAnim) { }
+    #endregion
+
+    #region Override
     public override void Setup(MonsterData.MonsterStat stat)
     {
         // add component
-        //anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         // set information
         gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
@@ -25,6 +33,7 @@ public class CType : BaseEntity
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
         // set statemachine
+        
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
         states[(int)CTypeEntityStates.Indifference] = new CTypeStates.Indifference();
@@ -32,6 +41,7 @@ public class CType : BaseEntity
         states[(int)CTypeEntityStates.Interaction] = new CTypeStates.Interaction();
         states[(int)CTypeEntityStates.Speechless] = new CTypeStates.Speechless();
         stateMachine = new StateMachine<CType>();
+        AdditionalSetup();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
     public override void UpdateBehavior(){stateMachine.Execute();}
@@ -39,12 +49,21 @@ public class CType : BaseEntity
     public override void EndConversationInteraction() { ChangeState(CTypeEntityStates.Indifference); }
     public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(CTypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
+    public override void LookPlayer()
+    {
+        Vector3 dir = playerObject.transform.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 5 * turnSpeed);
+    }
+    #endregion
+
+
+
+    #region Method
     public void ChangeState(CTypeEntityStates newState)
     {
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
     public void CheckNearPlayer()
     {
         if (onceWatch)
@@ -52,16 +71,13 @@ public class CType : BaseEntity
         if (CheckDistance())
             ChangeState(CTypeEntityStates.Watch);
     }
-
     public void MaintainWatch()
     {
         if (!CheckDistance())
             ChangeState(CTypeEntityStates.Indifference);
     }
-
     public void StartTimer() { StartCoroutine("WatchTimer"); }
     public void EndTimer () { StopCoroutine("WatchTimer"); }
- 
     public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
@@ -72,19 +88,5 @@ public class CType : BaseEntity
         }
         yield break;   
     }
-    public void SetAnimation(CTypeEntityStates entityAnim)
-    {
-        //switch (entityAnim)
-        //{
-        //    case CTypeEntityStates.Indifference:
-        //        anim.CrossFade("IDLE", 0.2f);
-        //        break;
-        //    case CTypeEntityStates.Watch:
-        //        anim.CrossFade("IDLE", 0.2f);
-        //        break;
-        //    case CTypeEntityStates.Interaction:
-        //        anim.CrossFade("IDLE", 0.2f);
-        //        break;
-        //}
-    }
+    #endregion
 }
