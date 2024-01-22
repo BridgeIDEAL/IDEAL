@@ -42,10 +42,6 @@ public class FSMManager
                 go.AddComponent<DType>();
                 go.AddComponent<NavMeshAgent>();
                 break;
-            case "P":
-                go.AddComponent<PType>();
-                go.AddComponent<NavMeshAgent>();
-                break;
         }
 
         T type = go.GetComponentInChildren<T>();

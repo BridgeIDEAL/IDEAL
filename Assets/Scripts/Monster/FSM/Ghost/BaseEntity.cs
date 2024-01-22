@@ -18,24 +18,9 @@ public abstract class BaseEntity : MonoBehaviour
     public virtual void InjureInteraction() { }
     public virtual void ChaseInteraction() { }
     public virtual void SpeechlessInteraction() { }
-
+    public virtual void LookPlayer() { }
+    public virtual void LookOriginal() { }
     public virtual void GazeAtInteraction(MonsterData.MonsterStat stat) { }
-
-    //public bool DetectPlayer()
-    //{
-    //    Vector3 interV = playerObject.transform.position - transform.position;
-    //    float dist = interV.magnitude;
-    //    if (dist <= sightDistance)
-    //    {
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(transform.position, interV, out hit, sightDistance))
-    //        {
-    //            if (hit.collider.CompareTag("Player"))
-    //                return true;
-    //        }
-    //    }
-    //    return false;
-    //}
 
     public bool CheckDistance()
     {
@@ -44,19 +29,5 @@ public abstract class BaseEntity : MonoBehaviour
             return true;
         else
             return false;
-    }
-    public void LookPlayer()
-    {
-        Vector3 dir = playerObject.transform.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 5 * Time.deltaTime);
-    }
-
-    public void LookOriginal()
-    {
-        Quaternion targetRotation = Quaternion.Euler(initRotation);
-        transform.rotation = targetRotation;
-        //Quaternion originalDir = Quaternion.Euler(initRotation);
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, originalDir, 5 * Time.deltaTime);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, , 5 * Time.deltaTime);
     }
 }
