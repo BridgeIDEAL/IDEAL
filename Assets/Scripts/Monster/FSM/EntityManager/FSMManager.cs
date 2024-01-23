@@ -5,15 +5,20 @@ using UnityEngine.AI;
 
 public class FSMManager
 {
+    #region Component
     private GameObject playerGameObject; // player 
     private List<BaseEntity> entityList; // store all monsterentities for update 
     private Dictionary<string, BaseEntity> entityDictionary; // store all monsterentities for search 
+    #endregion
+
+    #region Method
     public void Init()
     {
+        // init setting
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<string, BaseEntity>();
         playerGameObject = GameObject.FindGameObjectWithTag("Player");
-        foreach(MonsterData.MonsterStat stat in GameManager.Data.initMonsterInfoDict.Values){ Spawn<BaseEntity>(stat); } // init spawn
+        foreach(MonsterData.MonsterStat stat in GameManager.Data.initMonsterInfoDict.Values){ Spawn<BaseEntity>(stat); }
         // state event
         GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
         GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
@@ -25,21 +30,22 @@ public class FSMManager
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
         GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/MonsterPrefab/{stat.monsterPrefabName}"));
+        if(stat.monsterType == "XR" || stat.monsterType == "XL"|| stat.monsterType == "ZR"|| stat.monsterType == "ZL")
+        {
+            AMiddleAction middle = go.GetComponent<AMiddleAction>();
+            middle.SetCalDir(stat.monsterType);
+        }
+
         switch (stat.monsterType)
         {
-            case "AL":
-                go.AddComponent<ALowAction>();
-                break;
-            case "AH":
-                go.AddComponent<AHighAction>();
-                break;
             case "B":
                 go.AddComponent<BType>();
-                //go.AddComponent<NavMeshAgent>();
+                break;
+            case "CA":
+                go.AddComponent<CAction>();
                 break;
             case "D":
                 go.AddComponent<DType>();
-                go.AddComponent<NavMeshAgent>();
                 break;
             default:
                 break;
@@ -97,4 +103,5 @@ public class FSMManager
             return;
         Spawn<BaseEntity>(GameManager.Data.spawnMonsterInfoDict[_Name]);
     }
+    #endregion
 }

@@ -6,33 +6,37 @@ using UnityEngine.AI;
 public class AMiddleAction : AType
 {
     #region Component
-    public enum TurnState { Straight, Left, Right }
-    public TurnState GazeDir { protected set; get; } = TurnState.Straight;
+    public enum DetectDir { XR, ZL, XL, ZR, N }
+    public DetectDir CalDir { set; get; } = DetectDir.N;
+    public enum RoateState { Straight, Left, Right }
+    public RoateState GazeDir { set; get; } = RoateState.Straight;
     #endregion
 
     #region Override
+    public override void AdditionalSetup() { anim = GetComponent<Animator>(); }
+    public override void LookPlayer() { }
     public override void StartConversationInteraction() {
-        if (transform.position.x - playerObject.transform.position.x > 0)
-            GazeDir = TurnState.Left; // 플레이어가 왼쪽에 있음
-        else
-            GazeDir = TurnState.Right; // 플레이어가 오른쪽에 있음
+        CalRotateDir();
         ChangeState(ATypeEntityStates.Interaction);
     }
+
     public override void EndConversationInteraction() { 
         if(CurrentType == ATypeEntityStates.Interaction)
         {
-            if(GazeDir== TurnState.Left)
+            if(GazeDir== RoateState.Left)
                 anim.CrossFade("BackLeft", 0.2f);
-            else if(GazeDir==TurnState.Right)
+            else if(GazeDir== RoateState.Right)
                 anim.CrossFade("BackRight", 0.2f);
-            GazeDir = TurnState.Straight;
+            GazeDir = RoateState.Straight;
         }
         else
         {
             ChangeState(ATypeEntityStates.Indifference);
         }
     }
+
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
+
     public override void SetAnimation(ATypeEntityStates entityAnim)
     {
         switch (entityAnim)
@@ -41,9 +45,9 @@ public class AMiddleAction : AType
                 anim.CrossFade("Idle", 0.2f);
                 break;
             case ATypeEntityStates.Interaction:
-                if(GazeDir == TurnState.Left)
+                if(GazeDir == RoateState.Left)
                     anim.CrossFade("TurnLeft", 0.2f);
-                else if (GazeDir == TurnState.Right)
+                else if (GazeDir == RoateState.Right)
                     anim.CrossFade("TurnRight", 0.2f);
                 break;
             case ATypeEntityStates.Speechless:
@@ -51,5 +55,61 @@ public class AMiddleAction : AType
                 break;
         }
     }
+    #endregion
+
+    #region Method
+    public void SetCalDir(string _Dir)
+    {
+        switch (_Dir)
+        {
+            case "XR":
+                CalDir = DetectDir.XR;
+                break;
+            case "XL":
+                CalDir = DetectDir.XL;
+                break;
+            case "ZR":
+                CalDir = DetectDir.ZR;
+                break;
+            case "ZL":
+                CalDir = DetectDir.ZL;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void CalRotateDir()
+    {
+        switch (CalDir)
+        {
+            case DetectDir.XR: // 0도
+                if (playerObject.transform.position.x - transform.position.x > 0)
+                    GazeDir = RoateState.Right; // 플레이어가 왼쪽에 있음
+                else
+                    GazeDir = RoateState.Left; // 플레이어가 오른쪽에 있음
+                break;
+            case DetectDir.XL: // 180도
+                if (playerObject.transform.position.x - transform.position.x > 0)
+                    GazeDir = RoateState.Left; // 플레이어가 왼쪽에 있음
+                else
+                    GazeDir = RoateState.Right; // 플레이어가 오른쪽에 있음
+                break;
+            case DetectDir.ZR: // 270도
+                if (playerObject.transform.position.z - transform.position.z > 0)
+                    GazeDir = RoateState.Right; // 플레이어가 왼쪽에 있음
+                else
+                    GazeDir = RoateState.Left; // 플레이어가 오른쪽에 있음
+                break;
+            case DetectDir.ZL: // 90도
+                if (playerObject.transform.position.z - transform.position.z > 0)
+                    GazeDir = RoateState.Left; // 플레이어가 왼쪽에 있음
+                else
+                    GazeDir = RoateState.Right; // 플레이어가 오른쪽에 있음
+                break;
+            default:
+                break;
+        }
+    } 
     #endregion
 }

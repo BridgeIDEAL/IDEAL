@@ -6,18 +6,17 @@ using UnityEngine.AI;
 public class CType : BaseEntity
 {
     #region Component
-    protected float turnSpeed = 5f;
-    protected bool onceWatch = false;
+    protected bool isWatch = false;
     protected Animator anim;
     protected State<CType>[] states;
     protected StateMachine<CType> stateMachine;
-
     public CTypeEntityStates CurrentType { private set; get; }
     #endregion
 
     #region Virtual
     public virtual void IndifferenceExecute() { } // 무관심 상태일때 실행
     public virtual void WatchEnter() { } // 경계 상태로 진입할 때 실행
+    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); } // 경계 상태 유지
     public virtual void SetAnimation(CTypeEntityStates entityAnim) { }
     #endregion
 
@@ -43,19 +42,13 @@ public class CType : BaseEntity
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
+
     public override void UpdateBehavior(){stateMachine.Execute();}
     public override void StartConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(CTypeEntityStates.Indifference); }
-    public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(CTypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
-    public override void LookPlayer()
-    {
-        Vector3 dir = playerObject.transform.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 5 * turnSpeed);
-    }
+
     #endregion
-
-
 
     #region Method
     public void ChangeState(CTypeEntityStates newState)
@@ -63,28 +56,31 @@ public class CType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-    public void CheckNearPlayer()
+    public void DetectPlayer()
     {
-        if (onceWatch)
+        if (isWatch)
             return;
-        if (CheckDistance())
+        if (CanDetectPlayer())
             ChangeState(CTypeEntityStates.Watch);
     }
-    public void MaintainWatch()
+    public bool CanDetectPlayer()
     {
-        if (!CheckDistance())
-            ChangeState(CTypeEntityStates.Indifference);
+        Vector3 interV = playerObject.transform.position - transform.position;
+        if (interV.magnitude > sightDistance)
+            return false;
+        if (Physics.Raycast(transform.position, playerObject.transform.position, sightDistance, playerMask))
+            return true;
+        else
+            return false;
     }
+
     public void StartTimer() { StartCoroutine("WatchTimer"); }
     public void EndTimer () { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
-        if (CurrentType == CTypeEntityStates.Watch && !onceWatch)
-        {
-            onceWatch = true;
-            InjureInteraction();            
-        }
+        if (CurrentType == CTypeEntityStates.Watch && !isWatch)
+            isWatch = true;
         yield break;   
     }
     #endregion

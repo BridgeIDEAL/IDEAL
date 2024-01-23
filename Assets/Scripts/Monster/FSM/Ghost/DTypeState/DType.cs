@@ -6,26 +6,33 @@ using UnityEngine.AI;
 public class DType : BaseEntity
 {
     #region Component
+    protected bool isWatch = false;
     protected Animator anim;
     protected NavMeshAgent nav;
     protected State<DType>[] states;
     protected StateMachine<DType> stateMachine;
-    protected bool onceWatch = false;
+    public DTypeEntityStates CurrentType { private set; get; }
     #endregion
 
-    public DTypeEntityStates CurrentType { private set; get; }
+    #region Virtual
+    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(DTypeEntityStates.Indifference); } // 경계 상태 유지
+    #endregion
 
+    #region Override
     public override void Setup(MonsterData.MonsterStat stat)
-    {   // add component
-        nav = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
+    {  
         // set information
         gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
+        // add component
+        anim = GetComponent<Animator>();
+        this.gameObject.AddComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
         nav.speed = stat.monsterSpeed;
+        nav.radius = 0.4f;
         // set statemachine
         CurrentType = DTypeEntityStates.Indifference;
         states = new State<DType>[6];
@@ -42,9 +49,12 @@ public class DType : BaseEntity
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void StartConversationInteraction() { ChangeState(DTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
-    public override void InjureInteraction() { /*anim.CrossFade("Injure", 0.2f);*/ ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
     public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
+    public override void LookPlayer() { base.LookPlayer(); }
+    #endregion
+
+    #region Method
     public void ChangeState(DTypeEntityStates newState)
     {
         CurrentType = newState;
@@ -53,31 +63,32 @@ public class DType : BaseEntity
 
     public void ChasePlayer(){ nav.SetDestination(playerObject.transform.position);}
 
-    public void CheckNearPlayer()
+    public void DetectPlayer()
     {
-        if (onceWatch)
+        if (isWatch)
             return;
-        if (CheckDistance())
+        if (CanDetectPlayer())
             ChangeState(DTypeEntityStates.Watch);
     }
 
-    public void MaintainWatch()
+    public bool CanDetectPlayer()
     {
-        if (!CheckDistance())
-            ChangeState(DTypeEntityStates.Indifference);
+        Vector3 interV = playerObject.transform.position - transform.position;
+        if (interV.magnitude > sightDistance)
+            return false;
+        if (Physics.Raycast(transform.position, playerObject.transform.position, sightDistance, playerMask))
+            return true;
+        else
+            return false;
     }
 
     public void StartTimer() { StartCoroutine("WatchTimer"); }
     public void EndTimer() { StopCoroutine("WatchTimer"); }
-
     public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
-        if (CurrentType == DTypeEntityStates.Watch && !onceWatch)
-        {
-            onceWatch = true;
-            InjureInteraction();
-        }
+        if (CurrentType == DTypeEntityStates.Watch && !isWatch)
+            isWatch = true;
         yield break;
     }
 
@@ -94,7 +105,7 @@ public class DType : BaseEntity
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == playerObject)
+        if (collision.gameObject == playerObject && CurrentType == DTypeEntityStates.Chase)
             Debug.Log("Player Dead!");
     }
 
@@ -103,20 +114,21 @@ public class DType : BaseEntity
         switch (entityAnim)
         {
             case DTypeEntityStates.Indifference:
-                anim.CrossFade("IDLE", 0.2f);
+                anim.CrossFade("Idle", 0.2f);
                 break;
             case DTypeEntityStates.Watch:
-                anim.CrossFade("IDLE", 0.2f);
+                anim.CrossFade("Idle", 0.2f);
                 break;
             case DTypeEntityStates.Interaction:
-                anim.CrossFade("IDLE", 0.2f);
+                anim.CrossFade("Idle", 0.2f);
                 break;
             case DTypeEntityStates.Aggressive:
-                anim.CrossFade("ATTACK", 0.2f);
+                anim.CrossFade("Aggressive", 0.2f);
                 break;
             case DTypeEntityStates.Chase:
-                anim.CrossFade("CHASE", 0.2f);
+                anim.CrossFade("Walk", 0.2f);
                 break;
         }
     }
+    #endregion
 }

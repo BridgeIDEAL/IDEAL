@@ -18,15 +18,15 @@ public class AType : BaseEntity
 
     #region Override
     public override void Setup(MonsterData.MonsterStat stat)
-    {   
-        // add component
-        anim = GetComponent<Animator>();
+    {
         // set information
         gameObject.name = stat.monsterName; 
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = stat.initTransform;
         transform.eulerAngles = stat.initRotation;
+        // add component
+        AdditionalSetup();
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[3];

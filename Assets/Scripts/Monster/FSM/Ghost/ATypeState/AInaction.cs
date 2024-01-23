@@ -9,5 +9,7 @@ public class AInaction : AType
     public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
+    public override void LookPlayer(){ }
+    public override void LookOriginal(){ }
     #endregion
 }

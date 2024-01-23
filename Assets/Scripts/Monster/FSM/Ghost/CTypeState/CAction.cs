@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class CAction : CType
 {
+    public override void IndifferenceExecute()
+    {
+        base.IndifferenceExecute();
+        LookOriginal();
+    }
     public override void SetAnimation(CTypeEntityStates entityAnim)
     {
         switch (entityAnim)

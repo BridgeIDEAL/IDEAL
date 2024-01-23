@@ -6,15 +6,15 @@ namespace BTypeStates
 {
     public class Indifference : State<BType>
     {
-        public override void Enter(BType entity) {entity.LookOriginal(); entity .SetAnimation(entity.CurrentType);}
-        public override void Execute(BType entity){ }
-        public override void Exit(BType entity) { }
+        public override void Enter(BType entity) {entity .SetAnimation(entity.CurrentType);}
+        public override void Execute(BType entity){ entity.LookOriginal(); }
+        public override void Exit(BType entity) { entity.isLookOrigin = true; }
     }
     public class Interaction : State<BType>
     {
         public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType); }
         public override void Execute(BType entity) { entity.LookPlayer(); }
-        public override void Exit(BType entity) { }
+        public override void Exit(BType entity) { entity.isLookPlayer = true; }
     }
 
     public class Aggressive : State<BType>
@@ -33,8 +33,8 @@ namespace BTypeStates
     public class Speechless : State<BType>
     {
         public override void Enter(BType entity) { entity.SetAnimation(entity.CurrentType);}
-        public override void Execute(BType entity) { }
-        public override void Exit(BType entity) { }
+        public override void Execute(BType entity) { /*entity.LookOriginal(); */} 
+        public override void Exit(BType entity) { /*entity.isLookOrigin = true;*/ }
     }
 }
 
