@@ -1,9 +1,10 @@
 using System;
 
+[Serializable]
 public class GuideLogRecord : IComparable<GuideLogRecord>
 {
-    private int guideLogID;
-    private int attempt;
+    public int guideLogID;
+    public int attempt;
 
     public GuideLogRecord(int _guideLogID, int _attempt){
         this.guideLogID = _guideLogID;

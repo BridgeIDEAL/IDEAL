@@ -42,6 +42,7 @@ public class GameOverManager : MonoBehaviour
         endingMentObject.SetActive(true);
         isEnd = true;
         stepTimer = 0.0f;
+        GuideLogManager.Instance.SaveGuideLogRecordList();
     }
 
     private void Update(){

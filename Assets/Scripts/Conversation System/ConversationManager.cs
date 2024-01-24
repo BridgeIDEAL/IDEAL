@@ -108,7 +108,6 @@ public class ConversationManager : MonoBehaviour
             GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
         }
         GameOverManager.Instance.GameOver(str);
-        
     }
 
     public void AddGuideLog(int guideLogID = -1){

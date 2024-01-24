@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.IO;
+using System;
+
+[Serializable]
+public class PlayerSaveData
+{
+    public List<GuideLogRecord> guideLogRecordList = new List<GuideLogRecord>();
+}
+
 
 public class GuideLogManager : MonoBehaviour
 {
@@ -12,6 +21,7 @@ public class GuideLogManager : MonoBehaviour
             return instance;
         }
     }
+    private string playerDataPath = "Assets/Resources/Data/PlayerGuideLogData.json";
 
     [SerializeField] private GuideLogData guideLogData;
     [SerializeField] private UIGuideLogManager uIGuideLogManager;
@@ -19,22 +29,31 @@ public class GuideLogManager : MonoBehaviour
     public List<GuideLogRecord> guideLogRecordList = new List<GuideLogRecord>();
 
     private void Awake(){
-        if(Instance == null){
+        if (Instance == null)
+        {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else{
+        else
+        {
             Destroy(this.gameObject);
         }
 
         guideLogData.Init();
-        guideLogRecordList = new List<GuideLogRecord>();
 
+        // 플레이어 데이터가 이미 저장되어 있다면 불러오고
+        // 저장되어 있지 않다면 새로 생성
+        // 플레이어 데이터는 Datas 폴더 속 PlayerGuideLogData.json으로 저장
+        if (File.Exists(playerDataPath))
+        {
+            LoadGuideLogRecordList();
+        }
+        else
+        {
+            GenerateGuideLogRecordList();
+            SaveGuideLogRecordList();
+        }
 
-        // TO DO 아래 테스트 코드 이후에 지우기
-        GenerateGuideLogRecordList();
-        GenerateTransparentGuideLog();
-        // GenerateTestCase();
     }
 
     public void AddGuideLogRecord(int logID, int attempt){
@@ -44,9 +63,9 @@ public class GuideLogManager : MonoBehaviour
     }
 
     public void UpdateGuideLogRecord(int logID, int attempt){
-        for(int i = 0; i < guideLogRecordList.Count; i++){
+        for (int i = 0; i < guideLogRecordList.Count; i++){
             if(logID == guideLogRecordList[i].GetGuideLogID()){
-                if(guideLogRecordList[i].GetAttempt() <= -2){
+                if(guideLogRecordList[i].GetAttempt() != -2){
                     guideLogRecordList[i].SetAttempt(attempt);
                 }
             }
@@ -62,9 +81,12 @@ public class GuideLogManager : MonoBehaviour
     }
 
     private void GenerateGuideLogRecordList(){
-        foreach(var keyValuePair in guideLogData.guideLogDictionary){
+        guideLogRecordList = new List<GuideLogRecord>();
+        foreach (var keyValuePair in guideLogData.guideLogDictionary)
+        {
             AddGuideLogRecord(keyValuePair.Key, -2);
         }
+        GenerateTransparentGuideLog();
     }
 
     private void GenerateTransparentGuideLog(){
@@ -94,5 +116,30 @@ public class GuideLogManager : MonoBehaviour
     private void GenerateTestCase(){
 
 
+    }
+    private void LoadGuideLogRecordList()
+    {
+        string loadJson = File.ReadAllText(playerDataPath);
+        PlayerSaveData playerSaveData = new PlayerSaveData();
+        playerSaveData = JsonUtility.FromJson<PlayerSaveData>(loadJson);
+
+        if (playerSaveData != null)
+        {
+            for (int i = 0; i < playerSaveData.guideLogRecordList.Count; i++)
+            {
+                GuideLogRecord tempGuideLogRecord = playerSaveData.guideLogRecordList[i];
+                AddGuideLogRecord(tempGuideLogRecord.GetGuideLogID(), tempGuideLogRecord.GetAttempt());
+            }
+        }
+    }
+    public void SaveGuideLogRecordList()
+    {
+        PlayerSaveData playerSaveData = new PlayerSaveData();
+        for (int i = 0; i < guideLogRecordList.Count; i++)
+        {
+            playerSaveData.guideLogRecordList.Add(guideLogRecordList[i]);
+        }
+        string json = JsonUtility.ToJson(playerSaveData, true);
+        File.WriteAllText(playerDataPath, json);
     }
 }
