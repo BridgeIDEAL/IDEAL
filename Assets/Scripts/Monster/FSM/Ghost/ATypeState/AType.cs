@@ -12,6 +12,18 @@ public class AType : BaseEntity
     public ATypeEntityStates CurrentType { protected set; get; }
     #endregion
 
+    #region StateBehavior
+    public virtual void IndifferenceEnter() { SetAnimation(CurrentType); }
+    public virtual void IndifferenceExecute() { }
+    public virtual void IndifferenceExit() { }
+    public virtual void InteractionEnter() { SetAnimation(CurrentType); }
+    public virtual void InteractionExecute() { }
+    public virtual void InteractionExit() { }
+    public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
+    public virtual void SpeechlessExecute() { }
+    public virtual void SpeechlessExit() { }
+    #endregion
+
     #region Virtual
     public virtual void SetAnimation(ATypeEntityStates entityAnim) { }
     #endregion

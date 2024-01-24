@@ -6,27 +6,27 @@ namespace CTypeStates
 {
     public class Indifference : State<CType>
     {
-        public override void Enter(CType entity) {  entity.SetAnimation(entity.CurrentType); }
-        public override void Execute(CType entity) { entity.DetectPlayer(); entity.IndifferenceExecute(); }
-        public override void Exit(CType entity){ entity.isLookOrigin = true; }
+        public override void Enter(CType entity) {entity.IndifferenceEnter(); }
+        public override void Execute(CType entity) { entity.IndifferenceExecute(); }
+        public override void Exit(CType entity) { entity.IndifferenceExit(); }
     }
     public class Watch : State<CType>
     {
-        public override void Enter(CType entity){ entity.SetAnimation(entity.CurrentType); entity.StartTimer(); entity.WatchEnter(); }
-        public override void Execute(CType entity){entity.LookPlayer(); entity.WatchExecute(); }
-        public override void Exit(CType entity){ entity.EndTimer(); entity.isLookPlayer = true; }
+        public override void Enter(CType entity){ entity.WatchEnter(); }
+        public override void Execute(CType entity){ entity.WatchExecute(); }
+        public override void Exit(CType entity){ entity.WatchExit(); }
     }
 
     public class Interaction : State<CType>
     {
-        public override void Enter(CType entity) { entity.SetAnimation(entity.CurrentType);  }
-        public override void Execute(CType entity) { entity.LookPlayer(); }
-        public override void Exit(CType entity) { entity.isLookPlayer = true; }
+        public override void Enter(CType entity) { entity.InteractionEnter(); }
+        public override void Execute(CType entity) { entity.InteractionExecute(); }
+        public override void Exit(CType entity) { entity.InteractionExit(); }
     }
     public class Speechless : State<CType>
     {
-        public override void Enter(CType entity) { entity.SetAnimation(entity.CurrentType); }
-        public override void Execute(CType entity) { entity.IndifferenceExecute(); }
-        public override void Exit(CType entity){ }
+        public override void Enter(CType entity) { entity.SpeechlessEnter(); }
+        public override void Execute(CType entity) { entity.SpeechlessExecute(); }
+        public override void Exit(CType entity){ entity.SpeechlessExit(); }
     }
 }

@@ -7,10 +7,12 @@ public class DType : BaseEntity
 {
     #region Component
     protected bool isWatch = false;
+    protected float chaseSpeed = 3f;
     protected Animator anim;
     protected NavMeshAgent nav;
     protected State<DType>[] states;
     protected StateMachine<DType> stateMachine;
+    [SerializeField] protected Quaternion towardRotation;
     public DTypeEntityStates CurrentType { private set; get; }
     #endregion
 
@@ -20,19 +22,21 @@ public class DType : BaseEntity
 
     #region Override
     public override void Setup(MonsterData.MonsterStat stat)
-    {  
+    {
         // set information
         gameObject.name = stat.monsterName;
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
+        chaseSpeed = stat.monsterSpeed;
         // add component
         anim = GetComponent<Animator>();
         this.gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = stat.monsterSpeed;
+        nav.speed = chaseSpeed;
         nav.radius = 0.4f;
+        towardRotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
         // set statemachine
         CurrentType = DTypeEntityStates.Indifference;
         states = new State<DType>[6];
@@ -51,7 +55,27 @@ public class DType : BaseEntity
     public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
     public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
-    public override void LookPlayer() { base.LookPlayer(); }
+    public override void LookPlayer() {
+        if (isLookPlayer)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(playerObject.transform.position - transform.position);
+            float angle = Quaternion.Angle(transform.rotation, targetRotation);
+            float step = rotateSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+            if (angle < marginalAngle)
+                isLookPlayer = false;
+        }
+    }
+
+    public override void LookOriginal()
+    {
+        if (isLookOriginal)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, towardRotation, rotateSpeed * Time.deltaTime);
+            if (Quaternion.Angle(transform.rotation, towardRotation) < marginalAngle)
+                isLookOriginal = false;
+        }
+    }
     #endregion
 
     #region Method
@@ -76,14 +100,12 @@ public class DType : BaseEntity
         Vector3 interV = playerObject.transform.position - transform.position;
         if (interV.magnitude > sightDistance)
             return false;
-        if (Physics.Raycast(transform.position, playerObject.transform.position, sightDistance, playerMask))
-            return true;
         else
-            return false;
+            return true;
     }
 
-    public void StartTimer() { StartCoroutine("WatchTimer"); }
-    public void EndTimer() { StopCoroutine("WatchTimer"); }
+    public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
+    public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
@@ -96,10 +118,12 @@ public class DType : BaseEntity
     public IEnumerator ResetPosition()
     {
         nav.isStopped = true;
+        nav.speed = 0f;
         nav.ResetPath();
         yield return new WaitForSeconds(0.4f);
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
+        nav.speed = chaseSpeed;
         nav.isStopped = false;
     }
 

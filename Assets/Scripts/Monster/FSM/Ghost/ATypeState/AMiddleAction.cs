@@ -7,14 +7,25 @@ public class AMiddleAction : AType
 {
     #region Component
     public enum DetectDir { XR, ZL, XL, ZR, N }
-    public DetectDir CalDir { set; get; } = DetectDir.N;
+    public DetectDir CalDir { set; get; } = DetectDir.N; // 계산 방향
     public enum RoateState { Straight, Left, Right }
-    public RoateState GazeDir { set; get; } = RoateState.Straight;
+    public RoateState GazeDir { set; get; } = RoateState.Straight; // 바라봐야 하는 방향
+    #endregion
+
+    #region StateBehavior
+    public override void IndifferenceEnter() { base.IndifferenceEnter(); }
+    public override void IndifferenceExecute() { }
+    public override void IndifferenceExit() { }
+    public override void InteractionEnter() { base.InteractionEnter(); }
+    public override void InteractionExecute() { }
+    public override void InteractionExit() { }
+    public override void SpeechlessEnter() { base.SpeechlessEnter(); }
+    public override void SpeechlessExecute() { }
+    public override void SpeechlessExit() { }
     #endregion
 
     #region Override
     public override void AdditionalSetup() { anim = GetComponent<Animator>(); }
-    public override void LookPlayer() { }
     public override void StartConversationInteraction() {
         CalRotateDir();
         ChangeState(ATypeEntityStates.Interaction);
@@ -23,16 +34,15 @@ public class AMiddleAction : AType
     public override void EndConversationInteraction() { 
         if(CurrentType == ATypeEntityStates.Interaction)
         {
-            if(GazeDir== RoateState.Left)
+            if (GazeDir == RoateState.Left)
                 anim.CrossFade("BackLeft", 0.2f);
-            else if(GazeDir== RoateState.Right)
+            else if (GazeDir == RoateState.Right)
                 anim.CrossFade("BackRight", 0.2f);
             GazeDir = RoateState.Straight;
+            return; 
         }
-        else
-        {
+        else if(CurrentType == ATypeEntityStates.Speechless)
             ChangeState(ATypeEntityStates.Indifference);
-        }
     }
 
     public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }

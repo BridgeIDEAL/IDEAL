@@ -14,9 +14,18 @@ public class CType : BaseEntity
     #endregion
 
     #region Virtual
-    public virtual void IndifferenceExecute() { } // 무관심 상태일때 실행
-    public virtual void WatchEnter() { } // 경계 상태로 진입할 때 실행
-    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); } // 경계 상태 유지
+    public virtual void IndifferenceEnter() { SetAnimation(CurrentType); } 
+    public virtual void IndifferenceExecute() { DetectPlayer(); } 
+    public virtual void IndifferenceExit() { }
+    public virtual void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); } 
+    public virtual void WatchExecute() { WatchPlayer(); if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); }
+    public virtual void WatchExit() { EndWatchTimer();  } 
+    public virtual void InteractionEnter() { SetAnimation(CurrentType); }
+    public virtual void InteractionExecute() { LookPlayer(); }
+    public virtual void InteractionExit() { isLookPlayer = true; }
+    public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
+    public virtual void SpeechlessExecute() { }
+    public virtual void SpeechlessExit() { }
     public virtual void SetAnimation(CTypeEntityStates entityAnim) { }
     #endregion
 
@@ -28,7 +37,7 @@ public class CType : BaseEntity
         initPosition = stat.initTransform;
         initRotation = stat.initRotation;
         transform.position = initPosition;
-        transform.eulerAngles = initRotation;
+        transform.eulerAngles = initRotation;        
         // add component
         AdditionalSetup();
         anim = GetComponentInChildren<Animator>();
@@ -56,31 +65,42 @@ public class CType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
+
     public void DetectPlayer()
     {
         if (isWatch)
             return;
-        if (CanDetectPlayer())
-            ChangeState(CTypeEntityStates.Watch);
+        if (CanDetectPlayer()) { ChangeState(CTypeEntityStates.Watch); return; }
     }
+
     public bool CanDetectPlayer()
     {
         Vector3 interV = playerObject.transform.position - transform.position;
-        if (interV.magnitude > sightDistance)
-            return false;
-        if (Physics.Raycast(transform.position, playerObject.transform.position, sightDistance, playerMask))
+        if (interV.magnitude <= sightDistance)
             return true;
         else
             return false;
     }
 
-    public void StartTimer() { StartCoroutine("WatchTimer"); }
-    public void EndTimer () { StopCoroutine("WatchTimer"); }
+    public void WatchPlayer()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(playerObject.transform.position - transform.position);
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        float step = rotateSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+    }
+
+    public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
+    public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
     {
         yield return new WaitForSeconds(10f);
         if (CurrentType == CTypeEntityStates.Watch && !isWatch)
+        {
             isWatch = true;
+            ChangeState(CTypeEntityStates.Indifference);
+        }
+            
         yield break;   
     }
     #endregion

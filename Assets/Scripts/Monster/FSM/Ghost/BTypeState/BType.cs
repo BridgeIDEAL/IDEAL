@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class BType : BaseEntity
 {
     #region Component
+    protected float chaseSpeed;
     protected Animator anim;
     protected NavMeshAgent nav;
     protected State<BType>[] states;
     protected StateMachine<BType> stateMachine;
+    [SerializeField] protected Quaternion towardRotation;
     public BTypeEntityStates CurrentType { private set; get; }
     #endregion
 
@@ -22,12 +24,9 @@ public class BType : BaseEntity
         initRotation = stat.initRotation;
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
+        chaseSpeed = stat.monsterSpeed;
         // add component
-        anim = GetComponent<Animator>();
-        this.gameObject.AddComponent<NavMeshAgent>();
-        nav = GetComponent<NavMeshAgent>();
-        nav.speed = stat.monsterSpeed;
-        nav.radius = 0.4f;
+        AdditionalSetup();
         // set statemachine
         CurrentType = BTypeEntityStates.Indifference;
         states = new State<BType>[5];
@@ -40,11 +39,44 @@ public class BType : BaseEntity
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
 
+    public override void AdditionalSetup()
+    {
+        anim = GetComponent<Animator>();
+        this.gameObject.AddComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
+        nav.speed = chaseSpeed;
+        nav.radius = 0.4f;
+        towardRotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
+    }
+
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void StartConversationInteraction() { ChangeState(BTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(BTypeEntityStates.Indifference);}
     public override void ChaseInteraction() { ChangeState(BTypeEntityStates.Aggressive); }
     public override void SpeechlessInteraction() { ChangeState(BTypeEntityStates.Speechless); }
+
+    public override void LookPlayer()
+    {
+        if (isLookPlayer)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(playerObject.transform.position - transform.position);
+            float angle = Quaternion.Angle(transform.rotation, targetRotation);
+            float step = rotateSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+            if (angle < marginalAngle)
+                isLookPlayer = false;
+        }
+    }
+
+    public override void LookOriginal()
+    {
+        if (isLookOriginal)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, towardRotation, rotateSpeed * Time.deltaTime);
+            if (Quaternion.Angle(transform.rotation, towardRotation) < marginalAngle)
+                isLookOriginal = false;
+        }
+    }
     #endregion
 
     #region Method
@@ -58,8 +90,8 @@ public class BType : BaseEntity
     public void SetReposition() { StartCoroutine("ResetPosition"); }
     public IEnumerator ResetPosition()
     {
-        nav.isStopped = true;
         nav.ResetPath();
+        nav.isStopped = true;
         yield return new WaitForSeconds(0.4f);
         transform.position = initPosition;
         transform.eulerAngles = initRotation;

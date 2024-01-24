@@ -8,13 +8,13 @@ namespace DTypeStates
     {
         public override void Enter(DType entity){ entity.SetAnimation(entity.CurrentType);}
         public override void Execute(DType entity) { entity.LookOriginal(); entity.DetectPlayer(); }
-        public override void Exit(DType entity){ entity.isLookOrigin = true; }
+        public override void Exit(DType entity){ entity.isLookOriginal = true; }
     }
     public class Watch : State<DType>
     {
-        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType); entity.StartTimer(); }
+        public override void Enter(DType entity){entity.SetAnimation(entity.CurrentType); entity.StartWatchTimer(); }
         public override void Execute(DType entity){ entity.LookPlayer(); entity.WatchExecute();  }
-        public override void Exit(DType entity){ entity.EndTimer();  entity.isLookPlayer = true; }
+        public override void Exit(DType entity){ entity.EndWatchTimer();  entity.isLookPlayer = true; }
     }
     public class Interaction : State<DType>
     {
@@ -38,6 +38,6 @@ namespace DTypeStates
     {
         public override void Enter(DType entity) { entity.SetAnimation(entity.CurrentType); }
         public override void Execute(DType entity) { entity.LookOriginal(); }
-        public override void Exit(DType entity) { entity.isLookOrigin = true; }
+        public override void Exit(DType entity) { entity.isLookOriginal = true; }
     }
 }

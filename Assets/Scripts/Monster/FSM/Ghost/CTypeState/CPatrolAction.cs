@@ -8,8 +8,8 @@ public class CPatrolAction : CType
     #region Component
     protected int curPoint = 0;
     protected int maxPoint = 0;
-    protected float patrolSpeed = 2f;
     protected NavMeshAgent nav;
+    [SerializeField] protected float patrolSpeed = 2f;
     [SerializeField] protected List<Vector3> patrolPoints;
     #endregion
 
@@ -27,18 +27,32 @@ public class CPatrolAction : CType
         nav.SetDestination(patrolPoints[curPoint]);
     }
 
+    public override void IndifferenceEnter() { base.IndifferenceEnter();  nav.SetDestination(patrolPoints[curPoint]); }
     public override void IndifferenceExecute()
     {
-        if (nav.destination == null) nav.destination = patrolPoints[curPoint];
-        if(nav.remainingDistance < 0.1f && !nav.pathPending)
+        if (nav.remainingDistance < 0.1f && !nav.pathPending)
+        {
+            nav.destination = patrolPoints[curPoint];
+            curPoint = (curPoint + 1) % maxPoint;
+        }
+        base.IndifferenceExecute();
+    }
+    public override void IndifferenceExit() { }
+    public override void WatchEnter() { base.WatchEnter(); nav.ResetPath(); nav.speed = 0;}
+    public override void WatchExecute() { }
+    public override void WatchExit() { base.WatchExit();  nav.speed = patrolSpeed; }
+    public override void InteractionEnter() { base.InteractionEnter(); nav.ResetPath(); nav.speed = 0; }
+    public override void InteractionExit() { base.InteractionExit(); nav.speed = patrolSpeed;  }
+    public override void SpeechlessEnter() { nav.SetDestination(patrolPoints[curPoint]); }
+    public override void SpeechlessInteraction() {
+        if (nav.remainingDistance < 0.1f && !nav.pathPending)
         {
             nav.destination = patrolPoints[curPoint];
             curPoint = (curPoint + 1) % maxPoint;
         }
     }
+    public override void LookOriginal() { }
 
-    public override void WatchEnter() { nav.ResetPath(); }
-    public override void LookOriginal() { nav.isStopped = false; }
     public override void SetAnimation(CTypeEntityStates entityAnim)
     {
         switch (entityAnim)
