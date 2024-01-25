@@ -39,7 +39,7 @@ public class CPatrolAction : CType
     }
     public override void IndifferenceExit() { }
     public override void WatchEnter() { base.WatchEnter(); nav.ResetPath(); nav.speed = 0;}
-    public override void WatchExecute() { }
+    //public override void WatchExecute() { WatchPlayer(); }
     public override void WatchExit() { base.WatchExit();  nav.speed = patrolSpeed; }
     public override void InteractionEnter() { base.InteractionEnter(); nav.ResetPath(); nav.speed = 0; }
     public override void InteractionExit() { base.InteractionExit(); nav.speed = patrolSpeed;  }
