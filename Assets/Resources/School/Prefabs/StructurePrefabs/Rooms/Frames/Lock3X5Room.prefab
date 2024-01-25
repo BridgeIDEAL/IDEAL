@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2737798386347223783}
   m_Layer: 0
-  m_Name: TempToilet
+  m_Name: Lock3X5Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,6 +256,7 @@ Transform:
   m_Children:
   - {fileID: 2737798385953331751}
   - {fileID: 2737798385869670609}
+  - {fileID: 1509236878165312333}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3042,4 +3043,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3760674366723191670, guid: 067cb3011b8a128458fc0161d6863f82,
     type: 3}
   m_PrefabInstance: {fileID: 2737798386322962341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4878879730154852493
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2737798386347223783}
+    m_Modifications:
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633645153024018810, guid: dd4c19d2685de084b9a10d43ab1725a8,
+        type: 3}
+      propertyPath: m_Name
+      value: WoodDoor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dd4c19d2685de084b9a10d43ab1725a8, type: 3}
+--- !u!4 &1509236878165312333 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6288328766218130368, guid: dd4c19d2685de084b9a10d43ab1725a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4878879730154852493}
   m_PrefabAsset: {fileID: 0}
