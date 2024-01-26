@@ -16,17 +16,27 @@ public class InteractionGetItem : AbstractInteraction
         return $"<sprite=0> {detectedStr}";
     }
 
-    protected override void ActInteraction(){
+    protected override void ActInteraction() {
         Inventory.Instance.Add(interactionItemData, 1);
-        if(activationLogNum != -1){
+        if (activationLogNum != -1) {
             ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
-        if(afterInteractionStr != ""){
+        if (afterInteractionStr != "") {
             InteractionManager.Instance.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--;
-        if(availableCount < 1){
+        if (availableCount < 1) {
             Destroy(this.gameObject);
         }
+        if (audioSource != null) // Jun
+        { GameObject go = audioSource.gameObject;
+            TempEffectSound tempEffectSound = go.GetComponent<TempEffectSound>();
+            if (interactionItemData.Name == "¾àº´")
+                tempEffectSound.PlayEffectSound(TempEffectSounds.PillGet);
+            else if (interactionItemData.ID == 1103 || interactionItemData.ID == 1102 || interactionItemData.ID == 1101)
+                tempEffectSound.PlayEffectSound(TempEffectSounds.KeyGet);
+            else
+                return;
+        }            
     }
 }

@@ -35,7 +35,7 @@ public class DType : BaseEntity
         this.gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
         nav.speed = chaseSpeed;
-        nav.radius = 0.4f;
+        nav.radius = 0.2f;
         towardRotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
         // set statemachine
         CurrentType = DTypeEntityStates.Indifference;
@@ -117,20 +117,24 @@ public class DType : BaseEntity
     public void SetReposition() { StartCoroutine("ResetPosition"); }
     public IEnumerator ResetPosition()
     {
-        nav.isStopped = true;
-        nav.speed = 0f;
+        //nav.isStopped = true;
+        //nav.speed = 0f;
         nav.ResetPath();
-        yield return new WaitForSeconds(0.4f);
+        nav.enabled = false;
+        yield return new WaitForSeconds(0.8f);
         transform.position = initPosition;
         transform.eulerAngles = initRotation;
-        nav.speed = chaseSpeed;
-        nav.isStopped = false;
+        nav.enabled = true;
+        //nav.speed = chaseSpeed;
+        //nav.isStopped = false;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == playerObject && CurrentType == DTypeEntityStates.Chase)
-            Debug.Log("Player Dead!");
+        if (collision.gameObject.CompareTag("Player") && CurrentType == DTypeEntityStates.Chase)
+        {
+            GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
+        }
     }
 
     public void SetAnimation(DTypeEntityStates entityAnim)

@@ -65,9 +65,20 @@ public class GuideLogManager : MonoBehaviour
     public void UpdateGuideLogRecord(int logID, int attempt){
         for (int i = 0; i < guideLogRecordList.Count; i++){
             if(logID == guideLogRecordList[i].GetGuideLogID()){
-                if(guideLogRecordList[i].GetAttempt() != -2){
+                if(guideLogRecordList[i].GetAttempt() <= -2){
                     guideLogRecordList[i].SetAttempt(attempt);
                 }
+            }
+        }
+    }
+
+    public void UpdateDeadGuideLogRecord(int logID, int attempt)
+    {
+        for (int i = 0; i < guideLogRecordList.Count; i++)
+        {
+            if (logID == guideLogRecordList[i].GetGuideLogID())
+            {
+                guideLogRecordList[i].SetAttempt(attempt);
             }
         }
     }

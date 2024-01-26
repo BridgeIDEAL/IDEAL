@@ -105,7 +105,8 @@ public class ConversationManager : MonoBehaviour
             str = str.Replace("$attempts", attempts.ToString());
         }
         if(guideLogID > -1){
-            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
+            //GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
+            GuideLogManager.Instance.UpdateDeadGuideLogRecord(guideLogID, attempts);
         }
         GameOverManager.Instance.GameOver(str);
     }
@@ -215,6 +216,10 @@ public class ConversationManager : MonoBehaviour
 
     public void Active_01F_Medicine(){
         ActiveInteraction.Instance.Active_01F_Medicine();
+        GameObject healthTeacher = GameManager.FSM.entityDictionary["1F_MedicineRoom_HealthTeacher"].gameObject;
+        if (healthTeacher == null)
+            return;
+        GameManager.FSM.DeleteUpdate(healthTeacher.name);
     }
 
     public void GetHandCream(){

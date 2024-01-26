@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7192872428471848734}
   - component: {fileID: 1162094748183487491}
   - component: {fileID: 2988538934950731064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 943411518369051511}
   - component: {fileID: 9077072955658987866}
   - component: {fileID: 8670038818892475408}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962442356564842864}
-  m_Layer: 0
+  - component: {fileID: 3888397187367634915}
+  m_Layer: 6
   m_Name: Medicine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +202,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3888397187367634915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734757617966121930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: 0.15, z: 0.08}
+  m_Center: {x: 0, y: 0.025, z: 0}
 --- !u!1 &6320855524855587867
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +226,7 @@ GameObject:
   - component: {fileID: 803525552043902753}
   - component: {fileID: 1584378565792079972}
   - component: {fileID: 4128829074186064743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5435012067130825970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

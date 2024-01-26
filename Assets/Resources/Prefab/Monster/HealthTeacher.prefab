@@ -2806,7 +2806,7 @@ GameObject:
   - component: {fileID: 4435901758424060568}
   - component: {fileID: -3612241468224302897}
   - component: {fileID: -971021168407998216}
-  - component: {fileID: -2330985216384391628}
+  - component: {fileID: 2169234710385927213}
   m_Layer: 6
   m_Name: HealthTeacher
   m_TagString: Untagged
@@ -2868,10 +2868,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.17293128
   m_Height: 1.4000001
   m_Direction: 1
-  m_Center: {x: 0, y: 1.2, z: 0.1}
+  m_Center: {x: 0, y: 1.25, z: -0.02706879}
 --- !u!114 &4435901758424060568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2919,10 +2919,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 0}
+  abstractInteraction: {fileID: 2169234710385927213}
   interactionOutline: {fileID: -3612241468224302897}
   outlineActive: 0
---- !u!114 &-2330985216384391628
+--- !u!114 &2169234710385927213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2938,6 +2938,7 @@ MonoBehaviour:
   dialogueRunner: {fileID: 0}
   conversationManager: {fileID: 0}
   detectedStr: 
+  dialogueName: 
   monsterName: 
 --- !u!1 &8638585015240104388
 GameObject:

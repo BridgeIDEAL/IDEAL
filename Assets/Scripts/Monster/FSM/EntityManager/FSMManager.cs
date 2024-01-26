@@ -8,7 +8,7 @@ public class FSMManager
     #region Component
     private GameObject playerGameObject; // player 
     private List<BaseEntity> entityList; // store all monsterentities for update 
-    private Dictionary<string, BaseEntity> entityDictionary; // store all monsterentities for search 
+    public Dictionary<string, BaseEntity> entityDictionary; // store all monsterentities for search 
     #endregion
 
     #region Method
@@ -62,14 +62,14 @@ public class FSMManager
             case "CA":
                 go.AddComponent<CAction>();
                 break;
-            case "D":
-                go.AddComponent<DType>();
-                break;
+            //case "D":
+            //    go.AddComponent<DType>();
+            //    break;
             default:
                 break;
         }
 
-        T type = go.GetComponentInChildren<T>(); 
+        T type = go.GetComponentInChildren<T>();
         type.Setup(stat);
         type.playerObject = playerGameObject;
         entityList.Add(type);
@@ -81,6 +81,15 @@ public class FSMManager
             interactionConversation.detectedStr = stat.detectedStr;
             interactionConversation.dialogueName = stat.dialogueName;
             interactionConversation.monsterName = stat.monsterName;
+        }
+        else
+        {
+            InteractionNurse interactionNurese = go.GetComponent<InteractionNurse>();
+            interactionNurese.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
+            interactionNurese.conversationManager = GameManager.Instance.scriptHub.conversationManager;
+            interactionNurese.detectedStr = stat.detectedStr;
+            interactionNurese.dialogueName = stat.dialogueName;
+            interactionNurese.monsterName = stat.monsterName;
         }
     }
 
@@ -120,6 +129,23 @@ public class FSMManager
         if (entityDictionary.ContainsKey(_Name))
             return;
         Spawn<BaseEntity>(GameManager.Data.spawnMonsterInfoDict[_Name]);
+    }
+
+    public void DeleteUpdate(string _Name)
+    {
+        if (entityDictionary[_Name] != null)
+        {
+            entityDictionary.Remove(_Name);
+            for(int i=0; i<entityList.Count; i++)
+            {
+                if (entityList[i].gameObject.name == _Name)
+                {
+                    entityList[i].gameObject.SetActive(false);
+                    entityList.RemoveAt(i);
+                    return;
+                }
+            }
+        }
     }
     #endregion
 }

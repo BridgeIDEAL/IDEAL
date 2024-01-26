@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using TMPro;
 [ExecuteInEditMode]
 public class IdealBook : MonoBehaviour {
+    public TempEffectSound tempEffectSound; //jun
     public Canvas canvas;
+
     [SerializeField]
     RectTransform BookPanel;
     public Sprite background;
@@ -179,6 +181,7 @@ public class IdealBook : MonoBehaviour {
     public void UpdateBook()
     {
         f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
+        tempEffectSound.PlayEffectSound(TempEffectSounds.PaperTurn); // jun
         if (mode == FlipMode.RightToLeft)
             UpdateBookRTLToPoint(f);
         else

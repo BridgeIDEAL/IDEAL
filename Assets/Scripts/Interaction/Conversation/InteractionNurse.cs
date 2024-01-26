@@ -19,7 +19,7 @@ public class InteractionNurse : AbstractInteraction
 
     protected override void ActInteraction(){
         //string dialogueName;
-        if(Inventory.Instance.FindItemIndex(0) == -1){
+        if(Inventory.Instance.FindItemIndex(1104) == -1){
             dialogueName = "NoPaper";
         }
         else if(HealthPointManager.Instance.NoDamage()){
