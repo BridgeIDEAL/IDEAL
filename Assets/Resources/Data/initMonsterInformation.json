@@ -1,84 +1,134 @@
 {
   "initMonsterInformation": [
     {
-      "monsterName": "101",
+      "monsterName": "1F_GuardMan",
       "monsterType": "CP",
       "monsterPrefabName": "GuardMan",
       "monsterSpeed": "2",
-      "initTransform": {"x": 3.0, "y": 0.1, "z": -3.0},
+      "initTransform": {"x": 13.0, "y": 0.1, "z": -2.0},
       "initRotation": {"x": 0.0, "y": 270.0, "z": 0.0},
       "detectedStr": "수위에게 말을 건다.",
       "dialogueName": "01_1F_SchoolGuardStart"
     },
     {
-      "monsterName": "102",
-      "monsterType": "CA",
-      "monsterPrefabName": "BoyStudent",
-      "monsterSpeed": "3",
-      "initTransform": {"x": 26.0, "y": 0.1, "z": -42.0},
-      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
-      "detectedStr": "남학생에게 말을 건다.",
-      "dialogueName": "Boy1stFloorStart"
-    },
-    {
-      "monsterName": "103",
-      "monsterType": "CA",
-      "monsterPrefabName": "GirlStudent01",
-      "monsterSpeed": "3",
-      "initTransform": {"x": 31.0, "y": 3.7, "z": -38.0},
-      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
-      "detectedStr": "여학생에게 말을 건다.",
-      "dialogueName": "Girl2ndFloorStart"
-    },
-    {
-      "monsterName": "104",
-      "monsterType": "B",
-      "monsterPrefabName": "GirlStudent02",
-      "monsterSpeed": "3",
-      "initTransform": {"x": 31.0, "y": 3.7, "z": -55.5},
-      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
-      "detectedStr": "여학생에게 말을 건다.",
-      "dialogueName": "StudentPresident2ndFloorStart"
-    },
-    {
-      "monsterName": "105",
+      "monsterName": "1F_MedicineRoom_HealthTeacher",
       "monsterType": "XR",
+      "monsterPrefabName": "HealthTeacher",
+      "monsterSpeed": "0",
+      "initTransform": {"x": 38.0, "y": 0.1, "z": -7.7},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "보건 선생님에게 말을 건다.",
+      "dialogueName": "NoPaper"
+    },
+    {
+      "monsterName": "1F_MedicineRoom_Third_Sick_BoyStudent",
+      "monsterType": "AI",
+      "monsterPrefabName": "BoyStudentSick03",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 38.0, "y": 0.45, "z": -16.4},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "남학생에게 말을 건다.",
+      "dialogueName": "12_1F_SickGirlStart"
+    },
+    {
+      "monsterName": "1F_Hall_Aggressive_First_BoyStudent",
+      "monsterType": "CA",
+      "monsterPrefabName": "BoyStudent01",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 24.0, "y": 0.1, "z": -46.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "남학생에게 말을 건다.",
+      "dialogueName": "13_1F_AttackBoyStart"
+    },
+    {
+      "monsterName": "2F_TeacherRoom_NewFemaleTeacher",
+      "monsterType": "ZL",
       "monsterPrefabName": "FemaleTeacher",
       "monsterSpeed": "3",
-      "initTransform": {"x": 4.139, "y": 3.7, "z": -29.587},
-      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "initTransform": {"x": 5.94, "y": 3.51, "z": -33.6},
+      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
       "detectedStr": "선생님에게 말을 건다.",
-      "dialogueName": "NewTeacher2ndFloorStart"
+      "dialogueName": "02_2F_NewTeacherStart"
     },
     {
-      "monsterName": "106",
-      "monsterType": "B",
-      "monsterPrefabName": "BoyStudent",
+      "monsterName": "2F_Hall_First_BoyStudent",
+      "monsterType": "AH",
+      "monsterPrefabName": "BoyStudent01",
       "monsterSpeed": "3",
-      "initTransform": {"x": 19.0, "y": 7.3, "z": -34},
-      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
+      "initTransform": {"x": 25.0, "y": 3.51, "z": -50.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
       "detectedStr": "남학생에게 말을 건다.",
-      "dialogueName": "BlueBoy3rdFloorStart"
+      "dialogueName": "08_2F_1stGradeBoyStart"
     },
     {
-      "monsterName": "107",
-      "monsterType": "B",
-      "monsterPrefabName": "BoyStudent",
+      "monsterName": "2F_ClassRoom_First_GirlStudent",
+      "monsterType": "AH",
+      "monsterPrefabName": "GirlStudent01",
       "monsterSpeed": "3",
-      "initTransform": {"x": 10.0, "y": 10.9, "z": -32},
-      "initRotation": {"x": 0.0, "y": 270.0, "z": 0.0},
-      "detectedStr": "",
-      "dialogueName": ""
+      "initTransform": {"x": 8.0, "y": 3.51, "z": -56.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "여학생에게 말을 건다.",
+      "dialogueName": "10_2F_1stGradeGirlStart"
     },
     {
-      "monsterName": "108",
-      "monsterType": "B",
-      "monsterPrefabName": "BoyStudent",
+      "monsterName": "2F_StudentRoom_StudentPresident",
+      "monsterType": "AH",
+      "monsterPrefabName": "StudentPresident",
       "monsterSpeed": "3",
-      "initTransform": {"x": 20.0, "y": 10.9, "z": -56},
-      "initRotation": {"x": 0.0, "y": 90.0, "z": 0.0},
+      "initTransform": {"x": 32.0, "y": 3.51, "z": -56.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "여학생에게 말을 건다.",
+      "dialogueName": "07_2F_StudentPresidentStart"
+    },
+    {
+      "monsterName": "3F_ScienceRoom_Second_Aggressive_BoyStudent",
+      "monsterType": "D",
+      "monsterPrefabName": "BoyStudent02",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 31.0, "y": 7.01, "z": -74.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
       "detectedStr": "남학생에게 말을 건다.",
-      "dialogueName": "StuPreFriend4thFloorStart"
+      "dialogueName": "06_3F_BluefaceBoyStart"
+    },
+    {
+      "monsterName": "3F_ComputerRoom_Second_Sit_BoyStudent",
+      "monsterType": "AL",
+      "monsterPrefabName": "BoyStudentSit02",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 3.3, "y": 7.01, "z": -12.1},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "남학생에게 말을 건다.",
+      "dialogueName": "05_3F_VideoBoyStart"
+    },
+    {
+      "monsterName": "3F_Hall_Second_BoyStudent",
+      "monsterType": "AH",
+      "monsterPrefabName": "BoyStudent02",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 15.0, "y": 7.01, "z": -50.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "남학생에게 말을 건다.",
+      "dialogueName": "09_3F_2ndGradeBoyStart"
+    },
+    {
+      "monsterName": "4F_StudyRoom_Second_Sit_GirlStudent",
+      "monsterType": "XR",
+      "monsterPrefabName": "GirlStudentSit02",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 18.5, "y": 10.52, "z": -62.3},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "여학생에게 말을 건다.",
+      "dialogueName": "03_4F_StudyingGirlStart"
+    },
+    {
+      "monsterName": "4F_Hall_Third_GirlStudent",
+      "monsterType": "B",
+      "monsterPrefabName": "GirlStudent03",
+      "monsterSpeed": "3",
+      "initTransform": {"x": 20.0, "y": 10.51, "z": -82.0},
+      "initRotation": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "detectedStr": "여학생에게 말을 건다.",
+      "dialogueName": "11_4F_3rdGradeGirlStart"
     }
   ]
 }

@@ -8,6 +8,7 @@ public class InteractionNurse : AbstractInteraction
     public DialogueRunner dialogueRunner;
     public ConversationManager conversationManager;
     public string detectedStr = "";
+    public string dialogueName = "";
     public string monsterName = "";
     public override float RequiredTime { get => 1.0f;}
 
@@ -17,7 +18,7 @@ public class InteractionNurse : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        string dialogueName;
+        //string dialogueName;
         if(Inventory.Instance.FindItemIndex(0) == -1){
             dialogueName = "NoPaper";
         }

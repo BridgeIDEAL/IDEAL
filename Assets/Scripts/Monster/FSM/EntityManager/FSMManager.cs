@@ -29,7 +29,19 @@ public class FSMManager
 
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
-        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/MonsterPrefab/{stat.monsterPrefabName}"));
+        if (stat == null)
+        {
+            Debug.Log("읽는데 실패");
+            return;
+        }
+            
+        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.monsterPrefabName}"));
+        if (go == null)
+        {
+            Debug.Log("찾는데 실패");
+            return;
+        }
+            
         if(stat.monsterType == "XR" || stat.monsterType == "XL"|| stat.monsterType == "ZR"|| stat.monsterType == "ZL")
         {
             AMiddleAction middle = go.GetComponent<AMiddleAction>();
@@ -38,6 +50,12 @@ public class FSMManager
 
         switch (stat.monsterType)
         {
+            case "AH":
+                go.AddComponent<AHighAction>();
+                break;
+            case "AL":
+                go.AddComponent<ALowAction>();
+                break;
             case "B":
                 go.AddComponent<BType>();
                 break;
