@@ -5,8 +5,7 @@ using UnityEngine.AI;
 
 public class FSMManager
 {
-    #region Component
-    private GameObject playerGameObject; // player 
+    #region Component 
     private List<BaseEntity> entityList; // store all monsterentities for update 
     public Dictionary<string, BaseEntity> entityDictionary; // store all monsterentities for search 
     #endregion
@@ -17,7 +16,6 @@ public class FSMManager
         // init setting
         entityList = new List<BaseEntity>();
         entityDictionary = new Dictionary<string, BaseEntity>();
-        playerGameObject = GameObject.FindGameObjectWithTag("Player");
         foreach(MonsterData.MonsterStat stat in GameManager.Data.initMonsterInfoDict.Values){ Spawn<BaseEntity>(stat); }
         // state event
         GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
@@ -71,7 +69,7 @@ public class FSMManager
 
         T type = go.GetComponentInChildren<T>();
         type.Setup(stat);
-        type.playerObject = playerGameObject;
+        type.playerObject = GameManager.Instance.playerObject;
         entityList.Add(type);
         entityDictionary.Add(stat.monsterName, type);
         InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();

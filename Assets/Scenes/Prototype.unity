@@ -15,11 +15,11 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.4811321, g: 0.2935208, b: 0.2935208, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_FogColor: {r: 0.8207547, g: 0.65557134, b: 0.65557134, a: 1}
+  m_FogMode: 1
+  m_FogDensity: 0.1
+  m_LinearFogStart: 25
+  m_LinearFogEnd: 50
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.021639079, g: 0.011426343, b: 0.01933898, a: 1}
+  m_IndirectSpecularColor: {r: 0.021665346, g: 0.011398592, b: 0.019346233, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2622,6 +2622,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -2703,7 +2708,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1502372746}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1502372750}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
@@ -2718,6 +2723,12 @@ Transform:
 --- !u!4 &1502372749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 1502372746}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1502372750 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
     type: 3}
   m_PrefabInstance: {fileID: 1502372746}
   m_PrefabAsset: {fileID: 0}
@@ -2864,6 +2875,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1202310561960347451, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1502372750}
     - target: {fileID: 1202310562219597080, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
       propertyPath: dialogueViews.Array.data[0]
@@ -4214,7 +4230,7 @@ PrefabInstance:
     - target: {fileID: 5402395637608268443, guid: 58e27b6797b626a4087ae497de5bd92b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5402395637844183663, guid: 58e27b6797b626a4087ae497de5bd92b,
         type: 3}

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region Component
+    public GameObject playerObject;
+    #endregion
+
     #region CoreManagers
     // �̱���
     private static GameManager instance;
