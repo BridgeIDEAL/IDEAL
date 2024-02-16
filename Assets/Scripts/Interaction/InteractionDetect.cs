@@ -35,10 +35,9 @@ public class InteractionDetect : MonoBehaviour
 
     public void GameUpdate(){
         playerVector = playerCamera.transform.localRotation * Vector3.forward;
-        int layerMask = 1 << LayerMask.NameToLayer("Interaction"); // Interaciton 레이어만 충돌 체크 
+        int layerMask = 1 << LayerMask.NameToLayer("Interaction") | 1 << LayerMask.NameToLayer("Monster"); // Interaciton & Monster 레이어만 충돌 체크 
         if(Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerVector, out hit, maxDistance, layerMask)){
             // SphereCast에 감지된 경우
-            Transform objectHit = hit.transform;
             newGameObject = hit.transform.gameObject;
 
             InteractionObject newInteractionObject = newGameObject.GetComponent<InteractionObject>();
@@ -51,6 +50,13 @@ public class InteractionDetect : MonoBehaviour
                 // newGameObject와 oldGameObject가 다를 경우 다르거나 새로운 오브젝트를 가르키는 것이므로
                 // 예전 IO에게는 Ray에서 벗어남을 알리고
                 oldInteractionObject?.OutOfRay();
+
+                // TODO 몬스터에게 추격당하는지 판별되는 변수 필요
+                // 몬스터에게 추격 중 몬스터와 상호작용(대화) 불가능
+                if(newGameObject.layer == LayerMask.NameToLayer("Monster")) {
+                    // return;
+                }
+
                 // 새로운 IO에게는 Ray에 감지됨을 알린다.
                 newInteractionObject?.DetectedRay();
                 
