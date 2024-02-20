@@ -105,8 +105,7 @@ public class ConversationManager : MonoBehaviour
             str = str.Replace("$attempts", attempts.ToString());
         }
         if(guideLogID > -1){
-            //GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
-            GuideLogManager.Instance.UpdateDeadGuideLogRecord(guideLogID, attempts);
+            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
         }
         GameOverManager.Instance.GameOver(str);
     }

@@ -169,6 +169,8 @@ public class IdealBook : MonoBehaviour {
         this.gameObject.SetActive(true);
         UIGuideLogManager.Instance.OpenBook();
         UpdateSprites();
+
+        GuideLogManager.Instance.guideLogUpdated = false;
     }
 
     public void CloseBook(){

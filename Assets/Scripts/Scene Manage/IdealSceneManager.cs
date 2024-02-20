@@ -27,6 +27,7 @@ public class IdealSceneManager : MonoBehaviour
     private void AfterSceneLoaded(Scene scene, LoadSceneMode mode){
         if(scene.name == "Prototype"){
             Cursor.lockState = CursorLockMode.Locked;
+            GuideLogManager.Instance.guideLogUpdated = false;
         }
         else if(scene.name == "Lobby"){
             Cursor.lockState = CursorLockMode.None;
@@ -43,9 +44,6 @@ public class IdealSceneManager : MonoBehaviour
         SceneManager.LoadScene("Lobby");
     }
 
-    public void AddAttemptCount(){
-        CountAttempts.Instance.AddAttemptCount();
-    }
 
     public void ExitGame(){
 #if UNITY_EDITOR
