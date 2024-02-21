@@ -31,9 +31,9 @@ public class UIGuideLogManager : MonoBehaviour
     private static float smallFontSize = 24.0f;
     private static float smallIndent = 40.0f;
 
-    private static int redHigh = 250;
+    private static int redHigh = 230;
     private static int colorLevel = 5;
-    private static int redLow = 150;
+    private static int redLow = 100;
 
 
     private void Awake(){
@@ -59,7 +59,7 @@ public class UIGuideLogManager : MonoBehaviour
         // 겉 표지 Front
         int nowAttempt = -1;
         if(CountAttempts.Instance != null){
-            nowAttempt = CountAttempts.Instance.GetAttemptCount() + 1;
+            nowAttempt = CountAttempts.Instance.GetAttemptCount();
         }
         bookPages.Add($"\n\n\n<align=center><size={titleFontSize}>실종 기록 일지</size></align>\n\n<align=right><size={bigFontSize}>-{nowAttempt}번째 실종자-</size></align>");
         bookPages.Add("");
@@ -83,10 +83,11 @@ public class UIGuideLogManager : MonoBehaviour
 
             // attempt가 -2 == 기본 검정,  -1 == 투명  0 이상 == 현재 시도와 가까울수록 진한 색
             string colorStart = "", colorEnd = "";
+            string markStart = "", markEnd = "";
             int colorDegree = Mathf.Abs(nowAttempt - attempt);
             int redDegree = (int)Mathf.Lerp(redHigh, redLow, (float)colorDegree / colorLevel);
 
-            string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.4f, 0.4f));
+            string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.2f, 0.2f));
             if(attempt <= -2){
                 hexColor = "000000FF";
             }
@@ -95,6 +96,11 @@ public class UIGuideLogManager : MonoBehaviour
             }
             colorStart = $"<color=#{hexColor}>";
             colorEnd = "</color>";
+
+            if(colorDegree <= 1){
+                markStart = "<mark=#ad10104F>";
+                markEnd = "</mark>";
+            }
 
             if(guideLog.GetID() % 100 != 0){    // 소 규칙
                 sizeStart = $"<size={smallFontSize}>";
@@ -113,11 +119,11 @@ public class UIGuideLogManager : MonoBehaviour
             string nextStr;
             if(nowBigGuideID != guideLog.GetID() / 10000){
                 // 큰 규칙의 번호가 바뀌면 \n 1번
-                nextStr = curStr + "\n" + sizeStart + indentStart + colorStart + guideText + colorEnd + indentEnd + sizeEnd + "\n";
+                nextStr = curStr + "\n" + sizeStart + indentStart + colorStart + markStart + guideText + markEnd + colorEnd + indentEnd + sizeEnd + "\n";
                 nowBigGuideID = guideLog.GetID() / 10000;
             }
             else {
-                nextStr = curStr + sizeStart + indentStart + colorStart + guideText + colorEnd + indentEnd + sizeEnd + "\n";
+                nextStr = curStr + sizeStart + indentStart + colorStart + markStart + guideText + markEnd + colorEnd + indentEnd + sizeEnd + "\n";
             }
             if(CheckOverFlow(nextStr)){
                 bookPages.Add("");

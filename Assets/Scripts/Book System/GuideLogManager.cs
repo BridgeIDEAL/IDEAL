@@ -8,6 +8,7 @@ using System;
 [Serializable]
 public class PlayerSaveData
 {
+    public int nowAttempt = 1;
     public List<GuideLogRecord> guideLogRecordList = new List<GuideLogRecord>();
 }
 
@@ -27,6 +28,8 @@ public class GuideLogManager : MonoBehaviour
     [SerializeField] private UIGuideLogManager uIGuideLogManager;
 
     public List<GuideLogRecord> guideLogRecordList = new List<GuideLogRecord>();
+
+    public bool guideLogUpdated = false;
 
     private void Awake(){
         if (Instance == null)
@@ -65,23 +68,14 @@ public class GuideLogManager : MonoBehaviour
     public void UpdateGuideLogRecord(int logID, int attempt){
         for (int i = 0; i < guideLogRecordList.Count; i++){
             if(logID == guideLogRecordList[i].GetGuideLogID()){
-                if(guideLogRecordList[i].GetAttempt() <= -2){
+                if(guideLogRecordList[i].GetAttempt() < 0){
                     guideLogRecordList[i].SetAttempt(attempt);
+                    guideLogUpdated = true;
                 }
             }
         }
     }
 
-    public void UpdateDeadGuideLogRecord(int logID, int attempt)
-    {
-        for (int i = 0; i < guideLogRecordList.Count; i++)
-        {
-            if (logID == guideLogRecordList[i].GetGuideLogID())
-            {
-                guideLogRecordList[i].SetAttempt(attempt);
-            }
-        }
-    }
 
     public GuideLog GetGuideLog(int logID){
         return guideLogData.GetGuideLog(logID);
@@ -98,6 +92,7 @@ public class GuideLogManager : MonoBehaviour
             AddGuideLogRecord(keyValuePair.Key, -2);
         }
         GenerateTransparentGuideLog();
+        guideLogUpdated = false;
     }
 
     private void GenerateTransparentGuideLog(){
@@ -124,10 +119,7 @@ public class GuideLogManager : MonoBehaviour
 
     }
 
-    private void GenerateTestCase(){
 
-
-    }
     private void LoadGuideLogRecordList()
     {
         string loadJson = File.ReadAllText(playerDataPath);

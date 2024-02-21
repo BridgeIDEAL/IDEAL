@@ -36,12 +36,14 @@ public class ConversationManager : MonoBehaviour
         nowTalkerName = name_;
     }
     public void ConversationStart(){
+        firstPersonController.MoveLock = true;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartInteraction, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
+        firstPersonController.MoveLock = false;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndInteraction, nowTalkerName);
         }
@@ -82,6 +84,7 @@ public class ConversationManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey); 
         dialogueRunner.AddCommandHandler("Active_01F_Medicine", Active_01F_Medicine);
         dialogueRunner.AddCommandHandler("GetHandCream", GetHandCream);
+        dialogueRunner.AddCommandHandler<int, int, int>("UpdateProgressState", UpdateProgressState);
 
         dialogueRunner.AddCommandHandler("AccelerateTypeSpeed", AccelerateTypeSpeed);
         dialogueRunner.AddCommandHandler("NormalTypeSpeed", NormalTypeSpeed);
@@ -105,8 +108,7 @@ public class ConversationManager : MonoBehaviour
             str = str.Replace("$attempts", attempts.ToString());
         }
         if(guideLogID > -1){
-            //GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
-            GuideLogManager.Instance.UpdateDeadGuideLogRecord(guideLogID, attempts);
+            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
         }
         GameOverManager.Instance.GameOver(str);
     }
@@ -215,11 +217,15 @@ public class ConversationManager : MonoBehaviour
     }
 
     public void Active_01F_Medicine(){
-        ActiveInteraction.Instance.Active_01F_Medicine();
+        InteractionManager.Instance.Active_01F_Medicine();
         GameObject healthTeacher = GameManager.FSM.entityDictionary["1F_MedicineRoom_HealthTeacher"].gameObject;
         if (healthTeacher == null)
             return;
         GameManager.FSM.DeleteUpdate(healthTeacher.name);
+    }
+
+    public void UpdateProgressState(int floor, int progress, int state){
+        InteractionManager.Instance.UpdateProgressState(floor, progress, state);
     }
 
     public void GetHandCream(){

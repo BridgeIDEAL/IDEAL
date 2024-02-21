@@ -25,6 +25,7 @@ namespace StarterAssets
 
 		[Tooltip("Camera Rotation Lock")]
 		public bool CameraRotationLock = false;
+		public bool MoveLock = false;
 
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
@@ -165,6 +166,7 @@ namespace StarterAssets
 
 		private void Move()
 		{
+			if(MoveLock) return;
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
