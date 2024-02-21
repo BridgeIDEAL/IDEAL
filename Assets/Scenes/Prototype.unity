@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.021657739, g: 0.011401731, b: 0.019339737, a: 1}
+  m_IndirectSpecularColor: {r: 0.021637533, g: 0.011410641, b: 0.019333823, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -107,15 +107,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.3
+    agentRadius: 0.35
     agentHeight: 2
-    agentSlope: 20
-    agentClimb: 0.5
+    agentSlope: 45
+    agentClimb: 0.6
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 2
+    minRegionArea: 3
     manualCellSize: 0
-    cellSize: 0.1
+    cellSize: 0.11666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -4645,6 +4645,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 706037402737256212, guid: ea43ae7afc291c7458a4a930a0defd99,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2546516990590935010, guid: ea43ae7afc291c7458a4a930a0defd99,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5678904963245988148, guid: ea43ae7afc291c7458a4a930a0defd99,
         type: 3}
       propertyPath: m_RootOrder
@@ -4704,6 +4714,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SchoolFrame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923095845529945929, guid: ea43ae7afc291c7458a4a930a0defd99,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea43ae7afc291c7458a4a930a0defd99, type: 3}
