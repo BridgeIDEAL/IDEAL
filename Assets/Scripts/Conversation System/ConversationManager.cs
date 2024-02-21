@@ -36,12 +36,14 @@ public class ConversationManager : MonoBehaviour
         nowTalkerName = name_;
     }
     public void ConversationStart(){
+        firstPersonController.MoveLock = true;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartInteraction, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
+        firstPersonController.MoveLock = false;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndInteraction, nowTalkerName);
         }
