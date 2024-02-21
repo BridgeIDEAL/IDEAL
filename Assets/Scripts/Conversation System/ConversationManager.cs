@@ -82,6 +82,7 @@ public class ConversationManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey); 
         dialogueRunner.AddCommandHandler("Active_01F_Medicine", Active_01F_Medicine);
         dialogueRunner.AddCommandHandler("GetHandCream", GetHandCream);
+        dialogueRunner.AddCommandHandler<int, int, int>("UpdateProgressState", UpdateProgressState);
 
         dialogueRunner.AddCommandHandler("AccelerateTypeSpeed", AccelerateTypeSpeed);
         dialogueRunner.AddCommandHandler("NormalTypeSpeed", NormalTypeSpeed);
@@ -214,11 +215,15 @@ public class ConversationManager : MonoBehaviour
     }
 
     public void Active_01F_Medicine(){
-        ActiveInteraction.Instance.Active_01F_Medicine();
+        InteractionManager.Instance.Active_01F_Medicine();
         GameObject healthTeacher = GameManager.FSM.entityDictionary["1F_MedicineRoom_HealthTeacher"].gameObject;
         if (healthTeacher == null)
             return;
         GameManager.FSM.DeleteUpdate(healthTeacher.name);
+    }
+
+    public void UpdateProgressState(int floor, int progress, int state){
+        InteractionManager.Instance.UpdateProgressState(floor, progress, state);
     }
 
     public void GetHandCream(){
