@@ -16,14 +16,21 @@ namespace StarterAssets
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
-        public float MoveSpeed = 2.0f;
+        public float DefaultMoveSpeed = 4.0f;
+        public float MoveSpeed = 4.0f;
 
         [Tooltip("Sprint speed of the character in m/s")]
-        public float SprintSpeed = 5.335f;
+        public float DefaultSprintSpeed = 5.0f;
+        public float SprintSpeed = 5.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
+
+        [Tooltip("Camera Rotation Lock")]
+		public bool CameraRotationLock = false;
+        [Tooltip("Move Lock")]
+		public bool MoveLock = false;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -80,7 +87,7 @@ namespace StarterAssets
         private float _cinemachineTargetPitch;
 
         // player
-        private float _speed;
+        public float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
@@ -192,6 +199,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
+            if(CameraRotationLock) return;
             // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
@@ -213,6 +221,10 @@ namespace StarterAssets
 
         private void Move()
         {
+            if(MoveLock) {
+                _speed = 0.0f;
+                return;
+            }
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 

@@ -24,7 +24,8 @@ public class HealthPointManager : MonoBehaviour
 
     [SerializeField] private ScriptHub scriptHub;
     private UIHealthPoint uIHealthPoint;
-    private FirstPersonController firstPersonController;
+    // private FirstPersonController firstPersonController;
+    private ThirdPersonController thirdPersonController;
     private UIMoveSetting uIMoveSetting;
     private InteractionDetect interactionDetect;
     private UIIngame uIIngame;
@@ -49,7 +50,7 @@ public class HealthPointManager : MonoBehaviour
         }
 
         uIHealthPoint = scriptHub.uIHealthPoint;
-        firstPersonController = scriptHub.firstPersonController;
+        thirdPersonController = scriptHub.thirdPersonController;
         uIMoveSetting = scriptHub.uIMoveSetting;
         interactionDetect = scriptHub.interactionDetect;
         uIIngame = scriptHub.uIIngame;
@@ -156,9 +157,9 @@ public class HealthPointManager : MonoBehaviour
             damage = -4;
         }
 
-        firstPersonController.MoveSpeed = firstPersonController.DefaultMoveSpeed * (1.0f + damage * speedReduction);
+        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f + damage * speedReduction);
         uIMoveSetting.UpdateMoveSpeedValueText();
-        firstPersonController.SprintSpeed = firstPersonController.DefaultSprintSpeed * (1.0f + damage * speedReduction);
+        thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f + damage * speedReduction);
         uIMoveSetting.UpdateSprintSpeedValueText();
     }
 

@@ -33,7 +33,8 @@ public class UIManager : MonoBehaviour
 
     private bool[] UIActives = new bool[System.Enum.GetValues(typeof(UIType)).Length];
 
-    private FirstPersonController firstPersonController;
+    // private FirstPersonController firstPersonController;
+    private ThirdPersonController thirdPersonController;
     private CinemachineVirtualCamera cinemachineVirtualCamera;
     
     private UIInteraction uIInteraction;
@@ -62,7 +63,7 @@ public class UIManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        firstPersonController = scriptHub.firstPersonController;
+        thirdPersonController = scriptHub.thirdPersonController;
         cinemachineVirtualCamera = scriptHub.cinemachineVirtualCamera;
         uIInteraction = scriptHub.uIInteraction;
         uIInventory = scriptHub.uIInventory;
@@ -141,14 +142,14 @@ public class UIManager : MonoBehaviour
     private void UpdateMouseLock(){
         // CameraLock & MouseUnLock이 필요한 경우
         if(isDialogueActive || isInventoryActive){
-            firstPersonController.CameraRotationLock = true;
+            thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
             // 상호작용 텍스트 비활성화
             uIInteraction.SetTextActive(false);
         }
         else{
-            firstPersonController.CameraRotationLock = false;
+            thirdPersonController.CameraRotationLock = false;
             Cursor.lockState = CursorLockMode.Locked;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
             // 상호작용 텍스트 활성화
