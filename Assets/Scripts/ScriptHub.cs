@@ -13,7 +13,8 @@ public class ScriptHub : MonoBehaviour
 
     [Space(5)]
     [Header("FPC Property")]
-    public FirstPersonController firstPersonController;
+    // public FirstPersonController firstPersonController;
+    public ThirdPersonController thirdPersonController;
     
     [Space(5)]
     [Header("UI Scripts")]

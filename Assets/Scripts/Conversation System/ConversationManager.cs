@@ -7,7 +7,8 @@ using Yarn.Unity;
 public class ConversationManager : MonoBehaviour
 {
     [SerializeField] private ScriptHub scriptHub;
-    private FirstPersonController firstPersonController;
+    // private FirstPersonController firstPersonController;
+    private ThirdPersonController thirdPersonController;
     private DialogueRunner dialogueRunner;
     private string nowTalkerName = "";
 
@@ -24,7 +25,7 @@ public class ConversationManager : MonoBehaviour
     private int acceleratedTypingSpeed = 40;
     
     public void Init(){
-        firstPersonController = scriptHub.firstPersonController;
+        thirdPersonController = scriptHub.thirdPersonController;
         dialogueRunner = scriptHub.dialogueRunner;
         dialogueRunner.onDialogueStart.AddListener(ConversationStart);
         dialogueRunner.onDialogueComplete.AddListener(ConversationEnd);
@@ -36,14 +37,14 @@ public class ConversationManager : MonoBehaviour
         nowTalkerName = name_;
     }
     public void ConversationStart(){
-        firstPersonController.MoveLock = true;
+        thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartInteraction, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
-        firstPersonController.MoveLock = false;
+        thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
             GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndInteraction, nowTalkerName);
         }

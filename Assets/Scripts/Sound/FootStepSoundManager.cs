@@ -5,17 +5,23 @@ using StarterAssets;
 
 public class FootStepSoundManager : MonoBehaviour
 {
-    [SerializeField] private FirstPersonController firstPersonController;
+    // [SerializeField] private FirstPersonController firstPersonController;
+    [SerializeField] private ScriptHub scriptHub;
+    private ThirdPersonController thirdPersonController;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] footStepClips;
     private bool canSound = true;
     private float stepTimer = 0.0f;
     private float soundInterval = 0.6f;
     private int lastClip = -1;
+    
+    void Awake(){
+        thirdPersonController = scriptHub.thirdPersonController;
+    }
     void Update()
     {
         // 움직일 때 발걸음
-        if(firstPersonController._speed > 0.2f){
+        if(thirdPersonController._speed > 0.2f){
             if(canSound){
                 canSound = false;
                 SoundFootStep();
