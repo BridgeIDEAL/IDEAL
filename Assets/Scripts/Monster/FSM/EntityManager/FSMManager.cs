@@ -120,6 +120,7 @@ public class FSMManager
         }
         GameManager.EntityEvent.CanInteraction = false;
         entityDictionary[_Key].ChaseInteraction();
+        //추격중이라는 변수를 줌
     }
 
     public void SpawnUpdate(string _Name)

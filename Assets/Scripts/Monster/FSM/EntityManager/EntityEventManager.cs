@@ -4,7 +4,7 @@ using System;
 public class EntityEventManager
 {
     #region Component
-    public bool isChase { get; set; } = false;
+    public bool IsChase { get; set; } = false;
     public bool CanInteraction { get; set; } = true;
     public Action<string> StartConversationAction; // make monsterstate speechless without talk monster (talk monster state = interaction)
     public Action EndConversationAction; // make all monsterstate indifference
@@ -28,17 +28,17 @@ public class EntityEventManager
                 StartConversationAction(_Name);
                 break;
             case StateEventType.EndInteraction: 
-                if(!isChase)
+                if(!IsChase)
                     EndConversationAction();
                 break;
             case StateEventType.ChaseInteraction: 
                 if (_Name == null)
                     return;
-                isChase = true;
+                IsChase = true;
                 ChaseAction(_Name);
                 break;
             case StateEventType.IndifferenceInteraction:
-                isChase = false;
+                IsChase = false;
                 EndConversationAction();
                 break;
         }
