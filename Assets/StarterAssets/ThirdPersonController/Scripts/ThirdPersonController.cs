@@ -312,6 +312,8 @@ namespace StarterAssets
                 }
 
                 // Jump
+                // 점프 방지
+                _input.jump = false;
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
