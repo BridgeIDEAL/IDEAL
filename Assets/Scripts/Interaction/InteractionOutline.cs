@@ -13,20 +13,23 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private bool reverseY = false;
 
     private GameObject outlineObject;
-    private Renderer outlineRenderer;
+    private Renderer outlineRenderer = null;   // Renderer가 하나인 오브젝트의 경우
+    private List<Renderer> outlineRenderers = new List<Renderer>();    // Renderer가 자식 오브젝트에 있어 여러 개인 경우
 
     void Start()
     {
-        outlineRenderer = CreateOutline(outlineMaterial, outlineScaleFactor, outlineColor);
-        outlineRenderer.enabled = true;
+        CreateOutline(outlineMaterial, outlineScaleFactor, outlineColor);
         SetOutlineObject(false);
     }
 
-    Renderer CreateOutline(Material outlineMat, float scaleFactor, Color color)
+    void CreateOutline(Material outlineMat, float scaleFactor, Color color)
     {
         outlineObject = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
         outlineObject.transform.localScale = new Vector3(1, 1, 1);
         
+        outlineObject.GetComponent<InteractionOutline>().enabled = false;
+        outlineObject.GetComponent<Collider>().enabled = false;
+
         // OutlineObject가 반대로 되어 있을때 y축 반전
         if(reverseY) {
             Vector3 currentRotation = outlineObject.transform.rotation.eulerAngles;
@@ -36,17 +39,35 @@ public class InteractionOutline : MonoBehaviour
 
         Renderer rend = outlineObject.GetComponent<Renderer>();
 
-        rend.material = outlineMat;
-        rend.material.SetColor("_OutlineColor", color);
-        rend.material.SetFloat("_Scale", scaleFactor);
-        rend.shadowCastingMode = ShadowCastingMode.Off;
+        if(rend != null){   // Renderer가 하나인 경우
+            rend.material = outlineMat;
+            rend.material.SetColor("_OutlineColor", color);
+            rend.material.SetFloat("_Scale", scaleFactor);
+            rend.shadowCastingMode = ShadowCastingMode.Off;
+            rend.enabled = true;
+            outlineRenderer = rend;
+        }
+        else{   // Renderer가 여러 개인 경우, 현재는 자식까지만 가능 손자까지 탐색하진 않음
+            if(outlineObject.transform.childCount > 0){
+                for(int i = 0; i < outlineObject.transform.childCount; i++){
+                    Transform outlineChild = outlineObject.transform.GetChild(i);
+                    rend = outlineChild.GetComponent<Renderer>();
+                    if(rend != null){
+                        rend.material = outlineMat;
+                        rend.material.SetColor("_OutlineColor", color);
+                        rend.material.SetFloat("_Scale", scaleFactor);
+                        rend.shadowCastingMode = ShadowCastingMode.Off;
+                        rend.enabled = true;
+                        outlineRenderers.Add(rend);
+                    }
+                }
+            }
+            else{
+                Debug.LogError("Renderer를 찾을 수 없습니다.");
+                return;
+            }
+        }
 
-        outlineObject.GetComponent<InteractionOutline>().enabled = false;
-        outlineObject.GetComponent<Collider>().enabled = false;
-
-        rend.enabled = false;
-
-        return rend;
     }
 
     public void SetOutlineObject(bool active){
