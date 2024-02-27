@@ -1,5 +1,9 @@
 ﻿title: 01_1F_SchoolGuardStart
 ---
+<<if CheckProgressState(1, 1) == 1>>
+    <<jump SchoolGuardRepeat>>
+<<endif>>
+    
 수위: 자넨 누군가? 처음보는 얼굴인데.
 -> 잠깐 학교 견학 중입니다.
     수위: 아, 그런가. 그럼 출입 명부를 작성해야 하는데.
@@ -25,4 +29,8 @@
     교무센터 열쇠를 획득했다.
     <<GetTeacherCenterKey>>
     <<UpdateProgressState 1 1 1>>
+===
+title: SchoolGuardRepeat
+---
+수위: 아직 교무센터에 들리지 않았나? 빨리 갔다 오게.
 ===

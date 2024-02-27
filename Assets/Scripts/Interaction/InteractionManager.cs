@@ -41,6 +41,11 @@ public class InteractionManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         progressState = new int[floorNum, progressNum];
+        for(int i = 0; i < floorNum; i++){
+            for(int j = 0; j < progressNum; j++){
+                progressState[i, j] = -1;
+            }
+        }
     }
     
     
@@ -64,7 +69,7 @@ public class InteractionManager : MonoBehaviour
     private void UpdateProgressObject(){
         // 101
         if(progressState[1,1] >= 1){
-            door_01F_NurseRoom.canOpen = true;
+            // door_01F_NurseRoom.canOpen = true;
         }
     }
 }

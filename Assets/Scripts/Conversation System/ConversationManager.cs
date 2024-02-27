@@ -134,6 +134,11 @@ public class ConversationManager : MonoBehaviour
         ActivationLogManager.Instance.AddActivationLog(4105);
     }
 
+    [YarnFunction("CheckProgressState")]
+    public static int CheckProgressState(int floor_, int progress_){
+        return InteractionManager.Instance.progressState[floor_, progress_];
+    }
+
     #endregion
 
     #region HurtBodyPart
