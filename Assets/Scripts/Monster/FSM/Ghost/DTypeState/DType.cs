@@ -129,9 +129,9 @@ public class DType : BaseEntity
         //nav.isStopped = false;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player") && CurrentType == DTypeEntityStates.Chase)
+        if (other.gameObject.CompareTag("Player") && CurrentType == DTypeEntityStates.Chase)
         {
             GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
         }

@@ -118,6 +118,14 @@ public class BType : BaseEntity
                 anim.CrossFade("Walk", 0.2f);
                 break;
         }
-    } 
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player") && CurrentType  == BTypeEntityStates.Chase)
+        {
+            GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
+        }
+    }
     #endregion
 }
