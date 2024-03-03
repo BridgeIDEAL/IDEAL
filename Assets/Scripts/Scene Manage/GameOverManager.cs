@@ -43,7 +43,7 @@ public class GameOverManager : MonoBehaviour
         isEnd = true;
         stepTimer = 0.0f;
         CountAttempts.Instance.AddAttemptCount();
-        GuideLogManager.Instance.SaveGuideLogRecordList();
+        GuideLogManager.Instance.SavePlayerSaveData();
     }
 
     private void Update(){

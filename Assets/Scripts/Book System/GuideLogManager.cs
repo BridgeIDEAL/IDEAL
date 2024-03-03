@@ -54,7 +54,7 @@ public class GuideLogManager : MonoBehaviour
         else
         {
             GenerateGuideLogRecordList();
-            SaveGuideLogRecordList();
+            SavePlayerSaveData();
         }
 
     }
@@ -135,13 +135,14 @@ public class GuideLogManager : MonoBehaviour
             }
         }
     }
-    public void SaveGuideLogRecordList()
+    public void SavePlayerSaveData()
     {
         PlayerSaveData playerSaveData = new PlayerSaveData();
         for (int i = 0; i < guideLogRecordList.Count; i++)
         {
             playerSaveData.guideLogRecordList.Add(guideLogRecordList[i]);
         }
+        playerSaveData.nowAttempt = CountAttempts.Instance.GetAttemptCount();
         string json = JsonUtility.ToJson(playerSaveData, true);
         File.WriteAllText(playerDataPath, json);
     }

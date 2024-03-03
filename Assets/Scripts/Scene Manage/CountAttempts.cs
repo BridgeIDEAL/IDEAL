@@ -37,7 +37,7 @@ public class CountAttempts : MonoBehaviour
 
     public void AddAttemptCount(){
         attemptCount++;
-        SaveAttempt();
+        // Attempt 저장은 GuideLogManager에서 PlayerData를 저장할 때 같이
     }
 
     public int GetAttemptCount(){
@@ -56,11 +56,5 @@ public class CountAttempts : MonoBehaviour
         }
     }
 
-    public void SaveAttempt()
-    {
-        PlayerSaveData playerSaveData = new PlayerSaveData();
-        playerSaveData.nowAttempt = attemptCount;
-        string json = JsonUtility.ToJson(playerSaveData, true);
-        File.WriteAllText(playerDataPath, json);
-    }
+    // Attempt 저장은 GuideLogManager에서 PlayerData를 저장할 때 같이
 }
