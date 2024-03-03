@@ -21,6 +21,8 @@ public class ConversationManager : MonoBehaviour
     [SerializeField] private InteractionItemData roofTopKey;
 
     [SerializeField] private InteractionItemData handCream;
+
+    [SerializeField] private InteractionItemData alcoholLamp;
     private int normalTypingSpeed = 20;
     private int acceleratedTypingSpeed = 40;
     
@@ -82,10 +84,13 @@ public class ConversationManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("ChalkBoardSuccess", ChalkBoardSuccess);
         dialogueRunner.AddCommandHandler("GetTeacherCenterKey", GetTeacherCenterKey);
-        dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey); 
+        dialogueRunner.AddCommandHandler("GetRoofTopKey", GetRoofTopKey);
+        dialogueRunner.AddCommandHandler("GetAlcoholLamp", GetAlcoholLamp);  
         dialogueRunner.AddCommandHandler("Active_01F_Medicine", Active_01F_Medicine);
         dialogueRunner.AddCommandHandler("GetHandCream", GetHandCream);
         dialogueRunner.AddCommandHandler<int, int, int>("UpdateProgressState", UpdateProgressState);
+
+        dialogueRunner.AddCommandHandler<int>("UseItem", UseItem);
 
         dialogueRunner.AddCommandHandler("AccelerateTypeSpeed", AccelerateTypeSpeed);
         dialogueRunner.AddCommandHandler("NormalTypeSpeed", NormalTypeSpeed);
@@ -134,9 +139,23 @@ public class ConversationManager : MonoBehaviour
         ActivationLogManager.Instance.AddActivationLog(4105);
     }
 
+    public void UseItem(int itemCode){
+        Inventory.Instance.UseItemWithItemCode(itemCode);
+    }
+
+    // TO Do GetItem 함수로 처리하기
+    public void GetAlcoholLamp(){
+        Inventory.Instance.Add(alcoholLamp, 1);
+    }
+
     [YarnFunction("CheckProgressState")]
     public static int CheckProgressState(int floor_, int progress_){
         return InteractionManager.Instance.progressState[floor_, progress_];
+    }
+
+    [YarnFunction("CheckPlayerItem")]
+    public static int CheckPlayerItem(int itemCode){
+        return Inventory.Instance.FindItemIndex(itemCode);
     }
 
     #endregion

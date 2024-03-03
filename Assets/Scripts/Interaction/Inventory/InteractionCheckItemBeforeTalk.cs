@@ -9,7 +9,7 @@ public class InteractionCheckItemBeforeTalk : AbstractInteraction
     [SerializeField] private ConversationManager conversationManager;
     [SerializeField] private string detectedStr = "";
     [SerializeField] private string dialogueName = "";
-    [SerializeField] private int needItemCode = -1;
+    [SerializeField] private int[] needItemCodes = {-1};
     [SerializeField] private string successInteractionStr = "";
     [SerializeField] private string failInteractionStr = "";
     public override float RequiredTime { get => 1.0f;}
@@ -19,7 +19,7 @@ public class InteractionCheckItemBeforeTalk : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        if(Inventory.Instance.FindItemIndex(needItemCode) != -1){
+        if(CheckNeedItem()){
             conversationManager.SetTalkerName("");
             dialogueRunner.StartDialogue(dialogueName);
             if(successInteractionStr != ""){
@@ -31,5 +31,14 @@ public class InteractionCheckItemBeforeTalk : AbstractInteraction
                 InteractionManager.Instance.uIInteraction.GradientText(failInteractionStr);
             }
         }
+    }
+
+    private bool CheckNeedItem(){
+        foreach(var needItemCode in needItemCodes){
+            if(Inventory.Instance.FindItemIndex(needItemCode) == -1){
+                return false;
+            }
+        }
+        return true;
     }
 }
