@@ -31,7 +31,7 @@ public class UIGuideLogManager : MonoBehaviour
     private static float smallFontSize = 24.0f;
     private static float smallIndent = 40.0f;
 
-    private static int redHigh = 230;
+    private static int redHigh = 250;
     private static int colorLevel = 5;
     private static int redLow = 100;
 
@@ -87,7 +87,7 @@ public class UIGuideLogManager : MonoBehaviour
             int colorDegree = Mathf.Abs(nowAttempt - attempt);
             int redDegree = (int)Mathf.Lerp(redHigh, redLow, (float)colorDegree / colorLevel);
 
-            string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.2f, 0.2f));
+            string hexColor = ColorUtility.ToHtmlStringRGB(new Color(redDegree / 255.0f, 0.1f, 0.1f));
             if(attempt <= -2){
                 hexColor = "000000FF";
             }
@@ -98,7 +98,7 @@ public class UIGuideLogManager : MonoBehaviour
             colorEnd = "</color>";
 
             if(colorDegree <= 1){
-                markStart = "<mark=#ad10104F>";
+                markStart = "<mark=#ad10103F>";
                 markEnd = "</mark>";
             }
 
