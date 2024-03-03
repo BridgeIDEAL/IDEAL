@@ -6,12 +6,21 @@ public class BasicRigidBodyPush : MonoBehaviour
 	public bool canPush;
 	[Range(0.5f, 5f)] public float strength = 1.1f;
 
-	private void OnControllerColliderHit(ControllerColliderHit hit)
+    #region Collision & Trigger
+    private void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		if (canPush) PushRigidBodies(hit);
+		if (hit.gameObject.CompareTag("Monster") && GameManager.EntityEvent.IsChase) 
+			GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
 	}
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Rest") && GameManager.EntityEvent.IsChase)
+			GameManager.EntityEvent.SendStateEventMessage(StateEventType.IndifferenceInteraction);
+	}
+    #endregion
 
-	private void PushRigidBodies(ControllerColliderHit hit)
+    private void PushRigidBodies(ControllerColliderHit hit)
 	{
 		// https://docs.unity3d.com/ScriptReference/CharacterController.OnControllerColliderHit.html
 
