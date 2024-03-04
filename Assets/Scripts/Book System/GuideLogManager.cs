@@ -43,7 +43,9 @@ public class GuideLogManager : MonoBehaviour
         }
 
         guideLogData.Init();
+    }
 
+    void Start(){
         // 플레이어 데이터가 이미 저장되어 있다면 불러오고
         // 저장되어 있지 않다면 새로 생성
         // 플레이어 데이터는 Datas 폴더 속 PlayerGuideLogData.json으로 저장
@@ -56,7 +58,7 @@ public class GuideLogManager : MonoBehaviour
             GenerateGuideLogRecordList();
             SavePlayerSaveData();
         }
-
+        // 현재는 CountAttempt에서 Null이 뜨는 문제로 해당 부분을 Start로 미뤄둠
     }
 
     public void AddGuideLogRecord(int logID, int attempt){
