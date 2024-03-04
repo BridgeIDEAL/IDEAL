@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InteractionDoor : AbstractInteraction
 {
+    [SerializeField] private AudioClip unlockDoorAudio;
+    [SerializeField] private AudioClip lockDoorAudio;
+    
     [SerializeField] GameObject doorObject;
     [SerializeField] private Vector3 destPosition;
     [SerializeField] private float openRequiredTime = 1.0f;
@@ -25,6 +28,7 @@ public class InteractionDoor : AbstractInteraction
     protected override void ActInteraction(){
         if(Inventory.Instance.UseItemWithItemCode(needItem)){
             if(audioSource != null){
+                audioSource.clip = unlockDoorAudio;
                 audioSource.Play();
             }
             OpenDoor();
@@ -36,6 +40,10 @@ public class InteractionDoor : AbstractInteraction
             }
         }
         else{
+            if(audioSource != null){
+                audioSource.clip = lockDoorAudio;
+                audioSource.Play();
+            }
             if(failInteractionStr != ""){
                 InteractionManager.Instance.uIInteraction.GradientText(failInteractionStr);
             }
