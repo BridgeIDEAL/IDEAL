@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public enum TempEffectSounds { PaperTurn, KeyGet, PillGet}
+public enum TempEffectSounds { PaperTurn, KeyGet, PillGet, ItemGet}
 
 public class TempEffectSound : MonoBehaviour
 {

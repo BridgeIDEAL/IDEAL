@@ -28,15 +28,8 @@ public class InteractionGetItem : AbstractInteraction
         if (availableCount < 1) {
             Destroy(this.gameObject);
         }
-        if (audioSource != null) // Jun
-        { GameObject go = audioSource.gameObject;
-            TempEffectSound tempEffectSound = go.GetComponent<TempEffectSound>();
-            if (interactionItemData.Name == "�ິ")
-                tempEffectSound.PlayEffectSound(TempEffectSounds.PillGet);
-            else if (interactionItemData.ID == 1103 || interactionItemData.ID == 1102 || interactionItemData.ID == 1101)
-                tempEffectSound.PlayEffectSound(TempEffectSounds.KeyGet);
-            else
-                return;
+        if (audioSource != null) {
+            // Inventory.GetItemSound에서 아이템 획득 소리들 처리
         }            
     }
 }

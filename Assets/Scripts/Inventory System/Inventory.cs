@@ -42,6 +42,8 @@ public class Inventory : MonoBehaviour
     private ScriptHub scriptHub;
     private UIInventory uIInventory; // 연결된 인벤토리 UI
 
+    [SerializeField] private TempEffectSound playerTempEffectSound;
+
     /// <summary> 아이템 목록 </summary>
     [SerializeField]
     private Item[] items;
@@ -352,7 +354,20 @@ public class Inventory : MonoBehaviour
 
 
         SortAll();
+        if(amount == 0){
+            GetItemSound(itemData);
+        }
         return amount;
+    }
+
+    private void GetItemSound(ItemData itemData){
+        if (itemData.ID == 1105)
+            playerTempEffectSound.PlayEffectSound(TempEffectSounds.PillGet);
+        else if (itemData.ID == 1103 || itemData.ID == 1102 || itemData.ID == 1101)
+            playerTempEffectSound.PlayEffectSound(TempEffectSounds.KeyGet);
+        else {
+            playerTempEffectSound.PlayEffectSound(TempEffectSounds.ItemGet);
+        }
     }
 
     /// <summary> 해당 슬롯의 아이템 제거 </summary>

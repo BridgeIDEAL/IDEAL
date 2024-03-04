@@ -995,7 +995,6 @@ Transform:
   - {fileID: 1502372749}
   - {fileID: 522955483}
   - {fileID: 1864899888}
-  - {fileID: 1563995764}
   - {fileID: 1535485699}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2482,7 +2481,7 @@ PrefabInstance:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -3281,6 +3280,11 @@ PrefabInstance:
       propertyPath: Canvases.Array.data[5]
       value: 
       objectReference: {fileID: 1954166888}
+    - target: {fileID: 1202310562995529738, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: playerTempEffectSound
+      value: 
+      objectReference: {fileID: 1563995766}
     - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
       propertyPath: uIIngame
@@ -3450,13 +3454,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1563995763}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 5, z: 4.48}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 430677617}
-  m_RootOrder: 3
+  m_Father: {fileID: 1535485699}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1563995765
 AudioSource:
@@ -3571,6 +3575,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 319cca3690c2dd543b0f1c8a6e5ed18d, type: 3}
   - {fileID: 8300000, guid: 74e1039d2b0bb2e419bcc4a623691937, type: 3}
   - {fileID: 8300000, guid: 553138d09951c5146bc051ff9d70cc1d, type: 3}
+  - {fileID: 8300000, guid: d99a81e88a297f84d82d3fdd459f00c2, type: 3}
 --- !u!1 &1590364816
 GameObject:
   m_ObjectHideFlags: 0
