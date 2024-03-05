@@ -10,8 +10,13 @@ public class BasicRigidBodyPush : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		if (canPush) PushRigidBodies(hit);
-		if (hit.gameObject.CompareTag("Monster") && GameManager.EntityEvent.IsChase) 
-			GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
+		// OnControllerCollider는 Move에 귀속되어 collider 감지가 잘 안되는 경우가 있으므로
+		// MonsterDetect 스크립트에서 따로 처리해줌
+		// Debug.Log("hit tag: " + hit.gameObject.name);
+		// Debug.Log("EntityEvent: " + GameManager.EntityEvent.IsChase);
+		// if (hit.gameObject.CompareTag("Monster") && GameManager.EntityEvent.IsChase) {
+		// 	GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
+		// }
 	}
 	private void OnTriggerEnter(Collider other)
 	{
