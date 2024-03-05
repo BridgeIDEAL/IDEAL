@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private ScriptHub scriptHub;
+    private ThirdPersonController thirdPersonController;
     [SerializeField] private GameObject backgroundObject;
     [SerializeField] private GameObject endingMentObject;
     [SerializeField] private GameObject pressKeyTextObject;
@@ -34,6 +37,7 @@ public class GameOverManager : MonoBehaviour
         endingMentObject.SetActive(false);
         endingMentText = endingMentObject.GetComponent<TextMeshProUGUI>();
         pressKeyTextObject.SetActive(false);
+        thirdPersonController = scriptHub.thirdPersonController;
     }
 
     public void GameOver(string endingMent){
@@ -48,6 +52,7 @@ public class GameOverManager : MonoBehaviour
 
     private void Update(){
         if(isEnd){
+            thirdPersonController.MoveLock = true;
             if(stepTimer >= pressKeyTime){
                 pressKeyTextObject.SetActive(true);
                 if(Input.anyKeyDown){
