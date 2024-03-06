@@ -183,7 +183,6 @@ public class IdealBook : MonoBehaviour {
     public void UpdateBook()
     {
         f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
-        tempEffectSound.PlayEffectSound(TempEffectSounds.PaperTurn); // jun
         if (mode == FlipMode.RightToLeft)
             UpdateBookRTLToPoint(f);
         else
@@ -559,6 +558,7 @@ public class IdealBook : MonoBehaviour {
     {
         if (pageDragging)
         {
+            tempEffectSound.PlayEffectSound(TempEffectSounds.PaperTurn); // jun
             pageDragging = false;
             float distanceToLeft = Vector2.Distance(c, ebl);
             float distanceToRight = Vector2.Distance(c, ebr);
