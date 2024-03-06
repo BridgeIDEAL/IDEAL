@@ -48,41 +48,29 @@ public class AmbienceSoundManager : MonoBehaviour
 
     private IEnumerator InsideSoundCoroutine(){
         float outsideVol = outsideAudioSource.volume;
+        insideAudioSource.volume = 0.0f;
+        insideAudioSource.Play();
         float stepTimer = 0.0f;
         while(stepTimer <= soundFadeTime){
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / soundFadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-        outsideAudioSource.Stop();
-        
-        insideAudioSource.volume = 0.0f;
-        insideAudioSource.Play();
-        stepTimer = 0.0f;
-        while(stepTimer <= soundFadeTime){
             insideAudioSource.volume = Mathf.Lerp(0.0f, insideAudioVolume, stepTimer / soundFadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
+        outsideAudioSource.Stop();
     }
 
     private IEnumerator OutsideSoundCoroutine(){
         float insideVol = insideAudioSource.volume;
+        outsideAudioSource.volume = 0.0f;
+        outsideAudioSource.Play();
         float stepTimer = 0.0f;
         while(stepTimer <= soundFadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / soundFadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-        insideAudioSource.Stop();
-        
-        outsideAudioSource.volume = 0.0f;
-        outsideAudioSource.Play();
-        stepTimer = 0.0f;
-        while(stepTimer <= soundFadeTime){
             outsideAudioSource.volume = Mathf.Lerp(0.0f, outsideAudioVolume, stepTimer / soundFadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
+        insideAudioSource.Stop();
     }
 }
