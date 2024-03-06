@@ -11,6 +11,7 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
     [SerializeField] private bool reverseY = false;
+    [SerializeField] private bool[] outlineMask;
 
     private GameObject outlineObject;
     private Renderer outlineRenderer = null;   // Renderer가 하나인 오브젝트의 경우
@@ -50,6 +51,7 @@ public class InteractionOutline : MonoBehaviour
         else{   // Renderer가 여러 개인 경우, 현재는 자식까지만 가능 손자까지 탐색하진 않음
             if(outlineObject.transform.childCount > 0){
                 for(int i = 0; i < outlineObject.transform.childCount; i++){
+                    if(outlineMask.Length > 0 && outlineMask[i] == false) continue;    // OutlineMask에서 제외되는 경우 복제품의 material을 변경하지 않음)
                     Transform outlineChild = outlineObject.transform.GetChild(i);
                     rend = outlineChild.GetComponent<Renderer>();
                     if(rend != null){
