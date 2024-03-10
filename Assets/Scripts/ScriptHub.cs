@@ -38,6 +38,8 @@ public class ScriptHub : MonoBehaviour
     public EquipmentManager equipmentManager;
     public ConversationManager conversationManager;
     public DialogueRunner dialogueRunner;
+
+    public MentalPointManager mentalPointManager;
     
 
 }

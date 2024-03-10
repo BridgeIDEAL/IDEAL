@@ -233,12 +233,10 @@ public class ConversationManager : MonoBehaviour
     #region GetItem
     public void GetTeacherCenterKey(){
         Inventory.Instance.Add(teacherCenterKey, 1);
-        ActivationLogManager.Instance.AddActivationLog(4101);
     }
     
     public void GetRoofTopKey(){
         Inventory.Instance.Add(roofTopKey, 1);
-        ActivationLogManager.Instance.AddActivationLog(4107);
     }
 
     public void Active_01F_Medicine(){

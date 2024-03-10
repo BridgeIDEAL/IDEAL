@@ -14,7 +14,6 @@ public class InteractionUsePortion_101 : AbstractInteraction
     protected override void ActInteraction(){
         if(Inventory.Instance.UseItemWithItemCode(101)){
             cubeObject.SetActive(true);
-            ActivationLogManager.Instance.AddActivationLog(4003);   
         }
     }
 }

@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     private EquipmentManager equipmentManager;          // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     // Conversation
     private ConversationManager conversationManager;        // Monobehaviour
+    private MentalPointManager mentalPointManager;
 
 
     #endregion
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         healthPointManager.Init();
         equipmentManager.Init();
         conversationManager.Init();
+        mentalPointManager.Init();
     }
 
     private void Start(){
@@ -101,5 +103,6 @@ public class GameManager : MonoBehaviour
         healthPointManager = scriptHub.healthPointManager;
         equipmentManager = scriptHub.equipmentManager;
         conversationManager = scriptHub.conversationManager;
+        mentalPointManager = scriptHub.mentalPointManager;
     }
 }
