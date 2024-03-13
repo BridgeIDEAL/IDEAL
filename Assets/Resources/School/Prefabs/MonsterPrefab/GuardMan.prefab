@@ -1602,7 +1602,6 @@ GameObject:
   - component: {fileID: 6828729945808738316}
   - component: {fileID: -8336972296302738393}
   - component: {fileID: -5940154920870689564}
-  - component: {fileID: 1736642709986722767}
   m_Layer: 6
   m_Name: GuardMan
   m_TagString: Untagged
@@ -1700,6 +1699,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  outlineMask: 
 --- !u!114 &-8336972296302738393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,27 +1734,6 @@ MonoBehaviour:
   dialogueName: 
   monsterName: 
   lookPlayerwithConversation: 1
---- !u!114 &1736642709986722767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6794514003681933789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5f7dc26fe64e24595fac6c19e93297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  sightDistance: 10
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  initPosition: {x: 0, y: 0, z: 0}
-  initRotation: {x: 0, y: 0, z: 0}
-  patrolSpeed: 2
-  patrolPoints: []
 --- !u!1 &7009524566428044641
 GameObject:
   m_ObjectHideFlags: 0

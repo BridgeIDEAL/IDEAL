@@ -6,89 +6,56 @@ using UnityEngine.AI;
 public class FSMManager
 {
     #region Component 
-    private List<BaseEntity> entityList; // store all monsterentities for update 
-    public Dictionary<string, BaseEntity> entityDictionary; // store all monsterentities for search 
+    private List<BaseEntity> entityList = new List<BaseEntity>(); // ActiveEntity List
+    public Dictionary<string, BaseEntity> entityDictionary = new Dictionary<string, BaseEntity>(); // WholeEntity List
     #endregion
 
     #region Method
     public void Init()
     {
-        // init setting
-        entityList = new List<BaseEntity>();
-        entityDictionary = new Dictionary<string, BaseEntity>();
-        foreach(MonsterData.MonsterStat stat in GameManager.Data.initMonsterInfoDict.Values){ Spawn<BaseEntity>(stat); }
-        // state event
+        // Fill List & Dictionary
+        BaseEntity[] initEntityArray = GameManager.Instance.variableHub.initMonsterGroup.GetComponentsInChildren<BaseEntity>();
+        for (int i = 0; i < initEntityArray.Length; i++) { entityList.Add(initEntityArray[i]); initEntityArray[i].Setup(); }
+        BaseEntity[] wholeEntityArray = GameManager.Instance.variableHub.wholeMonsterGroup.GetComponentsInChildren<BaseEntity>(true);
+        for (int i = 0; i < wholeEntityArray.Length; i++) { entityDictionary.Add(wholeEntityArray[i].gameObject.name, wholeEntityArray[i]); }
+
+        // Link Entity Event
         GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
         GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
         GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
-        // spawn event
         GameManager.EntityEvent.SpawnAction += SpawnUpdate;
+    }
+    
+    public void SpawnMonster(string _name)
+    {
+        if (!entityDictionary[_name].gameObject.activeSelf)
+        {
+            entityDictionary[_name].gameObject.SetActive(true);
+            entityDictionary[_name].Setup();
+            entityList.Add(entityDictionary[_name]);
+        }
+    }
+
+    public void DespawnMonster(string _name)
+    {
+        if (entityDictionary[_name].gameObject.activeSelf)
+        {
+            entityDictionary[_name].gameObject.SetActive(false);
+            for (int i = 0; i < entityList.Count; i++) { if (entityList[i].gameObject.name == _name) { entityList.RemoveAt(i); return; } }
+        }
+    }
+    
+    public BaseEntity SearchEntity(string _name)
+    {
+        if (entityDictionary[_name].gameObject.activeSelf)
+            return entityDictionary[_name];
+        else
+            return null;
     }
 
     void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
     {
-        if (stat == null)
-        {
-            Debug.Log("읽는데 실패");
-            return;
-        }
-            
-        GameObject go = Object.Instantiate<GameObject>(GameManager.Resource.Load<GameObject>($"Prefab/Monster/{stat.monsterPrefabName}"));
-        if (go == null)
-        {
-            Debug.Log("찾는데 실패");
-            return;
-        }
-            
-        if(stat.monsterType == "XR" || stat.monsterType == "XL"|| stat.monsterType == "ZR"|| stat.monsterType == "ZL")
-        {
-            AMiddleAction middle = go.GetComponent<AMiddleAction>();
-            middle.SetCalDir(stat.monsterType);
-        }
-
-        switch (stat.monsterType)
-        {
-            case "AH":
-                go.AddComponent<AHighAction>();
-                break;
-            case "AL":
-                go.AddComponent<ALowAction>();
-                break;
-            case "B":
-                go.AddComponent<BType>();
-                break;
-            case "CA":
-                go.AddComponent<CAction>();
-                break;
-            //case "D":
-            //    go.AddComponent<DType>();
-            //    break;
-            default:
-                break;
-        }
-
-        T type = go.GetComponentInChildren<T>();
-        type.Setup(stat);
-        type.playerObject = GameManager.Instance.playerObject;
-        entityList.Add(type);
-        entityDictionary.Add(stat.monsterName, type);
-        InteractionConversation interactionConversation = go.GetComponent<InteractionConversation>();
-        if(interactionConversation != null){
-            interactionConversation.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
-            interactionConversation.conversationManager = GameManager.Instance.scriptHub.conversationManager;
-            interactionConversation.detectedStr = stat.detectedStr;
-            interactionConversation.dialogueName = stat.dialogueName;
-            interactionConversation.monsterName = stat.monsterName;
-        }
-        else
-        {
-            InteractionNurse interactionNurese = go.GetComponent<InteractionNurse>();
-            interactionNurese.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
-            interactionNurese.conversationManager = GameManager.Instance.scriptHub.conversationManager;
-            interactionNurese.detectedStr = stat.detectedStr;
-            interactionNurese.dialogueName = stat.dialogueName;
-            interactionNurese.monsterName = stat.monsterName;
-        }
+        
     }
 
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
@@ -96,12 +63,17 @@ public class FSMManager
     private void StartConversationActionUpdate(string _Key) // 대화 시작 시
     {
         GameManager.EntityEvent.CanInteraction = false;
-        foreach (KeyValuePair<string, BaseEntity> entities in entityDictionary) {
-            if (_Key == entities.Key)
-                continue;
-            entities.Value.SpeechlessInteraction(); 
+        for(int i=0; i<entityList.Count; i++)
+        {
+            if(entityList[i].gameObject.name == _Key)
+            {
+                entityList[i].StartConversationInteraction();
+            }
+            else
+            {
+                entityList[i].SpeechlessInteraction();
+            }
         }
-        entityDictionary[_Key].StartConversationInteraction();
     }
 
     private void EndConversationActionUpdate() // 대화 종료 시, 휴식 공간 진입 시

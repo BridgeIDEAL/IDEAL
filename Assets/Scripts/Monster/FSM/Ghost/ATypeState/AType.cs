@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AType : BaseEntity
 {
@@ -16,7 +15,7 @@ public class AType : BaseEntity
     public virtual void IndifferenceEnter() { SetAnimation(CurrentType); }
     public virtual void IndifferenceExecute() { }
     public virtual void IndifferenceExit() { }
-    public virtual void InteractionEnter() { SetAnimation(CurrentType); }
+    public virtual void InteractionEnter() { SetAnimation(CurrentType); Debug.Log("¥Î»≠¡ﬂ!"); }
     public virtual void InteractionExecute() { }
     public virtual void InteractionExit() { }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
@@ -24,21 +23,13 @@ public class AType : BaseEntity
     public virtual void SpeechlessExit() { }
     #endregion
 
-    #region Virtual
-    public virtual void SetAnimation(ATypeEntityStates entityAnim) { }
-    #endregion
-
     #region Override
-    public override void Setup(MonsterData.MonsterStat stat)
+    public override void Setup()
     {
-        // set information
-        gameObject.name = stat.monsterName; 
-        initPosition = stat.initTransform;
-        initRotation = stat.initRotation;
-        transform.position = stat.initTransform;
-        transform.eulerAngles = stat.initRotation;
-        // add component
-        AdditionalSetup();
+        // set initVariable
+        base.Setup();
+        initLookDir = transform.forward;
+       
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[3];
@@ -49,9 +40,44 @@ public class AType : BaseEntity
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
     public override void UpdateBehavior() { stateMachine.Execute(); }
+    public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
+    public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
+    public override void SpeechlessInteraction() { ChangeState(ATypeEntityStates.Speechless); }
     #endregion
 
     #region Method
     public void ChangeState(ATypeEntityStates newState){ CurrentType = newState; stateMachine.ChangeState(states[(int)newState]); }
+    #endregion
+
+    #region Animation
+    public virtual void SetAnimation(ATypeEntityStates entityAnim)
+    {
+        switch (entityAnim)
+        {
+            case ATypeEntityStates.Indifference:
+                isLookPlayer = false;
+                break;
+            case ATypeEntityStates.Interaction:
+                isLookPlayer = true;
+                break;
+            case ATypeEntityStates.Speechless:
+                isLookPlayer = false;
+                break;
+        }
+    }
+
+    public void OnAnimatorIK(int layerIndex)
+    {
+        if (isLookPlayer)
+        {
+            anim.SetLookAtPosition(player.transform.position);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
+        }
+        else
+        {
+            anim.SetLookAtPosition(initLookDir);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
+        }
+    }
     #endregion
 }

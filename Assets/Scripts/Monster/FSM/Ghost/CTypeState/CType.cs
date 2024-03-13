@@ -1,46 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CType : BaseEntity
 {
-    #region Component
+    #region Variable
     protected bool isWatch = false;
+    protected bool isChasePlayer = false;
+    [SerializeField] protected float sightDistance;
+    #endregion
+
+    #region Component
     protected Animator anim;
     protected State<CType>[] states;
     protected StateMachine<CType> stateMachine;
     public CTypeEntityStates CurrentType { private set; get; }
     #endregion
 
-    #region Virtual
+    #region StateBehavior
     public virtual void IndifferenceEnter() { SetAnimation(CurrentType); } 
     public virtual void IndifferenceExecute() { DetectPlayer(); } 
     public virtual void IndifferenceExit() { }
     public virtual void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); } 
-    public virtual void WatchExecute() { WatchPlayer(); if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); }
-    public virtual void WatchExit() { EndWatchTimer();  } 
+    public virtual void WatchExecute() {if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); }
+    public virtual void WatchExit() { EndWatchTimer(); } 
     public virtual void InteractionEnter() { SetAnimation(CurrentType); }
-    public virtual void InteractionExecute() { LookPlayer(); }
-    public virtual void InteractionExit() { isLookPlayer = true; }
+    public virtual void InteractionExecute() { }
+    public virtual void InteractionExit() { }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
     public virtual void SpeechlessExecute() { }
     public virtual void SpeechlessExit() { }
-    public virtual void SetAnimation(CTypeEntityStates entityAnim) { }
     #endregion
 
     #region Override
-    public override void Setup(MonsterData.MonsterStat stat)
+    public override void Setup()
     {
-        // set information
-        gameObject.name = stat.monsterName;
-        initPosition = stat.initTransform;
-        initRotation = stat.initRotation;
-        transform.position = initPosition;
-        transform.eulerAngles = initRotation;        
-        // add component
-        AdditionalSetup();
-        anim = GetComponentInChildren<Animator>();
+        // set initVariable
+        base.Setup();
+        initLookDir = transform.forward;
+
+        // set component
+        anim = GetComponent<Animator>();
+
         // set statemachine
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
@@ -65,31 +66,19 @@ public class CType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
     public void DetectPlayer()
     {
         if (isWatch)
             return;
         if (CanDetectPlayer()) { ChangeState(CTypeEntityStates.Watch); return; }
     }
-
     public bool CanDetectPlayer()
     {
-        Vector3 interV = playerObject.transform.position - transform.position;
-        if (interV.magnitude <= sightDistance)
-            return true;
-        else
-            return false;
-    }
+        Vector3 interV = player.transform.position - transform.position;
+        if (interV.magnitude <= sightDistance) return true;
+        else return false;
 
-    public void WatchPlayer()
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(playerObject.transform.position - transform.position);
-        float angle = Quaternion.Angle(transform.rotation, targetRotation);
-        float step = rotateSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
     }
-
     public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
     public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
@@ -102,6 +91,42 @@ public class CType : BaseEntity
         }
             
         yield break;   
+    }
+    #endregion
+
+    #region Animation
+    public virtual void SetAnimation(CTypeEntityStates entityAnim)
+    {
+        switch (entityAnim)
+        {
+            case CTypeEntityStates.Indifference:
+                isLookPlayer = false;
+                break;
+            case CTypeEntityStates.Interaction:
+                isLookPlayer = true;
+                break;
+            case CTypeEntityStates.Watch:
+                break;
+            case CTypeEntityStates.Speechless:
+                isLookPlayer = false;
+                break;
+        }
+    }
+
+    public void OnAnimatorIK(int layerIndex)
+    {
+        if (isChasePlayer)
+            return;
+        if (isLookPlayer)
+        {
+            anim.SetLookAtPosition(player.transform.position);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
+        }
+        else
+        {
+            anim.SetLookAtPosition(initLookDir);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
+        }
     }
     #endregion
 }

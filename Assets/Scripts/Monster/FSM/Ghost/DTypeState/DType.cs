@@ -5,38 +5,54 @@ using UnityEngine.AI;
 
 public class DType : BaseEntity
 {
-    #region Component
+    #region Variable
     protected bool isWatch = false;
-    protected float chaseSpeed = 3f;
+    protected bool isChasePlayer = false;
+    [SerializeField] protected Vector3 InitVec { get; set; }
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected float sightDistance;
+    #endregion
+
+    #region Component
     protected Animator anim;
     protected NavMeshAgent nav;
     protected State<DType>[] states;
     protected StateMachine<DType> stateMachine;
-    [SerializeField] protected Quaternion towardRotation;
     public DTypeEntityStates CurrentType { private set; get; }
     #endregion
 
     #region Virtual
-    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(DTypeEntityStates.Indifference); } // 경계 상태 유지
+    public virtual void IndifferenceEnter() { SetAnimation(CurrentType); }
+    public virtual void IndifferenceExecute() { }
+    public virtual void IndifferenceExit() { }
+    public virtual void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); }
+    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(DTypeEntityStates.Indifference); }
+    public virtual void WatchExit() { EndWatchTimer(); }
+    public virtual void InteractionEnter() { SetAnimation(CurrentType); }
+    public virtual void InteractionExecute() { }
+    public virtual void InteractionExit() { }
+    public virtual void AggressiveEnter() { SetAnimation(CurrentType); }
+    public virtual void AggressiveExecute() { }
+    public virtual void AggressiveExit() { }
+    public virtual void ChaseEnter() { SetAnimation(CurrentType); }
+    public virtual void ChaseExecute() { }
+    public virtual void ChaseExit() { }
+    public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
+    public virtual void SpeechlessExecute() { }
+    public virtual void SpeechlessExit() { }
     #endregion
 
     #region Override
-    public override void Setup(MonsterData.MonsterStat stat)
+    public override void Setup()
     {
-        // set information
-        gameObject.name = stat.monsterName;
-        initPosition = stat.initTransform;
-        initRotation = stat.initRotation;
-        transform.position = initPosition;
-        transform.eulerAngles = initRotation;
-        chaseSpeed = stat.monsterSpeed;
-        // add component
+        // set initVariable
+        base.Setup();
+        initLookDir = transform.forward;
+
+        // set component
         anim = GetComponent<Animator>();
-        this.gameObject.AddComponent<NavMeshAgent>();
         nav = GetComponent<NavMeshAgent>();
-        nav.speed = chaseSpeed;
-        nav.radius = 0.2f;
-        towardRotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
+
         // set statemachine
         CurrentType = DTypeEntityStates.Indifference;
         states = new State<DType>[6];
@@ -55,27 +71,6 @@ public class DType : BaseEntity
     public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
     public override void ChaseInteraction() { ChangeState(DTypeEntityStates.Aggressive); }
     public override void SpeechlessInteraction() { ChangeState(DTypeEntityStates.Speechless); }
-    public override void LookPlayer() {
-        if (isLookPlayer)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(playerObject.transform.position - transform.position);
-            float angle = Quaternion.Angle(transform.rotation, targetRotation);
-            float step = rotateSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
-            if (angle < marginalAngle)
-                isLookPlayer = false;
-        }
-    }
-
-    public override void LookOriginal()
-    {
-        if (isLookOriginal)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, towardRotation, rotateSpeed * Time.deltaTime);
-            if (Quaternion.Angle(transform.rotation, towardRotation) < marginalAngle)
-                isLookOriginal = false;
-        }
-    }
     #endregion
 
     #region Method
@@ -84,26 +79,19 @@ public class DType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
-    public void ChasePlayer(){ nav.SetDestination(playerObject.transform.position);}
-
+    public void ChasePlayer(){ nav.SetDestination(player.transform.position);}
     public void DetectPlayer()
     {
         if (isWatch)
             return;
-        if (CanDetectPlayer())
-            ChangeState(DTypeEntityStates.Watch);
+        if (CanDetectPlayer()) ChangeState(DTypeEntityStates.Watch);
     }
-
     public bool CanDetectPlayer()
     {
-        Vector3 interV = playerObject.transform.position - transform.position;
-        if (interV.magnitude > sightDistance)
-            return false;
-        else
-            return true;
+        Vector3 interV = player.transform.position - transform.position;
+        if (interV.magnitude > sightDistance) return false;
+        else return true;
     }
-
     public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
     public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
@@ -113,49 +101,53 @@ public class DType : BaseEntity
             isWatch = true;
         yield break;
     }
-
     public void SetReposition() { StartCoroutine("ResetPosition"); }
     public IEnumerator ResetPosition()
     {
-        //nav.isStopped = true;
-        //nav.speed = 0f;
         nav.ResetPath();
         nav.enabled = false;
-        yield return new WaitForSeconds(0.8f);
-        transform.position = initPosition;
-        transform.eulerAngles = initRotation;
-        nav.enabled = true;
-        //nav.speed = chaseSpeed;
-        //nav.isStopped = false;
+        yield return new WaitForSeconds(0.4f);
+        transform.position = InitVec;
+        nav.enabled = true; 
     }
+    #endregion
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && CurrentType == DTypeEntityStates.Chase)
-        {
-            GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
-        }
-    }
-
-    public void SetAnimation(DTypeEntityStates entityAnim)
+    #region Animation
+    public virtual void SetAnimation(DTypeEntityStates entityAnim)
     {
         switch (entityAnim)
         {
             case DTypeEntityStates.Indifference:
-                anim.CrossFade("Idle", 0.2f);
+                isLookPlayer = false;
                 break;
             case DTypeEntityStates.Watch:
-                anim.CrossFade("Idle", 0.2f);
                 break;
             case DTypeEntityStates.Interaction:
-                anim.CrossFade("Idle", 0.2f);
+                isLookPlayer = true;
                 break;
             case DTypeEntityStates.Aggressive:
-                anim.CrossFade("Aggressive", 0.2f);
                 break;
             case DTypeEntityStates.Chase:
-                anim.CrossFade("Walk", 0.2f);
                 break;
+            case DTypeEntityStates.Speechless:
+                isLookPlayer = false;
+                break;
+        }
+    }
+
+    public void OnAnimatorIK(int layerIndex)
+    {
+        if (isChasePlayer)
+            return;
+        if (isLookPlayer)
+        {
+            anim.SetLookAtPosition(player.transform.position);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
+        }
+        else
+        {
+            anim.SetLookAtPosition(initLookDir);
+            anim.SetLookAtWeight(1, bodyWeight, headWeight);
         }
     }
     #endregion

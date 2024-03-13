@@ -195,7 +195,6 @@ GameObject:
   - component: {fileID: -1166576886678361227}
   - component: {fileID: 8106795057040637993}
   - component: {fileID: -3395687103570675300}
-  - component: {fileID: -4572895887276254356}
   m_Layer: 6
   m_Name: BoyStudentSleep
   m_TagString: Untagged
@@ -260,6 +259,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  outlineMask: 
 --- !u!114 &8106795057040637993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,25 +294,6 @@ MonoBehaviour:
   dialogueName: 
   monsterName: 
   lookPlayerwithConversation: 1
---- !u!114 &-4572895887276254356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521434287850424985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5586fa079d40f1144b0d24bd292ad05e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  sightDistance: 10
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  initPosition: {x: 0, y: 0, z: 0}
-  initRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &1627183415965010912
 GameObject:
   m_ObjectHideFlags: 0

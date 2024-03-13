@@ -677,7 +677,6 @@ GameObject:
   - component: {fileID: 3127861305558170088}
   - component: {fileID: 5415323118571255023}
   - component: {fileID: 8391309026562292126}
-  - component: {fileID: -8928742346538180432}
   - component: {fileID: -3579631975002013913}
   - component: {fileID: -3885158898767079830}
   - component: {fileID: -4002349309364997331}
@@ -749,25 +748,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &-8928742346538180432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2315894631013524306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e1a36e5da62a284aab7b1eae6732518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  sightDistance: 10
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  initPosition: {x: 0, y: 0, z: 0}
-  initRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &-3579631975002013913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,6 +764,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  outlineMask: 
 --- !u!114 &-3885158898767079830
 MonoBehaviour:
   m_ObjectHideFlags: 0

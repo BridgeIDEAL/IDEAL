@@ -4,26 +4,36 @@ using UnityEditor;
 public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
-    protected float rotateSpeed = 3f;
-    protected float marginalAngle = 1f;
-    public bool isLookPlayer { get; set; } = true;
-    public bool isLookOriginal { get; set; } = false;
-    public GameObject playerObject;
-    [SerializeField] protected float sightDistance = 10f;
-    [SerializeField] protected LayerMask playerMask = 1<<3;
-    [SerializeField] protected Vector3 initPosition;
-    [SerializeField] protected Vector3 initRotation;
+    protected GameObject player;
+    protected Vector3 initLookDir;
+    protected float headWeight = 1f;
+    protected float bodyWeight = 1f;
+    protected bool isLookPlayer = false;
     #endregion
 
     #region Virtual
-    public virtual void Setup(MonsterData.MonsterStat stat) {}
-    public virtual void AdditionalSetup() { }
+    public virtual void Setup()
+    {
+        player = GameManager.Instance.variableHub.player;
+        InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
+        if (interactionConversation != null)
+        {
+            interactionConversation.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
+            interactionConversation.conversationManager = GameManager.Instance.scriptHub.conversationManager;
+        }
+        else
+        {
+            InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
+            interactionNurese.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
+            interactionNurese.conversationManager = GameManager.Instance.scriptHub.conversationManager;
+        }
+    }
     public abstract void UpdateBehavior();
     public virtual void StartConversationInteraction() { }
     public virtual void EndConversationInteraction() { }
     public virtual void SpeechlessInteraction() { }
     public virtual void ChaseInteraction() { }
-    public virtual void LookPlayer() { } // 플레이어와 대화 시
-    public virtual void LookOriginal() { } // 플레이어와 대화 종료 시 or 경계 범위 벗어날 시
+    public virtual void LookPlayer() { }
+    public virtual void LookOriginal() { } 
     #endregion
 }

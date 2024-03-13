@@ -288,7 +288,6 @@ GameObject:
   - component: {fileID: -5293746042079566047}
   - component: {fileID: -8384357254901398534}
   - component: {fileID: 5248455276239744806}
-  - component: {fileID: -133292834808212791}
   m_Layer: 6
   m_Name: BoyStudent
   m_TagString: Untagged
@@ -389,6 +388,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  outlineMask: 
 --- !u!114 &-8384357254901398534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,25 +423,6 @@ MonoBehaviour:
   dialogueName: 
   monsterName: 
   lookPlayerwithConversation: 1
---- !u!114 &-133292834808212791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741741107498431874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40a4b72855b00ca43837d7be35ea1592, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  sightDistance: 10
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  initPosition: {x: 0, y: 0, z: 0}
-  initRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &1009105356196156204
 GameObject:
   m_ObjectHideFlags: 0
