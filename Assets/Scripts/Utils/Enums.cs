@@ -38,10 +38,11 @@ public enum DTypeEntityStates // 추격 o, 경계 o
 
 public enum StateEventType
 {
-    StartInteraction, // 상호작용을 하는 상태
-    EndInteraction, // 상호작용 종료, 어그로 해제된 상태
-    ChaseInteraction, // 플레이어가 쫓기는 상태
-    IndifferenceInteraction // 무관심 상태로 돌아가는 상태
+    StartConversation,
+    EndConversation,
+    Chase,
+    Rest,
+    Spawn
 }
 
 public enum SoundType

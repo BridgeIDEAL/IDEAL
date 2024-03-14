@@ -21,7 +21,7 @@ public class BasicRigidBodyPush : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("Rest") && GameManager.EntityEvent.IsChase)
-			GameManager.EntityEvent.SendStateEventMessage(StateEventType.IndifferenceInteraction);
+			GameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
 	}
     #endregion
 

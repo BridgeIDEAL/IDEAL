@@ -4,8 +4,18 @@ using System;
 public class EntityEventManager
 {
     #region Component
-    public bool IsChase { get; set; } = false;
-    public bool CanInteraction { get; set; } = true;
+    private bool isChase;
+    private bool canInteraction;
+    public bool IsChase 
+    {
+        get { return isChase; }
+        private set { isChase = value; } 
+    } 
+    public bool CanInteraction
+    {
+        get { return canInteraction; }
+        private set { canInteraction = value; } 
+    } 
     public Action<string> StartConversationAction; // make monsterstate speechless without talk monster (talk monster state = interaction)
     public Action EndConversationAction; // make all monsterstate indifference
     public Action<string> ChaseAction; // make talk monsterstate chase
@@ -15,35 +25,44 @@ public class EntityEventManager
     #region Method
     public void Init()
     {
-       
+        IsChase = false;
+        CanInteraction = true;
     }
    
-    public void SendStateEventMessage(StateEventType _StateEventType, string _Name = null) 
+    public void SendStateEventMessage(StateEventType _stateEventType, string _name = null) 
     { 
-        switch (_StateEventType)
+        switch (_stateEventType)
         {
-            case StateEventType.StartInteraction:
-                if (_Name == null)
+            case StateEventType.StartConversation:
+                if (_name == null)
                     return;
-                StartConversationAction(_Name);
+                CanInteraction = false;
+                StartConversationAction(_name);
                 break;
-            case StateEventType.EndInteraction: 
-                if(!IsChase)
+            case StateEventType.EndConversation:
+                if (!IsChase)
+                {
+                    CanInteraction = true;
                     EndConversationAction();
+                }   
                 break;
-            case StateEventType.ChaseInteraction: 
-                if (_Name == null)
+            case StateEventType.Chase: 
+                if (_name == null)
                     return;
                 IsChase = true;
-                ChaseAction(_Name);
+                CanInteraction = false;
+                ChaseAction(_name);
                 break;
-            case StateEventType.IndifferenceInteraction:
+            case StateEventType.Rest:
                 IsChase = false;
                 EndConversationAction();
                 break;
+            case StateEventType.Spawn:
+                if (_name == null)
+                    return;
+                SpawnAction(_name);
+                break;
         }
     }
-
-    public void SendSpawnEventMessage(string _Name) { SpawnAction(_Name); }
     #endregion
 }

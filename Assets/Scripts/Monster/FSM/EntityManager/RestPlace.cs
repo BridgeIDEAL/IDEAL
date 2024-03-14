@@ -9,7 +9,7 @@ public class RestPlace : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && GameManager.EntityEvent.IsChase)
         {
             Debug.Log("Ãæµ¹!");
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.IndifferenceInteraction);
+            GameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
         }
     }
 }

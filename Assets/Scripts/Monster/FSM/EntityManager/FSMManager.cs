@@ -23,7 +23,7 @@ public class FSMManager
         GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
         GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
         GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
-        GameManager.EntityEvent.SpawnAction += SpawnUpdate;
+        GameManager.EntityEvent.SpawnAction += SpawnMonster;
     }
     
     public void SpawnMonster(string _name)
@@ -53,16 +53,10 @@ public class FSMManager
             return null;
     }
 
-    void Spawn<T>(MonsterData.MonsterStat stat) where T : BaseEntity
-    {
-        
-    }
-
     public void Update() { for (int i = 0; i < entityList.Count; i++) { entityList[i].UpdateBehavior(); }  }
    
-    private void StartConversationActionUpdate(string _Key) // 대화 시작 시
+    private void StartConversationActionUpdate(string _Key) // 대화 시작 
     {
-        GameManager.EntityEvent.CanInteraction = false;
         for(int i=0; i<entityList.Count; i++)
         {
             if(entityList[i].gameObject.name == _Key)
@@ -76,45 +70,28 @@ public class FSMManager
         }
     }
 
-    private void EndConversationActionUpdate() // 대화 종료 시, 휴식 공간 진입 시
+    private void EndConversationActionUpdate() // 대화 종료 
     {
-        GameManager.EntityEvent.CanInteraction = true;
-        foreach (KeyValuePair<string, BaseEntity> entities in entityDictionary) { entities.Value.EndConversationInteraction(); }
+        for(int i=0; i<entityList.Count; i++)
+        {
+            entityList[i].EndConversationInteraction();
+        }
     }
 
     private void ChaseActionUpdate(string _Key) // 상호작용 불가능, 해당 개체 이외엔 다 휴식 상태로 전환
     {
-        foreach (KeyValuePair<string, BaseEntity> entities in entityDictionary)
-        {
-            if (entities.Key == _Key)
-                continue;
-            entities.Value.SpeechlessInteraction();     
-        }
-        GameManager.EntityEvent.CanInteraction = false;
-        entityDictionary[_Key].ChaseInteraction();
-    }
 
-    public void SpawnUpdate(string _Name)
-    {
-        if (entityDictionary.ContainsKey(_Name))
-            return;
-        Spawn<BaseEntity>(GameManager.Data.spawnMonsterInfoDict[_Name]);
-    }
-
-    public void DeleteUpdate(string _Name)
-    {
-        if (entityDictionary[_Name] != null)
+        for (int i = 0; i < entityList.Count; i++)
         {
-            entityDictionary.Remove(_Name);
-            for(int i=0; i<entityList.Count; i++)
+            if (entityList[i].gameObject.name == _Key)
             {
-                if (entityList[i].gameObject.name == _Name)
-                {
-                    entityList[i].gameObject.SetActive(false);
-                    entityList.RemoveAt(i);
-                    return;
-                }
+                entityList[i].ChaseInteraction();
+                return;
             }
+            //else
+            //{
+            //    entityList[i].SpeechlessInteraction();
+            //}
         }
     }
     #endregion
