@@ -35,7 +35,7 @@ public class DType : BaseEntity
     public virtual void AggressiveExecute() { }
     public virtual void AggressiveExit() { }
     public virtual void ChaseEnter() { SetAnimation(CurrentType); }
-    public virtual void ChaseExecute() { }
+    public virtual void ChaseExecute() { ChasePlayer(); Debug.Log("추격중!"); }
     public virtual void ChaseExit() { }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
     public virtual void SpeechlessExecute() { }
@@ -47,8 +47,7 @@ public class DType : BaseEntity
     {
         // set initVariable
         base.Setup();
-        initLookDir = transform.forward;
-
+      
         // set component
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -79,19 +78,43 @@ public class DType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-    public void ChasePlayer(){ nav.SetDestination(player.transform.position);}
+
+    public void ChasePlayer()
+    { 
+        nav.SetDestination(player.transform.position);
+        if (nav.hasPath)
+        {
+            Vector3 dir = (nav.steeringTarget - transform.position).normalized;
+            Vector3 animDir = transform.InverseTransformDirection(dir);
+            bool isFacingMoveDir = Vector3.Dot(dir, transform.forward) > 0.5f;
+            anim.SetFloat("VX", isFacingMoveDir ? animDir.x : 0, 0.5f, Time.deltaTime);
+            anim.SetFloat("VZ", isFacingMoveDir ? animDir.z : 0, 0.5f, Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), 180 * Time.deltaTime);
+            if (Vector3.Distance(transform.position,nav.destination)< nav.radius){
+                Debug.Log("게임 오버!");
+            }
+        }
+        else
+        {
+            anim.SetFloat("VX",  0, 0.25f, Time.deltaTime);
+            anim.SetFloat("VZ", 0, 0.25f, Time.deltaTime);
+        }
+    }
+
     public void DetectPlayer()
     {
         if (isWatch)
             return;
         if (CanDetectPlayer()) ChangeState(DTypeEntityStates.Watch);
     }
+
     public bool CanDetectPlayer()
     {
         Vector3 interV = player.transform.position - transform.position;
         if (interV.magnitude > sightDistance) return false;
         else return true;
     }
+
     public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
     public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
     public IEnumerator WatchTimer()
@@ -118,37 +141,30 @@ public class DType : BaseEntity
         switch (entityAnim)
         {
             case DTypeEntityStates.Indifference:
-                isLookPlayer = false;
+                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Watch:
+                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Interaction:
-                isLookPlayer = true;
+                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Aggressive:
+                anim.SetBool("WALK", true);
                 break;
             case DTypeEntityStates.Chase:
+                anim.SetBool("WALK", true);
                 break;
             case DTypeEntityStates.Speechless:
-                isLookPlayer = false;
+                anim.SetBool("WALK", false);
                 break;
         }
     }
 
-    public void OnAnimatorIK(int layerIndex)
+    public void Update()
     {
-        if (isChasePlayer)
-            return;
-        if (isLookPlayer)
-        {
-            anim.SetLookAtPosition(player.transform.position);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
-        }
-        else
-        {
-            anim.SetLookAtPosition(initLookDir);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
-        }
+        if (Input.GetKeyDown(KeyCode.B))
+            ChangeState(DTypeEntityStates.Chase);
     }
     #endregion
 }

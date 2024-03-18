@@ -37,7 +37,6 @@ public class CType : BaseEntity
     {
         // set initVariable
         base.Setup();
-        initLookDir = transform.forward;
 
         // set component
         anim = GetComponent<Animator>();
@@ -100,32 +99,16 @@ public class CType : BaseEntity
         switch (entityAnim)
         {
             case CTypeEntityStates.Indifference:
-                isLookPlayer = false;
+                activeLook = false;
                 break;
             case CTypeEntityStates.Interaction:
-                isLookPlayer = true;
+                activeLook = true;
                 break;
             case CTypeEntityStates.Watch:
                 break;
             case CTypeEntityStates.Speechless:
-                isLookPlayer = false;
+                activeLook = false;
                 break;
-        }
-    }
-
-    public void OnAnimatorIK(int layerIndex)
-    {
-        if (isChasePlayer)
-            return;
-        if (isLookPlayer)
-        {
-            anim.SetLookAtPosition(player.transform.position);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
-        }
-        else
-        {
-            anim.SetLookAtPosition(initLookDir);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
         }
     }
     #endregion

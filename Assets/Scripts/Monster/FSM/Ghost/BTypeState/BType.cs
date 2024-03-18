@@ -42,7 +42,6 @@ public class BType : BaseEntity
     {
         // set initVariable
         base.Setup();
-        initLookDir = transform.forward;
 
         // set component
         anim = GetComponent<Animator>();
@@ -92,17 +91,17 @@ public class BType : BaseEntity
         switch (entityAnim)
         {
             case BTypeEntityStates.Indifference:
-                isLookPlayer = false;
+                activeLook = false;
                 break;
             case BTypeEntityStates.Interaction:
-                isLookPlayer = true;
+                activeLook = true;
                 break;
             case BTypeEntityStates.Aggressive:
                 break;
             case BTypeEntityStates.Chase:
                 break;
             case BTypeEntityStates.Speechless:
-                isLookPlayer = false;
+                activeLook = false;
                 break;
         }
     }
@@ -111,14 +110,9 @@ public class BType : BaseEntity
     {
         if (isChasePlayer)
             return;
-        if (isLookPlayer)
+        if (activeLook)
         {
             anim.SetLookAtPosition(player.transform.position);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
-        }
-        else
-        {
-            anim.SetLookAtPosition(initLookDir);
             anim.SetLookAtWeight(1, bodyWeight, headWeight);
         }
     }

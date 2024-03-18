@@ -6,36 +6,55 @@ public class HeadRotate : MonoBehaviour
 {
     public Transform Player;
     private bool isLookPlayer = false;
-    private float lookWeight = 0f;
-    private float headWeight=0.5F;
-    private float bodyWeight=0.5F;
+    private float lookWeight = 1f;
+    private float headWeight=1F;
+    private float bodyWeight=0F;
     private Animator anim;
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        isLookPlayer = false;
+        isLookPlayer = true;
        
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
-            isLookPlayer = true;
-        if (Input.GetKeyDown(KeyCode.Z))
-            StartCoroutine("HeadRotating");
-        if (Input.GetKeyDown(KeyCode.X))
-            Cal();    
+        {
+            if (!Cal())
+            {
+                StartCoroutine("Cor");
+                //Vector3 dir = Player.transform.position - transform.forward;
+                //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), 180 * Time.deltaTime);
+            }
+        }
     }
 
-    public void Cal()
+    IEnumerator Cor()
+    {
+        float cur = 0f;
+        float per = 0f;
+        float speed = 3f;
+        while(per <1f)
+        {
+            cur += Time.deltaTime;
+            per = cur / speed;
+            Quaternion tr = Quaternion.LookRotation(Player.transform.position - transform.position);
+            transform.rotation = Quaternion.Lerp(Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z),
+                tr, per);
+            yield return null;
+        }
+    }
+
+    public bool Cal()
     {
         Vector3 dir1 = transform.forward;
         Vector3 dir2 = Player.transform.position-transform.position;
         float magnitude = Vector3.Dot(dir1, dir2);
         if (magnitude < 0)
-            Debug.Log("뒤에 있다.");
+            return false;
         else
-            Debug.Log("앞에 있다.");
+            return true;
     }
 
     public IEnumerator HeadRotating()
