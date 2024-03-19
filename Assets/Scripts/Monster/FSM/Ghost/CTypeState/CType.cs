@@ -18,6 +18,7 @@ public class CType : BaseEntity
     #endregion
 
     #region StateBehavior
+    public virtual void AdditionalSetUp() { }
     public virtual void IndifferenceEnter() { SetAnimation(CurrentType); } 
     public virtual void IndifferenceExecute() { DetectPlayer(); } 
     public virtual void IndifferenceExit() { }
@@ -37,9 +38,11 @@ public class CType : BaseEntity
     {
         // set initVariable
         base.Setup();
+        AdditionalSetUp();
 
         // set component
         anim = GetComponent<Animator>();
+  
 
         // set statemachine
         CurrentType = CTypeEntityStates.Indifference;

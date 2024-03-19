@@ -9,7 +9,6 @@ public class DType : BaseEntity
     protected bool isWatch = false;
     protected bool isChasePlayer = false;
     [SerializeField] protected Vector3 InitVec { get; set; }
-    [SerializeField] protected float chaseSpeed;
     [SerializeField] protected float sightDistance;
     #endregion
 
@@ -35,7 +34,7 @@ public class DType : BaseEntity
     public virtual void AggressiveExecute() { }
     public virtual void AggressiveExit() { }
     public virtual void ChaseEnter() { SetAnimation(CurrentType); }
-    public virtual void ChaseExecute() { ChasePlayer(); Debug.Log("Ãß°ÝÁß!"); }
+    public virtual void ChaseExecute() { ChasePlayer();}
     public virtual void ChaseExit() { }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
     public virtual void SpeechlessExecute() { }
