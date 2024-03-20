@@ -150,6 +150,7 @@ public class DType : BaseEntity
                 break;
             case DTypeEntityStates.Aggressive:
                 anim.SetBool("WALK", true);
+                anim.CrossFade("Aggressive", 0.2f);
                 break;
             case DTypeEntityStates.Chase:
                 anim.SetBool("WALK", true);

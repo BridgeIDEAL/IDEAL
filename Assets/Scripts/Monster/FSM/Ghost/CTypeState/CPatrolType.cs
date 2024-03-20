@@ -54,12 +54,21 @@ public class CPatrolType : CType
     #endregion
         
     #region Coroutine
-    public void StartPatrol() { StartCoroutine("Patrol"); }
+    public void StartPatrol()
+    {
+        anim.SetBool("TURN", false);
+        anim.SetBool("WALK", true);
+        StartCoroutine("Patrol"); 
+    }
     public void StopPatrol() { StopCoroutine("Patrol"); }
     private IEnumerator Patrol()
     {
         patrolPoint = (patrolPoint + 1) % patrolPointCnt;
         nav.SetDestination(patrolPositions[patrolPoint]);
+        if (patrolPoint % 2 == 0)
+            anim.SetBool("ISRIGHT", true);
+        else
+            anim.SetBool("ISRIGHT", false);
         //Debug.Log(patrolPositions[patrolPoint]);
         anim.speed = 1.5f;
         while(Vector3.Distance(nav.destination, transform.position)> 0.6f)
@@ -71,9 +80,8 @@ public class CPatrolType : CType
             {
                 Vector3 dir = (nav.steeringTarget - transform.position).normalized;
                 Vector3 animDir = transform.InverseTransformDirection(dir);
-                bool isFacingMoveDir = Vector3.Dot(dir, transform.forward) > 0.5f;
-                anim.SetFloat("VX", (isFacingMoveDir) ? animDir.x : 0, 0.5f, Time.deltaTime);
-                anim.SetFloat("VZ", (isFacingMoveDir) ? animDir.z : 0, 0.5f, Time.deltaTime);
+                anim.SetFloat("VX", animDir.x, 0.5f, Time.deltaTime);
+                anim.SetFloat("VZ", animDir.z, 0.5f, Time.deltaTime);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), 180 * Time.deltaTime);
             }
             else
@@ -84,11 +92,10 @@ public class CPatrolType : CType
            
             yield return null;
         }
-        StartCoroutine("Patrol");
-        //anim.SetFloat("VX", 0, 0.25f, Time.deltaTime);
-        //anim.SetFloat("VZ", 0, 0.25f, Time.deltaTime);
-        //anim.SetBool("WALK", false);
-        //anim.SetBool("TURN", true);
+        anim.SetFloat("VX", 0, 0.25f, Time.deltaTime);
+        anim.SetFloat("VZ", 0, 0.25f, Time.deltaTime);
+        anim.SetBool("WALK", false);
+        anim.SetBool("TURN", true);
     }
     #endregion
 
