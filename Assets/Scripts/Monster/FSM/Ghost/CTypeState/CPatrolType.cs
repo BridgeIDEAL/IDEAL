@@ -80,6 +80,10 @@ public class CPatrolType : CType
             {
                 Vector3 dir = (nav.steeringTarget - transform.position).normalized;
                 Vector3 animDir = transform.InverseTransformDirection(dir);
+                //bool isFacingMoveDir = Vector3.Dot(dir, transform.forward) > 0.5f;
+                //anim.SetFloat("VX", (isFacingMoveDir) ? animDir.x : 0, 0.5f, Time.deltaTime);
+                //anim.SetFloat("VZ", (isFacingMoveDir) ? animDir.z : 0, 0.5f, Time.deltaTime);
+
                 anim.SetFloat("VX", animDir.x, 0.5f, Time.deltaTime);
                 anim.SetFloat("VZ", animDir.z, 0.5f, Time.deltaTime);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(dir), 180 * Time.deltaTime);
@@ -100,6 +104,6 @@ public class CPatrolType : CType
     #endregion
 
     #region Method
-    
+
     #endregion
 }
