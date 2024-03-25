@@ -91,29 +91,15 @@ public class BType : BaseEntity
         switch (entityAnim)
         {
             case BTypeEntityStates.Indifference:
-                activeLook = false;
                 break;
             case BTypeEntityStates.Interaction:
-                activeLook = true;
                 break;
             case BTypeEntityStates.Aggressive:
                 break;
             case BTypeEntityStates.Chase:
                 break;
             case BTypeEntityStates.Speechless:
-                activeLook = false;
                 break;
-        }
-    }
-
-    public void OnAnimatorIK(int layerIndex)
-    {
-        if (isChasePlayer)
-            return;
-        if (activeLook)
-        {
-            anim.SetLookAtPosition(player.transform.position);
-            anim.SetLookAtWeight(1, bodyWeight, headWeight);
         }
     }
     #endregion

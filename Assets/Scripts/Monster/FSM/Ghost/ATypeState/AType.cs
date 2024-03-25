@@ -41,7 +41,6 @@ public class AType : BaseEntity
         stateMachine = new StateMachine<AType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
-
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void StartConversationInteraction() { ChangeState(ATypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(ATypeEntityStates.Indifference); }
@@ -54,56 +53,17 @@ public class AType : BaseEntity
         CurrentType = newState; 
         stateMachine.ChangeState(states[(int)newState]); 
     }
-
-    public bool CheckBehind()
-    {
-        Vector3 mySelfDir = transform.forward;
-        Vector3 playerDir = player.transform.position - transform.position;
-        return (Vector3.Dot(mySelfDir, playerDir) > 0f) ? true : false;
-    }
     #endregion
 
     #region Animation
-    public virtual void SetAnimation(ATypeEntityStates entityAnim)
-    {
-        switch (entityAnim)
-        {
-            case ATypeEntityStates.Indifference:
-                ActiveLookCor(false);
-                break;
-            case ATypeEntityStates.Interaction:
-                ActiveLookCor();
-                break;
-            case ATypeEntityStates.Speechless:
-                ActiveLookCor(false);
-                break;
-        }
-    }
-
+    public virtual void SetAnimation(ATypeEntityStates entityAnim) { }
     private void OnAnimatorIK(int layerIndex)
     {
-        if (activeLook)
+        if (HeadRotate)
         {
             anim.SetLookAtPosition(player.transform.position + Vector3.up);
             anim.SetLookAtWeight(lookWeight, bodyWeight, headWeight);
         }
     }
     #endregion
-
-    
-    //public IEnumerator BodyRotate()
-    //{
-    //    float cur = 0f;
-    //    float per = 0f;
-    //    float speed = 3f;
-    //    while (per < 1f)
-    //    {
-    //        cur += Time.deltaTime;
-    //        per = cur / speed;
-    //        Quaternion tr = Quaternion.LookRotation(player.transform.position - transform.position);
-    //        transform.rotation = Quaternion.Lerp(Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z),
-    //            tr, per);
-    //        yield return null;
-    //    }
-    //}
 }

@@ -102,15 +102,12 @@ public class CType : BaseEntity
         switch (entityAnim)
         {
             case CTypeEntityStates.Indifference:
-                activeLook = false;
                 break;
             case CTypeEntityStates.Interaction:
-                activeLook = true;
                 break;
             case CTypeEntityStates.Watch:
                 break;
             case CTypeEntityStates.Speechless:
-                activeLook = false;
                 break;
         }
     }
