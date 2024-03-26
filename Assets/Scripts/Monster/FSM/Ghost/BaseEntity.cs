@@ -7,7 +7,7 @@ public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
     protected GameObject player;
-    protected bool HeadRotate { get; set; } = false;
+    protected bool IsHeadRotate { get; set; } = false;
     [Range(0, 2)] [SerializeField] protected float lookSpeed = 1f;
     [Range(0, 1)] [SerializeField] protected float lookWeight = 0f;
     [Range(0, 1)] [SerializeField] protected float headWeight = 1f;
@@ -30,7 +30,6 @@ public abstract class BaseEntity : MonoBehaviour
             interactionNurese.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
             interactionNurese.conversationManager = GameManager.Instance.scriptHub.conversationManager;
         }
-        AdditionalSetup();
     }
     public virtual void AdditionalSetup() { }
     #endregion
@@ -42,7 +41,7 @@ public abstract class BaseEntity : MonoBehaviour
     public virtual void SpeechlessInteraction() { }
     public virtual void ChaseInteraction() { }
     public virtual void LookPlayer() { StartCoroutine("LookPlayerCor"); }
-    public virtual void LookOriginal() { StartCoroutine("LookForwardCor"); }
+    public virtual void LookFront() { StartCoroutine("LookForwardCor"); }
     #endregion
 
     #region Method
@@ -52,12 +51,32 @@ public abstract class BaseEntity : MonoBehaviour
         float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
         return angle;
     }
+    public void WatchPlayer()
+    {
+        float angle = CalculateAngle();
+        if (angle >= -90 && angle <= 90)
+            LookPlayer();
+        //else if (angle < -90 && angle > -180)
+        //    anim.SetBool("LEFT", true);
+        //else
+        //    anim.SetBool("RIGHT", true);
+    }
+    public void WatchFront()
+    {
+        float angle = CalculateAngle();
+        if (angle >= -90 && angle <= 90)
+            LookFront();
+        //else if (angle < -90 && angle > -180)
+        //    anim.SetBool("LEFT", false);
+        //else
+        //    anim.SetBool("RIGHT", false);
+    }
     #endregion
 
     #region Coroutine
     protected IEnumerator LookPlayerCor()
     {
-        HeadRotate = true;
+        IsHeadRotate = true;
         float current = 0f;
         float percent = 0f;
         while (percent < 1)
@@ -79,7 +98,7 @@ public abstract class BaseEntity : MonoBehaviour
             lookWeight = Mathf.Lerp(1f, 0f, percent);
             yield return null;
         }
-        HeadRotate = false;
+        IsHeadRotate = false;
         yield return null;
     }
     #endregion

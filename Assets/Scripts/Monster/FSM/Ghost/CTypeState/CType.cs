@@ -5,8 +5,7 @@ using UnityEngine;
 public class CType : BaseEntity
 {
     #region Variable
-    protected bool isWatch = false;
-    protected bool isChasePlayer = false;
+    public bool IsWatchPlayer { get; set; }
     [SerializeField] protected float sightDistance;
     #endregion
 
@@ -18,16 +17,15 @@ public class CType : BaseEntity
     #endregion
 
     #region StateBehavior
-    public virtual void AdditionalSetUp() { }
     public virtual void IndifferenceEnter() { SetAnimation(CurrentType); } 
-    public virtual void IndifferenceExecute() { DetectPlayer(); } 
+    public virtual void IndifferenceExecute() { if (InSight()) ChangeState(CTypeEntityStates.Watch); } 
     public virtual void IndifferenceExit() { }
-    public virtual void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); } 
-    public virtual void WatchExecute() {if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); }
-    public virtual void WatchExit() { EndWatchTimer(); } 
+    public virtual void WatchEnter() { SetAnimation(CurrentType); StartCoroutine("WatchTimerCor"); IsHeadRotate = true; } 
+    public virtual void WatchExecute() {if (!InSight()) ChangeState(CTypeEntityStates.Indifference); }
+    public virtual void WatchExit() { StopCoroutine("WatchTimerCor"); IsHeadRotate = false; } 
     public virtual void InteractionEnter() { SetAnimation(CurrentType); }
     public virtual void InteractionExecute() { }
-    public virtual void InteractionExit() { }
+    public virtual void InteractionExit() { WatchFront(); }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
     public virtual void SpeechlessExecute() { }
     public virtual void SpeechlessExit() { }
@@ -38,12 +36,11 @@ public class CType : BaseEntity
     {
         // set initVariable
         base.Setup();
-        AdditionalSetUp();
+        AdditionalSetup();
 
         // set component
         anim = GetComponent<Animator>();
   
-
         // set statemachine
         CurrentType = CTypeEntityStates.Indifference;
         states = new State<CType>[4];
@@ -54,12 +51,10 @@ public class CType : BaseEntity
         stateMachine = new StateMachine<CType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
-
     public override void UpdateBehavior(){stateMachine.Execute();}
     public override void StartConversationInteraction() { ChangeState(CTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(CTypeEntityStates.Indifference); }
     public override void SpeechlessInteraction() { ChangeState(CTypeEntityStates.Speechless); }
-
     #endregion
 
     #region Method
@@ -68,30 +63,31 @@ public class CType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-    public void DetectPlayer()
-    {
-        if (isWatch)
-            return;
-        if (CanDetectPlayer()) { ChangeState(CTypeEntityStates.Watch); return; }
-    }
-    public bool CanDetectPlayer()
+    public bool InSight()
     {
         Vector3 interV = player.transform.position - transform.position;
-        if (interV.magnitude <= sightDistance) return true;
-        else return false;
-
+        if (interV.magnitude > sightDistance) 
+            return false;
+        RaycastHit rayCastHit;
+        Vector3 direction = player.transform.position - transform.position;
+        if(Physics.Raycast(transform.position, direction, out rayCastHit))
+        {
+            if (rayCastHit.collider.CompareTag("Player"))
+                return true;
+            else
+                return false;
+        }
+        return false;
     }
-    public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
-    public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
-    public IEnumerator WatchTimer()
+    #endregion
+
+    #region Coroutine
+    public IEnumerator WatchTimerCor()
     {
         yield return new WaitForSeconds(10f);
-        if (CurrentType == CTypeEntityStates.Watch && !isWatch)
-        {
-            isWatch = true;
+        if (CurrentType == CTypeEntityStates.Watch)
             ChangeState(CTypeEntityStates.Indifference);
-        }
-            
+        Debug.Log("경고 : 경계 상태 10초 초과!!");
         yield break;   
     }
     #endregion
@@ -104,6 +100,7 @@ public class CType : BaseEntity
             case CTypeEntityStates.Indifference:
                 break;
             case CTypeEntityStates.Interaction:
+                WatchPlayer();
                 break;
             case CTypeEntityStates.Watch:
                 break;

@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class BType : BaseEntity
 {
     #region Variable
-    protected bool isChasePlayer = false;
-    [SerializeField] protected Vector3 InitVec { get; set; }
-    [SerializeField] protected float chaseSpeed;
+    public bool IsChasePlayer { get; set; } = false;
+    [SerializeField] protected Vector3 initPosition;
+    [SerializeField] protected Vector3 initRotation;
     #endregion
 
     #region Component
@@ -17,6 +17,7 @@ public class BType : BaseEntity
     protected State<BType>[] states;
     protected StateMachine<BType> stateMachine;
     public BTypeEntityStates CurrentType { private set; get; }
+   
     #endregion
 
     #region StateBehavior
@@ -25,7 +26,7 @@ public class BType : BaseEntity
     public virtual void IndifferenceExit() { }
     public virtual void InteractionEnter() { SetAnimation(CurrentType); }
     public virtual void InteractionExecute() { }
-    public virtual void InteractionExit() { }
+    public virtual void InteractionExit() { LookFront(); }
     public virtual void AggressiveEnter() { SetAnimation(CurrentType); }
     public virtual void AggressiveExecute() { }
     public virtual void AggressiveExit() { }
@@ -42,6 +43,7 @@ public class BType : BaseEntity
     {
         // set initVariable
         base.Setup();
+        AdditionalSetup();
 
         // set component
         anim = GetComponent<Animator>();
@@ -71,16 +73,18 @@ public class BType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
     public void ChasePlayer() { nav.SetDestination(player.transform.position); }
-    public void SetReposition() { StartCoroutine("ResetPosition"); }
-    public IEnumerator ResetPosition()
+    #endregion
+
+    #region Coroutine
+    public IEnumerator ReturnPositionCor()
     {
         nav.ResetPath();
         nav.isStopped = true;
         yield return new WaitForSeconds(0.4f);
-        transform.position = InitVec;
-        isChasePlayer = false;
+        transform.position = initPosition;
+        transform.rotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
+        IsChasePlayer = false;
         nav.isStopped = false;
     }
     #endregion
@@ -93,6 +97,7 @@ public class BType : BaseEntity
             case BTypeEntityStates.Indifference:
                 break;
             case BTypeEntityStates.Interaction:
+                WatchPlayer();
                 break;
             case BTypeEntityStates.Aggressive:
                 break;
@@ -100,6 +105,14 @@ public class BType : BaseEntity
                 break;
             case BTypeEntityStates.Speechless:
                 break;
+        }
+    }
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (IsHeadRotate)
+        {
+            anim.SetLookAtPosition(player.transform.position + Vector3.up);
+            anim.SetLookAtWeight(lookWeight, bodyWeight, headWeight);
         }
     }
     #endregion

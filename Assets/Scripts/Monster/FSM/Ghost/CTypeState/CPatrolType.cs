@@ -17,13 +17,13 @@ public class CPatrolType : CType
     #endregion
 
     #region StateBehavior
-    public override void AdditionalSetUp() { patrolPointCnt = patrolPositions.Length; nav = GetComponent<NavMeshAgent>(); }
+    public override void AdditionalSetup() { patrolPointCnt = patrolPositions.Length; nav = GetComponent<NavMeshAgent>(); }
     public override void IndifferenceEnter() { SetAnimation(CurrentType); StartPatrol(); }
     public override void IndifferenceExecute() { }
     public override void IndifferenceExit() { }
-    public override void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); }
-    public override void WatchExecute() { if (!CanDetectPlayer()) ChangeState(CTypeEntityStates.Indifference); }
-    public override void WatchExit() { EndWatchTimer(); }
+    public override void WatchEnter() { SetAnimation(CurrentType); }
+    public override void WatchExecute() { }
+    public override void WatchExit() { }
     public override void InteractionEnter() { SetAnimation(CurrentType); }
     public override void InteractionExecute() { }
     public override void InteractionExit() { }
@@ -71,7 +71,7 @@ public class CPatrolType : CType
         //Debug.Log(patrolPositions[patrolPoint]);
         while (Vector3.Distance(nav.destination, transform.position) > 0.6f)
         {
-            if (isWatch) yield break;
+            if (IsWatchPlayer) yield break;
             //Debug.Log(Vector3.Distance(nav.destination, transform.position));
 
             if (nav.hasPath)

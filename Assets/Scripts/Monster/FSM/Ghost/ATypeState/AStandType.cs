@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AStandType : AType
 {
-
     #region StateBehavior
     public override void IndifferenceEnter() { SetAnimation(CurrentType); }
     public override void IndifferenceExecute() { }
@@ -15,29 +14,6 @@ public class AStandType : AType
     public override void SpeechlessEnter() { SetAnimation(CurrentType); }
     public override void SpeechlessExecute() { }
     public override void SpeechlessExit() { }
-    #endregion
-
-    #region Method
-    public void WatchPlayer()
-    {
-        float angle = CalculateAngle();
-        if (angle >= -90 && angle <= 90)
-            LookPlayer();
-        else if (angle < -90 && angle > -180)
-            anim.SetBool("LEFT", true);
-        else
-            anim.SetBool("RIGHT", true);
-    }
-    public void WatchFront()
-    {
-        float angle = CalculateAngle();
-        if (angle >= -90 && angle <= 90)
-            return;
-        else if (angle < -90 && angle > -180)
-            anim.SetBool("LEFT", false);
-        else
-            anim.SetBool("RIGHT", false);
-    }
     #endregion
 
     #region Animation

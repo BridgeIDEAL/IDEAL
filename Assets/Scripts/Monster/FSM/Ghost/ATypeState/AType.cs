@@ -17,7 +17,7 @@ public class AType : BaseEntity
     public virtual void IndifferenceExit() { }
     public virtual void InteractionEnter() { SetAnimation(CurrentType); }
     public virtual void InteractionExecute() { }
-    public virtual void InteractionExit() { }
+    public virtual void InteractionExit() { WatchFront(); }
     public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
     public virtual void SpeechlessExecute() { }
     public virtual void SpeechlessExit() { }
@@ -28,10 +28,11 @@ public class AType : BaseEntity
     {
         // set initVariable
         base.Setup();
+        AdditionalSetup();
 
         // set component
         anim = GetComponent<Animator>();
-
+    
         // set statemachine
         CurrentType = ATypeEntityStates.Indifference;
         states = new State<AType>[3];
@@ -56,10 +57,22 @@ public class AType : BaseEntity
     #endregion
 
     #region Animation
-    public virtual void SetAnimation(ATypeEntityStates entityAnim) { }
+    public virtual void SetAnimation(ATypeEntityStates entityAnim) 
+    {
+        switch (entityAnim)
+        {
+            case ATypeEntityStates.Indifference:
+                break;
+            case ATypeEntityStates.Interaction:
+                WatchPlayer();
+                break;
+            case ATypeEntityStates.Speechless:
+                break;
+        }
+    }
     private void OnAnimatorIK(int layerIndex)
     {
-        if (HeadRotate)
+        if (IsHeadRotate)
         {
             anim.SetLookAtPosition(player.transform.position + Vector3.up);
             anim.SetLookAtWeight(lookWeight, bodyWeight, headWeight);

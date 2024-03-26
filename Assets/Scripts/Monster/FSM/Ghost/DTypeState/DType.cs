@@ -6,9 +6,10 @@ using UnityEngine.AI;
 public class DType : BaseEntity
 {
     #region Variable
-    protected bool isWatch = false;
-    protected bool isChasePlayer = false;
-    [SerializeField] protected Vector3 InitVec { get; set; }
+    public bool IsWatchPlayer { get; set; } = false;
+    public bool IsChasePlayer { get; set; } = false;
+    [SerializeField] protected Vector3 initPosition;
+    [SerializeField] protected Vector3 initRotation;
     [SerializeField] protected float sightDistance;
     #endregion
 
@@ -24,9 +25,9 @@ public class DType : BaseEntity
     public virtual void IndifferenceEnter() { SetAnimation(CurrentType); }
     public virtual void IndifferenceExecute() { }
     public virtual void IndifferenceExit() { }
-    public virtual void WatchEnter() { SetAnimation(CurrentType); StartWatchTimer(); }
-    public virtual void WatchExecute() { if (!CanDetectPlayer()) ChangeState(DTypeEntityStates.Indifference); }
-    public virtual void WatchExit() { EndWatchTimer(); }
+    public virtual void WatchEnter() { SetAnimation(CurrentType); }
+    public virtual void WatchExecute() { }
+    public virtual void WatchExit() {  }
     public virtual void InteractionEnter() { SetAnimation(CurrentType); }
     public virtual void InteractionExecute() { }
     public virtual void InteractionExit() { }
@@ -46,7 +47,8 @@ public class DType : BaseEntity
     {
         // set initVariable
         base.Setup();
-      
+        AdditionalSetup();
+
         // set component
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -63,7 +65,6 @@ public class DType : BaseEntity
         stateMachine = new StateMachine<DType>();
         stateMachine.Setup(this, states[(int)CurrentType]);
     }
-
     public override void UpdateBehavior() { stateMachine.Execute(); }
     public override void StartConversationInteraction() { ChangeState(DTypeEntityStates.Interaction); }
     public override void EndConversationInteraction() { ChangeState(DTypeEntityStates.Indifference); }
@@ -77,7 +78,6 @@ public class DType : BaseEntity
         CurrentType = newState;
         stateMachine.ChangeState(states[(int)newState]);
     }
-
     public void ChasePlayer()
     { 
         nav.SetDestination(player.transform.position);
@@ -99,38 +99,42 @@ public class DType : BaseEntity
             anim.SetFloat("VZ", 0, 0.25f, Time.deltaTime);
         }
     }
-
-    public void DetectPlayer()
-    {
-        if (isWatch)
-            return;
-        if (CanDetectPlayer()) ChangeState(DTypeEntityStates.Watch);
-    }
-
-    public bool CanDetectPlayer()
+    public bool InSight()
     {
         Vector3 interV = player.transform.position - transform.position;
-        if (interV.magnitude > sightDistance) return false;
-        else return true;
+        if (interV.magnitude > sightDistance)
+            return false;
+        RaycastHit rayCastHit;
+        Vector3 direction = player.transform.position - transform.position;
+        if (Physics.Raycast(transform.position, direction, out rayCastHit))
+        {
+            if (rayCastHit.collider.CompareTag("Player"))
+                return true;
+            else
+                return false;
+        }
+        return false;
     }
+    #endregion
 
-    public void StartWatchTimer() { StartCoroutine("WatchTimer"); }
-    public void EndWatchTimer() { StopCoroutine("WatchTimer"); }
-    public IEnumerator WatchTimer()
+    #region Coroutine
+    public IEnumerator WatchTimerCor()
     {
         yield return new WaitForSeconds(10f);
-        if (CurrentType == DTypeEntityStates.Watch && !isWatch)
-            isWatch = true;
+        if (CurrentType == DTypeEntityStates.Watch)
+            ChangeState(DTypeEntityStates.Indifference);
+        Debug.Log("경고 : 경계 상태 10초 초과!!");
         yield break;
     }
-    public void SetReposition() { StartCoroutine("ResetPosition"); }
-    public IEnumerator ResetPosition()
+    public IEnumerator ReturnPositionCor()
     {
         nav.ResetPath();
-        nav.enabled = false;
+        nav.isStopped = true;
         yield return new WaitForSeconds(0.4f);
-        transform.position = InitVec;
-        nav.enabled = true; 
+        transform.position = initPosition;
+        transform.rotation = Quaternion.Euler(initRotation.x, initRotation.y, initRotation.z);
+        IsChasePlayer = false;
+        nav.isStopped = false;
     }
     #endregion
 
@@ -140,31 +144,18 @@ public class DType : BaseEntity
         switch (entityAnim)
         {
             case DTypeEntityStates.Indifference:
-                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Watch:
-                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Interaction:
-                anim.SetBool("WALK", false);
                 break;
             case DTypeEntityStates.Aggressive:
-                anim.SetBool("WALK", true);
-                anim.CrossFade("Aggressive", 0.2f);
                 break;
             case DTypeEntityStates.Chase:
-                anim.SetBool("WALK", true);
                 break;
             case DTypeEntityStates.Speechless:
-                anim.SetBool("WALK", false);
                 break;
         }
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-            ChangeState(DTypeEntityStates.Chase);
     }
     #endregion
 }
