@@ -9,4 +9,10 @@ public class MonsterDetect : MonoBehaviour
 			GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
 		}
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            Debug.Log(collision.gameObject.name);
+    }
 }

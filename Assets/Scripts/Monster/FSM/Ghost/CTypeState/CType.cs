@@ -17,16 +17,16 @@ public class CType : BaseEntity
     #endregion
 
     #region StateBehavior
-    public virtual void IndifferenceEnter() { SetAnimation(CurrentType); } 
-    public virtual void IndifferenceExecute() { if (InSight()) ChangeState(CTypeEntityStates.Watch); } 
+    public virtual void IndifferenceEnter() { } 
+    public virtual void IndifferenceExecute() { } 
     public virtual void IndifferenceExit() { }
-    public virtual void WatchEnter() { SetAnimation(CurrentType); StartCoroutine("WatchTimerCor"); IsHeadRotate = true; } 
-    public virtual void WatchExecute() {if (!InSight()) ChangeState(CTypeEntityStates.Indifference); }
-    public virtual void WatchExit() { StopCoroutine("WatchTimerCor"); IsHeadRotate = false; } 
-    public virtual void InteractionEnter() { SetAnimation(CurrentType); }
+    public virtual void WatchEnter() { } 
+    public virtual void WatchExecute() { }
+    public virtual void WatchExit() { } 
+    public virtual void InteractionEnter() { }
     public virtual void InteractionExecute() { }
-    public virtual void InteractionExit() { WatchFront(); }
-    public virtual void SpeechlessEnter() { SetAnimation(CurrentType); }
+    public virtual void InteractionExit() { }
+    public virtual void SpeechlessEnter() { }
     public virtual void SpeechlessExecute() { }
     public virtual void SpeechlessExit() { }
     #endregion
@@ -70,7 +70,7 @@ public class CType : BaseEntity
             return false;
         RaycastHit rayCastHit;
         Vector3 direction = player.transform.position - transform.position;
-        if(Physics.Raycast(transform.position, direction, out rayCastHit))
+        if(Physics.Raycast(transform.position + Vector3.up, direction, out rayCastHit))
         {
             if (rayCastHit.collider.CompareTag("Player"))
                 return true;
@@ -100,7 +100,6 @@ public class CType : BaseEntity
             case CTypeEntityStates.Indifference:
                 break;
             case CTypeEntityStates.Interaction:
-                WatchPlayer();
                 break;
             case CTypeEntityStates.Watch:
                 break;
