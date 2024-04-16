@@ -29,4 +29,10 @@ namespace CTypeStates
         public override void Execute(CType entity) { entity.SpeechlessExecute(); }
         public override void Exit(CType entity){ entity.SpeechlessExit(); }
     }
+
+    public class Penalty : State<CType>{
+        public override void Enter(CType entity) { entity.PenaltyEnter(); }
+        public override void Execute(CType entity) { entity.PenaltyExecute(); }
+        public override void Exit(CType entity) { entity.PenaltyExit(); }
+    }
 }

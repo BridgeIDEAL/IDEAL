@@ -20,10 +20,10 @@ public class FSMManager
         for (int i = 0; i < wholeEntityArray.Length; i++) { entityDictionary.Add(wholeEntityArray[i].gameObject.name, wholeEntityArray[i]); }
 
         // Link Entity Event
-        GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
-        GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
-        GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
-        GameManager.EntityEvent.SpawnAction += SpawnMonster;
+        GameManager.WholeEntityEvent.StartConversationAction += StartConversationActionUpdate;
+        GameManager.WholeEntityEvent.EndConversationAction += EndConversationActionUpdate;
+        GameManager.WholeEntityEvent.ChaseAction += ChaseActionUpdate;
+        GameManager.WholeEntityEvent.SpawnAction += SpawnMonster;
     }
     
     public void SpawnMonster(string _name)

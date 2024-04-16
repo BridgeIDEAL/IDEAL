@@ -41,20 +41,20 @@ public class ConversationManager : MonoBehaviour
     public void ConversationStart(){
         thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
+            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
         thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
+            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
         }
     }
 
     public void MonsterChase(){
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
+            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
         }
     }
 

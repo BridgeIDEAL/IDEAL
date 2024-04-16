@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     private FSMManager fsm = new FSMManager();
     public static FSMManager FSM { get { return Instance.fsm; } }
     // EntityEvent
-    private EntityEventManager entityevent = new EntityEventManager();
-    public static EntityEventManager EntityEvent { get { return Instance.entityevent; } }
+    private WholeEntityEventManager wholeEntityevent = new WholeEntityEventManager();
+    public static WholeEntityEventManager WholeEntityEvent { get { return Instance.wholeEntityevent; } }
     //Data
     private DataManager data = new DataManager();
     public static DataManager Data { get { return Instance.data; } }
