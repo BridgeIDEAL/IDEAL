@@ -12,7 +12,7 @@ public class MonsterDetect : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Monster"))
             Debug.Log(collision.gameObject.name);
     }
 }

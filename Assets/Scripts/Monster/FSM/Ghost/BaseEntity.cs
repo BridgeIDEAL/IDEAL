@@ -56,6 +56,8 @@ public abstract class BaseEntity : MonoBehaviour
         float angle = CalculateAngle();
         if (angle >= -90 && angle <= 90)
             LookPlayer();
+        else
+            LookPlayer();
         //else if (angle < -90 && angle > -180)
         //    anim.SetBool("LEFT", true);
         //else
@@ -65,6 +67,8 @@ public abstract class BaseEntity : MonoBehaviour
     {
         float angle = CalculateAngle();
         if (angle >= -90 && angle <= 90)
+            LookFront();
+        else
             LookFront();
         //else if (angle < -90 && angle > -180)
         //    anim.SetBool("LEFT", false);

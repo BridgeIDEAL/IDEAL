@@ -24,9 +24,9 @@ public class CGuard : CType
     public override void IndifferenceEnter() { SetAnimation(CurrentType); StartPatrol(); }
     public override void IndifferenceExecute() { /*if (InSight()) ChangeState(CTypeEntityStates.Watch*/ FindPlayerInGuardRoom();}
     public override void IndifferenceExit() { StopPatrol(); }
-    public override void WatchEnter() { SetAnimation(CurrentType); }
+    public override void WatchEnter() { SetAnimation(CurrentType); WatchPlayer(); }
     public override void WatchExecute() { }
-    public override void WatchExit() { }
+    public override void WatchExit() { LookFront() ; }
     public override void InteractionEnter() { SetAnimation(CurrentType); }
     public override void InteractionExecute() { }
     public override void InteractionExit() { }
@@ -104,9 +104,7 @@ public class CGuard : CType
     public void ImmediateKill(){
         Vector3 dir = transform.position - player.transform.position;
         float angle = Vector3.Angle(player.transform.forward, dir);
-        if(angle<45 && angle>-45){
-            Debug.Log("즉사!!");
-        }
+        
     }
     #endregion
 
