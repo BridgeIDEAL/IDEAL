@@ -49,6 +49,7 @@ public class NonChaseEntity : BaseEntity
     public override void UpdateExecute() { stateMachine.Execute(); }
     public override void StartConversation() { ChangeState(NonChaseEntityStates.Talk); }
     public override void EndConversation() { ChangeState(NonChaseEntityStates.Idle); }
+    public override void BeCalmDown() { ChangeState(NonChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(NonChaseEntityStates.Quiet); }
 
     #region Method

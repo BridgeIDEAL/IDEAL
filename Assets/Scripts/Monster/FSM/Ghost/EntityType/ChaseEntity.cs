@@ -71,6 +71,7 @@ public class ChaseEntity : BaseEntity
     public override void UpdateExecute() { stateMachine.Execute(); }
     public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); }
     public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
+    public override void BeCalmDown() { ChangeState(ChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(ChaseEntityStates.Quiet); }
     public override void BeChasing() { ChangeState(ChaseEntityStates.Chase) ; }
     public void ChangeState(ChaseEntityStates _newState)

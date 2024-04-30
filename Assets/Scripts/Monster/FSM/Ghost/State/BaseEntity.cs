@@ -7,12 +7,13 @@ public abstract class BaseEntity : MonoBehaviour
 {
     #region Common Stat
     protected GameObject player;
+    [SerializeField] protected ScriptableEntity entityData;
+    public ScriptableEntity EntityData { get { return entityData; } }
     #endregion
 
     #region InitSetting
     public virtual void Setup()
     {
-        player = GameManager.Instance.variableHub.player;
         InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
         if (interactionConversation != null)
         {
@@ -34,6 +35,7 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void UpdateExecute();
     public abstract void StartConversation();
     public abstract void EndConversation();
+    public abstract void BeCalmDown();
     public abstract void BeSilent();
     public virtual void BeChasing() { }
     #endregion
