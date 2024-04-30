@@ -17,14 +17,14 @@ public abstract class BaseEntity : MonoBehaviour
         InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
         if (interactionConversation != null)
         {
-            interactionConversation.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
-            interactionConversation.conversationManager = GameManager.Instance.scriptHub.conversationManager;
+            interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+            interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
         }
         else
         {
             InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
-            interactionNurese.dialogueRunner = GameManager.Instance.scriptHub.dialogueRunner;
-            interactionNurese.conversationManager = GameManager.Instance.scriptHub.conversationManager;
+            interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+            interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
         }
         AdditionalSetup();
     }

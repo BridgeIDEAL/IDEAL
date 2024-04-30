@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityManager : MonoBehaviour
 {
-    [Header("ÄÄÆ÷³ÍÆ® : ÇÁ·Î±×·¡¹Ö")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® : ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½")]
     [SerializeField] private List<BaseEntity> defaultEntityList = new List<BaseEntity>(); // Already Spawn
     [SerializeField] private List<BaseEntity> spawnEntityList = new List<BaseEntity>(); // After Spawn
 
@@ -28,27 +28,29 @@ public class EntityManager : MonoBehaviour
         spawnEnitityListCount = spawnEntityList.Count;
         for (int i = 0; i < defaultEntityListCount; i++) { wholeEntityDictionary.Add(defaultEntityList[i].name, defaultEntityList[i]); }
         for (int i = 0; i < spawnEnitityListCount; i++) { wholeEntityDictionary.Add(spawnEntityList[i].name, spawnEntityList[i]); }
-        // ÀÌº¥Æ® ÃÊ±âÈ­
-        GameManager.EntityEntityEvent.SearchEntity = null;
-        GameManager.EntityEntityEvent.SpawnEntity = null;
-        GameManager.EntityEntityEvent.DespawnEntity = null;
-        GameManager.EntityEntityEvent.BroadCastCalmDown = null;
-        GameManager.EntityEntityEvent.BroadCastStartConversation = null;
-        GameManager.EntityEntityEvent.BroadCastEndConversation = null;
-        GameManager.EntityEntityEvent.BroadCastChase = null;
-        // ÀÌº¥Æ® Ãß°¡
-        GameManager.EntityEntityEvent.SearchEntity += SearchEntity;
-        GameManager.EntityEntityEvent.SpawnEntity += SpawnEntity;
-        GameManager.EntityEntityEvent.DespawnEntity += DespawnEntity;        
-        GameManager.EntityEntityEvent.BroadCastCalmDown+=SendCalmDownMessage;
-        GameManager.EntityEntityEvent.BroadCastStartConversation += SendStartConversationMessage;
-        GameManager.EntityEntityEvent.BroadCastEndConversation += SendEndConversationMessage;
-        GameManager.EntityEntityEvent.BroadCastChase += SendChaseMessage;
+        // ï¿½Ìºï¿½Æ® ï¿½Ê±ï¿½È­
+        // TO DO ~~~~~~~~~~~~
+        // GameManager.EntityEntityEvent.SearchEntity = null;
+        // GameManager.EntityEntityEvent.SpawnEntity = null;
+        // GameManager.EntityEntityEvent.DespawnEntity = null;
+        // GameManager.EntityEntityEvent.BroadCastCalmDown = null;
+        // GameManager.EntityEntityEvent.BroadCastStartConversation = null;
+        // GameManager.EntityEntityEvent.BroadCastEndConversation = null;
+        // GameManager.EntityEntityEvent.BroadCastChase = null;
+        // ï¿½Ìºï¿½Æ® ï¿½ß°ï¿½
+        // TO DO ~~~~~~~~~~~~~~
+        // GameManager.EntityEntityEvent.SearchEntity += SearchEntity;
+        // GameManager.EntityEntityEvent.SpawnEntity += SpawnEntity;
+        // GameManager.EntityEntityEvent.DespawnEntity += DespawnEntity;        
+        // GameManager.EntityEntityEvent.BroadCastCalmDown+=SendCalmDownMessage;
+        // GameManager.EntityEntityEvent.BroadCastStartConversation += SendStartConversationMessage;
+        // GameManager.EntityEntityEvent.BroadCastEndConversation += SendEndConversationMessage;
+        // GameManager.EntityEntityEvent.BroadCastChase += SendChaseMessage;
     }
 
     #region Spawn & Search Method
     /// <summary>
-    /// ÀÌÇüÃ¼¸¦ Ã£´Â ÇÔ¼ö (¸Å°³º¯¼ö´Â ÀÌ¸§, ¸®½ºÆ®(default/spawn))
+    /// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ô¼ï¿½ (ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½Æ®(default/spawn))
     /// </summary>
     /// <param name="_name"></param>
     /// <param name="_searchList"></param>
@@ -62,7 +64,7 @@ public class EntityManager : MonoBehaviour
             return _entity;
     }
     /// <summary>
-    /// ÀÌÇüÃ¼¸¦ È°¼ºÈ­ ÇÏ´Â ÇÔ¼ö (¸Å°³º¯¼ö´Â ÀÌ¸§)
+    /// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ (ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½)
     /// </summary>
     /// <param name="_name"></param>
     public void SpawnEntity(string _name)
@@ -75,7 +77,7 @@ public class EntityManager : MonoBehaviour
         defaultEntityListCount = defaultEntityList.Count;
     }
     /// <summary>
-    /// ÀÌÇüÃ¼¸¦ ºñÈ°¼ºÈ­ ÇÏ´Â ÇÔ¼ö (¸Å°³º¯¼ö´Â ÀÌ¸§)
+    /// ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ (ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½)
     /// </summary>
     /// <param name="_name"></param>
     public void DespawnEntity(string _name)
@@ -91,11 +93,12 @@ public class EntityManager : MonoBehaviour
 
     #region Send Message Method 
     /// <summary>
-    /// ÀüºÎ ¹«°ü½É »óÅÂ·Î (ÈÞ½Ä°ø°£ ÁøÀÔ ½Ã)
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ (ï¿½Þ½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
     /// </summary>
     public void SendCalmDownMessage()
     {
-        GameManager.EntityEntityEvent.IsChaseDown = false;
+        // TO DO ~~~~~~~~~~
+        // GameManager.EntityEntityEvent.IsChaseDown = false;
         int count = defaultEntityList.Count;
         for (int idx = 0; idx < count; idx++)
         {
@@ -103,7 +106,7 @@ public class EntityManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// ÇÏ³ªÀÇ °³Ã¼ ¿Ü¿¡´Â ¸ðµÎ Ä§¹¬»óÅÂ·Î
+    /// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½
     /// </summary>
     /// <param name="_nonSilentObjectName"></param>
     public void SendSilentMessage(string _nonSilentObjectName)
@@ -118,7 +121,7 @@ public class EntityManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// ´ëÈ­ ½Ã, ´ëÈ­ÇÏ´Â °³Ã¼ ¿Ü¿¡´Â ¸ðµÎ Ä§¹¬»óÅÂ·Î
+    /// ï¿½ï¿½È­ ï¿½ï¿½, ï¿½ï¿½È­ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼ ï¿½Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½
     /// </summary>
     /// <param name="_name"></param>
     public void SendStartConversationMessage(string _name)
@@ -126,23 +129,25 @@ public class EntityManager : MonoBehaviour
         SendSilentMessage(_name);
     }
     /// <summary>
-    /// ´ëÈ­ Á¾·á ½Ã (Ãß°ÝÀ» ´çÇÏ´Â »óÅÂ¶ó¸é, ³ª¸ÓÁö´Â Ä§¹¬ / Ãß°ÝÀÌ ¾Æ´Ï¶ó¸é ¸ðµÎ ¹«°ü½É»óÅÂ·Î)
+    /// ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ / ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É»ï¿½ï¿½Â·ï¿½)
     /// </summary>
     /// <param name="_name"></param>
     public void SendEndConversationMessage(string _name)
     {
-        if (GameManager.EntityEntityEvent.IsChaseDown)
-            return;
-        else
+        // TO DO ~~~~~~~~~~~~
+        // if (GameManager.EntityEntityEvent.IsChaseDown)
+        //     return;
+        // else
             SendCalmDownMessage();
     }
     /// <summary>
-    /// Ãß°Ý ½Ã ½ÇÇà (Ãß°ÝÇÏ´Â °³Ã¼ ¿Ü¿¡´Â ¸ðµÎ Ä§¹¬»óÅÂ)
+    /// ï¿½ß°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ß°ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼ ï¿½Ü¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     /// </summary>
     /// <param name="_name"></param>
     public void SendChaseMessage(string _name)
     {
-        GameManager.EntityEntityEvent.IsChaseDown = true;
+        //  TO DO ~~~~~~~~~~~~
+        // GameManager.EntityEntityEvent.IsChaseDown = true;
         SendSilentMessage(_name);
     }
     #endregion

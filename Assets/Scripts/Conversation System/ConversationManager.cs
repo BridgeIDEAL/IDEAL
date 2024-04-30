@@ -41,20 +41,23 @@ public class ConversationManager : MonoBehaviour
     public void ConversationStart(){
         thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
-            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
+            // TO DO ~~~~~~~~~~~~~
+            // IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
         thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
-            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
+            // TO DO ~~~~~~~~~~~~~
+            // IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
         }
     }
 
     public void MonsterChase(){
         if(nowTalkerName != ""){
-            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
+            // TO DO ~~~~~~~~~~~~~
+            // IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
         }
     }
 
@@ -241,10 +244,11 @@ public class ConversationManager : MonoBehaviour
 
     public void Active_01F_Medicine(){
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.Active_01F_Medicine();
-        GameObject healthTeacher = IdealSceneManager.Instance.CurrentGameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
-        if (healthTeacher == null)
-            return;
-        IdealSceneManager.Instance.CurrentGameManager.FSM.DespawnMonster(healthTeacher.name);
+        // TO DO ~~~~~~~~~~~~~~~~~~
+        // GameObject healthTeacher = IdealSceneManager.Instance.CurrentGameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
+        // if (healthTeacher == null)
+        //     return;
+        // IdealSceneManager.Instance.CurrentGameManager.FSM.DespawnMonster(healthTeacher.name);
     }
 
     public void UpdateProgressState(int floor, int progress, int state){

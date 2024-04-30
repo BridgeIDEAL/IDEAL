@@ -68,7 +68,8 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if(canUpdate){
-            FSM.Update();
+            // TO DO ~~~~~~~~~~~~~~~
+            // FSM.Update();
             interactionDetect.GameUpdate();
             uIManager.GameUpdate();
             uIEquipment.GameUpdate();
