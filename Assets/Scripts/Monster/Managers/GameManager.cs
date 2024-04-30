@@ -54,9 +54,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void InitScripts(){
-        variableHub.Init();
         Data.Init();
-        FSM.Init();
+        //FSM.Init();
         // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
         uIManager.Init();
         interactionManager.Init(); 

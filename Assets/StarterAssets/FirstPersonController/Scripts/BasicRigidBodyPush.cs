@@ -7,22 +7,22 @@ public class BasicRigidBodyPush : MonoBehaviour
 	[Range(0.5f, 5f)] public float strength = 1.1f;
 
     #region Collision & Trigger
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-	{
-		if (canPush) PushRigidBodies(hit);
-		// OnControllerCollider는 Move에 귀속되어 collider 감지가 잘 안되는 경우가 있으므로
-		// MonsterDetect 스크립트에서 따로 처리해줌
-		// Debug.Log("hit tag: " + hit.gameObject.name);
-		// Debug.Log("EntityEvent: " + GameManager.EntityEvent.IsChase);
-		// if (hit.gameObject.CompareTag("Monster") && GameManager.EntityEvent.IsChase) {
-		// 	GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
-		// }
-	}
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.CompareTag("Rest") && IdealSceneManager.Instance.CurrentGameManager.EntityEvent.IsChase)
-			IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
-	}
+ //   private void OnControllerColliderHit(ControllerColliderHit hit)
+	//{
+	//	if (canPush) PushRigidBodies(hit);
+	//	// OnControllerCollider는 Move에 귀속되어 collider 감지가 잘 안되는 경우가 있으므로
+	//	// MonsterDetect 스크립트에서 따로 처리해줌
+	//	// Debug.Log("hit tag: " + hit.gameObject.name);
+	//	// Debug.Log("EntityEvent: " + GameManager.EntityEvent.IsChase);
+	//	// if (hit.gameObject.CompareTag("Monster") && GameManager.EntityEvent.IsChase) {
+	//	// 	GameOverManager.Instance.GameOver("학생에게 끌려간 후 실종됨.");
+	//	// }
+	//}
+	//private void OnTriggerEnter(Collider other)
+	//{
+	//	if (other.gameObject.CompareTag("Rest") && GameManager.EntityEvent.IsChase)
+	//		GameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
+	//}
     #endregion
 
     private void PushRigidBodies(ControllerColliderHit hit)

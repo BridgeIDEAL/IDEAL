@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ATypeEntityStates // Ãß°Ý, °æ°è x
+public enum ATypeEntityStates // ï¿½ß°ï¿½, ï¿½ï¿½ï¿½ x
 {
     Indifference,
     Interaction,
     Speechless
 }
 
-public enum BTypeEntityStates // Ãß°Ý o, °æ°è x
+public enum BTypeEntityStates // ï¿½ß°ï¿½ o, ï¿½ï¿½ï¿½ x
 {
     Indifference,
     Interaction,
@@ -18,15 +18,16 @@ public enum BTypeEntityStates // Ãß°Ý o, °æ°è x
     Speechless
 }
 
-public enum CTypeEntityStates // Ãß°Ý x, °æ°è o
+public enum CTypeEntityStates // ï¿½ß°ï¿½ x, ï¿½ï¿½ï¿½ o
 {
     Indifference,
     Interaction,
     Watch,
-    Speechless
+    Speechless,
+    Penalty
 }
 
-public enum DTypeEntityStates // Ãß°Ý o, °æ°è o
+public enum DTypeEntityStates // ï¿½ß°ï¿½ o, ï¿½ï¿½ï¿½ o
 {
     Indifference,
     Interaction,
@@ -34,6 +35,24 @@ public enum DTypeEntityStates // Ãß°Ý o, °æ°è o
     Aggressive,
     Chase,
     Speechless
+}
+
+public enum ChaseEntityStates
+{
+    Idle,
+    Talk,
+    Quiet,
+    Penalty,
+    Chase,
+    Extra
+}
+public enum NonChaseEntityStates
+{
+    Idle,
+    Talk,
+    Quiet,
+    Penalty,
+    Extra
 }
 
 public enum StateEventType
