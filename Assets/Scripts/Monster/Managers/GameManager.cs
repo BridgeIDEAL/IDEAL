@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     private FSMManager fsm = new FSMManager();
     public static FSMManager FSM { get { return Instance.fsm; } }
     // EntityEvent
-    private WholeEntityEventManager wholeEntityevent = new WholeEntityEventManager();
-    public static WholeEntityEventManager WholeEntityEvent { get { return Instance.wholeEntityevent; } }
+    private EntityEventManager entityEntityevent = new EntityEventManager();
+    public static EntityEventManager EntityEntityEvent { get { return Instance.entityEntityevent; } }
     //Data
     private DataManager data = new DataManager();
     public static DataManager Data { get { return Instance.data; } }
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     private void InitScripts(){
         variableHub.Init();
         Data.Init();
-        FSM.Init();
+        //FSM.Init();
         // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
         uIManager.Init();
         inventory.Init(); 
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        FSM.Update();
+        //  FSM.Update();
         interactionDetect.GameUpdate();
     }
 

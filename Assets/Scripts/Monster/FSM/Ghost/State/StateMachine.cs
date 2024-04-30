@@ -19,7 +19,10 @@ public class StateMachine<T> where T : BaseEntity
 	public void Execute()
     {
 		if (globalState != null)
+        {
 			globalState.Execute(ownEntity);
+			return;
+        }
 		if (currentState != null)
 			currentState.Execute(ownEntity);
     }

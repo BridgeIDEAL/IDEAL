@@ -41,20 +41,20 @@ public class ConversationManager : MonoBehaviour
     public void ConversationStart(){
         thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
-            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
+            //GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
         thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
-            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
+            //GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
         }
     }
 
     public void MonsterChase(){
         if(nowTalkerName != ""){
-            GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
+            //GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
         }
     }
 
@@ -241,10 +241,10 @@ public class ConversationManager : MonoBehaviour
 
     public void Active_01F_Medicine(){
         InteractionManager.Instance.Active_01F_Medicine();
-        GameObject healthTeacher = GameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
-        if (healthTeacher == null)
-            return;
-        GameManager.FSM.DespawnMonster(healthTeacher.name);
+        //GameObject healthTeacher = GameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
+        //if (healthTeacher == null)
+        //    return;
+        //GameManager.FSM.DespawnMonster(healthTeacher.name);
     }
 
     public void UpdateProgressState(int floor, int progress, int state){

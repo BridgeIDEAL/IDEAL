@@ -37,6 +37,24 @@ public enum DTypeEntityStates // �߰� o, ��� o
     Speechless
 }
 
+public enum ChaseEntityStates
+{
+    Idle,
+    Talk,
+    Quiet,
+    Penalty,
+    Chase,
+    Extra
+}
+public enum NonChaseEntityStates
+{
+    Idle,
+    Talk,
+    Quiet,
+    Penalty,
+    Extra
+}
+
 public enum StateEventType
 {
     StartConversation,
