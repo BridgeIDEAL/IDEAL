@@ -96,9 +96,11 @@ public class UIIngame : MonoBehaviour
         fadeFilter.color = color;
     }
 
-    private IEnumerator FadeOutInEffectCoroutine(Action callback_){
+    private IEnumerator FadeOutInEffectCoroutine(Action callback_ = null){
         yield return StartCoroutine(FadeOutEffectCoroutine());
-        callback_();
+        if(callback_ != null){
+            callback_();
+        }
         StartCoroutine(FadeInEffectCoroutine());
     }
 }

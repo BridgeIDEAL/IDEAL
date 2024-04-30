@@ -22,7 +22,7 @@ public class HealthPointManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private ScriptHub scriptHub;
+    public ScriptHub scriptHub;
     private UIHealthPoint uIHealthPoint;
     // private FirstPersonController firstPersonController;
     private ThirdPersonController thirdPersonController;
@@ -39,7 +39,7 @@ public class HealthPointManager : MonoBehaviour
     private float speedReduction = 0.15f;
 
     private float interactionReduction = 0.2f;
-    private float visualReduction = 0.5f;   // 현재는 사용하지 않는 값
+    // private float visualReduction = 0.5f;   // 현재는 사용하지 않는 값
     
     public void Init(){
         if(instance == null){
@@ -49,12 +49,20 @@ public class HealthPointManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        uIHealthPoint = scriptHub.uIHealthPoint;
-        thirdPersonController = scriptHub.thirdPersonController;
-        uIMoveSetting = scriptHub.uIMoveSetting;
-        interactionDetect = scriptHub.interactionDetect;
-        uIIngame = scriptHub.uIIngame;
         InitHealthPoint();
+    }
+
+    public void EnterAnotherSceneInit(bool isLobby){
+        if(isLobby){
+            InitHealthPoint();
+        }
+        else{
+            uIHealthPoint = scriptHub.uIHealthPoint;
+            thirdPersonController = scriptHub.thirdPersonController;
+            uIMoveSetting = scriptHub.uIMoveSetting;
+            interactionDetect = scriptHub.interactionDetect;
+            uIIngame = scriptHub.uIIngame;
+        }
     }
 
     public void InitHealthPoint(){
@@ -101,6 +109,12 @@ public class HealthPointManager : MonoBehaviour
     private void UpdateHealthCondition(IdealBodyPart idealBodyPart, int hp){
         uIHealthPoint.UpdateBodyImage(idealBodyPart, hp);
         UpdateHealthEffect(idealBodyPart, hp);
+    }
+
+    public void UpdateAllHealthCondition(){
+        UpdateHeadCondition();
+        UpdateArmCondition();
+        UpdateLegCondition();
     }
 
     private void UpdateHealthEffect(IdealBodyPart idealBodyPart, int hp){

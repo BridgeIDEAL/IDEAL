@@ -4,6 +4,7 @@ using System.Runtime.ExceptionServices;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum UIType{
     IngameUI = 0,
@@ -16,14 +17,6 @@ public enum UIType{
 
 public class UIManager : MonoBehaviour
 {
-    private static UIManager instance = null;
-
-    public static UIManager Instance{
-        get{
-            if(instance == null) return null;
-            return instance;
-        }
-    }
     
     [SerializeField]
     private ScriptHub scriptHub;
@@ -56,12 +49,6 @@ public class UIManager : MonoBehaviour
 
 
     public void Init() {
-        if(instance == null){
-            instance = this;
-        }
-        else{
-            Destroy(this.gameObject);
-        }
 
         thirdPersonController = scriptHub.thirdPersonController;
         cinemachineVirtualCamera = scriptHub.cinemachineVirtualCamera;
@@ -75,6 +62,7 @@ public class UIManager : MonoBehaviour
             UIActives[i] = false;
         }
 
+        uIInventory.Init();
     }
 
     private IEnumerator ActivateCanvasCoroutine(){
@@ -93,12 +81,13 @@ public class UIManager : MonoBehaviour
 
         SetUIActive(UIType.IngameUI, true);
         uIIngame.SetVisualFilter(0.0f);
-        uIIngame.FadeInEffect();
-
-        LoadingImageManager.Instance.DeleteLoadingCanvas();
     }
 
-    void Update(){
+    public void IngameFadeInEffect(){
+        uIIngame.FadeInEffect();
+    }
+
+    public void GameUpdate(){
         if(Input.GetKeyDown(KeyCode.F1)){
             UIActives[(int)UIType.MoveSettingUI] = !UIActives[(int)UIType.MoveSettingUI];
             SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
@@ -121,6 +110,9 @@ public class UIManager : MonoBehaviour
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
         UpdateMouseLock();
+
+
+        uIInventory.GameUpdate();
     }
 
     public void SetUIActive(UIType uIType, bool active){

@@ -14,7 +14,7 @@ public class UIActivationLogManager : MonoBehaviour
     public bool reverseWord = false;
 
 
-    private List<UIActivationLog> uIActivationLogList = new List<UIActivationLog>();
+    public List<UIActivationLog> uIActivationLogList = new List<UIActivationLog>();
     public void Init(){
         uIActivationLogList = new List<UIActivationLog>();
     }
@@ -30,10 +30,8 @@ public class UIActivationLogManager : MonoBehaviour
         uIActivationLogList.Add(uIActivationLog);
     }
 
-    public void InActiveActivationLog(){
-        for(int i = 0; i < uIActivationLogList.Count; i++){
-            uIActivationLogList[i].SetImageActive(false);
-        }
+    public void InActiveActivationLog(int index, bool active){
+        uIActivationLogList[index].SetImageActive(active);
     }
 
     public void ApplyMentalPenaltyActivationLog(MentalPenalty mentalPenalty, bool active){

@@ -14,11 +14,11 @@ public class ActivationLogManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private ScriptHub scriptHub;
-    private ActivationLogData activationLogData;
+    public ScriptHub scriptHub;
+    [SerializeField] private ActivationLogData activationLogData;
     private UIActivationLogManager uIActivationLogManager;
 
-    private List<int> activationLogList = new List<int>();
+    private List<ActivationLog> activationLogList = new List<ActivationLog>();
 
     private class ItemID_Name{
         public int itemID;
@@ -44,21 +44,27 @@ public class ActivationLogManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        activationLogData = scriptHub.activationLogData;
-        uIActivationLogManager = scriptHub.uIActivationLogManager;
-
         activationLogData.Init();
-        activationLogList = new List<int>();
+        activationLogList = new List<ActivationLog>();
+    }
+
+    public void EnterAnotherSceneInit(bool isLobby){
+        if(isLobby){
+            ResetActivationLogList();
+        }
+        else{
+            uIActivationLogManager = scriptHub.uIActivationLogManager;
+            UpdateUIActivationLog();
+        }
     }
 
     public void AddActivationLog(int logID){
-        activationLogList.Add(logID);
         ActivationLog activationLog = activationLogData.GetActivationLog(logID);
+        activationLogList.Add(activationLog);
         uIActivationLogManager.AddUIActivationLog(activationLog);
     }
 
     public void AddActivationLogWithItem(int itemID_, bool GetItem, string forWhat = ""){
-        activationLogList.Add(GetItem ? 100000 + itemID_ : 100000 - itemID_);
         string itemName = itemID_NameList.FirstOrDefault(x => x.itemID == itemID_).itemName;
         
         string contextText, descText;
@@ -71,12 +77,35 @@ public class ActivationLogManager : MonoBehaviour
             descText = "Use Item: " + itemName;
         }
         ActivationLog activationLog = new ActivationLog(GetItem ? 100000 + itemID_ : 100000 - itemID_, contextText, descText);
+        activationLogList.Add(activationLog);
         uIActivationLogManager.AddUIActivationLog(activationLog);
     }
 
     public void InActiveActivationLog(){
-        uIActivationLogManager.InActiveActivationLog();
+        for(int i = 0; i < activationLogList.Count; i++){
+            activationLogList[i].isObjectViewed = true;
+        }
+
+        UpdateUIActivationLogInActive();
     }
 
+    public void UpdateUIActivationLog(){
+        if(uIActivationLogManager.uIActivationLogList.Count < activationLogList.Count){
+            for(int i = uIActivationLogManager.uIActivationLogList.Count; i < activationLogList.Count; i++){
+                uIActivationLogManager.AddUIActivationLog(activationLogList[i]);
+            }
+        }
 
+        UpdateUIActivationLogInActive();
+    }
+
+    private void UpdateUIActivationLogInActive(){
+        for(int i = 0; i < activationLogList.Count; i++){
+            uIActivationLogManager.InActiveActivationLog(i, activationLogList[i].isObjectViewed);
+        }
+    }
+
+    public void ResetActivationLogList(){
+        activationLogList = new List<ActivationLog>();
+    }
 }

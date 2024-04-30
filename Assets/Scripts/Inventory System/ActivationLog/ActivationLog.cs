@@ -7,6 +7,7 @@ public class ActivationLog
     private int ID;
     private string contentText;
     private string descText;
+    public bool  isObjectViewed = false;
 
     public ActivationLog(int _ID, string _contentText, string _descText){
         this.ID = _ID;

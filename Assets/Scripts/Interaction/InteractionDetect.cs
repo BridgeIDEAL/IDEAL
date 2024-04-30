@@ -54,8 +54,9 @@ public class InteractionDetect : MonoBehaviour
                 // TODO 몬스터에게 추격당하는지 판별되는 변수 필요
                 // 몬스터에게 추격 중 몬스터와 상호작용(대화) 불가능
                 if(newGameObject.layer == LayerMask.NameToLayer("Monster")) {
-                    //if (GameManager.WholeEntityEvent.IsChase)
-                    //    return;
+                    // TO DO ~~~~~~~~~~
+                    // if (IdealSceneManager.Instance.CurrentGameManager.EntityEvent.IsChase)
+                        return;
                 }
 
                 // 새로운 IO에게는 Ray에 감지됨을 알린다.

@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour
         Init();
     }
 
-    public void Init() // Sound °ÔÀÓ¿ÀºêÁ§Æ®¿Í Á¸ÀçÇÏ´Â »ç¿îµåµéÀ» Àç»ýÇÒ °ÔÀÓ ¿ÀºêÁ§Æ®µéÀ» »ý¼º
+    public void Init() // Sound ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         GameObject root = GameObject.Find("Sound");
         GameObject camera = GameObject.Find("Main Camera");
@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         if (camera != null)
             root.transform.parent = camera.transform;
     }
-    public void Clear() // ¿Àµð¿À Å¬¸³ÀÌ ´ã±ä µñ¼Å³Ê¸®¸¦ ÃÊ±âÈ­
+    public void Clear() // ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³Ê¸ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     {
         foreach (AudioSource source in audioSource)
         {
@@ -48,13 +48,13 @@ public class SoundManager : MonoBehaviour
         audioClipDic.Clear();
     }
 
-    public void PlaySound(string path, SoundType type = SoundType.Effect, float pitch = 1.0f, float volume = 1.0f) // »ç¿îµå ÇÃ·¹ÀÌ
+    public void PlaySound(string path, SoundType type = SoundType.Effect, float pitch = 1.0f, float volume = 1.0f) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
     {
         if (path.Contains("Audio/") == false)
             path = $"Audio/{path}";
         if (type == SoundType.Ambience)
         {
-            AudioClip audioClip = GameManager.Resource.Load<AudioClip>(path);
+            AudioClip audioClip = IdealSceneManager.Instance.CurrentGameManager.Resource.Load<AudioClip>(path);
             if (audioClip == null)
                 return;
             AudioSource source = audioSource[(int)SoundType.Ambience];
@@ -75,12 +75,12 @@ public class SoundManager : MonoBehaviour
             source.PlayOneShot(audioClip);
         }
     }
-    AudioClip GetOrAddAudioClip(string path) // »ç¿îµå°¡ ´ã±ä Å¬¸³À» ¹ÝÈ¯, µñ¼Å³Ê¸®¿¡ »ðÀÔ
+    AudioClip GetOrAddAudioClip(string path) // ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯, ï¿½ï¿½Å³Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         AudioClip audioClip = null;
         if (audioClipDic.TryGetValue(path, out audioClip) == false)
         {
-            audioClip = GameManager.Resource.Load<AudioClip>(path);
+            audioClip = IdealSceneManager.Instance.CurrentGameManager.Resource.Load<AudioClip>(path);
             audioClipDic.Add(path, audioClip);
         }
         return audioClip;

@@ -14,13 +14,13 @@ public class TimerRoot : MonoBehaviour
         spendTime = 0.0f;
         timerActive = true;
         Debug.Log("======= StartTimer");
-        InteractionManager.Instance.SetTimerEndActive(true);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.SetTimerEndActive(true);
     }
 
     public void StopTimer(){
         timerActive = false;
         Debug.Log("======= StopTimer spendTime:  " + spendTime);
-        InteractionManager.Instance.SetTimerEndActive(false);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.SetTimerEndActive(false);
     }
     
     void Update(){

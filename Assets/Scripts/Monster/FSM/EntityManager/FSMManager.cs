@@ -5,5 +5,5 @@ using UnityEngine.AI;
 
 public class FSMManager
 {
-   
+    
 }

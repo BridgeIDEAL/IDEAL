@@ -19,7 +19,7 @@ public class DataManager
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        TextAsset textAsset = GameManager.Resource.Load<TextAsset>($"Data/{path}");
+        TextAsset textAsset = IdealSceneManager.Instance.CurrentGameManager.Resource.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 }

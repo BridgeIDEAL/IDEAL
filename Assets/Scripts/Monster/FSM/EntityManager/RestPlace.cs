@@ -6,10 +6,12 @@ public class RestPlace : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.CompareTag("Player") && GameManager.WholeEntityEvent.IsChase)
-        //{
-        //    Debug.Log("�浹!");
-        //    GameManager.WholeEntityEvent.SendStateEventMessage(StateEventType.Rest);
-        //}
+        // TO DO ~~~~~~~~~~
+        // if (other.gameObject.CompareTag("Player") && IdealSceneManager.Instance.CurrentGameManager.EntityEvent.IsChase)
+        // {
+        //     Debug.Log("�浹!");
+        //     TO DO ~~~~~~~~~~
+        //     IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
+        // }
     }
 }
