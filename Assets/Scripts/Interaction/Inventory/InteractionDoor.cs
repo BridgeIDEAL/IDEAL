@@ -36,7 +36,7 @@ public class InteractionDoor : AbstractInteraction
                 ActivationLogManager.Instance.AddActivationLog(activationLogNum);
             }
             if(successInteractionStr != ""){
-                InteractionManager.Instance.uIInteraction.GradientText(successInteractionStr);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
             }
         }
         else{
@@ -45,7 +45,7 @@ public class InteractionDoor : AbstractInteraction
                 audioSource.Play();
             }
             if(failInteractionStr != ""){
-                InteractionManager.Instance.uIInteraction.GradientText(failInteractionStr);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
             }
         }
     }

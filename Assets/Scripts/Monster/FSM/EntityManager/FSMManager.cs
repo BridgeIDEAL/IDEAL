@@ -14,16 +14,16 @@ public class FSMManager
     public void Init()
     {
         // Fill List & Dictionary
-        BaseEntity[] initEntityArray = GameManager.Instance.variableHub.initMonsterGroup.GetComponentsInChildren<BaseEntity>();
+        BaseEntity[] initEntityArray = IdealSceneManager.Instance.CurrentGameManager.variableHub.initMonsterGroup.GetComponentsInChildren<BaseEntity>();
         for (int i = 0; i < initEntityArray.Length; i++) { entityList.Add(initEntityArray[i]); initEntityArray[i].Setup(); }
-        BaseEntity[] wholeEntityArray = GameManager.Instance.variableHub.wholeMonsterGroup.GetComponentsInChildren<BaseEntity>(true);
+        BaseEntity[] wholeEntityArray = IdealSceneManager.Instance.CurrentGameManager.variableHub.wholeMonsterGroup.GetComponentsInChildren<BaseEntity>(true);
         for (int i = 0; i < wholeEntityArray.Length; i++) { entityDictionary.Add(wholeEntityArray[i].gameObject.name, wholeEntityArray[i]); }
 
         // Link Entity Event
-        GameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
-        GameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
-        GameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
-        GameManager.EntityEvent.SpawnAction += SpawnMonster;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEvent.StartConversationAction += StartConversationActionUpdate;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEvent.EndConversationAction += EndConversationActionUpdate;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEvent.ChaseAction += ChaseActionUpdate;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SpawnAction += SpawnMonster;
     }
     
     public void SpawnMonster(string _name)

@@ -22,7 +22,7 @@ public class InteractionGetItem : AbstractInteraction
             ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
         if (afterInteractionStr != "") {
-            InteractionManager.Instance.uIInteraction.GradientText(afterInteractionStr);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--;
         if (availableCount < 1) {

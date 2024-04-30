@@ -23,12 +23,12 @@ public class InteractionCheckItemBeforeTalk : AbstractInteraction
             conversationManager.SetTalkerName("");
             dialogueRunner.StartDialogue(dialogueName);
             if(successInteractionStr != ""){
-                InteractionManager.Instance.uIInteraction.GradientText(successInteractionStr);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
             }
         }
         else{
             if(failInteractionStr != ""){
-                InteractionManager.Instance.uIInteraction.GradientText(failInteractionStr);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
             }
         }
     }

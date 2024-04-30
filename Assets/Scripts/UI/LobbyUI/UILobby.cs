@@ -9,4 +9,8 @@ public class UILobby : MonoBehaviour
     void Update(){
         BookUpdatedGameObject.SetActive(GuideLogManager.Instance.guideLogUpdated);
     }
+
+    public void StageSelectButtonDown(){
+        IdealSceneManager.Instance.LoadGameScene();
+    }
 }

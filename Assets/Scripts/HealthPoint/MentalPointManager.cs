@@ -19,7 +19,7 @@ public class MentalPointManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private ScriptHub scriptHub;
+    public ScriptHub scriptHub;
     private UIActivationLogManager uIActivationLogManager;
 
     private int mentalPoint;
@@ -40,7 +40,15 @@ public class MentalPointManager : MonoBehaviour
         }
 
         mentalPoint = maxMP;
-        uIActivationLogManager = scriptHub.uIActivationLogManager;
+    }
+
+    public void EnterAnotherSceneInit(bool isLobby){
+        if(isLobby){
+            mentalPoint = maxMP;
+        }
+        else{
+            uIActivationLogManager = scriptHub.uIActivationLogManager;
+        }
     }
 
     public void Hurt(int damage){

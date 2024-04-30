@@ -23,8 +23,8 @@ public class ConversationManager : MonoBehaviour
     [SerializeField] private InteractionItemData handCream;
 
     [SerializeField] private InteractionItemData alcoholLamp;
-    private int normalTypingSpeed = 20;
-    private int acceleratedTypingSpeed = 40;
+    // private int normalTypingSpeed = 20;
+    // private int acceleratedTypingSpeed = 40;
     
     public void Init(){
         thirdPersonController = scriptHub.thirdPersonController;
@@ -41,20 +41,20 @@ public class ConversationManager : MonoBehaviour
     public void ConversationStart(){
         thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.StartConversation, nowTalkerName);
         }
     }
 
     public void ConversationEnd(){
         thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.EndConversation, nowTalkerName);
         }
     }
 
     public void MonsterChase(){
         if(nowTalkerName != ""){
-            GameManager.EntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Chase, nowTalkerName);
         }
     }
 
@@ -150,7 +150,7 @@ public class ConversationManager : MonoBehaviour
 
     [YarnFunction("CheckProgressState")]
     public static int CheckProgressState(int floor_, int progress_){
-        return InteractionManager.Instance.progressState[floor_, progress_];
+        return ProgressManager.Instance.progressState[floor_, progress_];
     }
 
     [YarnFunction("CheckPlayerItem")]
@@ -240,15 +240,15 @@ public class ConversationManager : MonoBehaviour
     }
 
     public void Active_01F_Medicine(){
-        InteractionManager.Instance.Active_01F_Medicine();
-        GameObject healthTeacher = GameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.Active_01F_Medicine();
+        GameObject healthTeacher = IdealSceneManager.Instance.CurrentGameManager.FSM.SearchEntity("1F_MedicineRoom_HealthTeacher").gameObject;
         if (healthTeacher == null)
             return;
-        GameManager.FSM.DespawnMonster(healthTeacher.name);
+        IdealSceneManager.Instance.CurrentGameManager.FSM.DespawnMonster(healthTeacher.name);
     }
 
     public void UpdateProgressState(int floor, int progress, int state){
-        InteractionManager.Instance.UpdateProgressState(floor, progress, state);
+        ProgressManager.Instance.UpdateProgressState(floor, progress, state);
     }
 
     public void GetHandCream(){

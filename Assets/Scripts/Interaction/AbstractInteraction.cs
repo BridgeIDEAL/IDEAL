@@ -10,11 +10,11 @@ public abstract class AbstractInteraction : MonoBehaviour
 
     private Coroutine interactionCoroutine;
     public void DetectedRay(){
-        UIManager.Instance.PrintInteractionText(GetDetectedString());
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.PrintInteractionText(GetDetectedString());
     }
 
     public void OutOfRay(){
-        UIManager.Instance.DeleteInteractionText();
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.DeleteInteractionText();
     }
 
     protected abstract string GetDetectedString();

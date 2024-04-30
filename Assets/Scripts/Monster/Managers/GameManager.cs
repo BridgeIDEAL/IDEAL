@@ -1,25 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     #region CoreManagers
-    // Singleton
-    private static GameManager instance;
-    public static GameManager Instance { get { return instance; } }
+    // Singleton 을 더이상 사용하지 않음 씬이 2개이기 때문
+
+    public bool canUpdate = false;
+
     // FSM
     private FSMManager fsm = new FSMManager();
-    public static FSMManager FSM { get { return Instance.fsm; } }
+    public FSMManager FSM { get { return fsm; } }
     // EntityEvent
     private EntityEventManager entityevent = new EntityEventManager();
-    public static EntityEventManager EntityEvent { get { return Instance.entityevent; } }
+    public EntityEventManager EntityEvent { get { return entityevent; } }
     //Data
     private DataManager data = new DataManager();
-    public static DataManager Data { get { return Instance.data; } }
+    public DataManager Data { get { return data; } }
     //Resource
     private ResourceManager resource = new ResourceManager();
-    public static ResourceManager Resource { get { return Instance.resource; } }
+    public ResourceManager Resource { get { return resource; } }
     // VariableHub
     public VariableHub variableHub;
    
@@ -27,35 +29,28 @@ public class GameManager : MonoBehaviour
     public ScriptHub scriptHub;
     // UIManager
     private UIManager uIManager;
+    // UIRayCaster
+    private UIEquipment uIEquipment;
+
     // Interaction
     private InteractionManager interactionManager;  // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     private InteractionDetect interactionDetect;    // Monobehaviour, Coroutine을 실행하기 위해
-    // Inventory
-    private Inventory inventory;        // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
-    // ActivationLog
-    private ActivationLogManager activationLogManager;  // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
-    private ActivationLogData activationLogData;        // Monobehaviour
-    // HealthPoint
-    private HealthPointManager healthPointManager;      // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     // Equipment
     private EquipmentManager equipmentManager;          // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     // Conversation
     private ConversationManager conversationManager;        // Monobehaviour
-    private MentalPointManager mentalPointManager;
 
 
     #endregion
     private void Awake()
     {
-        if (instance==null)
-        {
-            GameObject gameManagerObject = GameObject.Find("GameManager");
-            instance = gameManagerObject.GetComponent<GameManager>();
-            // 일단은 없애고 이후 생각
-            // DontDestroyOnLoad(gameManagerObject);
-        }
+        
+    }
+
+    public void Init(){
         AllocateScripts();
         InitScripts();
+        canUpdate = true;
     }
 
     private void InitScripts(){
@@ -64,25 +59,22 @@ public class GameManager : MonoBehaviour
         FSM.Init();
         // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
         uIManager.Init();
-        inventory.Init(); 
         interactionManager.Init(); 
         interactionDetect.Init();
-        activationLogManager.Init();
-        activationLogData.Init();
-        healthPointManager.Init();
         equipmentManager.Init();
         conversationManager.Init();
-        mentalPointManager.Init();
     }
 
-    private void Start(){
-        inventory.GameStart();
-    }
 
     private void Update()
     {
-        FSM.Update();
-        interactionDetect.GameUpdate();
+        if(canUpdate){
+            FSM.Update();
+            interactionDetect.GameUpdate();
+            uIManager.GameUpdate();
+            uIEquipment.GameUpdate();
+        }
+        
     }
 
     public void Clear()
@@ -92,14 +84,10 @@ public class GameManager : MonoBehaviour
 
     private void AllocateScripts(){
         uIManager = scriptHub.uIManager;
+        uIEquipment = scriptHub.uIEquipment;
         interactionManager = scriptHub.interactionManager;
         interactionDetect = scriptHub.interactionDetect;
-        inventory = scriptHub.inventory;
-        activationLogManager = scriptHub.activationLogManager;
-        activationLogData = scriptHub.activationLogData;
-        healthPointManager = scriptHub.healthPointManager;
         equipmentManager = scriptHub.equipmentManager;
         conversationManager = scriptHub.conversationManager;
-        mentalPointManager = scriptHub.mentalPointManager;
     }
 }

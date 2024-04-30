@@ -56,13 +56,7 @@ public class UIInventory : MonoBehaviour
     ***********************************************************************/
     #region Unity Events
 
-    private void Awake(){
-        Init();
-        InitSlots();
-        
-    }
-
-    private void Update(){
+    public void GameUpdate(){
 
         OnPointerEnterAndExit();
         if(showTooltip) ShowOrHideItemTooltip();
@@ -75,13 +69,14 @@ public class UIInventory : MonoBehaviour
     *                               Init Methods
     ***********************************************************************/
     #region Init Methods
-    private void Init(){
+    public void Init(){
 
         // Item Tooltip UI
         if(itemTooltip == null){
             itemTooltip = GetComponentInChildren<UIItemTooltip>();
             Debug.Log("인스펙터에서 아이템 툴팁 UI를 직접 지정하지 않아 자식에서 발견하여 초기화하였습니다.");
         }
+        InitSlots();
     }
 
 
@@ -127,7 +122,7 @@ public class UIInventory : MonoBehaviour
         var prevSlot = pointerOverSlot;
 
         // 현재 프레임의 슬롯
-        var curSlot = pointerOverSlot = UIRayCaster.Instance.RaycastAndGetFirstComponent<UIItemSlot>();
+        var curSlot = pointerOverSlot = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIRayCaster.RaycastAndGetFirstComponent<UIItemSlot>();
 
         if (prevSlot == null){
             // Enter
@@ -177,7 +172,7 @@ public class UIInventory : MonoBehaviour
         // Drag 기능은 구현하지 않음
         // Right Click : Use Item
         if(Input.GetMouseButtonDown(rightClick)){
-            UIItemSlot slot = UIRayCaster.Instance.RaycastAndGetFirstComponent<UIItemSlot>();
+            UIItemSlot slot = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIRayCaster.RaycastAndGetFirstComponent<UIItemSlot>();
 
             if(slot != null && slot.HasItem && slot.IsAccessible){
                 TryUseItem(slot.Index);

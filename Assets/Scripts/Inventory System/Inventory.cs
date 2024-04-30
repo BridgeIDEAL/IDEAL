@@ -38,11 +38,11 @@ public class Inventory : MonoBehaviour
     [SerializeField, Range(8, 32)]
     private int maxCapacity = 32;
 
-    [SerializeField]
-    private ScriptHub scriptHub;
+    
+    public ScriptHub scriptHub;
     private UIInventory uIInventory; // 연결된 인벤토리 UI
 
-    [SerializeField] private TempEffectSound playerTempEffectSound;
+    private TempEffectSound playerTempEffectSound;
 
     /// <summary> 아이템 목록 </summary>
     [SerializeField]
@@ -81,11 +81,20 @@ public class Inventory : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        uIInventory = scriptHub.uIInventory;
 
         items = new Item[maxCapacity];
         Capacity = initalCapacity;
-        uIInventory.SetInventoryReference(this);
+    }
+
+    public void EnterAnotherSceneInit(bool isLobby){
+        if(isLobby){
+            items = new Item[maxCapacity];
+        }
+        else{
+            uIInventory = scriptHub.uIInventory;
+            playerTempEffectSound = scriptHub.playerEffectSound;
+            uIInventory.SetInventoryReference(this);
+        }
     }
 
     public void GameStart(){
