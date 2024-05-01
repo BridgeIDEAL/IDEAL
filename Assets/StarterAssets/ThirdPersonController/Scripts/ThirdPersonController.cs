@@ -86,6 +86,11 @@ namespace StarterAssets
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
 
+        // player Position and Rotation
+        private bool needTeleportation = false;
+        private Vector3 telePosition;
+        private Vector3 teleRotation;
+
         // player
         public float _speed;
         private float _animationBlend;
@@ -167,6 +172,23 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
+            if(needTeleportation){
+                TelePortPositionRotation();
+                needTeleportation = false;
+            }
+        }
+
+        public void TelePortPositionRotation(Vector3 destPosition, Vector3 destRotation){
+            needTeleportation = true;
+            telePosition = destPosition;
+            teleRotation = destRotation;
+        }
+        
+        private void TelePortPositionRotation(){
+            this.transform.localPosition = telePosition;
+            this.transform.transform.rotation = Quaternion.Euler(teleRotation);
+            _cinemachineTargetYaw = teleRotation.y;
+            _cinemachineTargetPitch = 0;
         }
 
         private void AssignAnimationIDs()

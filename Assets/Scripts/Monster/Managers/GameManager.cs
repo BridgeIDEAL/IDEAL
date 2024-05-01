@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour
     // Interaction
     private InteractionManager interactionManager;  // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     private InteractionDetect interactionDetect;    // Monobehaviour, Coroutine을 실행하기 위해
-    // Equipment
-    private EquipmentManager equipmentManager;          // Monobehaviour, Destroy(this.gameobject)를 실행하기 위해
     // Conversation
     private ConversationManager conversationManager;        // Monobehaviour
 
@@ -60,7 +58,6 @@ public class GameManager : MonoBehaviour
         uIManager.Init();
         interactionManager.Init(); 
         interactionDetect.Init();
-        equipmentManager.Init();
         conversationManager.Init();
     }
 
@@ -87,7 +84,6 @@ public class GameManager : MonoBehaviour
         uIEquipment = scriptHub.uIEquipment;
         interactionManager = scriptHub.interactionManager;
         interactionDetect = scriptHub.interactionDetect;
-        equipmentManager = scriptHub.equipmentManager;
         conversationManager = scriptHub.conversationManager;
     }
 }

@@ -34,6 +34,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private HealthPointManager healthPointManager;
     [SerializeField] private MentalPointManager mentalPointManager;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private EquipmentManager equipmentManager;
     [SerializeField] private AudioSource lobbyBGMBox;
     private float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
@@ -55,6 +56,7 @@ public class IdealSceneManager : MonoBehaviour
         healthPointManager.Init();
         mentalPointManager.Init();
         inventory.Init();
+        equipmentManager.Init();
 
         lobbyObjectNameList = new List<string>();
         for(int i = 0 ; i < lobbyObjectList.Count; i++){
@@ -65,7 +67,7 @@ public class IdealSceneManager : MonoBehaviour
 
 
     private void AfterSceneLoaded(Scene scene, LoadSceneMode mode){
-        if(scene.name == "Prototype"){
+        if(scene.name == "Prototype" || scene.name == "Prototype_Second"){
             Cursor.lockState = CursorLockMode.Locked;
             GuideLogManager.Instance.guideLogUpdated = false;
 
@@ -82,6 +84,7 @@ public class IdealSceneManager : MonoBehaviour
             healthPointManager.EnterAnotherSceneInit(true);
             mentalPointManager.EnterAnotherSceneInit(true);
             inventory.EnterAnotherSceneInit(true);
+            equipmentManager.EnterAnotherSceneInit(true);
             LobbyBGMFade(true);
         }
     }
@@ -100,9 +103,10 @@ public class IdealSceneManager : MonoBehaviour
 
         AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Additive);
         loadPrototype.allowSceneActivation = false;
-        AsyncOperation loadPrototype2 = SceneManager.LoadSceneAsync("Prototype 2", LoadSceneMode.Additive);
+        AsyncOperation loadPrototype2 = SceneManager.LoadSceneAsync("Prototype_Second", LoadSceneMode.Additive);
         loadPrototype2.allowSceneActivation = false;
 
+        Debug.Log("Load 2 Scenes Start!");
         while(!(loadPrototype.progress >= 0.9f && loadPrototype2.progress >= 0.9f)){
             yield return null;
         }
@@ -120,7 +124,7 @@ public class IdealSceneManager : MonoBehaviour
         lobbyObjectList = new List<GameObject>();
         
         
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prototype 2"));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prototype_Second"));
         prototype2GameManager = GameObject.Find("GameManager2").GetComponent<GameManager>();
         currentGameManager = prototype2GameManager;
         prototype2GameManager.Init();
@@ -160,17 +164,19 @@ public class IdealSceneManager : MonoBehaviour
         mentalPointManager.EnterAnotherSceneInit(false);
         inventory.scriptHub = gameManager.scriptHub;
         inventory.EnterAnotherSceneInit(false);
+        equipmentManager.scriptHub = gameManager.scriptHub;
+        equipmentManager.EnterAnotherSceneInit(false);
     }
     
 
-    public void ChangeAnotherGameScene(string currentSceneName, string destSceneName){
+    public void ChangeAnotherGameScene(string currentSceneName, string destSceneName, Vector3 destPosition, Vector3 destRotation){
         if(loadCoroutine != null){
             StopCoroutine(loadCoroutine);
         }
-        loadCoroutine = StartCoroutine(ChangeAnotherGameSceneCoroutine(currentSceneName, destSceneName));
+        loadCoroutine = StartCoroutine(ChangeAnotherGameSceneCoroutine(currentSceneName, destSceneName, destPosition, destRotation));
     }
 
-    IEnumerator ChangeAnotherGameSceneCoroutine(string currentSceneName, string destSceneName){
+    IEnumerator ChangeAnotherGameSceneCoroutine(string currentSceneName, string destSceneName, Vector3 destPosition, Vector3 destRotation){
         // 화면 fade Out 효과 넣기
         Image fadeFilter = LoadingImageManager.Instance.fadeFilter;
         float stepTimer = 0.0f;
@@ -191,13 +197,15 @@ public class IdealSceneManager : MonoBehaviour
             prototypeObjectController.SceneObjectsSetActive(false);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(destSceneName));
             currentGameManager = prototype2GameManager;
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             prototype2ObjectController.SceneObjectsSetActive(true);
             currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
         }
-        else if(currentSceneName == "Prototype 2"){
+        else if(currentSceneName == "Prototype_Second"){
             prototype2ObjectController.SceneObjectsSetActive(false);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(destSceneName));
             currentGameManager = prototypeGameManager;
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             prototypeObjectController.SceneObjectsSetActive(true);
             currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
         }
