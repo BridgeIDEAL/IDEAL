@@ -5,19 +5,13 @@ using UnityEngine.AI;
 
 public class ChaseEntity : BaseEntity
 {
-    [Header("변수 : 기획")]
-    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
-    [SerializeField] protected float detectDistance; // 시야
-    [SerializeField] protected float missDistance; // 감지하는 최소거리
-    [SerializeField] protected Transform eyeTransform; // 눈 위치
-    [SerializeField] protected Vector3[] patrolPoints; // 순찰 지점 
-    
-    [Header("컴포넌트 : 프로그래밍")]
+    #region Variable
     [SerializeField] protected Animator anim;
     [SerializeField] protected NavMeshAgent nav;
-    protected int currentPatrolPoint = 0;
-    protected int maxPatrolPoint = 0;
-    protected bool isChasePlayer = false;
+    [SerializeField] protected Transform eyeTransform; // 눈 위치
+    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
+    [SerializeField] protected ScriptableChaseEntity entityData;
+    [SerializeField] protected bool isChasePlayer = false;
     public bool IsChasePlayer
     {
         get
@@ -32,6 +26,7 @@ public class ChaseEntity : BaseEntity
     // 내장된 스크립트
     protected State<ChaseEntity>[] states = new State<ChaseEntity>[5];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
+    #endregion
 
     #region BehaviourState
     public virtual void IdleEnter() { }
@@ -56,10 +51,13 @@ public class ChaseEntity : BaseEntity
     #endregion
 
     #region InitSetting
-    public override void Setup()
+    public override void Setup(GameObject _player)
     {
-        base.Setup();
-        maxPatrolPoint = patrolPoints.Length;
+        base.Setup(_player);
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        if (nav == null)
+            nav = GetComponent<NavMeshAgent>();
         states[(int)ChaseEntityStates.Idle] = new ChaseEntitySpace.IdleState();
         states[(int)ChaseEntityStates.Talk] = new ChaseEntitySpace.TalkState();
         states[(int)ChaseEntityStates.Quiet] = new ChaseEntitySpace.QuietState();
@@ -82,7 +80,7 @@ public class ChaseEntity : BaseEntity
     #endregion
 
     #region Method
-
+   
     public void MoveTo(Vector3 _destination, float _speed=0.5f)
     {
         nav.SetDestination(_destination);

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Principal : ChaseEntity, IPatrol
 {
+    #region Patrol Variable
+    // Patrol Variable
+    [SerializeField] protected Vector3[] patrolPoints; // 순찰 지점 
+    protected int currentPatrolPoint = 0;
+    protected int maxPatrolPoint = 0;
+    [SerializeField] protected float detectDistance; // 시야
+    [SerializeField] protected float missDistance; // 감지하는 최소거리
+    #endregion
+
     #region BehaviourState
     public override void IdleEnter() { StateAnimation(currentState, true); }
     public override void IdleExecute() { StartPatrol(); DetectPlayer(); }

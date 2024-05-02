@@ -7,23 +7,24 @@ public class GameManager : MonoBehaviour
 {
     #region CoreManagers
     // Singleton 을 더이상 사용하지 않음 씬이 2개이기 때문
-
     public bool canUpdate = false;
 
-    // FSM
-    private FSMManager fsm = new FSMManager();
-    public FSMManager FSM { get { return fsm; } }
-    // EntityEvent
-    private EntityEventManager entityevent = new EntityEventManager();
-    public EntityEventManager EntityEvent { get { return entityevent; } }
-    //Data
+    [Header("Refer To Managers")]
+    // Refer To Manager & Hub
+    [SerializeField] private VariableHub valueHub;
+    public VariableHub ValueHub { get { return valueHub; } }
+    [SerializeField] private EntityManager entityM;
+    public EntityManager EntityM { get { return entityM; } }
+    
+    // Non Refer To Manager
+    private EntityEventManager entityEM = new EntityEventManager();
+    public EntityEventManager EntityEM { get { return entityEM; } }
+    
+    // Not Use Now
     private DataManager data = new DataManager();
     public DataManager Data { get { return data; } }
-    //Resource
     private ResourceManager resource = new ResourceManager();
     public ResourceManager Resource { get { return resource; } }
-    // VariableHub
-    public VariableHub variableHub;
    
     // ScriptHub
     public ScriptHub scriptHub;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     #endregion
     private void Awake()
     {
-        
+        //entityM.SetUp();
     }
 
     public void Init(){
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
 
     private void InitScripts(){
         Data.Init();
-        //FSM.Init();
         // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
         uIManager.Init();
         interactionManager.Init(); 
@@ -68,8 +68,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if(canUpdate){
-            // TO DO ~~~~~~~~~~~~~~~
-            // FSM.Update();
+            //entityM.GameUpdate();
             interactionDetect.GameUpdate();
             uIManager.GameUpdate();
             uIEquipment.GameUpdate();

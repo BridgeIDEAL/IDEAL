@@ -5,15 +5,17 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    #region Common Stat
+    
+    #region Variable
     protected GameObject player;
-    [SerializeField] protected ScriptableEntity entityData;
-    public ScriptableEntity EntityData { get { return entityData; } }
     #endregion
 
-    #region InitSetting
-    public virtual void Setup()
+    #region Init Setting
+    public virtual void Setup(GameObject _player)
     {
+        if (player != null)
+            return;
+        player = _player;
         InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
         if (interactionConversation != null)
         {
@@ -39,11 +41,8 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void BeSilent();
     public virtual void BeChasing() { }
     #endregion
-    
-    //public float CalculateAngle()
-    //{
-    //    Vector3 direction = player.transform.position - transform.position;
-    //    float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
-    //    return angle;
-    //}
+
+    #region Virtual Method
+    public virtual bool IsSpawn() { return true; }
+    #endregion
 }
