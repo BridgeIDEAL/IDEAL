@@ -1,42 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public class Enums { }
 
-public enum ATypeEntityStates // �߰�, ��� x
-{
-    Indifference,
-    Interaction,
-    Speechless
-}
-
-public enum BTypeEntityStates // �߰� o, ��� x
-{
-    Indifference,
-    Interaction,
-    Aggressive,
-    Chase,
-    Speechless
-}
-
-public enum CTypeEntityStates // �߰� x, ��� o
-{
-    Indifference,
-    Interaction,
-    Watch,
-    Speechless,
-    Penalty
-}
-
-public enum DTypeEntityStates // �߰� o, ��� o
-{
-    Indifference,
-    Interaction,
-    Watch,
-    Aggressive,
-    Chase,
-    Speechless
-}
-
+/// <summary>
+/// Use ChaseEntity StateMachine
+/// </summary>
 public enum ChaseEntityStates
 {
     Idle,
@@ -46,6 +12,9 @@ public enum ChaseEntityStates
     Chase,
     Extra
 }
+/// <summary>
+/// Use NonChaseEntity StateMachine
+/// </summary>
 public enum NonChaseEntityStates
 {
     Idle,
@@ -55,13 +24,17 @@ public enum NonChaseEntityStates
     Extra
 }
 
-public enum StateEventType
+/// <summary>
+/// Use EntityEventManager & EntityManager
+/// </summary>
+public enum EntityEventStateType
 {
     StartConversation,
     EndConversation,
-    Chase,
-    Rest,
-    Spawn
+    BeCalmDown,
+    BeSilent,
+    BeChasing,
+    BePenalty
 }
 
 public enum SoundType

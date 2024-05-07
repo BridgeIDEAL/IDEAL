@@ -5,27 +5,27 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    #region Common Stat
-    protected GameObject player;
-    [SerializeField] protected ScriptableEntity entityData;
-    public ScriptableEntity EntityData { get { return entityData; } }
+    
+    #region Variable
+ 
     #endregion
 
-    #region InitSetting
-    public virtual void Setup()
+    #region Init Setting
+    public virtual void Setup(Transform _playerTransform)
     {
-        InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
-        if (interactionConversation != null)
-        {
-            interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-            interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        }
-        else
-        {
-            InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
-            interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-            interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        }
+      
+        //InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
+        //if (interactionConversation != null)
+        //{
+        //    interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+        //    interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        //}
+        //else
+        //{
+        //    InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
+        //    interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+        //    interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        //}
         AdditionalSetup();
     }
     public virtual void AdditionalSetup() { }
@@ -38,12 +38,11 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void BeCalmDown();
     public abstract void BeSilent();
     public virtual void BeChasing() { }
+    public virtual void BePenalty() { }
     #endregion
-    
-    //public float CalculateAngle()
-    //{
-    //    Vector3 direction = player.transform.position - transform.position;
-    //    float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
-    //    return angle;
-    //}
+
+    #region Get Bool Method (Virtual)
+    public virtual bool IsSpawn() { return true; }
+    public virtual void IsInRoom(bool _isInRoom) { return; }
+    #endregion
 }

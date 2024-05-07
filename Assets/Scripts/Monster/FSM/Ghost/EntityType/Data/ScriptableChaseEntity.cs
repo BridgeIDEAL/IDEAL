@@ -4,5 +4,5 @@ using UnityEngine;
 public class ScriptableChaseEntity : ScriptableEntity
 {
     public float ratioChaseSpeed;
-    public float sightDistance;
+    public float sightDetectDistance;
 }

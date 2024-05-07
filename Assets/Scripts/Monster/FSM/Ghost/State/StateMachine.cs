@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StateMachine<T> where T : BaseEntity 
 {
-	private T ownEntity;  // 상태머신의 소유주
-	private State<T> currentState;  // 현재 상태
-	private State<T> globalState;   // 전역 상태
+	private T ownEntity;  
+	private State<T> currentState;  
+	private State<T> globalState;   
 
 	public void Setup(T own, State<T> state)
     {
@@ -19,12 +19,9 @@ public class StateMachine<T> where T : BaseEntity
 	public void Execute()
     {
 		if (globalState != null)
-        {
 			globalState.Execute(ownEntity);
-			return;
-        }
 		if (currentState != null)
-			currentState.Execute(ownEntity);
+			currentState.Execute(ownEntity);	
     }
 	public void ChangeState(State<T> newState)
 	{
