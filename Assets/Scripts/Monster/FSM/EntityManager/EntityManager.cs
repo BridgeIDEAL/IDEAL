@@ -6,7 +6,7 @@ public class EntityManager : MonoBehaviour
 {
     #region Variable
     [Header("Developer Variable")]
-    [SerializeField] private GameObject player;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private List<BaseEntity> defaultEntityList = new List<BaseEntity>(); // Already Spawn
     [SerializeField] private List<BaseEntity> spawnEntityList = new List<BaseEntity>(); // After Spawn
     [SerializeField] private GameObject defaultEntityParent; // DefaultEntityParentTransfrom
@@ -17,14 +17,17 @@ public class EntityManager : MonoBehaviour
     #endregion
 
     #region UnityLifeCycle
-    /// <summary>
-    /// Load By GameManager
-    /// </summary>
+    private void Awake()
+    {
+        SetUp();
+    }
+
     public void SetUp()
     {
         // Fill Dictionary & SetUp
-        GameManager gameManager = IdealSceneManager.Instance.CurrentGameManager;
-        player = gameManager.ValueHub.player;
+        //GameManager gameManager = IdealSceneManager.Instance.CurrentGameManager;
+        //if(player==null)
+        //    player = gameManager.ValueHub.player;
         defaultEntityListCount = defaultEntityList.Count;
         spawnEnitityListCount = spawnEntityList.Count;
         for (int idx = 0; idx < defaultEntityListCount; idx++)
@@ -35,7 +38,7 @@ public class EntityManager : MonoBehaviour
                 DespawnEntity(defaultEntityList[idx].name);
                 continue;
             }
-            defaultEntityList[idx].Setup(player);
+            defaultEntityList[idx].Setup(playerTransform);
         }
         for (int idx = 0; idx < spawnEnitityListCount; idx++)
         {
@@ -44,21 +47,23 @@ public class EntityManager : MonoBehaviour
                 SpawnEntity(defaultEntityList[idx].name);
         }
         // Clear Action
-        gameManager.EntityEM.SearchEntity = null;
-        gameManager.EntityEM.SpawnEntity = null;
-        gameManager.EntityEM.DespawnEntity = null;
-        gameManager.EntityEM.BroadCastCalmDown = null;
-        gameManager.EntityEM.BroadCastStartConversation = null;
-        gameManager.EntityEM.BroadCastEndConversation = null;
-        gameManager.EntityEM.BroadCastChase = null;
+        //gameManager.EntityEM.SearchEntity = null;
+        //gameManager.EntityEM.SpawnEntity = null;
+        //gameManager.EntityEM.DespawnEntity = null;
+        //gameManager.EntityEM.BroadCastCalmDown = null;
+        //gameManager.EntityEM.BroadCastStartConversation = null;
+        //gameManager.EntityEM.BroadCastEndConversation = null;
+        //gameManager.EntityEM.BroadCastChase = null;
+        //gameManager.EntityEM.BroadCastPenalty = null;
         // Fill Action
-        gameManager.EntityEM.SearchEntity += SearchEntity;
-        gameManager.EntityEM.SpawnEntity += SpawnEntity;
-        gameManager.EntityEM.DespawnEntity += DespawnEntity;
-        gameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
-        gameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
-        gameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
-        gameManager.EntityEM.BroadCastChase += SendChaseMessage;
+        //gameManager.EntityEM.SearchEntity += SearchEntity;
+        //gameManager.EntityEM.SpawnEntity += SpawnEntity;
+        //gameManager.EntityEM.DespawnEntity += DespawnEntity;
+        //gameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
+        //gameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
+        //gameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
+        //gameManager.EntityEM.BroadCastChase += SendChaseMessage;
+        //gameManager.EntityEM.BroadCastPenalty += SendPenaltyMesage;
     }
     public void Update()
     {
@@ -81,7 +86,7 @@ public class EntityManager : MonoBehaviour
         if (spawnEntity == null)
             return;
         spawnEntity.gameObject.SetActive(true);
-        spawnEntity.Setup(player);
+        spawnEntity.Setup(playerTransform);
         defaultEntityList.Add(spawnEntity);
         defaultEntityListCount = defaultEntityList.Count;
         spawnEntity.gameObject.transform.parent = defaultEntityParent.transform;
@@ -108,20 +113,33 @@ public class EntityManager : MonoBehaviour
             defaultEntityList[idx].BeCalmDown();
         }
     }
-    public void SendSilentMessage(string _nonSilentObjectName)
+    public void SendSilentMessage(string _nonSilentObjectName, EntityEventStateType _entityEventStateType)
     {
         int count = defaultEntityList.Count;
         for (int idx = 0; idx < count; idx++)
         {
             if (defaultEntityList[idx].name == _nonSilentObjectName)
+            {
+                switch (_entityEventStateType)
+                {
+                    case EntityEventStateType.StartConversation:
+                        defaultEntityList[idx].StartConversation();
+                        break;
+                    case EntityEventStateType.BeChasing:
+                        defaultEntityList[idx].BeChasing();
+                        break;
+                    case EntityEventStateType.BePenalty:
+                        defaultEntityList[idx].BePenalty();
+                        break;
+                }
                 continue;
-            else
-                defaultEntityList[idx].BeSilent();
+            }
+            defaultEntityList[idx].BeSilent();
         }
     }
     public void SendStartConversationMessage(string _name)
     {
-        SendSilentMessage(_name);
+        SendSilentMessage(_name,EntityEventStateType.StartConversation);
     }
     public void SendEndConversationMessage(string _name)
     {
@@ -132,7 +150,11 @@ public class EntityManager : MonoBehaviour
     public void SendChaseMessage(string _name)
     {
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChaseDown = true;
-        SendSilentMessage(_name);
+        SendSilentMessage(_name, EntityEventStateType.BeChasing);
+    }
+    public void SendPenaltyMesage(string _name)
+    {
+        SendSilentMessage(_name, EntityEventStateType.BePenalty);
     }
     #endregion
 }

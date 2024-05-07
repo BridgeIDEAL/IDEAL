@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     #endregion
     private void Awake()
     {
-        //entityM.SetUp();
+        //
     }
 
     public void Init(){
@@ -55,13 +55,14 @@ public class GameManager : MonoBehaviour
     }
 
     private void InitScripts(){
-        Data.Init();
+        //Data.Init();
         // UIManager는 inventory보다 앞서야 오류가 발생하지 않음
         uIManager.Init();
         interactionManager.Init(); 
         interactionDetect.Init();
         equipmentManager.Init();
-        conversationManager.Init();
+        conversationManager.Init(); 
+        //entityM.SetUp();
     }
 
 

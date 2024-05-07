@@ -5,25 +5,33 @@ using UnityEngine.AI;
 
 public class ChaseEntity : BaseEntity
 {
-    #region Variable
+    #region ChaseEntity Common Variable
+    [Header("ChaseEntity Common Variable")]
     [SerializeField] protected Animator anim;
     [SerializeField] protected NavMeshAgent nav;
-    [SerializeField] protected Transform eyeTransform; // 눈 위치
-    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
+    [SerializeField] protected Transform eyeTransform; // Detect Transform => Y : 1.5~2f 
     [SerializeField] protected ScriptableChaseEntity entityData;
-    [SerializeField] protected bool isChasePlayer = false;
+    // Player Variable
+    protected LayerMask playerLayer = 3;
+    protected Transform playerTransform;
+    protected bool isChasePlayer = false;
     public bool IsChasePlayer
     {
-        get
-        {
-            return isChasePlayer;
-        }
         set
         {
             isChasePlayer = value;
+            //if (isChasePlayer)
+            //{
+
+            //}
+            //else
+            //{
+
+            //}
         }
     }
-    // 내장된 스크립트
+    // State Variable
+    protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
     protected State<ChaseEntity>[] states = new State<ChaseEntity>[5];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
@@ -51,9 +59,12 @@ public class ChaseEntity : BaseEntity
     #endregion
 
     #region InitSetting
-    public override void Setup(GameObject _player)
+    public override void Setup(Transform _playerTransform)
     {
-        base.Setup(_player);
+        base.Setup(_playerTransform);
+        if (playerTransform != null)
+            return;
+        playerTransform = _playerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
         if (nav == null)
@@ -65,13 +76,18 @@ public class ChaseEntity : BaseEntity
         states[(int)ChaseEntityStates.Chase] = new ChaseEntitySpace.ChaseState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
-
+    public override bool IsSpawn() { return entityData.isSpawn; }
     public override void UpdateExecute() { stateMachine.Execute(); }
     public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); }
     public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
     public override void BeCalmDown() { ChangeState(ChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(ChaseEntityStates.Quiet); }
-    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase) ; }
+    /// <summary>
+    /// (Have) Aggressive Animation => Act Animation => Chase 
+    /// (Do not Have) Aggressive Animation => Immediately Chase
+    /// </summary>
+    public override void BeChasing() { StateAnimation(ChaseEntityStates.Extra, true); }
+    public override void BePenalty() { ChangeState(ChaseEntityStates.Penalty); }
     public void ChangeState(ChaseEntityStates _newState)
     {
         currentState = _newState;
@@ -79,32 +95,22 @@ public class ChaseEntity : BaseEntity
     }
     #endregion
 
-    #region Method
-   
-    public void MoveTo(Vector3 _destination, float _speed=0.5f)
+    #region Chase Method
+    public virtual void ChasePlayer()
     {
-        nav.SetDestination(_destination);
-        Vector3 direction = (eyeTransform.position - _destination).normalized;
-        bool isFaceDirection = Vector3.Dot(direction, transform.forward) > 0.5f;
-        anim.SetFloat("Speed", (isFaceDirection) ? _speed : 0f);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), 180 * Time.deltaTime);
-    }
-
-    public void ChasePlayer()
-    {
-        if (player == null)
+        if (playerTransform == null)
             return;
-        MoveTo(player.transform.position);
+        nav.SetDestination(playerTransform.position);
     }
     #endregion
 
     #region Animation
     /// <summary>
-    /// true이면 시작, false이면 종료
+    /// Enter : True / Exit : False
     /// </summary>
     /// <param name="_entityState"></param>
     /// <param name="_setBool"></param>
-    public virtual void StateAnimation(ChaseEntityStates _entityState, bool _setBool) 
+    public virtual void StateAnimation(ChaseEntityStates _entityState, bool _setBool)
     {
         switch (_entityState)
         {
@@ -122,6 +128,9 @@ public class ChaseEntity : BaseEntity
                 break;
             case ChaseEntityStates.Chase:
                 anim.SetBool("Chase", _setBool);
+                break;
+            case ChaseEntityStates.Extra:
+                anim.SetBool("Aggressive", true);
                 break;
             default:
                 break;

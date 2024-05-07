@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EntityEventManager
 {
+    public string chaseEntityName { get; set; }
     private bool isChaseDown = false;
     public bool IsChaseDown
     {
@@ -26,4 +27,5 @@ public class EntityEventManager
     public Action<string> BroadCastStartConversation;
     public Action<string> BroadCastEndConversation;
     public Action<string> BroadCastChase;
+    public Action<string> BroadCastPenalty;
 }

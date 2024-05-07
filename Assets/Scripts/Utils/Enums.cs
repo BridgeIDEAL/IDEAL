@@ -1,5 +1,8 @@
 public class Enums { }
 
+/// <summary>
+/// Use ChaseEntity StateMachine
+/// </summary>
 public enum ChaseEntityStates
 {
     Idle,
@@ -9,6 +12,9 @@ public enum ChaseEntityStates
     Chase,
     Extra
 }
+/// <summary>
+/// Use NonChaseEntity StateMachine
+/// </summary>
 public enum NonChaseEntityStates
 {
     Idle,
@@ -16,6 +22,19 @@ public enum NonChaseEntityStates
     Quiet,
     Penalty,
     Extra
+}
+
+/// <summary>
+/// Use EntityEventManager & EntityManager
+/// </summary>
+public enum EntityEventStateType
+{
+    StartConversation,
+    EndConversation,
+    BeCalmDown,
+    BeSilent,
+    BeChasing,
+    BePenalty
 }
 
 public enum SoundType

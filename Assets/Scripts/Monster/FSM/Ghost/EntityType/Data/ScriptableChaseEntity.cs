@@ -5,5 +5,4 @@ public class ScriptableChaseEntity : ScriptableEntity
 {
     public float ratioChaseSpeed;
     public float sightDetectDistance;
-    public float soundDetectDistance;
 }

@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class NonChaseEntity : BaseEntity
 {
-    #region Variable
-    [SerializeField] private Animator anim;
-    [SerializeField] private NonChaseEntityStates currentState = NonChaseEntityStates.Idle;
+    #region NonChaseEntity Common Variable
+    [Header("NonChaseEntity Common Variable")]
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected Transform eyeTransform; // Detect Transform
+    [SerializeField] protected ScriptableNonChaseEntity entityData;
+    // Player Variable
+    protected LayerMask playerLayer = 3;
+    protected Transform playerTransform;
+    // State Variable
+    protected NonChaseEntityStates currentState = NonChaseEntityStates.Idle;
     protected State<NonChaseEntity>[] states = new State<NonChaseEntity>[4];
     protected StateMachine<NonChaseEntity> stateMachine = new StateMachine<NonChaseEntity>();
     #endregion
 
     #region Init Setting
-    public override void Setup(GameObject _player)
+    public override void Setup(Transform _playerTransform)
     {
-        base.Setup(_player);
+        base.Setup(_playerTransform);
+        if (playerTransform != null)
+            return;
+        playerTransform = _playerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
         states[(int)NonChaseEntityStates.Idle] = new NonChaseEntitySpace.IdleState();
@@ -50,6 +60,7 @@ public class NonChaseEntity : BaseEntity
     public override void EndConversation() { ChangeState(NonChaseEntityStates.Idle); }
     public override void BeCalmDown() { ChangeState(NonChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(NonChaseEntityStates.Quiet); }
+    public override void BePenalty() { ChangeState(NonChaseEntityStates.Penalty); }
     #endregion
 
     #region Method

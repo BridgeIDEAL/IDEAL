@@ -7,27 +7,25 @@ public abstract class BaseEntity : MonoBehaviour
 {
     
     #region Variable
-    protected GameObject player;
+ 
     #endregion
 
     #region Init Setting
-    public virtual void Setup(GameObject _player)
+    public virtual void Setup(Transform _playerTransform)
     {
-        if (player != null)
-            return;
-        player = _player;
-        InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
-        if (interactionConversation != null)
-        {
-            interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-            interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        }
-        else
-        {
-            InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
-            interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-            interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        }
+      
+        //InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
+        //if (interactionConversation != null)
+        //{
+        //    interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+        //    interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        //}
+        //else
+        //{
+        //    InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
+        //    interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+        //    interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        //}
         AdditionalSetup();
     }
     public virtual void AdditionalSetup() { }
@@ -40,9 +38,11 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void BeCalmDown();
     public abstract void BeSilent();
     public virtual void BeChasing() { }
+    public virtual void BePenalty() { }
     #endregion
 
-    #region Virtual Method
+    #region Get Bool Method (Virtual)
     public virtual bool IsSpawn() { return true; }
+    public virtual void IsInRoom(bool _isInRoom) { return; }
     #endregion
 }

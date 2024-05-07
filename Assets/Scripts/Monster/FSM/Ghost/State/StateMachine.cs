@@ -21,7 +21,7 @@ public class StateMachine<T> where T : BaseEntity
 		if (globalState != null)
 			globalState.Execute(ownEntity);
 		if (currentState != null)
-			currentState.Execute(ownEntity);
+			currentState.Execute(ownEntity);	
     }
 	public void ChangeState(State<T> newState)
 	{

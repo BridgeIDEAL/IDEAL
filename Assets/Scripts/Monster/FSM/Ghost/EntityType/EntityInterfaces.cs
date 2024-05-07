@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityInterfaces { }
 
 public interface IPatrol{
-    public void StartPatrol();
+    public void Patrol();
+    public void SeekNextRoute();
     public void StopPatrol();
 }
