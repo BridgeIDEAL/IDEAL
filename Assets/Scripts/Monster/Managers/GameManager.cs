@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
         uIManager.Init();
         interactionManager.Init(); 
         interactionDetect.Init();
-        equipmentManager.Init();
         conversationManager.Init(); 
         //entityM.SetUp();
     }
