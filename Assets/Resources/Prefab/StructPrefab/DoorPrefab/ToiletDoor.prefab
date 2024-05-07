@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2027905504389271479}
   - component: {fileID: 7080378189397600033}
   - component: {fileID: 2679748926685414693}
+  - component: {fileID: 3464776117474968849}
   m_Layer: 0
   m_Name: restroomdoor_mobile_GEO
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3464776117474968849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684261711431233783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33677828, y: 0.6984572, z: 0.059793368}
+  m_Center: {x: -0.17291532, y: 0, z: 0}
 --- !u!1 &2982839629872978103
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +108,7 @@ GameObject:
   - component: {fileID: 563732220351944191}
   - component: {fileID: 5089643797022684792}
   - component: {fileID: 7699247013042734204}
+  - component: {fileID: 6626335595059877851}
   m_Layer: 0
   m_Name: restroomdoor_static_GEO
   m_TagString: Untagged
@@ -166,6 +181,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6626335595059877851
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2982839629872978103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5340987081058743258, guid: b9f5f50761a2721448b71ce948f8306e, type: 3}
 --- !u!1 &3979690006487006379
 GameObject:
   m_ObjectHideFlags: 0
