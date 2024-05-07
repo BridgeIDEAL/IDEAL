@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 303350297078941958}
   - component: {fileID: 2351787220806625675}
   - component: {fileID: 6638843915446776344}
+  - component: {fileID: 739454227762237618}
   m_Layer: 0
   m_Name: frontdoor_frame_GEO
   m_TagString: Untagged
@@ -151,6 +152,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &739454227762237618
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959522850651202471}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5018958769443244174, guid: a7000d2feb3861c47aafd726883ed274, type: 3}
 --- !u!1 &4860248874109389189
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +177,7 @@ GameObject:
   - component: {fileID: 5563378352997674041}
   - component: {fileID: 4914483526836950862}
   - component: {fileID: 629931500106756824}
+  - component: {fileID: 3433531018260666301}
   m_Layer: 0
   m_Name: frontdoor_L_GEO
   m_TagString: Untagged
@@ -235,6 +251,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3433531018260666301
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4860248874109389189}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39617628, y: 0.77048606, z: 0.04624205}
+  m_Center: {x: -0.19808814, y: 0, z: 0}
 --- !u!1 &7332657177019135577
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +306,7 @@ GameObject:
   - component: {fileID: 3679634291378383853}
   - component: {fileID: 8057449202675462255}
   - component: {fileID: 6492345284694838761}
+  - component: {fileID: 7956188258686319150}
   m_Layer: 0
   m_Name: frontdoor_R_GEO
   m_TagString: Untagged
@@ -350,3 +380,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7956188258686319150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8049524672377613485}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39617628, y: 0.77048606, z: 0.04624205}
+  m_Center: {x: 0.19808814, y: 0, z: 0}
