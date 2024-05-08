@@ -9,6 +9,7 @@ public class ScriptHub : MonoBehaviour
 {
     [Header("Camera Property")]
     public Camera playerCamera;
+    public GameObject playerCameraRootObject;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     [Header("Scene Change Object")]
     public GameObject uICanvasObject;
@@ -18,6 +19,7 @@ public class ScriptHub : MonoBehaviour
     [Space(5)]
     [Header("FPC Property")]
     // public FirstPersonController firstPersonController;
+    public GameObject playerArmatureObject;
     public ThirdPersonController thirdPersonController;
     public TempEffectSound playerEffectSound;
     public AmbienceSoundManager ambienceSoundManager;
@@ -38,7 +40,6 @@ public class ScriptHub : MonoBehaviour
     [Header("Scripts")]
     public InteractionManager interactionManager;
     public InteractionDetect interactionDetect;
-    public EquipmentManager equipmentManager;
     public ConversationManager conversationManager;
     public DialogueRunner dialogueRunner;
     

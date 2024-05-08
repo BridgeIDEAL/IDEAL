@@ -12,7 +12,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private ScriptHub scriptHub; 
+    public ScriptHub scriptHub; 
     private UIEquipment uIEquipment;
     private Item leftHandItem = null;
     private bool leftHandActive = true;
@@ -26,7 +26,6 @@ public class EquipmentManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
-        uIEquipment = scriptHub.uIEquipment;
     }
     
     public void EquipItem(bool isLeft, Item item){
@@ -88,6 +87,18 @@ public class EquipmentManager : MonoBehaviour
         }
 
         RemoveEquipedItem(isLeft);
+    }
+
+    public void EnterAnotherSceneInit(bool isLobby){
+        if(isLobby){
+            leftHandItem = null;
+            leftHandActive = true;
+            rightHandItem = null;
+            rightHandActive = true;
+        }
+        else{
+            uIEquipment = scriptHub.uIEquipment;
+        }
     }
 
 

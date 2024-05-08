@@ -864,6 +864,7 @@ GameObject:
   - component: {fileID: 426624390}
   - component: {fileID: 426624391}
   - component: {fileID: 426624392}
+  - component: {fileID: 426624393}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -894,6 +895,7 @@ MonoBehaviour:
   healthPointManager: {fileID: 426624387}
   mentalPointManager: {fileID: 426624390}
   inventory: {fileID: 426624386}
+  equipmentManager: {fileID: 426624393}
   lobbyBGMBox: {fileID: 426624392}
 --- !u!4 &426624385
 Transform:
@@ -1085,6 +1087,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &426624393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426624383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56900832ecd9b544aa06e6b0d38118f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptHub: {fileID: 0}
 --- !u!1 &432244384
 GameObject:
   m_ObjectHideFlags: 0

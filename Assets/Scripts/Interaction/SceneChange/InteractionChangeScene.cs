@@ -8,6 +8,8 @@ public class InteractionChangeScene : AbstractInteraction
     [SerializeField] private AudioClip lockDoorAudio;
     
     [SerializeField] GameObject doorObject;
+    [SerializeField] private Vector3 destPosition;
+    [SerializeField] private Vector3 destRotation;
     [SerializeField] private string currentSceneName;
     [SerializeField] private string destSceneName;
     [SerializeField] private string detectedStr;
@@ -25,7 +27,7 @@ public class InteractionChangeScene : AbstractInteraction
             audioSource.clip = unlockDoorAudio;
             audioSource.Play();
         }
-        IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName);
+        IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName, destPosition, destRotation);
         if(successInteractionStr != ""){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
         }
