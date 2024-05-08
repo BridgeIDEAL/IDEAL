@@ -7,14 +7,6 @@ using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
-    private static GameOverManager instance = null;
-    public static GameOverManager Instance{
-        get{
-            if(instance == null) return null;
-            return instance;
-        }
-    }
-
     [SerializeField] private ScriptHub scriptHub;
     private ThirdPersonController thirdPersonController;
     [SerializeField] private GameObject backgroundObject;
@@ -27,12 +19,6 @@ public class GameOverManager : MonoBehaviour
     
 
     private void Awake(){
-        if(instance == null){
-            instance = this;
-        }
-        else{
-            Destroy(this.gameObject);
-        }
         backgroundObject.SetActive(false);
         endingMentObject.SetActive(false);
         endingMentText = endingMentObject.GetComponent<TextMeshProUGUI>();

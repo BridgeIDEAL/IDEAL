@@ -8,6 +8,7 @@ public class UIIngame : MonoBehaviour
 {
     [SerializeField] private Image visualFilter;
     [SerializeField] private Image visualFilter_Red;
+    [SerializeField] private Image visualFilter_Green;
     [SerializeField] private Image fadeFilter;
     private float hurtEffectTime = 1.0f;
     private float hurtEffectAlpha = 0.27058f;
@@ -19,6 +20,12 @@ public class UIIngame : MonoBehaviour
         Color color = visualFilter.color;
         color.a = ratio;
         visualFilter.color = color;
+    }
+
+    public void SetGreenVisualFilter(float ratio){
+        Color color = visualFilter_Green.color;
+        color.a = ratio;
+        visualFilter_Green.color = color;
     }
 
     public void HurtEffect(){
