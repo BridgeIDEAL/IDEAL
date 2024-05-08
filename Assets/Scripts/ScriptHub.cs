@@ -42,6 +42,10 @@ public class ScriptHub : MonoBehaviour
     public InteractionDetect interactionDetect;
     public ConversationManager conversationManager;
     public DialogueRunner dialogueRunner;
+
+    public EyePenaltyManager eyePenaltyManager;
+
+    public GameOverManager gameOverManager;
     
 
 }

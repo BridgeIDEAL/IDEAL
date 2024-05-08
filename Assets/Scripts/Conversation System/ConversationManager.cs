@@ -119,7 +119,7 @@ public class ConversationManager : MonoBehaviour
         if(guideLogID > -1){
             GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
         }
-        GameOverManager.Instance.GameOver(str);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(str);
     }
 
     public void AddGuideLog(int guideLogID = -1){
@@ -131,7 +131,7 @@ public class ConversationManager : MonoBehaviour
     
     public void GameOver_Out(){
         int attempts = CountAttempts.Instance.GetAttemptCount();
-        GameOverManager.Instance.GameOver($"{attempts}번 실종자는 수색 중 학교 옥상에서 발견, 구출 성공");
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver($"{attempts}번 실종자는 수색 중 학교 옥상에서 발견, 구출 성공");
     }
 
 
