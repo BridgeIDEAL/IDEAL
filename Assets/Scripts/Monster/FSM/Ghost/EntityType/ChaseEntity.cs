@@ -86,7 +86,7 @@ public class ChaseEntity : BaseEntity
     /// (Have) Aggressive Animation => Act Animation => Chase 
     /// (Do not Have) Aggressive Animation => Immediately Chase
     /// </summary>
-    public override void BeChasing() { StateAnimation(ChaseEntityStates.Extra, true); }
+    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase); }
     public override void BePenalty() { ChangeState(ChaseEntityStates.Penalty); }
     public void ChangeState(ChaseEntityStates _newState)
     {

@@ -59,14 +59,13 @@ public class GameManager : MonoBehaviour
         interactionManager.Init(); 
         interactionDetect.Init();
         conversationManager.Init(); 
-        //entityM.SetUp();
+        entityM.SetUp();
     }
 
 
     private void Update()
     {
         if(canUpdate){
-            //entityM.GameUpdate();
             interactionDetect.GameUpdate();
             uIManager.GameUpdate();
             uIEquipment.GameUpdate();

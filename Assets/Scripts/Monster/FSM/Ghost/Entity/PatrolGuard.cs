@@ -35,12 +35,12 @@ public class PatrolGuard : ChaseEntity, IPatrol
     public override void TalkEnter() { StopPatrol(); StateAnimation(currentState, true); }
     public override void TalkExecute() { }
     public override void TalkExit() { StateAnimation(currentState, false); }
-    public override void QuietEnter() { StateAnimation(currentState, true); }
-    public override void QuietExecute() { }
+    public override void QuietEnter() { StateAnimation(currentState, true); SeekNextRoute(); }
+    public override void QuietExecute() { Patrol(); }
     public override void QuietExit() { StateAnimation(currentState, false); }
-    public override void PenaltyEnter() { }
+    public override void PenaltyEnter() { StopPatrol(); StateAnimation(currentState, true); }
     public override void PenaltyExecute() { }
-    public override void PenaltyExit() { }
+    public override void PenaltyExit() { StateAnimation(currentState, false); }
     public override void ChaseEnter() { }
     public override void ChaseExecute() { }
     public override void ChaseExit() { }
@@ -70,7 +70,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     {
         currentPatrolPoint = (currentPatrolPoint + 1) % maxPatrolPoint;
         nav.SetDestination(patrolPoints[currentPatrolPoint]);
-        anim.SetFloat("Speed", 0.5f);
+        anim.SetFloat("WALKVAL", 0.5f);
     }
 
     public void StopPatrol()
@@ -91,9 +91,8 @@ public class PatrolGuard : ChaseEntity, IPatrol
     }
     public void TeleportGuardRoom()
     {
-        //IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
-        ChangeState(ChaseEntityStates.Penalty); // 연결되면 위에꺼를 쓰고 현재꺼는 삭제
-        anim.SetFloat("Speed", 0f);
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
+        anim.SetFloat("WALKVAL", 0f);
         nav.enabled = false;
         transform.position = guardRoomEntrance;
         transform.rotation = Quaternion.Euler(guardRoomToward);
@@ -115,19 +114,19 @@ public class PatrolGuard : ChaseEntity, IPatrol
         switch (_entityState)
         {
             case ChaseEntityStates.Idle:
-                anim.SetBool("Move", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             case ChaseEntityStates.Talk:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case ChaseEntityStates.Quiet:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             case ChaseEntityStates.Penalty:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case ChaseEntityStates.Chase:
-                anim.SetBool("Move", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             default:
                 break;

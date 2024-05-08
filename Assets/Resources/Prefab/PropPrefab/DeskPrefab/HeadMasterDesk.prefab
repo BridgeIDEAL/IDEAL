@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6180398665489128204}
   - component: {fileID: 5307046798580501349}
   - component: {fileID: 7849820440075302460}
-  - component: {fileID: 4739071854063223818}
+  - component: {fileID: 8551483097196649048}
   m_Layer: 0
   m_Name: Hdesk_GEO
   m_TagString: Untagged
@@ -52,7 +52,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4739071854063223818
-MeshCollider:
+--- !u!65 &8551483097196649048
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,10 +94,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4680527514559115461, guid: 2eb53e0082e79cb4db4c8273e20e0060, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.5018041, y: 0.54634273, z: 0.7726621}
+  m_Center: {x: 0, y: 0.000000014901161, z: 0.0037243366}
 --- !u!1 &3285705737501057519
 GameObject:
   m_ObjectHideFlags: 0

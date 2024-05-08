@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class GuardRoomTrigger : MonoBehaviour
 {
-    [SerializeField] PatrolGuard pg;
+    [SerializeField] PatrolGuard patrolGuard;
+
+    private void Awake()
+    {
+        if (!patrolGuard.IsSpawn())
+            this.gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity("Guard").IsInRoom(true);
-            pg.IsInRoom(true);
+            patrolGuard.IsInRoom(true);
         }
     }
 
@@ -18,7 +25,7 @@ public class GuardRoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pg.IsInRoom(false);
+            patrolGuard.IsInRoom(false);
             //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity("Guard").IsInRoom(false);
         }
     }

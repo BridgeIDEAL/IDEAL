@@ -36,18 +36,18 @@ public class NonChaseEntity : BaseEntity
     #endregion
 
     #region BehaviourState
-    public virtual void IdleEnter() { }
+    public virtual void IdleEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void IdleExecute() { }
-    public virtual void IdleExit() { }
-    public virtual void TalkEnter() { }
+    public virtual void IdleExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
+    public virtual void TalkEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { }
-    public virtual void QuietEnter() { }
+    public virtual void TalkExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
+    public virtual void QuietEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void QuietExecute() { }
-    public virtual void QuietExit() { }
-    public virtual void PenaltyEnter() { }
+    public virtual void QuietExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
+    public virtual void PenaltyEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void PenaltyExecute() { }
-    public virtual void PenaltyExit() { }
+    public virtual void PenaltyExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
     public virtual void ExtraEnter() { }
     public virtual void ExtraExecute() { }
     public virtual void ExtraExit() { }
@@ -82,16 +82,16 @@ public class NonChaseEntity : BaseEntity
         switch (_entityState)
         {
             case NonChaseEntityStates.Idle:
-                anim.SetBool("Idle", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Talk:
-                anim.SetBool("Talk", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Quiet:
-                anim.SetBool("Quiet", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Penalty:
-                anim.SetBool("Penalty", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             default:
                 break;

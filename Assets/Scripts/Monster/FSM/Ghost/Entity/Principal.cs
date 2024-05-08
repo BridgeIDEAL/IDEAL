@@ -70,7 +70,7 @@ public class Principal : ChaseEntity, IPatrol
     {
         currentPatrolPoint = (currentPatrolPoint + 1) % maxPatrolPoint;
         nav.SetDestination(patrolPoints[currentPatrolPoint]);
-        anim.SetFloat("Speed", 0.5f);
+        anim.SetFloat("WALKVAL", 0.5f);
     }
 
     public void StopPatrol()
@@ -93,7 +93,7 @@ public class Principal : ChaseEntity, IPatrol
             RaycastHit rayHit;
             if (Physics.Raycast(eyeTransform.position, direction, out rayHit, sightDetectDistance, playerLayer))
             {
-                ChangeState(ChaseEntityStates.Chase);
+                IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase(this.name);
             }
         }
     }
@@ -101,7 +101,7 @@ public class Principal : ChaseEntity, IPatrol
     {
         if (collision.collider.CompareTag("Player") && isChasePlayer)
         {
-            //IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
+            IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
             IsChasePlayer = false;
             ChangeState(ChaseEntityStates.Idle);
             StartCoroutine(CoolDownTimer());
@@ -116,14 +116,14 @@ public class Principal : ChaseEntity, IPatrol
     }
     public override void ChasePlayer()
     {
-        if(isInRoom)
+        if (isInRoom)
         {
-            anim.SetFloat("Speed", 0f);
+            anim.SetFloat("WALKVAL", 0f);
             nav.ResetPath();
         }
         else
         {
-            anim.SetFloat("Speed", 0.5f);
+            anim.SetFloat("WALKVAL", 0.5f);
             base.ChasePlayer();
         }
     }
@@ -135,19 +135,19 @@ public class Principal : ChaseEntity, IPatrol
         switch (_entityState)
         {
             case ChaseEntityStates.Idle:
-                anim.SetBool("Move", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             case ChaseEntityStates.Talk:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case ChaseEntityStates.Quiet:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             case ChaseEntityStates.Penalty:
-                anim.SetBool("Stand", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case ChaseEntityStates.Chase:
-                anim.SetBool("Move", _setBool);
+                anim.SetBool("WALK", _setBool);
                 break;
             default:
                 break;

@@ -17,17 +17,11 @@ public class EntityManager : MonoBehaviour
     #endregion
 
     #region UnityLifeCycle
-    private void Awake()
-    {
-        SetUp();
-    }
 
     public void SetUp()
     {
         // Fill Dictionary & SetUp
         //GameManager gameManager = IdealSceneManager.Instance.CurrentGameManager;
-        //if(player==null)
-        //    player = gameManager.ValueHub.player;
         defaultEntityListCount = defaultEntityList.Count;
         spawnEnitityListCount = spawnEntityList.Count;
         for (int idx = 0; idx < defaultEntityListCount; idx++)
@@ -46,31 +40,32 @@ public class EntityManager : MonoBehaviour
             if (defaultEntityList[idx].IsSpawn())
                 SpawnEntity(defaultEntityList[idx].name);
         }
-        // Clear Action
-        //gameManager.EntityEM.SearchEntity = null;
-        //gameManager.EntityEM.SpawnEntity = null;
-        //gameManager.EntityEM.DespawnEntity = null;
-        //gameManager.EntityEM.BroadCastCalmDown = null;
-        //gameManager.EntityEM.BroadCastStartConversation = null;
-        //gameManager.EntityEM.BroadCastEndConversation = null;
-        //gameManager.EntityEM.BroadCastChase = null;
-        //gameManager.EntityEM.BroadCastPenalty = null;
-        // Fill Action
-        //gameManager.EntityEM.SearchEntity += SearchEntity;
-        //gameManager.EntityEM.SpawnEntity += SpawnEntity;
-        //gameManager.EntityEM.DespawnEntity += DespawnEntity;
-        //gameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
-        //gameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
-        //gameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
-        //gameManager.EntityEM.BroadCastChase += SendChaseMessage;
-        //gameManager.EntityEM.BroadCastPenalty += SendPenaltyMesage;
+
+        //Clear Action
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty = null;
+        //Fill Action
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity += SearchEntity;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity += SpawnEntity;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity += DespawnEntity;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase += SendChaseMessage;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty += SendPenaltyMesage;
     }
     public void Update()
     {
         for (int i = 0; i < defaultEntityListCount; i++) { defaultEntityList[i].UpdateExecute(); }
     }
     #endregion
-    
+
     #region Spawn & Search Method
     public BaseEntity SearchEntity(string _name)
     {
@@ -139,7 +134,7 @@ public class EntityManager : MonoBehaviour
     }
     public void SendStartConversationMessage(string _name)
     {
-        SendSilentMessage(_name,EntityEventStateType.StartConversation);
+        SendSilentMessage(_name, EntityEventStateType.StartConversation);
     }
     public void SendEndConversationMessage(string _name)
     {
