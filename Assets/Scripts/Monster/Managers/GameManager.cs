@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         conversationManager.Init();
         if (entityM == null)
             return;
-        entityM.SetUp();
+        entityM.Init();
     }
 
 

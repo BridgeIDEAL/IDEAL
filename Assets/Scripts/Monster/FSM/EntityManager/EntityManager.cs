@@ -7,44 +7,39 @@ public class EntityManager : MonoBehaviour
     #region Variable
     [Header("Developer Variable")]
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private List<BaseEntity> defaultEntityList = new List<BaseEntity>(); // Already Spawn
-    [SerializeField] private List<BaseEntity> spawnEntityList = new List<BaseEntity>(); // After Spawn
-    [SerializeField] private GameObject defaultEntityParent; // DefaultEntityParentTransfrom
-    [SerializeField] private GameObject spawnEntityParent; // SpawnEntityParentTransfrom
+    [SerializeField] private List<BaseEntity> spawnEntityList = new List<BaseEntity>(); // Already Spawn
+    [SerializeField] private List<BaseEntity> deSpawnEntityList = new List<BaseEntity>(); // After Spawn
     private Dictionary<string, BaseEntity> wholeEntityDictionary = new Dictionary<string, BaseEntity>(); // For Use Search 
-    private int defaultEntityListCount = 0;
-    private int spawnEnitityListCount = 0;
+    private int spawnEntityListCount = 0;
+    private int deSpawnEntityListCount = 0;
+    private bool isOnceSetUp = false;
     #endregion
 
     #region UnityLifeCycle
-
-    public void SetUp()
+    public void Init()
     {
         // Fill Dictionary & SetUp
         //GameManager gameManager = IdealSceneManager.Instance.CurrentGameManager;
-        defaultEntityListCount = defaultEntityList.Count;
-        spawnEnitityListCount = spawnEntityList.Count;
-        for (int idx = 0; idx < defaultEntityListCount; idx++)
-        {
-            wholeEntityDictionary.Add(defaultEntityList[idx].name, defaultEntityList[idx]);
-            if (!defaultEntityList[idx].IsSpawn())
-            {
-                DespawnEntity(defaultEntityList[idx].name);
-                continue;
-            }
-            defaultEntityList[idx].Setup(playerTransform);
-        }
-        for (int idx = 0; idx < spawnEnitityListCount; idx++)
+        spawnEntityListCount = spawnEntityList.Count;
+        deSpawnEntityListCount = deSpawnEntityList.Count;
+        for (int idx = 0; idx < spawnEntityListCount; idx++)
         {
             wholeEntityDictionary.Add(spawnEntityList[idx].name, spawnEntityList[idx]);
-            if (defaultEntityList[idx].IsSpawn())
-                SpawnEntity(defaultEntityList[idx].name);
+            spawnEntityList[idx].Setup(playerTransform);
+
+        }
+        for (int idx = 0; idx < deSpawnEntityListCount; idx++)
+        {
+            wholeEntityDictionary.Add(deSpawnEntityList[idx].name, deSpawnEntityList[idx]);
+            deSpawnEntityList[idx].Setup(playerTransform);
+            deSpawnEntityList[idx].gameObject.SetActive(false);
         }
 
         //Clear Action
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity = null;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity = null;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity = null;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SetSpawnState= null;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown = null;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation = null;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation = null;
@@ -54,15 +49,33 @@ public class EntityManager : MonoBehaviour
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity += SearchEntity;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity += SpawnEntity;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity += DespawnEntity;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SetSpawnState += ChangeSpawnStateEntity;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase += SendChaseMessage;
         IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty += SendPenaltyMesage;
+        isOnceSetUp = true;
     }
     public void Update()
     {
-        for (int i = 0; i < defaultEntityListCount; i++) { defaultEntityList[i].UpdateExecute(); }
+        for (int i = 0; i < spawnEntityListCount; i++) { spawnEntityList[i].UpdateExecute(); }
+    }
+    public void OnEnable()
+    {
+        if (isOnceSetUp)
+        {
+            for(int idx =0; idx<spawnEntityListCount; idx++)
+            {
+                if (!spawnEntityList[idx].IsSpawn)
+                    DespawnEntity(spawnEntityList[idx].name);
+            }
+            for(int idx=0; idx< deSpawnEntityListCount; idx++)
+            {
+                if (deSpawnEntityList[idx].IsSpawn)
+                    SpawnEntity(spawnEntityList[idx].name);
+            }
+        }
     }
     #endregion
 
@@ -80,55 +93,59 @@ public class EntityManager : MonoBehaviour
         BaseEntity spawnEntity = SearchEntity(_name);
         if (spawnEntity == null)
             return;
+        spawnEntityList.Add(spawnEntity);
+        deSpawnEntityList.Remove(spawnEntity);
         spawnEntity.gameObject.SetActive(true);
-        spawnEntity.Setup(playerTransform);
-        defaultEntityList.Add(spawnEntity);
-        defaultEntityListCount = defaultEntityList.Count;
-        spawnEntity.gameObject.transform.parent = defaultEntityParent.transform;
+        spawnEntityListCount = spawnEntityList.Count;
     }
     public void DespawnEntity(string _name)
     {
         BaseEntity despawnEntity = SearchEntity(_name);
         if (despawnEntity == null)
             return;
+        spawnEntityList.Remove(despawnEntity);
+        deSpawnEntityList.Add(despawnEntity);
         despawnEntity.gameObject.SetActive(false);
-        defaultEntityList.Remove(despawnEntity);
-        defaultEntityListCount = defaultEntityList.Count;
-        despawnEntity.gameObject.transform.parent = spawnEntityParent.transform;
+        deSpawnEntityListCount = deSpawnEntityList.Count;
+    }
+
+    public void ChangeSpawnStateEntity(string _name)
+    {
+        BaseEntity entity = SearchEntity(_name);
+        bool _isSpawn = entity.IsSpawn;
+        entity.IsSpawn = !_isSpawn;
     }
     #endregion
 
     #region Send Message Method 
     public void SendCalmDownMessage()
     {
-        int count = defaultEntityList.Count;
-        for (int idx = 0; idx < count; idx++)
+        for (int idx = 0; idx < spawnEntityListCount; idx++)
         {
-            defaultEntityList[idx].BeCalmDown();
+            spawnEntityList[idx].BeCalmDown();
         }
     }
     public void SendSilentMessage(string _nonSilentObjectName, EntityEventStateType _entityEventStateType)
     {
-        int count = defaultEntityList.Count;
-        for (int idx = 0; idx < count; idx++)
+        for (int idx = 0; idx < spawnEntityListCount; idx++)
         {
-            if (defaultEntityList[idx].name == _nonSilentObjectName)
+            if (spawnEntityList[idx].name == _nonSilentObjectName)
             {
                 switch (_entityEventStateType)
                 {
                     case EntityEventStateType.StartConversation:
-                        defaultEntityList[idx].StartConversation();
+                        spawnEntityList[idx].StartConversation();
                         break;
                     case EntityEventStateType.BeChasing:
-                        defaultEntityList[idx].BeChasing();
+                        spawnEntityList[idx].BeChasing();
                         break;
                     case EntityEventStateType.BePenalty:
-                        defaultEntityList[idx].BePenalty();
+                        spawnEntityList[idx].BePenalty();
                         break;
                 }
                 continue;
             }
-            defaultEntityList[idx].BeSilent();
+            spawnEntityList[idx].BeSilent();
         }
     }
     public void SendStartConversationMessage(string _name)

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class StudyRoomTrigger : MonoBehaviour
 {
-    [SerializeField] Principal pp;
+    [SerializeField] Principal principal;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity("Principal").IsInRoom(true);
-            pp.IsInRoom(true);
+            principal.IsInRoom(true);
         }
     }
 
@@ -19,7 +19,7 @@ public class StudyRoomTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity("Principal").IsInRoom(false);
-            pp.IsInRoom(false);
+            principal.IsInRoom(false);
         }
     }
 }

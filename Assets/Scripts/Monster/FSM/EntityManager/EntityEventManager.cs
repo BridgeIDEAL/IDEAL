@@ -28,6 +28,7 @@ public class EntityEventManager
     public Func<string, BaseEntity> SearchEntity; // parameter = string, output = BaseEntity
     public Action<string> SpawnEntity;
     public Action<string> DespawnEntity;
+    public Action<string> SetSpawnState;
     // SendMessage All Entity
     public Action BroadCastCalmDown;
     public Action<string> BroadCastStartConversation;

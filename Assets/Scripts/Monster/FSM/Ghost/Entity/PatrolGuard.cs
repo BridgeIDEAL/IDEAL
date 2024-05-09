@@ -101,7 +101,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     {   
         if (collision.collider.CompareTag("Player") && isDeathPenalty)
         {
-            Debug.Log("게임 오버!");
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("경비실에 몰래 들어갔다 잡혀서 맞아 죽었다..");
         }
     }
     #endregion

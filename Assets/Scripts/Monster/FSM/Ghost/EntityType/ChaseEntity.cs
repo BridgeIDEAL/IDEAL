@@ -61,7 +61,6 @@ public class ChaseEntity : BaseEntity
         states[(int)ChaseEntityStates.Chase] = new ChaseEntitySpace.ChaseState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
-    public override bool IsSpawn() { return true; }
     public override void UpdateExecute() { stateMachine.Execute(); }
     public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); }
     public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }

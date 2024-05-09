@@ -8,8 +8,8 @@ public class GuardRoomTrigger : MonoBehaviour
 
     private void Awake()
     {
-        if (!patrolGuard.IsSpawn())
-            this.gameObject.SetActive(false);
+        //if (!patrolGuard.IsSpawn())
+        //    this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -7,7 +7,6 @@ public class NonChaseEntity : BaseEntity
     #region NonChaseEntity Common Variable
     [Header("NonChaseEntity Common Variable")]
     [SerializeField] protected Animator anim;
-    [SerializeField] protected Transform eyeTransform; // Detect Transform
     // Player Variable
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
