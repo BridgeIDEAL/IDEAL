@@ -94,6 +94,7 @@ public class Inventory : MonoBehaviour
             uIInventory = scriptHub.uIInventory;
             playerTempEffectSound = scriptHub.playerEffectSound;
             uIInventory.SetInventoryReference(this);
+            SortAll();  // uIInventory에 Inventory 업데이트
         }
     }
 
