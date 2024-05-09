@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    
+
     #region Variable
- 
+    [Header("Set Name/Dialogue/Spawn Data")]
+    [SerializeField] protected ScriptableEntity entityData;
     #endregion
 
     #region Init Setting
@@ -42,7 +43,7 @@ public abstract class BaseEntity : MonoBehaviour
     #endregion
 
     #region Get Bool Method (Virtual)
-    public virtual bool IsSpawn() { return true; }
+    public virtual bool IsSpawn() { return entityData.currentSpawnState; }
     public virtual void IsInRoom(bool _isInRoom) { return; }
     #endregion
 }

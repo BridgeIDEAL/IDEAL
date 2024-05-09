@@ -101,7 +101,6 @@ public class EntityManager : MonoBehaviour
     #region Send Message Method 
     public void SendCalmDownMessage()
     {
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChaseDown = false;
         int count = defaultEntityList.Count;
         for (int idx = 0; idx < count; idx++)
         {
@@ -138,13 +137,13 @@ public class EntityManager : MonoBehaviour
     }
     public void SendEndConversationMessage(string _name)
     {
-        if (IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChaseDown)
+        if (IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChasePlayer)
             return;
         SendCalmDownMessage();
     }
     public void SendChaseMessage(string _name)
     {
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChaseDown = true;
+        IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChasePlayer = true;
         SendSilentMessage(_name, EntityEventStateType.BeChasing);
     }
     public void SendPenaltyMesage(string _name)

@@ -8,7 +8,6 @@ public class NonChaseEntity : BaseEntity
     [Header("NonChaseEntity Common Variable")]
     [SerializeField] protected Animator anim;
     [SerializeField] protected Transform eyeTransform; // Detect Transform
-    [SerializeField] protected ScriptableNonChaseEntity entityData;
     // Player Variable
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
@@ -39,19 +38,24 @@ public class NonChaseEntity : BaseEntity
     public virtual void IdleEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
-    public virtual void TalkEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
+    public virtual void TalkEnter() { StateAnimation(NonChaseEntityStates.Talk, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
-    public virtual void QuietEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
+    public virtual void TalkExit() { StateAnimation(NonChaseEntityStates.Talk, false); }
+    public virtual void QuietEnter() { StateAnimation(NonChaseEntityStates.Quiet, true); }
     public virtual void QuietExecute() { }
-    public virtual void QuietExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
-    public virtual void PenaltyEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
+    public virtual void QuietExit() { StateAnimation(NonChaseEntityStates.Quiet, false); }
+    public virtual void PenaltyEnter() { StateAnimation(NonChaseEntityStates.Penalty, true); }
     public virtual void PenaltyExecute() { }
-    public virtual void PenaltyExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
+    public virtual void PenaltyExit() { StateAnimation(NonChaseEntityStates.Penalty, false); }
+    #endregion
+
+    #region Empty Method
+    /// <summary>
+    /// 추가로 넣어야 할 행동이 없다면 삭제
+    /// </summary>
     public virtual void ExtraEnter() { }
     public virtual void ExtraExecute() { }
     public virtual void ExtraExit() { }
-
     #endregion
 
     #region Override Behaviour

@@ -8,7 +8,6 @@ public class PatrolGuard : ChaseEntity, IPatrol
     [SerializeField] protected Vector3[] patrolPoints; // 순찰 지점 
     protected int currentPatrolPoint = 0; // 현재 이동하는 패트롤 지점
     protected int maxPatrolPoint = 0; // 패트롤 지점의 최대 수
-    protected float sightDetectDistance; // 시야
     #endregion
 
     #region Guard Variable
@@ -22,7 +21,6 @@ public class PatrolGuard : ChaseEntity, IPatrol
     #region Override Setting
     public override void AdditionalSetup()
     {
-        sightDetectDistance = entityData.sightDetectDistance;
         maxPatrolPoint = patrolPoints.Length;
     }
     public override void IsInRoom(bool _isInRoom) { isInRoom = _isInRoom; }
@@ -84,7 +82,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     public void DetectPlayer()
     {
         Vector3 direction = eyeTransform.position - playerTransform.position;
-        if (direction.magnitude > sightDetectDistance)
+        if (direction.magnitude > detectDistance)
             return;
         if (isInRoom)
             TeleportGuardRoom();

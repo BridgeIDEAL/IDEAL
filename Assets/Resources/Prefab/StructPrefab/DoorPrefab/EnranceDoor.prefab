@@ -78,7 +78,8 @@ GameObject:
   - component: {fileID: 303350297078941958}
   - component: {fileID: 2351787220806625675}
   - component: {fileID: 6638843915446776344}
-  - component: {fileID: 739454227762237618}
+  - component: {fileID: 8589471688197816122}
+  - component: {fileID: 1104384592689991436}
   m_Layer: 0
   m_Name: frontdoor_frame_GEO
   m_TagString: Untagged
@@ -152,8 +153,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &739454227762237618
-MeshCollider:
+--- !u!65 &8589471688197816122
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,10 +163,22 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5018958769443244174, guid: a7000d2feb3861c47aafd726883ed274, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.38, y: 0.95, z: 0.05}
+  m_Center: {x: 0.6, y: 0, z: 0}
+--- !u!65 &1104384592689991436
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959522850651202471}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38, y: 0.95, z: 0.05}
+  m_Center: {x: -0.6, y: 0, z: 0}
 --- !u!1 &4860248874109389189
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,28 +10,13 @@ public class ChaseEntity : BaseEntity
     [SerializeField] protected Animator anim;
     [SerializeField] protected NavMeshAgent nav;
     [SerializeField] protected Transform eyeTransform; // Detect Transform => Y : 1.5~2f 
-    [SerializeField] protected ScriptableChaseEntity entityData;
+    [SerializeField] protected float detectDistance;
     // Player Variable
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
     protected bool isChasePlayer = false;
-    public bool IsChasePlayer
-    {
-        set
-        {
-            isChasePlayer = value;
-            //if (isChasePlayer)
-            //{
-
-            //}
-            //else
-            //{
-
-            //}
-        }
-    }
     // State Variable
-    protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
+    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
     protected State<ChaseEntity>[] states = new State<ChaseEntity>[5];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
@@ -76,7 +61,7 @@ public class ChaseEntity : BaseEntity
         states[(int)ChaseEntityStates.Chase] = new ChaseEntitySpace.ChaseState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
-    public override bool IsSpawn() { return entityData.isSpawn; }
+    public override bool IsSpawn() { return true; }
     public override void UpdateExecute() { stateMachine.Execute(); }
     public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); }
     public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
@@ -86,7 +71,7 @@ public class ChaseEntity : BaseEntity
     /// (Have) Aggressive Animation => Act Animation => Chase 
     /// (Do not Have) Aggressive Animation => Immediately Chase
     /// </summary>
-    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase); }
+    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase); } // 나중에 변경해야 함 => virtual로
     public override void BePenalty() { ChangeState(ChaseEntityStates.Penalty); }
     public void ChangeState(ChaseEntityStates _newState)
     {
