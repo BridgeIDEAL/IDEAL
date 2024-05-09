@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIIngame : MonoBehaviour
 {
+    [SerializeField] private GameObject guideBookObject;
     [SerializeField] private Image visualFilter;
     [SerializeField] private Image visualFilter_Red;
     [SerializeField] private Image visualFilter_Green;
@@ -16,6 +17,10 @@ public class UIIngame : MonoBehaviour
     private Coroutine hurtCoroutine;
     private Coroutine fadeCoroutine;
 
+    public void SetGuideBookActive(bool active){
+        guideBookObject.SetActive(active);
+    }
+    
     public void SetVisualFilter(float ratio){
         Color color = visualFilter.color;
         color.a = ratio;

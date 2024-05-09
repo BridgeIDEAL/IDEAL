@@ -4,6 +4,7 @@ using System.Runtime.ExceptionServices;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public enum UIType{
@@ -46,6 +47,8 @@ public class UIManager : MonoBehaviour
         get{return isInventoryActive;}
         set{isInventoryActive = value;}
     }
+
+    private bool isGuideBookActive = false;
 
 
     public void Init() {
@@ -109,6 +112,16 @@ public class UIManager : MonoBehaviour
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
+        if(Input.GetKeyDown(KeyCode.BackQuote)){    // ` 누른 경우 Map 활성화 비활성화
+            UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
+        }
+        SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
+
+        if(isGuideBookActive && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
+            uIIngame.SetGuideBookActive(false);
+            thirdPersonController.MoveLock = false;
+            isGuideBookActive = false;
+        }
         UpdateMouseLock();
 
 
@@ -147,5 +160,11 @@ public class UIManager : MonoBehaviour
             // 상호작용 텍스트 활성화
             uIInteraction.SetTextActive(true);
         }
+    }
+
+    public void ActiveGuideBook(){
+        uIIngame.SetGuideBookActive(true);
+        thirdPersonController.MoveLock = true;
+        isGuideBookActive = true;
     }
 }
