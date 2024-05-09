@@ -31,6 +31,14 @@ public class PenaltyPointManager : MonoBehaviour
     private float eyeWatchingGameOverTime = 3.0f;
     private float eyeWatchingTimer = 0.0f;
 
+    
+    private float soundPenaltyRespawnTime = 90.0f;
+    private float soundPenaltyStepTimer = 90.0f;
+    private bool isSoundHearing = false;
+    private float soundHearingGameOverTime = 6.0f;
+    private float soundHearingTimer = 0.0f;
+    private bool insideSafeZone = false;
+
     public int penaltyGrade(){
         if(penaltyPoint >= 9 ) return 3;
         if(penaltyPoint >= 5) return 2;
@@ -65,6 +73,13 @@ public class PenaltyPointManager : MonoBehaviour
 
     private void InitPenaltyPoint(){
         penaltyPoint = minPP;
+        eyePenaltyStepTimer = 60.0f;
+        eyeWatchingTimer = 0.0f;
+
+        soundPenaltyStepTimer = 90.0f;
+        isSoundHearing = false;
+        soundHearingTimer = 0.0f;
+        insideSafeZone = false;
     }
 
     public int GetPenaltyPoint(){
@@ -123,8 +138,32 @@ public class PenaltyPointManager : MonoBehaviour
                     eyeWatchingTimer = 0.0f;
                 }
             }
-        } 
+        }
+
+        if(penaltyGrade() >=2){
+            // Sound Penalty 가능하다면 패널티 적용하기
+            if(soundPenaltyStepTimer >= soundPenaltyRespawnTime){
+                soundPenaltyStepTimer = 0.0f;
+                // 사운드 재생
+                isSoundHearing = true;
+            }
+            soundPenaltyStepTimer += Time.deltaTime;
+
+            if(isSoundHearing){
+                soundHearingTimer += Time.deltaTime;
+                if(soundHearingTimer >= soundHearingGameOverTime){
+                    if(!insideSafeZone){
+                        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번째 생존자는 보이지 않는 무언가에 휩쓸려가는 소리와 함께 신호가 끊김. \n이후 온몸이 발로 심하게 짓밟힌 흔적과 함께 사망 상태로 발견.");
+                    }
+                    soundHearingTimer = 0.0f;
+                    // 사운드 멈추기
+                    isSoundHearing = false;
+                }
+            }
+        }
     }
 
-
+    public void GoSafeZone(bool inside){
+        insideSafeZone = inside;
+    }
 }

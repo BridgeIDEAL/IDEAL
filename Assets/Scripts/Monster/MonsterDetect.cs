@@ -14,5 +14,16 @@ public class MonsterDetect : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster"))
             Debug.Log(collision.gameObject.name);
+        
+      if (collision.gameObject.CompareTag("SafeZone")){
+        PenaltyPointManager.Instance.GoSafeZone(true);
+      }
+            
+    }
+
+    public void OnCollisionExit(Collision collision){
+      if (collision.gameObject.CompareTag("SafeZone")){
+        PenaltyPointManager.Instance.GoSafeZone(false);
+      }
     }
 }
