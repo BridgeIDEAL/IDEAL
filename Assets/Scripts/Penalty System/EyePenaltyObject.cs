@@ -5,14 +5,15 @@ using UnityEngine;
 public class EyePenaltyObject : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-    private float activeTime = 15.0f;
+    private float activeTime = 5.0f;
     private float stepTimer = 0.0f;
 
     private Transform playerTransform = null;
 
     public void PlayActiveSound(){
         Debug.Log("PlayActiveSound");
-        audioSource.Play();
+        // audioSource.Play();
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.CCTVActive);
     }
 
     public void SetPlayerTransform(Transform playerT){

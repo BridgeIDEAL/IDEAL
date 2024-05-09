@@ -28,7 +28,7 @@ public class PenaltyPointManager : MonoBehaviour
 
     private float eyeObjectRespawnTime = 60.0f;
     private float eyePenaltyStepTimer = 60.0f;
-    private float eyeWatchingGameOverTime = 10.0f;
+    private float eyeWatchingGameOverTime = 3.0f;
     private float eyeWatchingTimer = 0.0f;
 
     public int penaltyGrade(){
@@ -108,7 +108,9 @@ public class PenaltyPointManager : MonoBehaviour
 
                 // 제한 시간 보다 더 보는 경우 게임 오버
                 if(eyeWatchingTimer >= eyeWatchingGameOverTime){
-                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(". . .");
+                    eyeWatchingTimer = 0.0f;
+                    penaltyPoint = 0;
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번 생존자는 눈에서 극심한 고통을 호소하던 중,\n눈을 스스로 뽑아버린 후 신호가 끊기며 실종됨.");
                 }
 
             }
