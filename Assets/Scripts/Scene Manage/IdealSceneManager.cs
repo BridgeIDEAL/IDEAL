@@ -209,6 +209,7 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager = prototype2GameManager;
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             prototype2ObjectController.SceneObjectsSetActive(true);
+            ImplementScriptHub(currentGameManager);
             currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
         }
         else if(currentSceneName == "Prototype_Second"){
@@ -217,6 +218,7 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager = prototypeGameManager;
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             prototypeObjectController.SceneObjectsSetActive(true);
+            ImplementScriptHub(currentGameManager);
             currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
         }
 

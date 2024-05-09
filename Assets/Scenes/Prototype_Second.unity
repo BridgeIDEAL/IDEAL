@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.021647511, g: 0.011462664, b: 0.01936869, a: 1}
+  m_IndirectSpecularColor: {r: 0.021638941, g: 0.011409285, b: 0.019332632, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2110,15 +2110,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b93665e763f1649ba8e50b08770dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 704083741}
-  unlockDoorAudio: {fileID: 8300000, guid: 0d346bc5ca7cdc34ca2e468b4eda7465, type: 3}
-  lockDoorAudio: {fileID: 8300000, guid: a38a2cac0f48a6240a7606c38efc3a9f, type: 3}
+  audioSource: {fileID: 0}
+  unlockDoorAudio: {fileID: 0}
+  lockDoorAudio: {fileID: 0}
   doorObject: {fileID: 704083739}
   destPosition: {x: -4.499094, y: 4.99, z: 12.8683}
   destRotation: {x: 0, y: 90, z: 0}
   currentSceneName: Prototype_Second
   destSceneName: Prototype
-  detectedStr: "\uB2E4\uC74C \uC52C\uC73C\uB85C \uC774\uB3D9\uD569\uB2C8\uB2E4."
+  detectedStr: "\uD2B9\uD65C\uB3D9\uC73C\uB85C \uC774\uB3D9\uD569\uB2C8\uB2E4."
   successInteractionStr: 
   failInteractionStr: 
 --- !u!114 &704083744
@@ -3810,7 +3810,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1535485699}
   outsideAudioSource: {fileID: 393304468}
   insideAudioSource: {fileID: 1480802226}
-  triggerX: 6.8
+  triggerZ: 8.8
   insideAudioVolume: 0.5
   outsideAudioVolume: 1
   soundFadeTime: 1

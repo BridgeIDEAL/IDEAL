@@ -12,7 +12,7 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
-    [SerializeField] private float triggerX = 6.8f;
+    [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
     private IdealArea currentArea = IdealArea.Outside;
@@ -41,7 +41,9 @@ public class AmbienceSoundManager : MonoBehaviour
     
     void Update()
     {
-        if(playerTransform.localPosition.x > triggerX && currentArea == IdealArea.Outside){
+        bool isOutSide = (playerTransform.localPosition.z < triggerZ && playerTransform.localPosition.x > 7.0f && playerTransform.localPosition.x < 18.5f)
+                        || playerTransform.localPosition.z < -1.4f;
+        if(!isOutSide && currentArea == IdealArea.Outside){
             if(audioCoroutine != null){
                 StopCoroutine(audioCoroutine);
             }
@@ -49,7 +51,7 @@ public class AmbienceSoundManager : MonoBehaviour
             currentArea = IdealArea.Inside;
         }
         
-        if(playerTransform.localPosition.x < triggerX && currentArea == IdealArea.Inside){
+        if(isOutSide && currentArea == IdealArea.Inside){
             if(audioCoroutine != null){
                 StopCoroutine(audioCoroutine);
             }
