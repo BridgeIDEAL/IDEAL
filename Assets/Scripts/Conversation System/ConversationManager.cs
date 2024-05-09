@@ -109,6 +109,8 @@ public class ConversationManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("HealArm", HealArm);
         dialogueRunner.AddCommandHandler("HealLeg", HealLeg);
+
+        dialogueRunner.AddCommandHandler<int>("AddReformPoint", AddReformPoint);
     }
 
     public void GameOver(string str, int guideLogID = -1){
@@ -159,6 +161,13 @@ public class ConversationManager : MonoBehaviour
     [YarnFunction("CheckPlayerItem")]
     public static int CheckPlayerItem(int itemCode){
         return Inventory.Instance.FindItemIndex(itemCode);
+    }
+
+    #endregion
+
+    #region ReformPoint
+    public void AddReformPoint(int addPoint){
+        ReformPointManager.Instance.AddReformPoint(addPoint);
     }
 
     #endregion

@@ -36,6 +36,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private EquipmentManager equipmentManager;
     [SerializeField] private PenaltyPointManager penaltyPointManager;
+    [SerializeField] private ReformPointManager reformPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
     private float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
@@ -59,6 +60,7 @@ public class IdealSceneManager : MonoBehaviour
         inventory.Init();
         equipmentManager.Init();
         penaltyPointManager.Init();
+        reformPointManager.Init();
 
         lobbyObjectNameList = new List<string>();
         for(int i = 0 ; i < lobbyObjectList.Count; i++){
@@ -88,6 +90,7 @@ public class IdealSceneManager : MonoBehaviour
             inventory.EnterAnotherSceneInit(true);
             equipmentManager.EnterAnotherSceneInit(true);
             penaltyPointManager.EnterAnotherSceneInit(true);
+            reformPointManager.EnterAnotherSceneInit(true);
             LobbyBGMFade(true);
         }
     }
@@ -171,6 +174,8 @@ public class IdealSceneManager : MonoBehaviour
         equipmentManager.EnterAnotherSceneInit(false);
         penaltyPointManager.scriptHub = gameManager.scriptHub;
         penaltyPointManager.EnterAnotherSceneInit(false);
+        reformPointManager.scriptHub = gameManager.scriptHub;
+        reformPointManager.EnterAnotherSceneInit(false);
     }
     
 
