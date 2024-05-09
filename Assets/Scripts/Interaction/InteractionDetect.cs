@@ -70,8 +70,9 @@ public class InteractionDetect : MonoBehaviour
             }
 
             if(Input.GetKeyDown(KeyCode.E)){
+                // UI가 가리고 있다면 상호작용 불가
                 // 텍스트가 사라지는 중이면 상호작용 불가
-                if(!uIInteraction.textGradiating){
+                if(!uIInteraction.textGradiating && IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.CanInteraction()){
                     if(interactionCoroutine != null){
                     StopInteractionCoroutine();
                     }

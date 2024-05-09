@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public enum UIType{
     IngameUI = 0,
     InteractionUI,
+    GuideBookUI,
     MapUI,
     InventoryUI,
     SettingUI,
@@ -37,6 +38,8 @@ public class UIManager : MonoBehaviour
 
     private UIIngame uIIngame;
 
+    private int mapItemCode = 1106;
+
     private bool isDialogueActive = false;
     public bool IsDialogueActive {
         get {return isDialogueActive;}
@@ -48,7 +51,6 @@ public class UIManager : MonoBehaviour
         set{isInventoryActive = value;}
     }
 
-    private bool isGuideBookActive = false;
 
 
     public void Init() {
@@ -112,15 +114,15 @@ public class UIManager : MonoBehaviour
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
-        if(Input.GetKeyDown(KeyCode.BackQuote)){    // ` 누른 경우 Map 활성화 비활성화
+        if(Input.GetKeyDown(KeyCode.BackQuote) && Inventory.Instance.FindItemIndex(mapItemCode) != -1){    // ` 누른 경우 Map 활성화 비활성화
             UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
         }
         SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
 
-        if(isGuideBookActive && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
-            uIIngame.SetGuideBookActive(false);
+        if(UIActives[(int)UIType.GuideBookUI] && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
+            UIActives[(int)UIType.GuideBookUI] = false;
+        SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
             thirdPersonController.MoveLock = false;
-            isGuideBookActive = false;
         }
         UpdateMouseLock();
 
@@ -146,7 +148,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMouseLock(){
         // CameraLock & MouseUnLock이 필요한 경우
-        if(isDialogueActive || isInventoryActive){
+        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI]){
             thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
@@ -163,8 +165,12 @@ public class UIManager : MonoBehaviour
     }
 
     public void ActiveGuideBook(){
-        uIIngame.SetGuideBookActive(true);
+        UIActives[(int)UIType.GuideBookUI] = true;
+        SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
         thirdPersonController.MoveLock = true;
-        isGuideBookActive = true;
+    }
+
+    public bool CanInteraction(){
+        return !UIActives[(int)UIType.GuideBookUI] && !UIActives[(int)UIType.MapUI];
     }
 }
