@@ -5,27 +5,29 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    
-    #region Variable
- 
+
+    #region 공통으로 가져야 하는 변수
+    [Header("스폰 여부")]
+    [SerializeField] private bool isSpawn;
+    public bool IsSpawn { get { return isSpawn; }set{ isSpawn = value; } }
     #endregion
 
     #region Init Setting
     public virtual void Setup(Transform _playerTransform)
     {
-      
-        //InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
-        //if (interactionConversation != null)
-        //{
-        //    interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-        //    interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        //}
-        //else
-        //{
-        //    InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
-        //    interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
-        //    interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
-        //}
+
+        InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
+        if (interactionConversation != null)
+        {
+            interactionConversation.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+            interactionConversation.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        }
+        else
+        {
+            InteractionNurse interactionNurese = GetComponent<InteractionNurse>();
+            interactionNurese.dialogueRunner = IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner;
+            interactionNurese.conversationManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager;
+        }
         AdditionalSetup();
     }
     public virtual void AdditionalSetup() { }
@@ -42,7 +44,6 @@ public abstract class BaseEntity : MonoBehaviour
     #endregion
 
     #region Get Bool Method (Virtual)
-    public virtual bool IsSpawn() { return true; }
     public virtual void IsInRoom(bool _isInRoom) { return; }
     #endregion
 }

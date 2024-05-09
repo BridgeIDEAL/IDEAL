@@ -6,22 +6,29 @@ using UnityEngine;
 public class EntityEventManager
 {
     public string chaseEntityName { get; set; }
-    private bool isChaseDown = false;
-    public bool IsChaseDown
+    private bool isChasePlayer = false;
+    public bool IsChasePlayer
     {
         get
         {
-            return isChaseDown;
+            return isChasePlayer;
         }
         set
         {
-            isChaseDown = value;
+            if (value == isChasePlayer)
+                return;
+            else
+            {
+                isChasePlayer = value;
+                // 플레이어가 감지하지 못하도록 설정
+            }
         }
     }
     // Manage Entity
     public Func<string, BaseEntity> SearchEntity; // parameter = string, output = BaseEntity
     public Action<string> SpawnEntity;
     public Action<string> DespawnEntity;
+    public Action<string> SetSpawnState;
     // SendMessage All Entity
     public Action BroadCastCalmDown;
     public Action<string> BroadCastStartConversation;

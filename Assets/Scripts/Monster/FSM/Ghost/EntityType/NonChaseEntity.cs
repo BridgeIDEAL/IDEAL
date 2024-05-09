@@ -7,8 +7,6 @@ public class NonChaseEntity : BaseEntity
     #region NonChaseEntity Common Variable
     [Header("NonChaseEntity Common Variable")]
     [SerializeField] protected Animator anim;
-    [SerializeField] protected Transform eyeTransform; // Detect Transform
-    [SerializeField] protected ScriptableNonChaseEntity entityData;
     // Player Variable
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
@@ -36,22 +34,27 @@ public class NonChaseEntity : BaseEntity
     #endregion
 
     #region BehaviourState
-    public virtual void IdleEnter() { }
+    public virtual void IdleEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
     public virtual void IdleExecute() { }
-    public virtual void IdleExit() { }
-    public virtual void TalkEnter() { }
+    public virtual void IdleExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
+    public virtual void TalkEnter() { StateAnimation(NonChaseEntityStates.Talk, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { }
-    public virtual void QuietEnter() { }
+    public virtual void TalkExit() { StateAnimation(NonChaseEntityStates.Talk, false); }
+    public virtual void QuietEnter() { StateAnimation(NonChaseEntityStates.Quiet, true); }
     public virtual void QuietExecute() { }
-    public virtual void QuietExit() { }
-    public virtual void PenaltyEnter() { }
+    public virtual void QuietExit() { StateAnimation(NonChaseEntityStates.Quiet, false); }
+    public virtual void PenaltyEnter() { StateAnimation(NonChaseEntityStates.Penalty, true); }
     public virtual void PenaltyExecute() { }
-    public virtual void PenaltyExit() { }
+    public virtual void PenaltyExit() { StateAnimation(NonChaseEntityStates.Penalty, false); }
+    #endregion
+
+    #region Empty Method
+    /// <summary>
+    /// 추가로 넣어야 할 행동이 없다면 삭제
+    /// </summary>
     public virtual void ExtraEnter() { }
     public virtual void ExtraExecute() { }
     public virtual void ExtraExit() { }
-
     #endregion
 
     #region Override Behaviour
@@ -82,16 +85,16 @@ public class NonChaseEntity : BaseEntity
         switch (_entityState)
         {
             case NonChaseEntityStates.Idle:
-                anim.SetBool("Idle", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Talk:
-                anim.SetBool("Talk", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Quiet:
-                anim.SetBool("Quiet", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             case NonChaseEntityStates.Penalty:
-                anim.SetBool("Penalty", _setBool);
+                anim.SetBool("IDLE", _setBool);
                 break;
             default:
                 break;

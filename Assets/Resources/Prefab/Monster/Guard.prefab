@@ -990,8 +990,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3541034581758639809}
   - component: {fileID: 7477212213273765051}
-  - component: {fileID: 6389287763555744595}
   - component: {fileID: 7643999046121105280}
+  - component: {fileID: 2761626982341097454}
+  - component: {fileID: 3124916173788335174}
+  - component: {fileID: -5195269109202099804}
   m_Layer: 6
   m_Name: Guard
   m_TagString: Monster
@@ -1037,28 +1039,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!195 &6389287763555744595
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4210751973565703291}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 0
-  m_Acceleration: 0
-  avoidancePriority: 50
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2.4
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
 --- !u!136 &7643999046121105280
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1073,6 +1053,57 @@ CapsuleCollider:
   m_Height: 2.4
   m_Direction: 1
   m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!114 &2761626982341097454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210751973565703291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  reverseY: 0
+  outlineMask: 
+--- !u!114 &3124916173788335174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210751973565703291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  dialogueRunner: {fileID: 0}
+  conversationManager: {fileID: 0}
+  detectedStr: "\uC218\uC704\uC5D0\uAC8C \uB9D0\uC744 \uAC74\uB2E4."
+  dialogueName: 01_1F_SchoolGuardStart
+  monsterName: 1F_GuardMan
+  lookPlayerwithConversation: 1
+--- !u!114 &-5195269109202099804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210751973565703291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 3124916173788335174}
+  interactionOutline: {fileID: 2761626982341097454}
+  outlineActive: 0
 --- !u!1 &4237461278754560471
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class RestPlace : MonoBehaviour
 {
-    public void OnTriggerEnter(Collider other)
+    public int testint = 10;
+
+    private void Awake()
     {
-        // TO DO ~~~~~~~~~~
-        // if (other.gameObject.CompareTag("Player") && IdealSceneManager.Instance.CurrentGameManager.EntityEvent.IsChase)
-        // {
-        //     Debug.Log("�浹!");
-        //     TO DO ~~~~~~~~~~
-        //     IdealSceneManager.Instance.CurrentGameManager.EntityEvent.SendStateEventMessage(StateEventType.Rest);
-        // }
+        testint = 20;
     }
 }

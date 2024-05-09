@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Refer To Managers")]
     // Refer To Manager & Hub
-    [SerializeField] private VariableHub valueHub;
-    public VariableHub ValueHub { get { return valueHub; } }
     [SerializeField] private EntityManager entityM;
     public EntityManager EntityM { get { return entityM; } }
     
@@ -58,15 +56,16 @@ public class GameManager : MonoBehaviour
         uIManager.Init();
         interactionManager.Init(); 
         interactionDetect.Init();
-        conversationManager.Init(); 
-        //entityM.SetUp();
+        conversationManager.Init();
+        if (entityM == null)
+            return;
+        entityM.Init();
     }
 
 
     private void Update()
     {
         if(canUpdate){
-            //entityM.GameUpdate();
             interactionDetect.GameUpdate();
             uIManager.GameUpdate();
             uIEquipment.GameUpdate();
