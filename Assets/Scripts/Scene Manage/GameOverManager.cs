@@ -28,6 +28,7 @@ public class GameOverManager : MonoBehaviour
 
     public void GameOver(string endingMent){
         backgroundObject.SetActive(true);
+        endingMent = endingMent.Replace("$attempts", CountAttempts.Instance.GetAttemptCount().ToString());
         endingMentText.text = endingMent;
         endingMentObject.SetActive(true);
         isEnd = true;
