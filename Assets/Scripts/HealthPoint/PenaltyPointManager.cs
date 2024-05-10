@@ -27,7 +27,7 @@ public class PenaltyPointManager : MonoBehaviour
     public static int minPP = 0;
 
     private float eyeObjectRespawnTime = 60.0f;
-    private float eyePenaltyStepTimer = 60.0f;
+    private float eyePenaltyStepTimer = 55.0f;
     private float eyeWatchingGameOverTime = 3.0f;
     private float eyeWatchingTimer = 0.0f;
 
