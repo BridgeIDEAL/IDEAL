@@ -73,10 +73,10 @@ public class PenaltyPointManager : MonoBehaviour
 
     private void InitPenaltyPoint(){
         penaltyPoint = minPP;
-        eyePenaltyStepTimer = 60.0f;
+        eyePenaltyStepTimer = 55.0f;
         eyeWatchingTimer = 0.0f;
 
-        soundPenaltyStepTimer = 90.0f;
+        soundPenaltyStepTimer = 85.0f;
         isSoundHearing = false;
         soundHearingTimer = 0.0f;
         insideSafeZone = false;
@@ -87,15 +87,14 @@ public class PenaltyPointManager : MonoBehaviour
     }
 
     public void AddPenaltyPoint(int addPoint = 1){
+        Debug.Log("Add PenaltyPoint, PP: " + penaltyPoint);
         penaltyPoint += addPoint;
     }
 
     void Update(){
         // Test Code
         if(Input.GetKeyDown(KeyCode.Y)){
-            Debug.Log("pp:" + penaltyPoint);
             AddPenaltyPoint();
-            Debug.Log("key down pp:" + penaltyPoint);
         }
 
         if(penaltyGrade() >= 1){
