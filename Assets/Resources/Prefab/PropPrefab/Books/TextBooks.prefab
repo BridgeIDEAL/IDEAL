@@ -176,6 +176,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4918113503742119581}
   - component: {fileID: 5446274116410967578}
+  - component: {fileID: -3061232153153517724}
+  - component: {fileID: -6906495916898046889}
+  - component: {fileID: 1801600626302632219}
   m_Layer: 0
   m_Name: TextBooks
   m_TagString: Untagged
@@ -214,6 +217,58 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.05, z: 0.2}
   m_Center: {x: 0, y: 0.025, z: 0}
+--- !u!114 &-3061232153153517724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695776446827041831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 0}
+  outlineScaleFactor: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  reverseY: 0
+  outlineMask: 
+--- !u!114 &-6906495916898046889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695776446827041831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 1801600626302632219}
+  interactionOutline: {fileID: -3061232153153517724}
+  outlineActive: 0
+--- !u!114 &1801600626302632219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695776446827041831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b509429381fd2374291bd1d3eb5cfa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  interactionItemData: {fileID: 11400000, guid: 45e1215456cb14d41b7878ce2c58042a,
+    type: 2}
+  detectedStr: "\uAD50\uACFC\uC11C\uB97C \uD719\uB4DD\uD55C\uB2E4."
+  afterInteractionStr: "\uAD50\uACFC\uC11C\uB97C \uD719\uB4DD\uD588\uB2E4."
+  activationLogNum: -1
+  requiredTime: 1
+  availableCount: 1
 --- !u!1 &6141594526829153354
 GameObject:
   m_ObjectHideFlags: 0
