@@ -144,7 +144,7 @@ public class PenaltyPointManager : MonoBehaviour
             // Sound Penalty 가능하다면 패널티 적용하기
             if(soundPenaltyStepTimer >= soundPenaltyRespawnTime){
                 soundPenaltyStepTimer = 0.0f;
-                // 사운드 재생
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren);
                 isSoundHearing = true;
             }
             soundPenaltyStepTimer += Time.deltaTime;
@@ -153,10 +153,10 @@ public class PenaltyPointManager : MonoBehaviour
                 soundHearingTimer += Time.deltaTime;
                 if(soundHearingTimer >= soundHearingGameOverTime){
                     if(!insideSafeZone){
-                        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번째 생존자는 보이지 않는 무언가에 휩쓸려가는 소리와 함께 신호가 끊김. \n이후 온몸이 발로 심하게 짓밟힌 흔적과 함께 사망 상태로 발견.");
+                        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번 생존자는 보이지 않는 무언가에 휩쓸려가는 소리와 함께 신호가 끊김. \n이후 온몸이 발로 심하게 짓밟힌 흔적과 함께 사망 상태로 발견.");
                     }
                     soundHearingTimer = 0.0f;
-                    // 사운드 멈추기
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
                     isSoundHearing = false;
                 }
             }

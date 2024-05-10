@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public enum TempEffectSounds { PaperTurn, KeyGet, PillGet, ItemGet, CCTVActive}
+public enum TempEffectSounds { PaperTurn, KeyGet, PillGet, ItemGet, CCTVActive, WarningSiren}
 
 public class TempEffectSound : MonoBehaviour
 {
@@ -15,5 +15,9 @@ public class TempEffectSound : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = audioClip[(int)_EffectSound];
         audioSource.Play();
+    }
+
+    public void StopEffectSound(){
+        audioSource.Stop();
     }
 }
