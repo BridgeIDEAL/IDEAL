@@ -111,6 +111,8 @@ public class ConversationManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("HealLeg", HealLeg);
 
         dialogueRunner.AddCommandHandler<int>("AddReformPoint", AddReformPoint);
+        dialogueRunner.AddCommandHandler<int>("AddPenaltyPoint", AddPenaltyPoint);
+
     }
 
     public void GameOver(string str, int guideLogID = -1){
@@ -165,9 +167,13 @@ public class ConversationManager : MonoBehaviour
 
     #endregion
 
-    #region ReformPoint
+    #region ReformPoint & PenaltyPoint
     public void AddReformPoint(int addPoint){
         ReformPointManager.Instance.AddReformPoint(addPoint);
+    }
+
+    public void AddPenaltyPoint(int addPoint){
+        PenaltyPointManager.Instance.AddPenaltyPoint(addPoint);
     }
 
     #endregion

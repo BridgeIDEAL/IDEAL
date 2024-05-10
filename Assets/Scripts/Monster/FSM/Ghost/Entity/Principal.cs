@@ -7,17 +7,20 @@ public class Principal : ChaseEntity, IPatrol
 {
     #region Patrol Variable
     [Header("Patrol Variable")]
-    [SerializeField] protected Vector3[] patrolPoints; // ¼øÂû ÁöÁ¡ 
-    [SerializeField] protected float coolDownTimer = 30f; // ÀçÃß°İ±îÁöÀÇ Å¸ÀÌ¸Ó
+    [SerializeField] protected Vector3[] patrolPoints; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+    [SerializeField] protected float coolDownTimer = 30f; // ï¿½ï¿½ï¿½ß°İ±ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½
 
     protected bool canDetectPlayer = true; // Cool Time 
-    protected int currentPatrolPoint = 0; // ÇöÀç ÀÌµ¿ÇÏ´Â ÆĞÆ®·Ñ ÁöÁ¡
-    protected int maxPatrolPoint = 0; // ÆĞÆ®·Ñ ÁöÁ¡ÀÇ ÃÖ´ë ¼ö
+    protected int currentPatrolPoint = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    protected int maxPatrolPoint = 0; // ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
     #endregion
 
     #region Principal Variable
-    protected float ratioChaseSpeed; // Ãß°İ ¼Óµµ ºñÀ²
+    protected float ratioChaseSpeed; // ï¿½ß°ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
     protected bool isInRoom = false;
+
+    private string monsterName = "Principal";
+    private string penaltyDialogue = "D_104_Principal_Start";
     #endregion
 
     #region Override Setting
@@ -48,7 +51,7 @@ public class Principal : ChaseEntity, IPatrol
 
     #region Empty Method
     /// <summary>
-    /// Ãß°¡·Î ³ÖÀ» Çàµ¿ÀÌ ¾ø´Ù¸é Æó±â
+    /// ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½
     /// </summary>
     public override void ExtraEnter() { /*StateAnimation(currentState, true); */}
     public override void ExtraExecute() { }
@@ -98,7 +101,13 @@ public class Principal : ChaseEntity, IPatrol
         {
             StartCoroutine(CoolDownTimer());
             IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
-            Debug.Log("¹úÁ¡ÁÖ´ÂÁß!");
+
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½!");
+            // YarnScript ë°œë™
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager.SetTalkerName(monsterName);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner.StartDialogue(penaltyDialogue);
+            // í”Œë ˆì´ì–´ê°€ Principal ë°”ë¼ë³´ë„ë¡
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.CameraEnforceLookAt(this.transform);
         }
     }
 

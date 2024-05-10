@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -31,6 +32,12 @@ namespace StarterAssets
 		public bool CameraRotationLock = false;
         [Tooltip("Move Lock")]
 		public bool MoveLock = false;
+
+        private bool cameraEnforced = false;
+
+        private float cameraEnforceRotationTime = 0.7f;
+
+        private Coroutine cameraEnforceCoroutine;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -171,7 +178,9 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if(!cameraEnforced){
+                CameraRotation();
+            }
             if(needTeleportation){
                 TelePortPositionRotation();
                 needTeleportation = false;
@@ -235,6 +244,35 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+        }
+
+        IEnumerator CameraEnforceLookAtCoroutine(Transform destPosition){
+            float stepTimer = 0.0f;
+            float startYaw = _cinemachineTargetYaw;
+            float startPitch = _cinemachineTargetPitch;
+            Vector3 targetDir = (destPosition.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(targetDir);
+            Vector3 startPos = transform.position;
+            Vector3 destPos = startPos - (lookRotation * Vector3.forward * 2.5f);
+            destPos.y = startPos.y;
+
+            while(stepTimer <= cameraEnforceRotationTime){
+                _cinemachineTargetYaw = Mathf.Lerp(startYaw, lookRotation.eulerAngles.y, stepTimer / cameraEnforceRotationTime);
+                _cinemachineTargetPitch = Mathf.Lerp(startPitch, lookRotation.eulerAngles.z, stepTimer/ cameraEnforceRotationTime);
+
+                CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+                _cinemachineTargetYaw, 0.0f);
+                transform.position = Vector3.Lerp(startPos, destPos, stepTimer / cameraEnforceRotationTime);
+                stepTimer += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        public void CameraEnforceLookAt(Transform destPosition){
+            if(cameraEnforceCoroutine != null){
+                StopCoroutine(cameraEnforceCoroutine);
+            }
+            cameraEnforceCoroutine = StartCoroutine(CameraEnforceLookAtCoroutine(destPosition));
         }
 
         private void Move()
