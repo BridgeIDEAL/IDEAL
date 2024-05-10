@@ -13,12 +13,15 @@ GameObject:
   - component: {fileID: 5120466807233357999}
   - component: {fileID: 1819614105019917642}
   - component: {fileID: -7207602989231130273}
-  m_Layer: 0
+  - component: {fileID: 727336980399043661}
+  - component: {fileID: 1812239177152245661}
+  - component: {fileID: 6399494085846254719}
+  m_Layer: 6
   m_Name: WoodDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6288328766218130368
 Transform:
@@ -116,3 +119,58 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.5, y: 1.0500001, z: 0.001}
   m_TimeToStationary: 0.5
+--- !u!114 &727336980399043661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633645153024018810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de13200fd6cff94eaa07d77b82e4d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  unlockDoorAudio: {fileID: 0}
+  lockDoorAudio: {fileID: 0}
+  doorObject: {fileID: 0}
+  destPosition: {x: 0, y: 0, z: 0}
+  openRequiredTime: 2
+  detectedStr: 
+  successInteractionStr: 
+  failInteractionStr: 
+  needItem: 0
+  activationLogNum: -1
+--- !u!114 &1812239177152245661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633645153024018810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 727336980399043661}
+  interactionOutline: {fileID: 6399494085846254719}
+  outlineActive: 0
+--- !u!114 &6399494085846254719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633645153024018810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 0}
+  outlineScaleFactor: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  reverseY: 0
+  outlineMask: 

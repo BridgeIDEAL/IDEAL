@@ -27,13 +27,23 @@ public class ActivationLogManager : MonoBehaviour
     private List<ItemID_Name> itemID_NameList= new List<ItemID_Name>{
         new ItemID_Name{itemID = 1201, itemName = "알코올램프를"},
         new ItemID_Name{itemID = 1202, itemName = "분필을"},
-        new ItemID_Name{itemID = 1106, itemName = "핸드크림을"},
-        new ItemID_Name{itemID = 1105, itemName = "약병을"},
-        new ItemID_Name{itemID = 1104, itemName = "확인증을"},
-        new ItemID_Name{itemID = 1103, itemName = "옥상문 열쇠를"},
         new ItemID_Name{itemID = 1101, itemName = "교무센터 열쇠를"},
         new ItemID_Name{itemID = 1102, itemName = "1학년 교무실 열쇠를"},
+        new ItemID_Name{itemID = 1103, itemName = "옥상문 열쇠를"},
+        new ItemID_Name{itemID = 1104, itemName = "확인증을"},
+        new ItemID_Name{itemID = 1105, itemName = "약병을"},
+        new ItemID_Name{itemID = 1106, itemName = "핸드크림을"},
+        new ItemID_Name{itemID = 1107, itemName = "교과서를"},
         new ItemID_Name{itemID = 1110, itemName = "무전기를"},
+        new ItemID_Name{itemID = 301, itemName = "3-1반 열쇠를"},
+        new ItemID_Name{itemID = 302, itemName = "3-2반 열쇠를"},
+        new ItemID_Name{itemID = 303, itemName = "3-3반 열쇠를"},
+        new ItemID_Name{itemID = 304, itemName = "3-4반 열쇠를"},
+        new ItemID_Name{itemID = 305, itemName = "3-5반 열쇠를"},
+        new ItemID_Name{itemID = 306, itemName = "3-6반 열쇠를"},
+        new ItemID_Name{itemID = 307, itemName = "3-7반 열쇠를"},
+        new ItemID_Name{itemID = 308, itemName = "3-8반 열쇠를"},
+        new ItemID_Name{itemID = 401, itemName = "철문 열쇠를"},
     };
 
     public void Init(){

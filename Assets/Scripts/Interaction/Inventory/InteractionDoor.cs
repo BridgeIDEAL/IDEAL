@@ -9,13 +9,18 @@ public class InteractionDoor : AbstractInteraction
     
     [SerializeField] GameObject doorObject;
     [SerializeField] private Vector3 destPosition;
+    public Vector3 DestPosition { set { destPosition = value; } }
     [SerializeField] private float openRequiredTime = 1.0f;
     private bool isOpen = false;
     private Coroutine moveCoroutine;
     [SerializeField] private string detectedStr;
+    public string DetectStr { set { detectedStr = value; } }
     [SerializeField] private string successInteractionStr = "";
+    public string SuccessInteractionStr { set { successInteractionStr = value; } }
     [SerializeField] private string failInteractionStr = "";
+    public string FailInteractionStr { set { failInteractionStr = value; } }
     [SerializeField] private int needItem = 0;
+    public int NeedItem { set { needItem = value; } }
     [SerializeField] private int activationLogNum = -1;
     
     public override float RequiredTime { get => 1.0f;}
@@ -59,6 +64,7 @@ public class InteractionDoor : AbstractInteraction
     }
 
     private IEnumerator OpenDoorCoroutine(){
+        Debug.Log("실행하는중..");
         Vector3 startPos = doorObject.transform.position;
         float stepTimer = 0.0f;
         while(stepTimer <= openRequiredTime){

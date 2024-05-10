@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomKeySpawn : MonoBehaviour
 {
     public GameObject[] classRoomKeys;
-    public List<int> classKeyListNum= new List<int>();
+    private List<int> classKeyListNum= new List<int>();
     private void Awake()
     {
         int cnt = 0;

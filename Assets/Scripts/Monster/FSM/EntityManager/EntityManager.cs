@@ -113,6 +113,7 @@ public class EntityManager : MonoBehaviour
     {
         BaseEntity entity = SearchEntity(_name);
         bool _isSpawn = entity.IsSpawn;
+        Debug.Log(!_isSpawn);
         entity.IsSpawn = !_isSpawn;
     }
     #endregion

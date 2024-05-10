@@ -11,15 +11,15 @@ public class Principal : ChaseEntity, IPatrol
     [SerializeField] protected float coolDownTimer = 30f; // ���߰ݱ����� Ÿ�̸�
 
     protected bool canDetectPlayer = true; // Cool Time 
-    protected int currentPatrolPoint = 0; // ���� �̵��ϴ� ��Ʈ�� ����
-    protected int maxPatrolPoint = 0; // ��Ʈ�� ������ �ִ� ��
+    [SerializeField] protected int currentPatrolPoint = 0; // ���� �̵��ϴ� ��Ʈ�� ����
+    [SerializeField] protected int maxPatrolPoint = 0; // ��Ʈ�� ������ �ִ� ��
     #endregion
 
     #region Principal Variable
     protected float ratioChaseSpeed; // �߰� �ӵ� ����
     protected bool isInRoom = false;
 
-    private string monsterName = "Principal";
+    private string monsterName = "1F_PatorlPrincipal";
     private string penaltyDialogue = "D_104_Principal_Start";
     #endregion
 
@@ -62,6 +62,8 @@ public class Principal : ChaseEntity, IPatrol
     public void Patrol()
     {
         if (nav.steeringTarget == null)
+            SeekNextRoute();
+        if (!nav.enabled)
             return;
         if (nav.remainingDistance < 0.5f)
             SeekNextRoute();
@@ -101,8 +103,6 @@ public class Principal : ChaseEntity, IPatrol
         {
             StartCoroutine(CoolDownTimer());
             IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
-
-            Debug.Log("�����ִ���!");
             // YarnScript 발동
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager.SetTalkerName(monsterName);
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner.StartDialogue(penaltyDialogue);

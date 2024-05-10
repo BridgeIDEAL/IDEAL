@@ -16,6 +16,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     [SerializeField] protected Vector3 guardRoomToward;  // Look GuardRoom
     protected bool isDeathPenalty = false; // True : Collide Guard => Death
     protected bool isInRoom = false; // True : Player in GuardRoom
+    protected bool isNearPlayer = false; // 주위에 플레이어가 있으면 말 걸기 쉽게 잠시 멈춤
     #endregion
 
     #region Override Setting
@@ -56,8 +57,10 @@ public class PatrolGuard : ChaseEntity, IPatrol
     #region Interface Patrol
     public void Patrol()
     {
-        if (nav.steeringTarget == null)
+        if (isNearPlayer)
             return;
+        if (nav.steeringTarget == null)
+            SeekNextRoute();
         if (!nav.enabled)
             return;
         if (nav.remainingDistance < 0.5f)
@@ -74,6 +77,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     public void StopPatrol()
     {
         nav.ResetPath();
+        anim.SetFloat("WALKVAL", 0f);
     }
 
     #endregion
@@ -83,9 +87,15 @@ public class PatrolGuard : ChaseEntity, IPatrol
     {
         Vector3 direction = eyeTransform.position - playerTransform.position;
         if (direction.magnitude > detectDistance)
+        {
+            isNearPlayer = false;
             return;
+        }
+        isNearPlayer = true;
         if (isInRoom)
             TeleportGuardRoom();
+        else
+            StopPatrol();
     }
     public void TeleportGuardRoom()
     {
