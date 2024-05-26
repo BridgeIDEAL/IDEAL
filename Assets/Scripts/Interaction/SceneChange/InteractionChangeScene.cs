@@ -31,7 +31,7 @@ public class InteractionChangeScene : AbstractInteraction
     protected override void ActInteraction()
     {
         // Add By Jun Start~~~
-        if (!Inventory.Instance.UseItemWithItemCode(needItem) && needItem!=0)
+        if (Inventory.Instance.FindItemIndex(needItem) == -1 && needItem!=0)
         {
             if (failInteractionStr != "")
             {
@@ -53,7 +53,8 @@ public class InteractionChangeScene : AbstractInteraction
             audioSource.Play();
         }
         int itemIndex = Inventory.Instance.FindItemIndex(1107); // 교과서 오브젝트 3개 수집 안하고 이동 시 벌점 부과
-        if (itemIndex == -1 || Inventory.Instance.GetCurrentAmount(itemIndex) < 3 && !isInBuildingA)
+        // 아이템이 없을 경우 Inventory.Instance.GetCurrentAmount(itemIndex) == -1
+        if (Inventory.Instance.GetCurrentAmount(itemIndex) < 3 && !isInBuildingA)
         {
             PenaltyPointManager.Instance.AddPenaltyPoint(1);
         }

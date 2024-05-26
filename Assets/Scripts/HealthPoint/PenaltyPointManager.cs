@@ -33,7 +33,7 @@ public class PenaltyPointManager : MonoBehaviour
 
     
     private float soundPenaltyRespawnTime = 90.0f;
-    private float soundPenaltyStepTimer = 90.0f;
+    private float soundPenaltyStepTimer = 85.0f;
     private bool isSoundHearing = false;
     private float soundHearingGameOverTime = 6.0f;
     private float soundHearingTimer = 0.0f;
@@ -87,8 +87,8 @@ public class PenaltyPointManager : MonoBehaviour
     }
 
     public void AddPenaltyPoint(int addPoint = 1){
-        Debug.Log("Add PenaltyPoint, PP: " + penaltyPoint);
         penaltyPoint += addPoint;
+        Debug.Log("Add PenaltyPoint, PP: " + penaltyPoint);
     }
 
     void Update(){
