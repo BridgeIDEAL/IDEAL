@@ -62,7 +62,7 @@ public class ChaseEntity : BaseEntity
         stateMachine.Setup(this, states[(int)currentState]);
     }
     public override void UpdateExecute() { stateMachine.Execute(); }
-    public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); }
+    public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); StartCoroutine(LookPlayerCor()); }
     public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
     public override void BeCalmDown() { ChangeState(ChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(ChaseEntityStates.Quiet); }
@@ -118,6 +118,19 @@ public class ChaseEntity : BaseEntity
                 break;
             default:
                 break;
+        }
+    }
+    protected IEnumerator LookPlayerCor()
+    {
+        float timer = 0f;
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime;
+            Vector3 direction = playerTransform.position - transform.position;
+            direction.y = 0f;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, timer/1f);
+            yield return null;
         }
     }
     #endregion

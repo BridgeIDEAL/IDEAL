@@ -9,6 +9,7 @@ public abstract class BaseEntity : MonoBehaviour
     #region 공통으로 가져야 하는 변수
     [Header("스폰 여부")]
     [SerializeField] private bool isSpawn;
+    [SerializeField] protected bool isLookPlayer;
     public bool IsSpawn { get { return isSpawn; }set{ isSpawn = value; } }
     #endregion
 
