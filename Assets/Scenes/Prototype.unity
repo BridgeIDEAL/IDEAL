@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 3770d94fe49f8e446b51310179742746
+  m_OcclusionCullingData: {fileID: 36300000, guid: eb39fa04342260a4aba867346789cba4,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -38,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.7814212, g: 0.9179512, b: 0.9788923, a: 1}
+  m_IndirectSpecularColor: {r: 0.781478, g: 0.9179519, b: 0.9788876, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1673,6 +1674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpawn: 1
+  isLookPlayer: 0
   anim: {fileID: 445005128}
   nav: {fileID: 445005130}
   eyeTransform: {fileID: 445005125}
@@ -5171,6 +5173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpawn: 0
+  isLookPlayer: 0
   anim: {fileID: 1243398617}
 --- !u!1 &1289413493
 GameObject:
@@ -12317,6 +12320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpawn: 1
+  isLookPlayer: 0
   anim: {fileID: 1087591883}
 --- !u!114 &7791592623204042422
 MonoBehaviour:
@@ -12331,4 +12335,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpawn: 0
+  isLookPlayer: 0
   anim: {fileID: 1243398617}

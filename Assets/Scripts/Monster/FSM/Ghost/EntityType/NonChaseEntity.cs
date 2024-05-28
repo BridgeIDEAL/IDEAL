@@ -59,7 +59,7 @@ public class NonChaseEntity : BaseEntity
 
     #region Override Behaviour
     public override void UpdateExecute() { stateMachine.Execute(); }
-    public override void StartConversation() { ChangeState(NonChaseEntityStates.Talk); }
+    public override void StartConversation() { ChangeState(NonChaseEntityStates.Talk); StartCoroutine(LookPlayerCor()); }
     public override void EndConversation() { ChangeState(NonChaseEntityStates.Idle); }
     public override void BeCalmDown() { ChangeState(NonChaseEntityStates.Idle); }
     public override void BeSilent() { ChangeState(NonChaseEntityStates.Quiet); }
@@ -98,6 +98,19 @@ public class NonChaseEntity : BaseEntity
                 break;
             default:
                 break;
+        }
+    }
+    protected IEnumerator LookPlayerCor()
+    {
+        float timer = 0f;
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime;
+            Vector3 direction = playerTransform.position - transform.position;
+            direction.y = 0f;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, timer / 1f);
+            yield return null;
         }
     }
     #endregion
