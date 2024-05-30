@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8744759392266286989}
   - component: {fileID: 8744759392266286984}
   - component: {fileID: 8744759392266286987}
-  - component: {fileID: 8744759392266286986}
+  - component: {fileID: 4196452780198058676}
   m_Layer: 0
   m_Name: Out
   m_TagString: Untagged
@@ -59,14 +59,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744759392266286988}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.3, y: 1.75, z: 0}
-  m_LocalScale: {x: 0.06, y: -1, z: 0.35}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalScale: {x: 1, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7095934914423588193}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8744759392266286984
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744759392266286988}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8744759392266286987
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1bcdcc6e3657834c9efc0ccb026b3d4, type: 2}
+  - {fileID: 2100000, guid: 142eae897abc9694b9f81c98650b00f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,8 +117,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8744759392266286986
-MeshCollider:
+--- !u!65 &4196452780198058676
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,10 +127,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 1.0000005, z: 8.5326365e-14}
+  m_Center: {x: 0.0000038146973, y: -0.00000023841858, z: 0}
 --- !u!1 &8744759392458062168
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +141,7 @@ GameObject:
   - component: {fileID: 8744759392458062169}
   - component: {fileID: 8744759392458062164}
   - component: {fileID: 8744759392458062167}
-  - component: {fileID: 8744759392458062166}
+  - component: {fileID: 7711711999321903705}
   m_Layer: 0
   m_Name: In
   m_TagString: Untagged
@@ -157,14 +156,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744759392458062168}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.3, y: 1.75, z: 0.2}
-  m_LocalScale: {x: 0.06, y: 1, z: 0.35}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0.2}
+  m_LocalScale: {x: 1, y: 3.5, z: -1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7095934914423588193}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8744759392458062164
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -172,7 +171,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8744759392458062168}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8744759392458062167
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -193,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1bcdcc6e3657834c9efc0ccb026b3d4, type: 2}
+  - {fileID: 2100000, guid: 142eae897abc9694b9f81c98650b00f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,8 +214,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8744759392458062166
-MeshCollider:
+--- !u!65 &7711711999321903705
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -225,7 +224,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 0.99999994, z: 6.123234e-17}
+  m_Center: {x: 0, y: 0, z: 0.0000009536743}
