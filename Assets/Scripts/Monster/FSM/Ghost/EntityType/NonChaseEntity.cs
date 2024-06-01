@@ -11,7 +11,7 @@ public class NonChaseEntity : BaseEntity
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
     // State Variable
-    protected NonChaseEntityStates currentState = NonChaseEntityStates.Idle;
+    protected EntityStateType currentState = EntityStateType.Idle;
     protected State<NonChaseEntity>[] states = new State<NonChaseEntity>[4];
     protected StateMachine<NonChaseEntity> stateMachine = new StateMachine<NonChaseEntity>();
     #endregion
@@ -25,27 +25,28 @@ public class NonChaseEntity : BaseEntity
         playerTransform = _playerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
-        states[(int)NonChaseEntityStates.Idle] = new NonChaseEntitySpace.IdleState();
-        states[(int)NonChaseEntityStates.Talk] = new NonChaseEntitySpace.TalkState();
-        states[(int)NonChaseEntityStates.Quiet] = new NonChaseEntitySpace.QuietState();
-        states[(int)NonChaseEntityStates.Penalty] = new NonChaseEntitySpace.PenaltyState();
+        states[(int)EntityStateType.Idle] = new NonChaseEntitySpace.IdleState();
+        states[(int)EntityStateType.Talk] = new NonChaseEntitySpace.TalkState();
+        states[(int)EntityStateType.Quiet] = new NonChaseEntitySpace.QuietState();
+        states[(int)EntityStateType.Penalty] = new NonChaseEntitySpace.PenaltyState();
+        //states[(int)EntityStateType.Extra] = new NonChaseEntitySpace.ExtraState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
     #endregion
 
     #region BehaviourState
-    public virtual void IdleEnter() { StateAnimation(NonChaseEntityStates.Idle, true); }
+    public virtual void IdleEnter() { StateAnimation(EntityStateType.Idle, true); }
     public virtual void IdleExecute() { }
-    public virtual void IdleExit() { StateAnimation(NonChaseEntityStates.Idle, false); }
-    public virtual void TalkEnter() { StateAnimation(NonChaseEntityStates.Talk, true); }
+    public virtual void IdleExit() { StateAnimation(EntityStateType.Idle, false); }
+    public virtual void TalkEnter() { StateAnimation(EntityStateType.Talk, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { StateAnimation(NonChaseEntityStates.Talk, false); }
-    public virtual void QuietEnter() { StateAnimation(NonChaseEntityStates.Quiet, true); }
+    public virtual void TalkExit() { StateAnimation(EntityStateType.Talk, false); }
+    public virtual void QuietEnter() { StateAnimation(EntityStateType.Quiet, true); }
     public virtual void QuietExecute() { }
-    public virtual void QuietExit() { StateAnimation(NonChaseEntityStates.Quiet, false); }
-    public virtual void PenaltyEnter() { StateAnimation(NonChaseEntityStates.Penalty, true); }
+    public virtual void QuietExit() { StateAnimation(EntityStateType.Quiet, false); }
+    public virtual void PenaltyEnter() { StateAnimation(EntityStateType.Penalty, true); }
     public virtual void PenaltyExecute() { }
-    public virtual void PenaltyExit() { StateAnimation(NonChaseEntityStates.Penalty, false); }
+    public virtual void PenaltyExit() { StateAnimation(EntityStateType.Penalty, false); }
     #endregion
 
     #region Empty Method
@@ -58,16 +59,15 @@ public class NonChaseEntity : BaseEntity
     #endregion
 
     #region Override Behaviour
-    public override void UpdateExecute() { stateMachine.Execute(); }
-    public override void StartConversation() { ChangeState(NonChaseEntityStates.Talk); StartCoroutine(LookPlayerCor()); }
-    public override void EndConversation() { ChangeState(NonChaseEntityStates.Idle); }
-    public override void BeCalmDown() { ChangeState(NonChaseEntityStates.Idle); }
-    public override void BeSilent() { ChangeState(NonChaseEntityStates.Quiet); }
-    public override void BePenalty() { ChangeState(NonChaseEntityStates.Penalty); }
+    public override void  UpdateState() { stateMachine.Execute(); }
+    public override void  IdleState() { ChangeState(EntityStateType.Idle); }
+    public override void  TalkState() { ChangeState(EntityStateType.Talk); StartCoroutine(LookPlayerCor()); }
+    public override void  QuietState() { ChangeState(EntityStateType.Quiet); }
+    public override void PenaltyState() { ChangeState(EntityStateType.Penalty); }
     #endregion
 
     #region Method
-    public void ChangeState(NonChaseEntityStates _newState)
+    public void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
         stateMachine.ChangeState(states[(int)currentState]);
@@ -80,20 +80,20 @@ public class NonChaseEntity : BaseEntity
     /// </summary>
     /// <param name="_entityState"></param>
     /// <param name="_setBool"></param>
-    public virtual void StateAnimation(NonChaseEntityStates _entityState, bool _setBool)
+    public virtual void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
         switch (_entityState)
         {
-            case NonChaseEntityStates.Idle:
+            case EntityStateType.Idle:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case NonChaseEntityStates.Talk:
+            case EntityStateType.Talk:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case NonChaseEntityStates.Quiet:
+            case EntityStateType.Quiet:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case NonChaseEntityStates.Penalty:
+            case EntityStateType.Penalty:
                 anim.SetBool("IDLE", _setBool);
                 break;
             default:

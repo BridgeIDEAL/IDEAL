@@ -11,12 +11,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Refer To Managers")]
     // Refer To Manager & Hub
-    [SerializeField] private EntityManager entityM;
-    public EntityManager EntityM { get { return entityM; } }
-    
-    // Non Refer To Manager
-    private EntityEventManager entityEM = new EntityEventManager();
-    public EntityEventManager EntityEM { get { return entityEM; } }
+    [SerializeField] private EntityManager entity_Manager;
+    public EntityManager Entity_Manager { get { return entity_Manager; } }
+    [SerializeField] private GameEventManager gameEvent_Manager;
+    public GameEventManager GameEvent_Manager { get { return gameEvent_Manager; } }
     
     // Not Use Now
     private DataManager data = new DataManager();
@@ -57,9 +55,9 @@ public class GameManager : MonoBehaviour
         interactionManager.Init(); 
         interactionDetect.Init();
         conversationManager.Init();
-        if (entityM == null)
+        if (entity_Manager == null)
             return;
-        entityM.Init();
+        entity_Manager.Init();
     }
 
 

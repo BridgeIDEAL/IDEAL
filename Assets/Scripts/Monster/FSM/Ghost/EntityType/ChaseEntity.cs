@@ -16,8 +16,8 @@ public class ChaseEntity : BaseEntity
     protected Transform playerTransform;
     protected bool isChasePlayer = false;
     // State Variable
-    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
-    protected State<ChaseEntity>[] states = new State<ChaseEntity>[5];
+    [SerializeField] protected EntityStateType currentState = EntityStateType.Idle;
+    protected State<ChaseEntity>[] states = new State<ChaseEntity>[6];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
 
@@ -34,13 +34,12 @@ public class ChaseEntity : BaseEntity
     public virtual void PenaltyEnter() { }
     public virtual void PenaltyExecute() { }
     public virtual void PenaltyExit() { }
-    public virtual void ChaseEnter() { }
-    public virtual void ChaseExecute() { }
-    public virtual void ChaseExit() { }
     public virtual void ExtraEnter() { }
     public virtual void ExtraExecute() { }
     public virtual void ExtraExit() { }
-
+    public virtual void ChaseEnter() { }
+    public virtual void ChaseExecute() { }
+    public virtual void ChaseExit() { }
     #endregion
 
     #region InitSetting
@@ -54,25 +53,22 @@ public class ChaseEntity : BaseEntity
             anim = GetComponent<Animator>();
         if (nav == null)
             nav = GetComponent<NavMeshAgent>();
-        states[(int)ChaseEntityStates.Idle] = new ChaseEntitySpace.IdleState();
-        states[(int)ChaseEntityStates.Talk] = new ChaseEntitySpace.TalkState();
-        states[(int)ChaseEntityStates.Quiet] = new ChaseEntitySpace.QuietState();
-        states[(int)ChaseEntityStates.Penalty] = new ChaseEntitySpace.PenaltyState();
-        states[(int)ChaseEntityStates.Chase] = new ChaseEntitySpace.ChaseState();
+        states[(int)EntityStateType.Idle] = new ChaseEntitySpace.IdleState();
+        states[(int)EntityStateType.Talk] = new ChaseEntitySpace.TalkState();
+        states[(int)EntityStateType.Quiet] = new ChaseEntitySpace.QuietState();
+        states[(int)EntityStateType.Penalty] = new ChaseEntitySpace.PenaltyState();
+        states[(int)EntityStateType.Extra] = new ChaseEntitySpace.ExtraState();
+        states[(int)EntityStateType.Chase] = new ChaseEntitySpace.ChaseState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
-    public override void UpdateExecute() { stateMachine.Execute(); }
-    public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); StartCoroutine(LookPlayerCor()); }
-    public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
-    public override void BeCalmDown() { ChangeState(ChaseEntityStates.Idle); }
-    public override void BeSilent() { ChangeState(ChaseEntityStates.Quiet); }
-    /// <summary>
-    /// (Have) Aggressive Animation => Act Animation => Chase 
-    /// (Do not Have) Aggressive Animation => Immediately Chase
-    /// </summary>
-    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase); } // 나중에 변경해야 함 => virtual로
-    public override void BePenalty() { ChangeState(ChaseEntityStates.Penalty); }
-    public void ChangeState(ChaseEntityStates _newState)
+    public override void UpdateState() { stateMachine.Execute(); }
+    public override void IdleState() { ChangeState(EntityStateType.Talk); StartCoroutine(LookPlayerCor()); }
+    public override void TalkState() { ChangeState(EntityStateType.Idle); }
+    public override void QuietState() { ChangeState(EntityStateType.Idle); }
+    public override void PenaltyState() { ChangeState(EntityStateType.Idle); }
+    public override void ExtraState() { ChangeState(EntityStateType.Quiet); }
+    public override void ChaseState() { ChangeState(EntityStateType.Quiet); }
+    public void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
         stateMachine.ChangeState(states[(int)currentState]);
@@ -94,26 +90,26 @@ public class ChaseEntity : BaseEntity
     /// </summary>
     /// <param name="_entityState"></param>
     /// <param name="_setBool"></param>
-    public virtual void StateAnimation(ChaseEntityStates _entityState, bool _setBool)
+    public virtual void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
         switch (_entityState)
         {
-            case ChaseEntityStates.Idle:
+            case EntityStateType.Idle:
                 anim.SetBool("Idle", _setBool);
                 break;
-            case ChaseEntityStates.Talk:
+            case EntityStateType.Talk:
                 anim.SetBool("Talk", _setBool);
                 break;
-            case ChaseEntityStates.Quiet:
+            case EntityStateType.Quiet:
                 anim.SetBool("Quiet", _setBool);
                 break;
-            case ChaseEntityStates.Penalty:
+            case EntityStateType.Penalty:
                 anim.SetBool("Penalty", _setBool);
                 break;
-            case ChaseEntityStates.Chase:
+            case EntityStateType.Chase:
                 anim.SetBool("Chase", _setBool);
                 break;
-            case ChaseEntityStates.Extra:
+            case EntityStateType.Extra:
                 anim.SetBool("Aggressive", true);
                 break;
             default:

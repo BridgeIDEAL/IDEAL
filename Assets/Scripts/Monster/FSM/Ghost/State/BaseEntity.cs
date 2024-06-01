@@ -8,15 +8,16 @@ public abstract class BaseEntity : MonoBehaviour
 
     #region 공통으로 가져야 하는 변수
     [Header("스폰 여부")]
-    [SerializeField] private bool isSpawn;
-    [SerializeField] protected bool isLookPlayer;
-    public bool IsSpawn { get { return isSpawn; }set{ isSpawn = value; } }
+    [SerializeField] private bool isSpawn = false;
+    [SerializeField] private bool isSetUp = false;
+    public bool IsSpawn { get { return isSpawn;  } set { isSpawn = value; } }
+    public bool IsSetUp { get { return isSetUp; } }
     #endregion
 
     #region Init Setting
     public virtual void Setup(Transform _playerTransform)
     {
-
+        isSetUp = true;
         InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
         if (interactionConversation != null)
         {
@@ -35,13 +36,13 @@ public abstract class BaseEntity : MonoBehaviour
     #endregion
 
     #region Abstract Behaviour
-    public abstract void UpdateExecute();
-    public abstract void StartConversation();
-    public abstract void EndConversation();
-    public abstract void BeCalmDown();
-    public abstract void BeSilent();
-    public virtual void BeChasing() { }
-    public virtual void BePenalty() { }
+    public abstract void UpdateState();
+    public abstract void IdleState();
+    public abstract void TalkState();
+    public abstract void QuietState();
+    public virtual void ChaseState() { }
+    public virtual void PenaltyState() { }
+    public virtual void ExtraState() { } // Use By ChaseEntity (Use Aggressive Motion) 
     #endregion
 
     #region Get Bool Method (Virtual)

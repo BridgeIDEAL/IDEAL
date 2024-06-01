@@ -42,8 +42,8 @@ public class InteractionChangeScene : AbstractInteraction
         if (onceActiveEvent && needItem!=0)
         {
             onceActiveEvent = false;
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity("1F_PatrolGuard");
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity("1F_StandGuard");
+            //IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity("1F_PatrolGuard");
+            //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity("1F_StandGuard");
         }
         // ~~~End
         if (audioSource != null)

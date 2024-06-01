@@ -99,7 +99,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     }
     public void TeleportGuardRoom()
     {
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
+        IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendPenaltyMesage(this.name);
         anim.SetFloat("WALKVAL", 0f);
         nav.enabled = false;
         transform.position = guardRoomEntrance;
@@ -111,29 +111,29 @@ public class PatrolGuard : ChaseEntity, IPatrol
     {   
         if (collision.collider.CompareTag("Player") && isDeathPenalty)
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("경비실에 몰래 들어갔다 잡혀서 맞아 죽었다..");
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("경비에게 끌려간 뒤, 피투성이가 되어 발견");
         }
     }
     #endregion
 
     #region Animation
-    public override void StateAnimation(ChaseEntityStates _entityState, bool _setBool)
+    public override void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
         switch (_entityState)
         {
-            case ChaseEntityStates.Idle:
+            case EntityStateType.Idle:
                 anim.SetBool("WALK", _setBool);
                 break;
-            case ChaseEntityStates.Talk:
+            case EntityStateType.Talk:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case ChaseEntityStates.Quiet:
+            case EntityStateType.Quiet:
                 anim.SetBool("WALK", _setBool);
                 break;
-            case ChaseEntityStates.Penalty:
+            case EntityStateType.Penalty:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case ChaseEntityStates.Chase:
+            case EntityStateType.Chase:
                 anim.SetBool("WALK", _setBool);
                 break;
             default:

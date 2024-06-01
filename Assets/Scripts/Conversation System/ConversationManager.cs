@@ -42,7 +42,7 @@ public class ConversationManager : MonoBehaviour
         thirdPersonController.MoveLock = true;
         if(nowTalkerName != ""){
             // TO DO ~~~~~~~~~~~~~
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation(nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendStartConversationMessage(nowTalkerName);
         }
     }
 
@@ -50,14 +50,14 @@ public class ConversationManager : MonoBehaviour
         thirdPersonController.MoveLock = false;
         if(nowTalkerName != ""){
             // TO DO ~~~~~~~~~~~~~
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation(nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendEndConversationMessage(nowTalkerName);
         }
     }
 
     public void MonsterChase(){
         if(nowTalkerName != ""){
             // TO DO ~~~~~~~~~~~~~
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase(nowTalkerName);
+            IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendChaseMessage(nowTalkerName);
         }
     }
 
