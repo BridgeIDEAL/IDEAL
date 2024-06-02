@@ -5,22 +5,18 @@ using UnityEngine.AI;
 
 public class Principal : ChaseEntity, IPatrol
 {
-    #region Patrol Variable
-    [Header("Patrol Variable")]
-    [SerializeField] protected Vector3[] patrolPoints; // ���� ���� 
-    [SerializeField] protected float coolDownTimer = 30f; // ���߰ݱ����� Ÿ�̸�
+    #region Variable
+    [Header("이형체 이름, 대화")]
+    [SerializeField] private string monsterName = "1F_PatorlPrincipal";
+    [SerializeField] private string penaltyDialogue = "D_104_Principal_Start";
 
-    protected bool canDetectPlayer = true; // Cool Time 
-    [SerializeField] protected int currentPatrolPoint = 0; // ���� �̵��ϴ� ��Ʈ�� ����
-    [SerializeField] protected int maxPatrolPoint = 0; // ��Ʈ�� ������ �ִ� ��
-    #endregion
-
-    #region Principal Variable
-    protected float ratioChaseSpeed; // �߰� �ӵ� ����
-    protected bool isInRoom = false;
-
-    private string monsterName = "1F_PatorlPrincipal";
-    private string penaltyDialogue = "D_104_Principal_Start";
+    [Header("순찰 변수")]
+    [SerializeField] protected Vector3[] patrolPoints; 
+    [SerializeField] protected float coolDownTimer = 30f; 
+    protected bool canDetectPlayer = true; 
+    protected int currentPatrolPoint = 0; 
+    protected int maxPatrolPoint = 0; 
+    protected float ratioChaseSpeed = 1.5f; // Anim Speed
     #endregion
 
     #region Override Setting
@@ -28,14 +24,13 @@ public class Principal : ChaseEntity, IPatrol
     {
         maxPatrolPoint = patrolPoints.Length;
     }
-    public override void IsInRoom(bool _isInRoom) { isInRoom = _isInRoom; }
     #endregion
 
     #region BehaviourState
     public override void IdleEnter() { StateAnimation(EntityStateType.Idle, true); SeekNextRoute(); }
     public override void IdleExecute() { DetectPlayer(); Patrol(); }
     public override void IdleExit() { StateAnimation(EntityStateType.Idle, false); }
-    public override void TalkEnter() { StopPatrol(); StateAnimation(EntityStateType.Talk, true); }
+    public override void TalkEnter() { StopPatrol(); StateAnimation(EntityStateType.Talk, true); StartCoroutine(LookPlayerCor()); }
     public override void TalkExecute() { }
     public override void TalkExit() { StateAnimation(EntityStateType.Talk, false); }
     public override void QuietEnter() { StateAnimation(EntityStateType.Quiet, true); SeekNextRoute(); }
@@ -51,7 +46,7 @@ public class Principal : ChaseEntity, IPatrol
 
     #region Empty Method
     /// <summary>
-    /// �߰��� ���� �ൿ�� ���ٸ� ���
+    /// if not use this method => delete
     /// </summary>
     public override void ExtraEnter() { /*StateAnimation(currentState, true); */}
     public override void ExtraExecute() { }
@@ -85,13 +80,13 @@ public class Principal : ChaseEntity, IPatrol
     {
         if (!canDetectPlayer)
             return;
-        Vector3 direction = eyeTransform.position - playerTransform.position;
+        Vector3 direction = transform.position + eyeTransform - playerTransform.position;
         if (direction.magnitude > detectDistance)
             return;
         else
         {
             RaycastHit rayHit;
-            if (Physics.Raycast(eyeTransform.position, direction, out rayHit, detectDistance, playerLayer))
+            if (Physics.Raycast(transform.position + eyeTransform, direction, out rayHit, detectDistance, playerLayer))
             {
                 IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendChaseMessage(this.name);
             }
@@ -117,17 +112,14 @@ public class Principal : ChaseEntity, IPatrol
         yield return new WaitForSeconds(coolDownTimer);
         canDetectPlayer = true;
     }
-    public void SetChase(bool _isChasePlayer)
-    {
-        isChasePlayer = _isChasePlayer;
-        //IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.IsChasePlayer = isChasePlayer;
-    }
+    
     public override void ChasePlayer()
     {
-        if (isInRoom)
+        if (gameEventManager.PlayerInPlace == EventPlaceType.StudyRoom_1F)
         {
             anim.SetFloat("WALKVAL", 0f);
             nav.ResetPath();
+            // 문 앞까지 이동시켜야 함
         }
         else
         {

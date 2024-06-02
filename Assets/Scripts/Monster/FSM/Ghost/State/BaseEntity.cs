@@ -8,14 +8,14 @@ public abstract class BaseEntity : MonoBehaviour
 
     #region 공통으로 가져야 하는 변수
     [Header("스폰 여부")]
-    [SerializeField] private bool isSpawn = false;
+    [SerializeField] private bool isSpawn = true;
     [SerializeField] private bool isSetUp = false;
     public bool IsSpawn { get { return isSpawn;  } set { isSpawn = value; } }
     public bool IsSetUp { get { return isSetUp; } }
     #endregion
 
     #region Init Setting
-    public virtual void Setup(Transform _playerTransform)
+    public virtual void Setup()
     {
         isSetUp = true;
         InteractionConversation interactionConversation = GetComponent<InteractionConversation>();
@@ -43,9 +43,5 @@ public abstract class BaseEntity : MonoBehaviour
     public virtual void ChaseState() { }
     public virtual void PenaltyState() { }
     public virtual void ExtraState() { } // Use By ChaseEntity (Use Aggressive Motion) 
-    #endregion
-
-    #region Get Bool Method (Virtual)
-    public virtual void IsInRoom(bool _isInRoom) { return; }
     #endregion
 }

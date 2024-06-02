@@ -16,3 +16,11 @@ public enum SoundType
     Effect,
     MaxSoundCnt
 }
+
+public enum EventPlaceType
+{
+    RestPlace,
+    GuardRoom_1F,
+    StudyRoom_1F,
+    None
+}

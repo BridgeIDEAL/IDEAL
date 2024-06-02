@@ -6,17 +6,19 @@ using UnityEngine.AI;
 public class ChaseEntity : BaseEntity
 {
     #region ChaseEntity Common Variable
-    [Header("ChaseEntity Common Variable")]
-    [SerializeField] protected Animator anim;
-    [SerializeField] protected NavMeshAgent nav;
-    [SerializeField] protected Transform eyeTransform; // Detect Transform => Y : 1.5~2f 
+    [Header("플레이어를 감지하는 거리")]
     [SerializeField] protected float detectDistance;
-    // Player Variable
-    protected LayerMask playerLayer = 3;
-    protected Transform playerTransform;
+    // Component
+    protected Animator anim = null;
+    protected NavMeshAgent nav = null;
+    protected GameEventManager gameEventManager = null;
+    // Relate Player
     protected bool isChasePlayer = false;
-    // State Variable
-    [SerializeField] protected EntityStateType currentState = EntityStateType.Idle;
+    protected Transform playerTransform;
+    protected LayerMask playerLayer = 3;
+    protected Vector3 eyeTransform = new Vector3(0f,1.5f,0f);
+    // State
+    protected EntityStateType currentState = EntityStateType.Idle;
     protected State<ChaseEntity>[] states = new State<ChaseEntity>[6];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
@@ -43,16 +45,17 @@ public class ChaseEntity : BaseEntity
     #endregion
 
     #region InitSetting
-    public override void Setup(Transform _playerTransform)
+    public override void Setup()
     {
-        base.Setup(_playerTransform);
-        if (playerTransform != null)
-            return;
-        playerTransform = _playerTransform;
+        base.Setup();
+        if(playerTransform==null)
+            playerTransform = IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.PlayerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
         if (nav == null)
             nav = GetComponent<NavMeshAgent>();
+        if(gameEventManager==null)
+            gameEventManager = IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager;
         states[(int)EntityStateType.Idle] = new ChaseEntitySpace.IdleState();
         states[(int)EntityStateType.Talk] = new ChaseEntitySpace.TalkState();
         states[(int)EntityStateType.Quiet] = new ChaseEntitySpace.QuietState();
@@ -62,12 +65,12 @@ public class ChaseEntity : BaseEntity
         stateMachine.Setup(this, states[(int)currentState]);
     }
     public override void UpdateState() { stateMachine.Execute(); }
-    public override void IdleState() { ChangeState(EntityStateType.Talk); StartCoroutine(LookPlayerCor()); }
-    public override void TalkState() { ChangeState(EntityStateType.Idle); }
-    public override void QuietState() { ChangeState(EntityStateType.Idle); }
-    public override void PenaltyState() { ChangeState(EntityStateType.Idle); }
-    public override void ExtraState() { ChangeState(EntityStateType.Quiet); }
-    public override void ChaseState() { ChangeState(EntityStateType.Quiet); }
+    public override void IdleState() { ChangeState(EntityStateType.Idle); }
+    public override void TalkState() { ChangeState(EntityStateType.Talk); }
+    public override void QuietState() { ChangeState(EntityStateType.Quiet); }
+    public override void PenaltyState() { ChangeState(EntityStateType.Penalty); }
+    public override void ExtraState() { ChangeState(EntityStateType.Extra); }
+    public override void ChaseState() { ChangeState(EntityStateType.Chase); }
     public void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
@@ -81,6 +84,11 @@ public class ChaseEntity : BaseEntity
         if (playerTransform == null)
             return;
         nav.SetDestination(playerTransform.position);
+    }
+    public virtual void SetChase(bool _isChasePlayer)
+    {
+        isChasePlayer = _isChasePlayer;
+        IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.IsChasePlayer= _isChasePlayer;
     }
     #endregion
 

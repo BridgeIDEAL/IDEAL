@@ -24,7 +24,6 @@ public class PatrolGuard : ChaseEntity, IPatrol
     {
         maxPatrolPoint = patrolPoints.Length;
     }
-    public override void IsInRoom(bool _isInRoom) { isInRoom = _isInRoom; }
     #endregion
 
     #region BehaviourState
@@ -85,7 +84,7 @@ public class PatrolGuard : ChaseEntity, IPatrol
     #region Detect
     public void DetectPlayer()
     {
-        Vector3 direction = eyeTransform.position - playerTransform.position;
+        Vector3 direction = transform.position + eyeTransform - playerTransform.position;
         if (direction.magnitude > detectDistance)
         {
             isNearPlayer = false;

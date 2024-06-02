@@ -6,13 +6,15 @@ public class EntityManager : MonoBehaviour
 {
     #region Variable
     private bool isEnable = false; // Prevent First OnEnable
-    private int currentActiveEntityCount = 0; 
-    private bool isChasePlayer = false;
-    public bool IsChasePlayer { get { return isChasePlayer; } }
+    private int currentActiveEntityCount = 0;
+    private int allEntityCount = 0;
+    private bool isChasePlayer = false; // Use For EndConversation
+    public bool IsChasePlayer { get { return isChasePlayer; } set { isChasePlayer = value; } }
     [Header("Developer Variable")]
     [SerializeField] private Transform playerTransform; // PlayerTransform
+    public Transform PlayerTransform { get { return playerTransform; } }
     [SerializeField] private List<BaseEntity> currentActiveEntityList = new List<BaseEntity>(); // Already Spawn
-    [SerializeField] private Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>(); // For Use Search 
+    [SerializeField] private List<BaseEntity> allEntityList= new List<BaseEntity>(); // For Use Search 
     #endregion
 
     #region UnityLifeCycle
@@ -21,25 +23,24 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     public void Init()
     {
+        int allEntityCount = allEntityList.Count;
         currentActiveEntityList.Clear();
-        int dictionaryCount = allEntityDictionary.Count;
-        List<string> dictionaryKeys = new List<string>(allEntityDictionary.Keys);
-        for(int idx=0; idx<dictionaryCount; idx++)
+        for(int idx=0; idx< allEntityCount; idx++)
         {
-            if (allEntityDictionary[dictionaryKeys[idx]].IsSpawn)
+            if (allEntityList[idx].IsSpawn)
             {
-                currentActiveEntityList.Add(allEntityDictionary[dictionaryKeys[idx]]);
-                if(!allEntityDictionary[dictionaryKeys[idx]].IsSetUp)
-                    allEntityDictionary[dictionaryKeys[idx]].Setup(playerTransform);
-                if(!allEntityDictionary[dictionaryKeys[idx]].gameObject.activeSelf)
-                    allEntityDictionary[dictionaryKeys[idx]].gameObject.SetActive(true);
+                currentActiveEntityList.Add(allEntityList[idx]);
+                if(!allEntityList[idx].IsSetUp)
+                    allEntityList[idx].Setup();
+                if(!allEntityList[idx].gameObject.activeSelf)
+                    allEntityList[idx].gameObject.SetActive(true);
             }
             else
             {
-                if (!allEntityDictionary[dictionaryKeys[idx]].IsSetUp)
-                    allEntityDictionary[dictionaryKeys[idx]].Setup(playerTransform);
-                if (!allEntityDictionary[dictionaryKeys[idx]].gameObject.activeSelf)
-                    allEntityDictionary[dictionaryKeys[idx]].gameObject.SetActive(false);
+                if (!allEntityList[idx].IsSetUp)
+                    allEntityList[idx].Setup();
+                if (!allEntityList[idx].gameObject.activeSelf)
+                    allEntityList[idx].gameObject.SetActive(false);
             }
         }
         currentActiveEntityCount = currentActiveEntityList.Count;
@@ -73,10 +74,12 @@ public class EntityManager : MonoBehaviour
     #region Spawn & Search Method
     public BaseEntity SearchEntity(string _name)
     {
-        if (allEntityDictionary[_name] == null)
-            return null;
-        else
-            return allEntityDictionary[_name];
+        for(int idx=0; idx< allEntityCount; idx++)
+        {
+            if (allEntityList[idx].name == _name)
+                return allEntityList[idx];
+        }
+        return null;
     }
     public void SpawnEntity(string _name)
     {

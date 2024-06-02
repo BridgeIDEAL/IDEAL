@@ -5,24 +5,23 @@ using UnityEngine;
 public class NonChaseEntity : BaseEntity
 {
     #region NonChaseEntity Common Variable
-    [Header("NonChaseEntity Common Variable")]
-    [SerializeField] protected Animator anim;
-    // Player Variable
+    // Component
+    protected Animator anim;
+    // Relate Player 
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
-    // State Variable
+    // State
     protected EntityStateType currentState = EntityStateType.Idle;
     protected State<NonChaseEntity>[] states = new State<NonChaseEntity>[4];
     protected StateMachine<NonChaseEntity> stateMachine = new StateMachine<NonChaseEntity>();
     #endregion
 
     #region Init Setting
-    public override void Setup(Transform _playerTransform)
+    public override void Setup()
     {
-        base.Setup(_playerTransform);
+        base.Setup();
         if (playerTransform != null)
-            return;
-        playerTransform = _playerTransform;
+            playerTransform = IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.PlayerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
         states[(int)EntityStateType.Idle] = new NonChaseEntitySpace.IdleState();
@@ -38,7 +37,7 @@ public class NonChaseEntity : BaseEntity
     public virtual void IdleEnter() { StateAnimation(EntityStateType.Idle, true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { StateAnimation(EntityStateType.Idle, false); }
-    public virtual void TalkEnter() { StateAnimation(EntityStateType.Talk, true); }
+    public virtual void TalkEnter() { StateAnimation(EntityStateType.Talk, true); StartCoroutine(LookPlayerCor()); }
     public virtual void TalkExecute() { }
     public virtual void TalkExit() { StateAnimation(EntityStateType.Talk, false); }
     public virtual void QuietEnter() { StateAnimation(EntityStateType.Quiet, true); }
@@ -61,7 +60,7 @@ public class NonChaseEntity : BaseEntity
     #region Override Behaviour
     public override void  UpdateState() { stateMachine.Execute(); }
     public override void  IdleState() { ChangeState(EntityStateType.Idle); }
-    public override void  TalkState() { ChangeState(EntityStateType.Talk); StartCoroutine(LookPlayerCor()); }
+    public override void  TalkState() { ChangeState(EntityStateType.Talk);  }
     public override void  QuietState() { ChangeState(EntityStateType.Quiet); }
     public override void PenaltyState() { ChangeState(EntityStateType.Penalty); }
     #endregion
