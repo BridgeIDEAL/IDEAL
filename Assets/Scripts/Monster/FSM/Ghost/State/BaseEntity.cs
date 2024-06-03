@@ -12,6 +12,7 @@ public abstract class BaseEntity : MonoBehaviour
     [SerializeField] private bool isSetUp = false;
     public bool IsSpawn { get { return isSpawn;  } set { isSpawn = value; } }
     public bool IsSetUp { get { return isSetUp; } }
+    [SerializeField] protected EntityStateType currentState = EntityStateType.Idle;
     #endregion
 
     #region Init Setting
@@ -36,6 +37,7 @@ public abstract class BaseEntity : MonoBehaviour
     #endregion
 
     #region Abstract Behaviour
+    public abstract void ChangeState(EntityStateType _newState);
     public abstract void UpdateState();
     public abstract void IdleState();
     public abstract void TalkState();

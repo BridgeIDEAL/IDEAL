@@ -11,7 +11,6 @@ public class NonChaseEntity : BaseEntity
     protected LayerMask playerLayer = 3;
     protected Transform playerTransform;
     // State
-    protected EntityStateType currentState = EntityStateType.Idle;
     protected State<NonChaseEntity>[] states = new State<NonChaseEntity>[4];
     protected StateMachine<NonChaseEntity> stateMachine = new StateMachine<NonChaseEntity>();
     #endregion
@@ -66,7 +65,7 @@ public class NonChaseEntity : BaseEntity
     #endregion
 
     #region Method
-    public void ChangeState(EntityStateType _newState)
+    public override void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
         stateMachine.ChangeState(states[(int)currentState]);
@@ -99,6 +98,11 @@ public class NonChaseEntity : BaseEntity
                 break;
         }
     }
+    public void OnEnable()
+    {
+        StateAnimation(currentState, true);
+    }
+
     protected IEnumerator LookPlayerCor()
     {
         float timer = 0f;

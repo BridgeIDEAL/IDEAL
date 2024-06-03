@@ -5,7 +5,7 @@ using UnityEngine;
 public class StandingGuard : NonChaseEntity
 {
     #region BehaviourState
-    public override void IdleEnter() { StateAnimation(currentState, true); }
+    public override void IdleEnter() { StateAnimation(currentState, true);}
     public override void IdleExecute() { }
     public override void IdleExit() { StateAnimation(currentState, false); }
     public override void TalkEnter() { StateAnimation(currentState, true); }

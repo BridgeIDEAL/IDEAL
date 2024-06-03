@@ -18,7 +18,6 @@ public class ChaseEntity : BaseEntity
     protected LayerMask playerLayer = 3;
     protected Vector3 eyeTransform = new Vector3(0f,1.5f,0f);
     // State
-    protected EntityStateType currentState = EntityStateType.Idle;
     protected State<ChaseEntity>[] states = new State<ChaseEntity>[6];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
@@ -71,7 +70,7 @@ public class ChaseEntity : BaseEntity
     public override void PenaltyState() { ChangeState(EntityStateType.Penalty); }
     public override void ExtraState() { ChangeState(EntityStateType.Extra); }
     public override void ChaseState() { ChangeState(EntityStateType.Chase); }
-    public void ChangeState(EntityStateType _newState)
+    public override void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
         stateMachine.ChangeState(states[(int)currentState]);
@@ -124,6 +123,12 @@ public class ChaseEntity : BaseEntity
                 break;
         }
     }
+
+    public void OnEnable()
+    {
+        StateAnimation(currentState, true);
+    }
+
     protected IEnumerator LookPlayerCor()
     {
         float timer = 0f;

@@ -5,16 +5,17 @@ using UnityEngine;
 public class EntityManager : MonoBehaviour
 {
     #region Variable
-    private bool isEnable = false; // Prevent First OnEnable
-    private int currentActiveEntityCount = 0;
-    private int allEntityCount = 0;
-    private bool isChasePlayer = false; // Use For EndConversation
-    public bool IsChasePlayer { get { return isChasePlayer; } set { isChasePlayer = value; } }
-    [Header("Developer Variable")]
+    [Header("플레이어/이형체 연결")]
     [SerializeField] private Transform playerTransform; // PlayerTransform
     public Transform PlayerTransform { get { return playerTransform; } }
     [SerializeField] private List<BaseEntity> currentActiveEntityList = new List<BaseEntity>(); // Already Spawn
-    [SerializeField] private List<BaseEntity> allEntityList= new List<BaseEntity>(); // For Use Search 
+    [SerializeField] private List<BaseEntity> allEntityList = new List<BaseEntity>(); // For Use Search 
+
+    private bool isEnable = false; // Prevent First OnEnable
+    private int allEntityCount = 0;
+    private int currentActiveEntityCount = 0;
+    private bool isChasePlayer = false; // Use For EndConversation
+    public bool IsChasePlayer { get { return isChasePlayer; } set { isChasePlayer = value; } }
     #endregion
 
     #region UnityLifeCycle
@@ -23,7 +24,7 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     public void Init()
     {
-        int allEntityCount = allEntityList.Count;
+        allEntityCount = allEntityList.Count;
         currentActiveEntityList.Clear();
         for(int idx=0; idx< allEntityCount; idx++)
         {
@@ -39,7 +40,7 @@ public class EntityManager : MonoBehaviour
             {
                 if (!allEntityList[idx].IsSetUp)
                     allEntityList[idx].Setup();
-                if (!allEntityList[idx].gameObject.activeSelf)
+                if (allEntityList[idx].gameObject.activeSelf)
                     allEntityList[idx].gameObject.SetActive(false);
             }
         }
@@ -57,7 +58,6 @@ public class EntityManager : MonoBehaviour
         }
         isEnable = true;
     }
-
     public void Update()
     {
         EntityGroupUpdate();
@@ -77,7 +77,9 @@ public class EntityManager : MonoBehaviour
         for(int idx=0; idx< allEntityCount; idx++)
         {
             if (allEntityList[idx].name == _name)
+            {
                 return allEntityList[idx];
+            }
         }
         return null;
     }
@@ -92,10 +94,10 @@ public class EntityManager : MonoBehaviour
                 return;
         }
         spawnEntity.IsSpawn = true;
-        currentActiveEntityList.Add(spawnEntity);
-        currentActiveEntityCount = currentActiveEntityList.Count;
         if (!spawnEntity.gameObject.activeSelf)
             spawnEntity.gameObject.SetActive(true);
+        currentActiveEntityList.Add(spawnEntity);
+        currentActiveEntityCount = currentActiveEntityList.Count;
     }
     public void DespawnEntity(string _name)
     {
@@ -119,7 +121,7 @@ public class EntityManager : MonoBehaviour
 
     #region Send Message Method 
     /// <summary>
-    /// 모든 이형체를 무관심 상태로 변화
+    /// Enter SafeZone or End Conversation
     /// </summary>
     public void SendCalmDownMessage()
     {
@@ -128,7 +130,7 @@ public class EntityManager : MonoBehaviour
             currentActiveEntityList[idx].IdleState();
         }
     }
-   
+    
     public void SendStartConversationMessage(string _name)
     {
         SendSilentMessage(_name, EntityStateType.Talk);
@@ -140,12 +142,10 @@ public class EntityManager : MonoBehaviour
             return;
         SendCalmDownMessage();
     }
-
     public void SendPenaltyMesage(string _name)
     {
         SendSilentMessage(_name, EntityStateType.Penalty);
     }
-
     public void SendExtraMessage(string _name, bool _isChase = false)
     {
         if (_isChase)
@@ -155,13 +155,11 @@ public class EntityManager : MonoBehaviour
         }
         SendSilentMessage(_name, EntityStateType.Extra);
     }
-
     public void SendChaseMessage(string _name)
     {
         isChasePlayer = true;
         SendSilentMessage(_name, EntityStateType.Chase);
     }
-    
     /// <summary>
     /// Use By Send Message
     /// </summary>
