@@ -6,18 +6,19 @@ using UnityEngine.AI;
 public class ChaseEntity : BaseEntity
 {
     #region ChaseEntity Common Variable
-    [Header("ChaseEntity Common Variable")]
-    [SerializeField] protected Animator anim;
-    [SerializeField] protected NavMeshAgent nav;
-    [SerializeField] protected Transform eyeTransform; // Detect Transform => Y : 1.5~2f 
+    [Header("플레이어를 감지하는 거리")]
     [SerializeField] protected float detectDistance;
-    // Player Variable
-    protected LayerMask playerLayer = 3;
-    protected Transform playerTransform;
+    // Component
+    protected Animator anim = null;
+    protected NavMeshAgent nav = null;
+    protected GameEventManager gameEventManager = null;
+    // Relate Player
     protected bool isChasePlayer = false;
-    // State Variable
-    [SerializeField] protected ChaseEntityStates currentState = ChaseEntityStates.Idle;
-    protected State<ChaseEntity>[] states = new State<ChaseEntity>[5];
+    protected Transform playerTransform;
+    protected LayerMask playerLayer = 3;
+    protected Vector3 eyeTransform = new Vector3(0f,1.5f,0f);
+    // State
+    protected State<ChaseEntity>[] states = new State<ChaseEntity>[6];
     protected StateMachine<ChaseEntity> stateMachine = new StateMachine<ChaseEntity>();
     #endregion
 
@@ -34,45 +35,42 @@ public class ChaseEntity : BaseEntity
     public virtual void PenaltyEnter() { }
     public virtual void PenaltyExecute() { }
     public virtual void PenaltyExit() { }
-    public virtual void ChaseEnter() { }
-    public virtual void ChaseExecute() { }
-    public virtual void ChaseExit() { }
     public virtual void ExtraEnter() { }
     public virtual void ExtraExecute() { }
     public virtual void ExtraExit() { }
-
+    public virtual void ChaseEnter() { }
+    public virtual void ChaseExecute() { }
+    public virtual void ChaseExit() { }
     #endregion
 
     #region InitSetting
-    public override void Setup(Transform _playerTransform)
+    public override void Setup()
     {
-        base.Setup(_playerTransform);
-        if (playerTransform != null)
-            return;
-        playerTransform = _playerTransform;
+        base.Setup();
+        if(playerTransform==null)
+            playerTransform = IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.PlayerTransform;
         if (anim == null)
             anim = GetComponent<Animator>();
         if (nav == null)
             nav = GetComponent<NavMeshAgent>();
-        states[(int)ChaseEntityStates.Idle] = new ChaseEntitySpace.IdleState();
-        states[(int)ChaseEntityStates.Talk] = new ChaseEntitySpace.TalkState();
-        states[(int)ChaseEntityStates.Quiet] = new ChaseEntitySpace.QuietState();
-        states[(int)ChaseEntityStates.Penalty] = new ChaseEntitySpace.PenaltyState();
-        states[(int)ChaseEntityStates.Chase] = new ChaseEntitySpace.ChaseState();
+        if(gameEventManager==null)
+            gameEventManager = IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager;
+        states[(int)EntityStateType.Idle] = new ChaseEntitySpace.IdleState();
+        states[(int)EntityStateType.Talk] = new ChaseEntitySpace.TalkState();
+        states[(int)EntityStateType.Quiet] = new ChaseEntitySpace.QuietState();
+        states[(int)EntityStateType.Penalty] = new ChaseEntitySpace.PenaltyState();
+        states[(int)EntityStateType.Extra] = new ChaseEntitySpace.ExtraState();
+        states[(int)EntityStateType.Chase] = new ChaseEntitySpace.ChaseState();
         stateMachine.Setup(this, states[(int)currentState]);
     }
-    public override void UpdateExecute() { stateMachine.Execute(); }
-    public override void StartConversation() { ChangeState(ChaseEntityStates.Talk); StartCoroutine(LookPlayerCor()); }
-    public override void EndConversation() { ChangeState(ChaseEntityStates.Idle); }
-    public override void BeCalmDown() { ChangeState(ChaseEntityStates.Idle); }
-    public override void BeSilent() { ChangeState(ChaseEntityStates.Quiet); }
-    /// <summary>
-    /// (Have) Aggressive Animation => Act Animation => Chase 
-    /// (Do not Have) Aggressive Animation => Immediately Chase
-    /// </summary>
-    public override void BeChasing() { ChangeState(ChaseEntityStates.Chase); } // 나중에 변경해야 함 => virtual로
-    public override void BePenalty() { ChangeState(ChaseEntityStates.Penalty); }
-    public void ChangeState(ChaseEntityStates _newState)
+    public override void UpdateState() { stateMachine.Execute(); }
+    public override void IdleState() { ChangeState(EntityStateType.Idle); }
+    public override void TalkState() { ChangeState(EntityStateType.Talk); }
+    public override void QuietState() { ChangeState(EntityStateType.Quiet); }
+    public override void PenaltyState() { ChangeState(EntityStateType.Penalty); }
+    public override void ExtraState() { ChangeState(EntityStateType.Extra); }
+    public override void ChaseState() { ChangeState(EntityStateType.Chase); }
+    public override void ChangeState(EntityStateType _newState)
     {
         currentState = _newState;
         stateMachine.ChangeState(states[(int)currentState]);
@@ -86,6 +84,11 @@ public class ChaseEntity : BaseEntity
             return;
         nav.SetDestination(playerTransform.position);
     }
+    public virtual void SetChase(bool _isChasePlayer)
+    {
+        isChasePlayer = _isChasePlayer;
+        IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.IsChasePlayer= _isChasePlayer;
+    }
     #endregion
 
     #region Animation
@@ -94,32 +97,38 @@ public class ChaseEntity : BaseEntity
     /// </summary>
     /// <param name="_entityState"></param>
     /// <param name="_setBool"></param>
-    public virtual void StateAnimation(ChaseEntityStates _entityState, bool _setBool)
+    public virtual void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
         switch (_entityState)
         {
-            case ChaseEntityStates.Idle:
+            case EntityStateType.Idle:
                 anim.SetBool("Idle", _setBool);
                 break;
-            case ChaseEntityStates.Talk:
+            case EntityStateType.Talk:
                 anim.SetBool("Talk", _setBool);
                 break;
-            case ChaseEntityStates.Quiet:
+            case EntityStateType.Quiet:
                 anim.SetBool("Quiet", _setBool);
                 break;
-            case ChaseEntityStates.Penalty:
+            case EntityStateType.Penalty:
                 anim.SetBool("Penalty", _setBool);
                 break;
-            case ChaseEntityStates.Chase:
+            case EntityStateType.Chase:
                 anim.SetBool("Chase", _setBool);
                 break;
-            case ChaseEntityStates.Extra:
+            case EntityStateType.Extra:
                 anim.SetBool("Aggressive", true);
                 break;
             default:
                 break;
         }
     }
+
+    public void OnEnable()
+    {
+        StateAnimation(currentState, true);
+    }
+
     protected IEnumerator LookPlayerCor()
     {
         float timer = 0f;

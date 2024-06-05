@@ -5,76 +5,68 @@ using UnityEngine;
 public class EntityManager : MonoBehaviour
 {
     #region Variable
-    [Header("Developer Variable")]
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private List<BaseEntity> spawnEntityList = new List<BaseEntity>(); // Already Spawn
-    [SerializeField] private List<BaseEntity> deSpawnEntityList = new List<BaseEntity>(); // After Spawn
-    private Dictionary<string, BaseEntity> wholeEntityDictionary = new Dictionary<string, BaseEntity>(); // For Use Search 
-    private int spawnEntityListCount = 0;
-    private int deSpawnEntityListCount = 0;
-    private bool isOnceSetUp = false;
+    [Header("플레이어/이형체 연결")]
+    [SerializeField] private Transform playerTransform; // PlayerTransform
+    public Transform PlayerTransform { get { return playerTransform; } }
+    [SerializeField] private List<BaseEntity> currentActiveEntityList = new List<BaseEntity>(); // Already Spawn
+    [SerializeField] private List<BaseEntity> allEntityList = new List<BaseEntity>(); // For Use Search 
+
+    private bool isEnable = false; // Prevent First OnEnable
+    private int allEntityCount = 0;
+    private int currentActiveEntityCount = 0;
+    private bool isChasePlayer = false; // Use For EndConversation
+    public bool IsChasePlayer { get { return isChasePlayer; } set { isChasePlayer = value; } }
     #endregion
 
     #region UnityLifeCycle
+    /// <summary>
+    /// Call By GameManager Awake
+    /// </summary>
     public void Init()
     {
-        // Fill Dictionary & SetUp
-        //GameManager gameManager = IdealSceneManager.Instance.CurrentGameManager;
-        spawnEntityListCount = spawnEntityList.Count;
-        deSpawnEntityListCount = deSpawnEntityList.Count;
-        for (int idx = 0; idx < spawnEntityListCount; idx++)
+        allEntityCount = allEntityList.Count;
+        currentActiveEntityList.Clear();
+        for(int idx=0; idx< allEntityCount; idx++)
         {
-            wholeEntityDictionary.Add(spawnEntityList[idx].name, spawnEntityList[idx]);
-            spawnEntityList[idx].Setup(playerTransform);
-
+            if (allEntityList[idx].IsSpawn)
+            {
+                currentActiveEntityList.Add(allEntityList[idx]);
+                if(!allEntityList[idx].IsSetUp)
+                    allEntityList[idx].Setup();
+                if(!allEntityList[idx].gameObject.activeSelf)
+                    allEntityList[idx].gameObject.SetActive(true);
+            }
+            else
+            {
+                if (!allEntityList[idx].IsSetUp)
+                    allEntityList[idx].Setup();
+                if (allEntityList[idx].gameObject.activeSelf)
+                    allEntityList[idx].gameObject.SetActive(false);
+            }
         }
-        for (int idx = 0; idx < deSpawnEntityListCount; idx++)
+        currentActiveEntityCount = currentActiveEntityList.Count;
+    }
+    /// <summary>
+    /// Awake = Enable = Start 순으로 호출 
+    /// </summary>
+    public void OnEnable()
+    {
+        if (isEnable)
         {
-            wholeEntityDictionary.Add(deSpawnEntityList[idx].name, deSpawnEntityList[idx]);
-            deSpawnEntityList[idx].Setup(playerTransform);
-            deSpawnEntityList[idx].gameObject.SetActive(false);
+            Init();
+            return;
         }
-
-        //Clear Action
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SetSpawnState= null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase = null;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty = null;
-        //Fill Action
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SearchEntity += SearchEntity;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity += SpawnEntity;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity += DespawnEntity;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.SetSpawnState += ChangeSpawnStateEntity;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastCalmDown += SendCalmDownMessage;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastStartConversation += SendStartConversationMessage;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastEndConversation += SendEndConversationMessage;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase += SendChaseMessage;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty += SendPenaltyMesage;
-        isOnceSetUp = true;
+        isEnable = true;
     }
     public void Update()
     {
-        for (int i = 0; i < spawnEntityListCount; i++) { spawnEntityList[i].UpdateExecute(); }
+        EntityGroupUpdate();
     }
-    public void OnEnable()
+    public void EntityGroupUpdate()
     {
-        if (isOnceSetUp)
-        {
-            for(int idx =0; idx<spawnEntityListCount; idx++)
-            {
-                if (!spawnEntityList[idx].IsSpawn)
-                    DespawnEntity(spawnEntityList[idx].name);
-            }
-            for(int idx=0; idx< deSpawnEntityListCount; idx++)
-            {
-                if (deSpawnEntityList[idx].IsSpawn)
-                    SpawnEntity(spawnEntityList[idx].name);
-            }
+        for (int idx = 0; idx < currentActiveEntityCount; idx++) 
+        { 
+            currentActiveEntityList[idx].UpdateState();
         }
     }
     #endregion
@@ -82,91 +74,127 @@ public class EntityManager : MonoBehaviour
     #region Spawn & Search Method
     public BaseEntity SearchEntity(string _name)
     {
-        BaseEntity _entity = wholeEntityDictionary[_name];
-        if (_entity == null)
-            return null;
-        else
-            return _entity;
+        for(int idx=0; idx< allEntityCount; idx++)
+        {
+            if (allEntityList[idx].name == _name)
+            {
+                return allEntityList[idx];
+            }
+        }
+        return null;
     }
     public void SpawnEntity(string _name)
     {
         BaseEntity spawnEntity = SearchEntity(_name);
         if (spawnEntity == null)
             return;
-        spawnEntityList.Add(spawnEntity);
-        deSpawnEntityList.Remove(spawnEntity);
-        spawnEntity.gameObject.SetActive(true);
-        spawnEntityListCount = spawnEntityList.Count;
+        for(int idx =0; idx<currentActiveEntityCount; idx++)
+        {
+            if (spawnEntity == currentActiveEntityList[idx])
+                return;
+        }
+        spawnEntity.IsSpawn = true;
+        if (!spawnEntity.gameObject.activeSelf)
+            spawnEntity.gameObject.SetActive(true);
+        currentActiveEntityList.Add(spawnEntity);
+        currentActiveEntityCount = currentActiveEntityList.Count;
     }
     public void DespawnEntity(string _name)
     {
         BaseEntity despawnEntity = SearchEntity(_name);
         if (despawnEntity == null)
             return;
-        spawnEntityList.Remove(despawnEntity);
-        deSpawnEntityList.Add(despawnEntity);
-        despawnEntity.gameObject.SetActive(false);
-        deSpawnEntityListCount = deSpawnEntityList.Count;
-    }
-
-    public void ChangeSpawnStateEntity(string _name)
-    {
-        BaseEntity entity = SearchEntity(_name);
-        bool _isSpawn = entity.IsSpawn;
-        Debug.Log(!_isSpawn);
-        entity.IsSpawn = !_isSpawn;
+        for (int idx = 0; idx < currentActiveEntityCount; idx++)
+        {
+            if (despawnEntity == currentActiveEntityList[idx])
+            {
+                despawnEntity.IsSpawn = false;
+                currentActiveEntityList.RemoveAt(idx);
+                currentActiveEntityCount = currentActiveEntityList.Count;
+                if (despawnEntity.gameObject.activeSelf)
+                    despawnEntity.gameObject.SetActive(false);
+                break;
+            }
+        }
     }
     #endregion
 
     #region Send Message Method 
+    /// <summary>
+    /// Enter SafeZone or End Conversation
+    /// </summary>
     public void SendCalmDownMessage()
     {
-        for (int idx = 0; idx < spawnEntityListCount; idx++)
+        for (int idx = 0; idx < currentActiveEntityCount; idx++)
         {
-            spawnEntityList[idx].BeCalmDown();
+            currentActiveEntityList[idx].IdleState();
         }
     }
-    public void SendSilentMessage(string _nonSilentObjectName, EntityEventStateType _entityEventStateType)
+    
+    public void SendStartConversationMessage(string _name)
     {
-        for (int idx = 0; idx < spawnEntityListCount; idx++)
+        SendSilentMessage(_name, EntityStateType.Talk);
+    }
+   
+    public void SendEndConversationMessage(string _name)
+    {
+        if (isChasePlayer)
+            return;
+        SendCalmDownMessage();
+    }
+    public void SendPenaltyMesage(string _name)
+    {
+        SendSilentMessage(_name, EntityStateType.Penalty);
+    }
+    public void SendExtraMessage(string _name, bool _isChase = false)
+    {
+        if (_isChase)
         {
-            if (spawnEntityList[idx].name == _nonSilentObjectName)
+            SendChaseMessage(_name);
+            return;
+        }
+        SendSilentMessage(_name, EntityStateType.Extra);
+    }
+    public void SendChaseMessage(string _name)
+    {
+        isChasePlayer = true;
+        SendSilentMessage(_name, EntityStateType.Chase);
+    }
+    /// <summary>
+    /// Use By Send Message
+    /// </summary>
+    /// <param name="_nonSilentObjectName"></param>
+    /// <param name="_entityStateType"></param>
+    public void SendSilentMessage(string _nonSilentObjectName, EntityStateType _entityStateType)
+    {
+        for (int idx = 0; idx < currentActiveEntityCount; idx++)
+        {
+            if (currentActiveEntityList[idx] == SearchEntity(_nonSilentObjectName))
             {
-                switch (_entityEventStateType)
+                switch (_entityStateType)
                 {
-                    case EntityEventStateType.StartConversation:
-                        spawnEntityList[idx].StartConversation();
+                    case EntityStateType.Talk:
+                        currentActiveEntityList[idx].TalkState();
                         break;
-                    case EntityEventStateType.BeChasing:
-                        spawnEntityList[idx].BeChasing();
+                    case EntityStateType.Quiet:
+                        currentActiveEntityList[idx].QuietState();
                         break;
-                    case EntityEventStateType.BePenalty:
-                        spawnEntityList[idx].BePenalty();
+                    case EntityStateType.Extra:
+                        currentActiveEntityList[idx].ExtraState();
+                        break;
+                    case EntityStateType.Chase:
+                        currentActiveEntityList[idx].ChaseState();
+                        break;
+                    case EntityStateType.Penalty:
+                        currentActiveEntityList[idx].PenaltyState();
+                        break;
+                    default:
                         break;
                 }
                 continue;
             }
-            spawnEntityList[idx].BeSilent();
+            currentActiveEntityList[idx].QuietState();
         }
-    }
-    public void SendStartConversationMessage(string _name)
-    {
-        SendSilentMessage(_name, EntityEventStateType.StartConversation);
-    }
-    public void SendEndConversationMessage(string _name)
-    {
-        if (IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChasePlayer)
-            return;
-        SendCalmDownMessage();
-    }
-    public void SendChaseMessage(string _name)
-    {
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChasePlayer = true;
-        SendSilentMessage(_name, EntityEventStateType.BeChasing);
-    }
-    public void SendPenaltyMesage(string _name)
-    {
-        SendSilentMessage(_name, EntityEventStateType.BePenalty);
     }
     #endregion
 }

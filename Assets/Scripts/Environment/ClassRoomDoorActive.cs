@@ -47,7 +47,6 @@ public class ClassRoomDoorActive : MonoBehaviour
     {
         if (interactionDoor[0] == null)
             return;
-        Debug.Log("실행됩니다...");
         switch (thisClassName)
         {
             case ClassRoomName.Room1_1:

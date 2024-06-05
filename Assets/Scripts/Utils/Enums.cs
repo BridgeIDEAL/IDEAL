@@ -1,40 +1,13 @@
 public class Enums { }
 
-/// <summary>
-/// Use ChaseEntity StateMachine
-/// </summary>
-public enum ChaseEntityStates
+public enum EntityStateType
 {
-    Idle,
-    Talk,
-    Quiet,
-    Penalty,
-    Chase,
-    Extra
-}
-/// <summary>
-/// Use NonChaseEntity StateMachine
-/// </summary>
-public enum NonChaseEntityStates
-{
-    Idle,
-    Talk,
-    Quiet,
-    Penalty,
-    Extra
-}
-
-/// <summary>
-/// Use EntityEventManager & EntityManager
-/// </summary>
-public enum EntityEventStateType
-{
-    StartConversation,
-    EndConversation,
-    BeCalmDown,
-    BeSilent,
-    BeChasing,
-    BePenalty
+    Idle=0,
+    Talk=1,
+    Quiet=2,
+    Penalty=3,
+    Extra=4,
+    Chase=5
 }
 
 public enum SoundType
@@ -42,4 +15,12 @@ public enum SoundType
     Ambience,
     Effect,
     MaxSoundCnt
+}
+
+public enum EventPlaceType
+{
+    RestPlace,
+    GuardRoom_1F,
+    StudyRoom_1F,
+    None
 }

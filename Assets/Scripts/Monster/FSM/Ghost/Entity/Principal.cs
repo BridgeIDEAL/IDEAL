@@ -5,22 +5,18 @@ using UnityEngine.AI;
 
 public class Principal : ChaseEntity, IPatrol
 {
-    #region Patrol Variable
-    [Header("Patrol Variable")]
-    [SerializeField] protected Vector3[] patrolPoints; // ���� ���� 
-    [SerializeField] protected float coolDownTimer = 30f; // ���߰ݱ����� Ÿ�̸�
+    #region Variable
+    [Header("이형체 이름, 대화")]
+    [SerializeField] private string monsterName = "1F_PatorlPrincipal";
+    [SerializeField] private string penaltyDialogue = "D_104_Principal_Start";
 
-    protected bool canDetectPlayer = true; // Cool Time 
-    [SerializeField] protected int currentPatrolPoint = 0; // ���� �̵��ϴ� ��Ʈ�� ����
-    [SerializeField] protected int maxPatrolPoint = 0; // ��Ʈ�� ������ �ִ� ��
-    #endregion
-
-    #region Principal Variable
-    protected float ratioChaseSpeed; // �߰� �ӵ� ����
-    protected bool isInRoom = false;
-
-    private string monsterName = "1F_PatorlPrincipal";
-    private string penaltyDialogue = "D_104_Principal_Start";
+    [Header("순찰 변수")]
+    [SerializeField] protected Vector3[] patrolPoints; 
+    [SerializeField] protected float coolDownTimer = 30f; 
+    protected bool canDetectPlayer = true; 
+    protected int currentPatrolPoint = 0; 
+    protected int maxPatrolPoint = 0; 
+    protected float ratioChaseSpeed = 1.5f; // Anim Speed
     #endregion
 
     #region Override Setting
@@ -28,30 +24,29 @@ public class Principal : ChaseEntity, IPatrol
     {
         maxPatrolPoint = patrolPoints.Length;
     }
-    public override void IsInRoom(bool _isInRoom) { isInRoom = _isInRoom; }
     #endregion
 
     #region BehaviourState
-    public override void IdleEnter() { StateAnimation(ChaseEntityStates.Idle, true); SeekNextRoute(); }
+    public override void IdleEnter() { StateAnimation(EntityStateType.Idle, true); SeekNextRoute(); }
     public override void IdleExecute() { DetectPlayer(); Patrol(); }
-    public override void IdleExit() { StateAnimation(ChaseEntityStates.Idle, false); }
-    public override void TalkEnter() { StopPatrol(); StateAnimation(ChaseEntityStates.Talk, true); }
+    public override void IdleExit() { StateAnimation(EntityStateType.Idle, false); }
+    public override void TalkEnter() { StopPatrol(); StateAnimation(EntityStateType.Talk, true); StartCoroutine(LookPlayerCor()); }
     public override void TalkExecute() { }
-    public override void TalkExit() { StateAnimation(ChaseEntityStates.Talk, false); }
-    public override void QuietEnter() { StateAnimation(ChaseEntityStates.Quiet, true); SeekNextRoute(); }
+    public override void TalkExit() { StateAnimation(EntityStateType.Talk, false); }
+    public override void QuietEnter() { StateAnimation(EntityStateType.Quiet, true); SeekNextRoute(); }
     public override void QuietExecute() { Patrol(); }
-    public override void QuietExit() { StateAnimation(ChaseEntityStates.Quiet, false); }
-    public override void PenaltyEnter() { StateAnimation(ChaseEntityStates.Penalty, true); StopPatrol(); }
+    public override void QuietExit() { StateAnimation(EntityStateType.Quiet, false); }
+    public override void PenaltyEnter() { StateAnimation(EntityStateType.Penalty, true); StopPatrol(); }
     public override void PenaltyExecute() { }
-    public override void PenaltyExit() { StateAnimation(ChaseEntityStates.Penalty, false); }
-    public override void ChaseEnter() { StateAnimation(ChaseEntityStates.Chase, true); SetChase(true); }
+    public override void PenaltyExit() { StateAnimation(EntityStateType.Penalty, false); }
+    public override void ChaseEnter() { StateAnimation(EntityStateType.Chase, true); SetChase(true); }
     public override void ChaseExecute() { ChasePlayer(); }
-    public override void ChaseExit() { StateAnimation(ChaseEntityStates.Chase, false); SetChase(false); }
+    public override void ChaseExit() { StateAnimation(EntityStateType.Chase, false); SetChase(false); }
     #endregion
 
     #region Empty Method
     /// <summary>
-    /// �߰��� ���� �ൿ�� ���ٸ� ���
+    /// if not use this method => delete
     /// </summary>
     public override void ExtraEnter() { /*StateAnimation(currentState, true); */}
     public override void ExtraExecute() { }
@@ -85,15 +80,15 @@ public class Principal : ChaseEntity, IPatrol
     {
         if (!canDetectPlayer)
             return;
-        Vector3 direction = eyeTransform.position - playerTransform.position;
+        Vector3 direction = transform.position + eyeTransform - playerTransform.position;
         if (direction.magnitude > detectDistance)
             return;
         else
         {
             RaycastHit rayHit;
-            if (Physics.Raycast(eyeTransform.position, direction, out rayHit, detectDistance, playerLayer))
+            if (Physics.Raycast(transform.position + eyeTransform, direction, out rayHit, detectDistance, playerLayer))
             {
-                IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastChase(this.name);
+                IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendChaseMessage(this.name);
             }
         }
     }
@@ -102,7 +97,7 @@ public class Principal : ChaseEntity, IPatrol
         if (collision.collider.CompareTag("Player") && isChasePlayer)
         {
             StartCoroutine(CoolDownTimer());
-            IdealSceneManager.Instance.CurrentGameManager.EntityEM.BroadCastPenalty(this.name);
+            IdealSceneManager.Instance.CurrentGameManager.Entity_Manager.SendPenaltyMesage(this.name);
             // YarnScript 발동
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.conversationManager.SetTalkerName(monsterName);
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.dialogueRunner.StartDialogue(penaltyDialogue);
@@ -117,17 +112,14 @@ public class Principal : ChaseEntity, IPatrol
         yield return new WaitForSeconds(coolDownTimer);
         canDetectPlayer = true;
     }
-    public void SetChase(bool _isChasePlayer)
-    {
-        isChasePlayer = _isChasePlayer;
-        IdealSceneManager.Instance.CurrentGameManager.EntityEM.IsChasePlayer = isChasePlayer;
-    }
+    
     public override void ChasePlayer()
     {
-        if (isInRoom)
+        if (gameEventManager.PlayerInPlace == EventPlaceType.StudyRoom_1F)
         {
             anim.SetFloat("WALKVAL", 0f);
             nav.ResetPath();
+            // 문 앞까지 이동시켜야 함
         }
         else
         {
@@ -138,23 +130,23 @@ public class Principal : ChaseEntity, IPatrol
     #endregion
 
     #region Animation
-    public override void StateAnimation(ChaseEntityStates _entityState, bool _setBool)
+    public override void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
         switch (_entityState)
         {
-            case ChaseEntityStates.Idle:
+            case EntityStateType.Idle:
                 anim.SetBool("WALK", _setBool);
                 break;
-            case ChaseEntityStates.Talk:
+            case EntityStateType.Talk:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case ChaseEntityStates.Quiet:
+            case EntityStateType.Quiet:
                 anim.SetBool("WALK", _setBool);
                 break;
-            case ChaseEntityStates.Penalty:
+            case EntityStateType.Penalty:
                 anim.SetBool("IDLE", _setBool);
                 break;
-            case ChaseEntityStates.Chase:
+            case EntityStateType.Chase:
                 anim.SetBool("WALK", _setBool);
                 break;
             default:
