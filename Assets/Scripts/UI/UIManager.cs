@@ -121,9 +121,16 @@ public class UIManager : MonoBehaviour
 
         if(UIActives[(int)UIType.GuideBookUI] && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
             UIActives[(int)UIType.GuideBookUI] = false;
-        SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
+            SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
             thirdPersonController.MoveLock = false;
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            UIActives[(int)UIType.SettingUI] = !UIActives[(int)UIType.SettingUI];
+            SetUIActive(UIType.SettingUI, UIActives[(int)UIType.SettingUI]);
+            thirdPersonController.MoveLock = !UIActives[(int)UIType.SettingUI];
+        }
+
         UpdateMouseLock();
 
 
@@ -148,7 +155,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMouseLock(){
         // CameraLock & MouseUnLock이 필요한 경우
-        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI]){
+        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI] || UIActives[(int)UIType.SettingUI]){
             thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
