@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 1472861492177549418}
   - component: {fileID: 1218419084910015676}
   - component: {fileID: 1804890571958565969}
-  - component: {fileID: 7872807041930477845}
+  - component: {fileID: 5947698469826116810}
   m_Layer: 0
   m_Name: door_GEO
   m_TagString: Untagged
@@ -655,8 +655,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7872807041930477845
-MeshCollider:
+--- !u!65 &5947698469826116810
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -665,10 +665,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5388628448110421417, guid: f87ae1bb4363f93429d7c48b2aefcca2, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.6428894, y: 1.2004433, z: 0.041199796}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6666709614147993508
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +794,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1936734412125240484, guid: f87ae1bb4363f93429d7c48b2aefcca2, type: 3}
 --- !u!1 &8838149717736839829

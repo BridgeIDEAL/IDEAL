@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RandomKeySpawn : MonoBehaviour
 {
-    public GameObject[] classRoomKeys;
+    [SerializeField] private GameObject[] classRoomKeys;
+    [SerializeField] private Texture[] classRoomKeyTexts;
     private List<int> classKeyListNum = new List<int>();
     private List<InteractionGetKeyBundle> classKeyBundle = new List<InteractionGetKeyBundle>();
     private void Awake()
@@ -22,6 +24,11 @@ public class RandomKeySpawn : MonoBehaviour
             {
                 classKeyListNum.Add(randomInt);
                 classRoomKeys[randomInt].SetActive(true);
+                // Change Material BaseMap
+                MeshRenderer meshRenderer = classRoomKeys[randomInt].GetComponent<MeshRenderer>();
+                Material material = new Material(meshRenderer.material);
+                material.SetTexture("_BaseMap", classRoomKeyTexts[randomInt]); 
+                meshRenderer.material = material;
                 InteractionGetKeyBundle keyBundle = classRoomKeys[randomInt].GetComponent<InteractionGetKeyBundle>();
                 cnt += 1;
                 if (keyBundle == null)
