@@ -18,6 +18,9 @@ public class InteractionGetItem : AbstractInteraction
 
     protected override void ActInteraction() {
         Inventory.Instance.Add(interactionItemData, 1);
+        if(audioSource != null){
+            audioSource.Play();
+        }
         if (activationLogNum != -1) {
             ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }

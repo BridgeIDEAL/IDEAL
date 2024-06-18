@@ -108,6 +108,7 @@ public class IdealSceneManager : MonoBehaviour
 
     IEnumerator LoadGameSceneCoroutine(){
         LoadingImageManager.Instance.SetActiveLoadingImage(true);
+        LoadingImageManager.Instance.StartIntroText();
         yield return null;
 
         AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Additive);
@@ -154,6 +155,17 @@ public class IdealSceneManager : MonoBehaviour
         
         // 한 프레임 쉬지 않고 바로 IngameFade 호출 시 해당 코루틴이 한 루틴만 돌고 오류남
         yield return null;
+
+        // Scene이 준비되었다고 LoadingImageManager에게 알리기
+        LoadingImageManager.Instance.LoadEnded();
+
+        // LoadingImage를 종료하고자 하는지 변수로 체크
+        while(true){
+            if(LoadingImageManager.Instance.goNext){
+                break;
+            }
+            yield return null;
+        }
 
         prototypeGameManager.scriptHub.uIManager.IngameFadeInEffect();
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);
