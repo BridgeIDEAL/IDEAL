@@ -60,3 +60,10 @@ public enum CleanType
     Floor,
     None
 }
+
+public enum SpawnObjectType
+{
+    Item,
+    Area,
+    None
+}

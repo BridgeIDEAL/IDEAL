@@ -16,6 +16,7 @@ public class Classroom : MonoBehaviour
     [SerializeField, Tooltip("청소해야 하는 칠판 위치")] Transform[] boardCleanPosisions;
     [SerializeField, Tooltip("청소해야 하는 땅 위치")] Transform[] floorCleanPositions;
     [SerializeField, Tooltip("청소를 하지 않을 때, 감지하는 위치")] Transform cleanEventTriggerPosition;
+    [SerializeField, Tooltip("앞문에 놓일 종이 위치")] Transform infoPaperPosition; // 나중에 지울수도..
 
     [Header("원본 게임오브젝트")]
     [SerializeField, Tooltip("명찰")] GameObject nameTagFabs;
@@ -24,13 +25,15 @@ public class Classroom : MonoBehaviour
     
     private void Start()
     {
-        LinkCabinets();
+        Init();
     }
 
-    private void LinkCabinets()
+    private void Init()
     {
         if (cabinets.Length == 0)
             cabinets = GetComponentsInChildren<ClassroomCabinet>();
+        //if(cleanType==CleanType.None)
+        //    Destroy(spawnPosParent);
     }
     
     /// <summary>
@@ -61,6 +64,7 @@ public class Classroom : MonoBehaviour
         GameObject go = Instantiate(_go,transform);
         Vector3 pos = _tf.position;
         go.transform.position = pos;
+        go.GetComponentInChildren<InteractionClean>().classRoom = this;
         if (spawnPosParent != null)
             Destroy(spawnPosParent);
     }   
@@ -82,5 +86,7 @@ public class Classroom : MonoBehaviour
         if (cleaningTrigger == null)
             return;
         cleaningTrigger.IsCleanRoom = true;
+        IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.FabSpawn
+            ("InfoPaper", infoPaperPosition.position,SpawnObjectType.Item);
     }
 }
