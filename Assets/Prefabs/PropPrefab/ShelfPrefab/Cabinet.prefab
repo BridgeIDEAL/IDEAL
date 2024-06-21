@@ -32,111 +32,6 @@ Transform:
   m_Father: {fileID: 8208694105374272104}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1112058552552602443
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5825811274654503114}
-  - component: {fileID: 1995811390342198460}
-  - component: {fileID: 4307598829771166946}
-  - component: {fileID: 3207802048853857359}
-  - component: {fileID: 4118538301570625025}
-  m_Layer: 6
-  m_Name: CabinetInteraction
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &5825811274654503114
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112058552552602443}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2133464, y: -0.15997598, z: 0.002695918}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4934051258859668457}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1995811390342198460
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112058552552602443}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4307598829771166946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112058552552602443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e893c174581efb748b67d1b02ea8edae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  doorObject: {fileID: 8661500488181171899}
-  startRotation: {x: 0, y: 0, z: 0}
-  destRotation: {x: 0, y: -90, z: 0}
-  doorCollider: {fileID: 1995811390342198460}
-  afterInteractionOffCollider: 1
-  openRequiredTime: 0.5
-  detectedStr: "\uC0AC\uBB3C\uD568\uC744 \uC5F0\uB2E4."
-  successInteractionStr: "\uC0AC\uBB3C\uD568\uC744 \uC5F4\uC5C8\uB2E4."
-  failInteractionStr: 
-  needItem: -1
-  activationLogNum: -1
---- !u!114 &3207802048853857359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112058552552602443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 4307598829771166946}
-  interactionOutline: {fileID: 4118538301570625025}
-  outlineActive: 0
---- !u!114 &4118538301570625025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112058552552602443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
-  outlineScaleFactor: -1.05
-  outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  reverseY: 0
-  outlineMask: 
-  donotHaveRenderer: {fileID: 993964771275063589}
 --- !u!1 &4455124887648134167
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,37 +115,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5681895109106678819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5263182528747121125}
-  m_Layer: 0
-  m_Name: TextBookTransform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5263182528747121125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5681895109106678819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8208694105374272104}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6427851829209960650
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,8 +420,12 @@ GameObject:
   - component: {fileID: 4934051258859668457}
   - component: {fileID: 6240498309923809774}
   - component: {fileID: 5436302574491520385}
-  m_Layer: 0
-  m_Name: cabinet_hingeA_GEO
+  - component: {fileID: 1389608994545898434}
+  - component: {fileID: 447204317916529279}
+  - component: {fileID: 8890982336494147449}
+  - component: {fileID: 4601146159773622259}
+  m_Layer: 6
+  m_Name: Rotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +445,6 @@ Transform:
   m_Children:
   - {fileID: 8553191453535378721}
   - {fileID: 5322094059420064142}
-  - {fileID: 5825811274654503114}
   m_Father: {fileID: 8208694105374272104}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -631,6 +498,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1389608994545898434
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661500488181171899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.44, y: 0.4, z: 0.02}
+  m_Center: {x: 0.21, y: -0.15, z: 0.01}
+--- !u!114 &447204317916529279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661500488181171899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 0}
+  outlineScaleFactor: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  reverseY: 0
+  outlineMask: 
+--- !u!114 &8890982336494147449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661500488181171899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 4601146159773622259}
+  interactionOutline: {fileID: 447204317916529279}
+  outlineActive: 0
+--- !u!114 &4601146159773622259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661500488181171899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e893c174581efb748b67d1b02ea8edae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  doorObject: {fileID: 8661500488181171899}
+  startRotation: {x: 0, y: 0, z: 0}
+  destRotation: {x: 0, y: 0, z: 0}
+  doorCollider: {fileID: 1389608994545898434}
+  afterInteractionOffCollider: 1
+  openRequiredTime: 0.5
+  detectedStr: "\uC0AC\uBB3C\uD568\uC774\uB2E4."
+  successInteractionStr: "\uC0AC\uBB3C\uD568\uC744 \uC5F4\uC5C8\uB2E4."
+  failInteractionStr: "\uC7A0\uACA8 \uC788\uB2E4."
+  needItem: -1
+  activationLogNum: -1
 --- !u!1 &8836330064793399506
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8208694105374272104}
-  - component: {fileID: 848065974423989699}
+  - component: {fileID: 438187514705782020}
   m_Layer: 0
   m_Name: Cabinet
   m_TagString: Untagged
@@ -665,11 +601,10 @@ Transform:
   - {fileID: 7813660852292430274}
   - {fileID: 5468775646518296365}
   - {fileID: 7607225476934886422}
-  - {fileID: 5263182528747121125}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &848065974423989699
+--- !u!114 &438187514705782020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -678,11 +613,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8836330064793399506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12370db381f76c4bb43a68c5405fef3, type: 3}
+  m_Script: {fileID: 11500000, guid: ef4246b4179fc0441a252f2cf62bc52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionGo: {fileID: 1112058552552602443}
-  textBookTransform: {fileID: 5263182528747121125}
+  spawnPosition: {x: 0, y: 0.045, z: 0}
 --- !u!1 &9149139665458711983
 GameObject:
   m_ObjectHideFlags: 0

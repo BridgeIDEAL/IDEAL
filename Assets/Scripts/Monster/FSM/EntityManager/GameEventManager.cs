@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameEventManager : MonoBehaviour
 {
     #region Variable Player Place
-    public EventPlaceType PlayerInPlace { get; set; } = EventPlaceType.None;
+    public PlaceTriggerType PlayerInPlace { get; set; } = PlaceTriggerType.None;
     #endregion
 
     public void PlayerInRestPlaceEvent()

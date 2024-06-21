@@ -115,7 +115,7 @@ public class Principal : ChaseEntity, IPatrol
     
     public override void ChasePlayer()
     {
-        if (gameEventManager.PlayerInPlace == EventPlaceType.StudyRoom_1F)
+        if (gameEventManager.PlayerInPlace == PlaceTriggerType.StudyRoom_1F)
         {
             anim.SetFloat("WALKVAL", 0f);
             nav.ResetPath();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
 
-    public EventPlaceType currentPlace = EventPlaceType.StudyRoom_1F;
+    public PlaceTriggerType currentPlace = PlaceTriggerType.StudyRoom_1F;
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -18,7 +18,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.PlayerInPlace = EventPlaceType.None;
+            IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.PlayerInPlace = PlaceTriggerType.None;
         }
     }
 }
