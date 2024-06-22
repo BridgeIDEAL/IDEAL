@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     #region CoreManagers
     // Singleton 을 더이상 사용하지 않음 씬이 2개이기 때문
     public bool canUpdate = false;
+    private FabManager fab_Manager = new FabManager();
+    public FabManager Fab_Manager { get { return fab_Manager; } }
 
     [Header("Refer To Managers")]
     // Refer To Manager & Hub
@@ -15,7 +17,7 @@ public class GameManager : MonoBehaviour
     public EntityManager Entity_Manager { get { return entity_Manager; } }
     [SerializeField] private GameEventManager gameEvent_Manager;
     public GameEventManager GameEvent_Manager { get { return gameEvent_Manager; } }
-    
+
     // Not Use Now
     private DataManager data = new DataManager();
     public DataManager Data { get { return data; } }

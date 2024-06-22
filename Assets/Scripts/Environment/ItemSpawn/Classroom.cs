@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Classroom : MonoBehaviour
 {
+    [Header("교실 정보")]
+    static int nameID = 0;
+    string roomName = "Class";
+
     [Header("청소 시스템 정보")]
     CleaningTrigger cleaningTrigger;
     [SerializeField] int classID = 0;
@@ -15,8 +19,7 @@ public class Classroom : MonoBehaviour
     [SerializeField, Tooltip("청소해야 하는 캐비넷 위치")] Transform[] cabinetCleanPositions;
     [SerializeField, Tooltip("청소해야 하는 칠판 위치")] Transform[] boardCleanPosisions;
     [SerializeField, Tooltip("청소해야 하는 땅 위치")] Transform[] floorCleanPositions;
-    [SerializeField, Tooltip("청소를 하지 않을 때, 감지하는 위치")] Transform cleanEventTriggerPosition;
-    [SerializeField, Tooltip("앞문에 놓일 종이 위치")] Transform infoPaperPosition; // 나중에 지울수도..
+    [SerializeField, Tooltip("청소를 하지 않을 때, 감지하는 위치")] Transform cleanEventTriggerPosition; 
 
     [Header("원본 게임오브젝트")]
     [SerializeField, Tooltip("명찰")] GameObject nameTagFabs;
@@ -32,8 +35,12 @@ public class Classroom : MonoBehaviour
     {
         if (cabinets.Length == 0)
             cabinets = GetComponentsInChildren<ClassroomCabinet>();
-        //if(cleanType==CleanType.None)
-        //    Destroy(spawnPosParent);
+        if (cleanType == CleanType.None)
+            Destroy(spawnPosParent);
+        gameObject.name = roomName + nameID;
+        nameID += 1;
+        // FabManager에 연결
+        IdealSceneManager.Instance.CurrentGameManager.Fab_Manager.classDic.Add(this.gameObject.name, this);
     }
     
     /// <summary>
@@ -72,6 +79,7 @@ public class Classroom : MonoBehaviour
     public void SpawnTriggerArea()
     {
         GameObject go = Instantiate(cleanTriggerFab, transform);
+        go.transform.localPosition = cleanEventTriggerPosition.position;
         cleaningTrigger = go.GetComponent<CleaningTrigger>();
     }
 
@@ -86,7 +94,5 @@ public class Classroom : MonoBehaviour
         if (cleaningTrigger == null)
             return;
         cleaningTrigger.IsCleanRoom = true;
-        IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.FabSpawn
-            ("InfoPaper", infoPaperPosition.position,SpawnObjectType.Item);
     }
 }
