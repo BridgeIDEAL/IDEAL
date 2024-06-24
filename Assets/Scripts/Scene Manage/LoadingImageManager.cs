@@ -89,7 +89,7 @@ public class LoadingImageManager : MonoBehaviour
             yield return null;
         }
         
-        while (introTextStep <= 2){
+        while (introTextStep < introTexts.Length){
             if(typingSoundCoroutine != null){
                 StopCoroutine(typingSoundCoroutine);
             }
@@ -99,34 +99,24 @@ public class LoadingImageManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
             introTextStep++;
-        }
-        // 다음 텍스트로 넘길지 대기
-        introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = stopText;
-        introTextLoadedTextObject.SetActive(true);
-        while(true){
-            if(Input.anyKey) break;
-            yield return null;
-        }
-        
-        yield return null;
 
-        introTextTMP.text = "";
-        introTextLoadedTextObject.SetActive(false);
-
-        while (introTextStep < introTexts.Length){
-            if(typingSoundCoroutine != null){
-                StopCoroutine(typingSoundCoroutine);
+            if(introTextStep == 3){
+                // 다음 텍스트로 넘길지 대기
+                introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = stopText;
+                introTextLoadedTextObject.SetActive(true);
+                while(true){
+                    if(Input.anyKey) break;
+                    yield return null;
+                }
+                introTextTMP.text = "";
+                introTextLoadedTextObject.SetActive(false);
             }
-            typingSoundCoroutine = StartCoroutine(PlayTypingSounds());
-            yield return StartCoroutine(TypeText(introTexts[introTextStep]));
-            StopCoroutine(typingSoundCoroutine);
-
-            yield return new WaitForSeconds(2f); // 다음 텍스트로 넘어가기 전 대기 시간
-            introTextStep++;
+            else if(introTextStep == introTexts.Length){
+                introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = loadedText;
+                introTextLoadedTextObject.SetActive(true);
+            }
         }
-
-        introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = loadedText;
-        introTextLoadedTextObject.SetActive(true);
+        yield return null;
     }
 
     IEnumerator TypeText(string text){
@@ -135,8 +125,9 @@ public class LoadingImageManager : MonoBehaviour
         foreach (char letter in text.ToCharArray()){
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
-            if(Input.anyKey && cnt > 10){ 
-                Debug.Log("Input.anyKey");
+            // 처음에는 스킵이 안되도록 설정 
+            if(Input.anyKey && cnt > 10 && CountAttempts.Instance.GetAttemptCount() > 1){ 
+                audioSource.Stop();
                 introTextTMP.text = currentText + text;
                 break;
             }
