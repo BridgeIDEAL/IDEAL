@@ -37,6 +37,8 @@ public class LoadingImageManager : MonoBehaviour
     private string stopText = "아무 키나 눌러 경고문 이어서 보기";
     private string loadedText = "아무 키나 눌러 게임 시작하기";
 
+    private string loadingText = "경고문 불러오는 중";
+
     private bool loadEnded = false;
     public bool goNext = false;
 
@@ -82,12 +84,17 @@ public class LoadingImageManager : MonoBehaviour
         introTextTMP.text = "";
         introTextLoadedTextObject.SetActive(false);
         
+        // 로딩이 완료되기 전 로딩 중이라는 문구 출력
+        introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = loadingText;
+        introTextLoadedTextObject.SetActive(true);
+
         // 로딩이 완료 되었을 때 타이핑 시작
         // 그렇지 않을 경우 타이핑 되다가 중간에 멈추는 현상 발생
         while(!loadEnded){
             // 로딩이 끝났는지 체크
             yield return null;
         }
+        introTextLoadedTextObject.SetActive(false);
         
         while (introTextStep < introTexts.Length){
             if(typingSoundCoroutine != null){

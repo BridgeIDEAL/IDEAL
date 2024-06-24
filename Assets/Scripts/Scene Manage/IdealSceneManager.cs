@@ -156,6 +156,11 @@ public class IdealSceneManager : MonoBehaviour
         // 한 프레임 쉬지 않고 바로 IngameFade 호출 시 해당 코루틴이 한 루틴만 돌고 오류남
         yield return null;
 
+        // 인트로 텍스트가 나오는 동안 이동 및 UI 조정 불가능하도록 
+        currentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        currentGameManager.scriptHub.uIManager.uIInputLock = true;
+
+        yield return null;
         // Scene이 준비되었다고 LoadingImageManager에게 알리기
         LoadingImageManager.Instance.LoadEnded();
 
@@ -166,6 +171,9 @@ public class IdealSceneManager : MonoBehaviour
             }
             yield return null;
         }
+
+        currentGameManager.scriptHub.thirdPersonController.MoveLock = false;
+        currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
         prototypeGameManager.scriptHub.uIManager.IngameFadeInEffect();
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);

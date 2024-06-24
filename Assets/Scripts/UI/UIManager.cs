@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
 
     private UIIngame uIIngame;
 
+    public bool uIInputLock = false;
+
     private int mapItemCode = 1106;
 
     private bool isDialogueActive = false;
@@ -93,6 +95,10 @@ public class UIManager : MonoBehaviour
     }
 
     public void GameUpdate(){
+        if(uIInputLock){
+            return;
+        }
+        
         if(Input.GetKeyDown(KeyCode.F1)){
             UIActives[(int)UIType.MoveSettingUI] = !UIActives[(int)UIType.MoveSettingUI];
             SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
