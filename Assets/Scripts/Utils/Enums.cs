@@ -53,17 +53,10 @@ public enum ClassRoomNameType
     Room3_8
 }
 
-public enum CleanType
+public enum ClassroomCleanType
 {
     Cabinet,
     Board,
     Floor,
-    None
-}
-
-public enum SpawnObjectType
-{
-    Item,
-    Area,
     None
 }

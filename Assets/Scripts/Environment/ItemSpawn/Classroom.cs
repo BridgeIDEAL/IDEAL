@@ -4,95 +4,192 @@ using UnityEngine;
 
 public class Classroom : MonoBehaviour
 {
-    [Header("교실 정보")]
-    static int nameID = 0;
-    string roomName = "Class";
+    [Header("조건")]
+    bool isNobodyInClass = false;
+    bool isOpenAllWindow = false;
+    public bool IsCleanClassroom { get; private set; } = false;
+    [SerializeField] bool isSpawnNameTag = false;
 
-    [Header("청소 시스템 정보")]
-    CleaningTrigger cleaningTrigger;
-    [SerializeField] int classID = 0;
-    [SerializeField] CleanType cleanType = CleanType.None;
-    [SerializeField, Tooltip("명찰을 랜덤 생성하기 위해 필요")] ClassroomCabinet[] cabinets;
+    [Header("교실 청소")]
+    [SerializeField] ClassroomCleanType currentType = ClassroomCleanType.None;
+    [SerializeField, Tooltip("청소할 물품들이 생기는 위치의 부모 : 청소 이벤트 발생 후 코드로 삭제")] GameObject allTransformParent;
+    [SerializeField] Transform boardCleanTf;
+    [SerializeField] Transform cabinetCleanTf;
+    [SerializeField] Transform[] floorCleanTf;
 
-    [Header("청소 시스템 위치")]
-    [SerializeField, Tooltip("청소할 위치의 부모")] GameObject spawnPosParent;
-    [SerializeField, Tooltip("청소해야 하는 캐비넷 위치")] Transform[] cabinetCleanPositions;
-    [SerializeField, Tooltip("청소해야 하는 칠판 위치")] Transform[] boardCleanPosisions;
-    [SerializeField, Tooltip("청소해야 하는 땅 위치")] Transform[] floorCleanPositions;
-    [SerializeField, Tooltip("청소를 하지 않을 때, 감지하는 위치")] Transform cleanEventTriggerPosition; 
+    [Header("물품들")]
+    [SerializeField] string cabinetDirtyObjectName;
+    [SerializeField] string boardDirtyObjectName;
+    [SerializeField] string floorDirtyObjectName;
+    [SerializeField] ClassroomWindow[] classroomWindow;
+    [SerializeField] ClassroomCleanTool classroomCleanTool;
+    [SerializeField] List<ClassroomCabinet> cabinetList = new List<ClassroomCabinet>();
+    List<ClassroomDirtyObject> classroomDirtyObjectList = new List<ClassroomDirtyObject>();
 
-    [Header("원본 게임오브젝트")]
-    [SerializeField, Tooltip("명찰")] GameObject nameTagFabs;
-    [SerializeField, Tooltip("청소하지 않고 나가는 것을 감지하기 위해 필요")] GameObject cleanTriggerFab;
-    [SerializeField, Tooltip("청소, (0:캐비넷, 1:칠판, 2:바닥)")] GameObject[] cleanFabs;
-    
-    private void Start()
+    #region InitMethod 
+    public void Awake()
     {
-        Init();
+        LinkComponent();
+        InitClassState();
     }
 
-    private void Init()
-    {
-        if (cabinets.Length == 0)
-            cabinets = GetComponentsInChildren<ClassroomCabinet>();
-        if (cleanType == CleanType.None)
-            Destroy(spawnPosParent);
-        gameObject.name = roomName + nameID;
-        nameID += 1;
-        // FabManager에 연결
-        IdealSceneManager.Instance.CurrentGameManager.Fab_Manager.classDic.Add(this.gameObject.name, this);
-    }
-    
     /// <summary>
-    /// Call when you get cleaning quest
+    /// Null Reference로 인해 생기는 오류를 방지하는 코드
     /// </summary>
-    public void SetDirtyState()
+    public void LinkComponent()
     {
-        switch (cleanType){
-            case CleanType.Cabinet:
-                SpawnTrash(cleanFabs[classID], cabinetCleanPositions[classID]);
-                SpawnTriggerArea();
+        // 창문들
+        int windowCnt = classroomWindow.Length;
+        if (windowCnt == 0)
+        {
+            classroomWindow = GetComponentsInChildren<ClassroomWindow>();
+        }
+        // 명찰이 생성될 캐비넷들
+        int cabinetCnt = cabinetList.Count;
+        ClassroomCabinet[] cabinets;
+        if(cabinetCnt == 0)
+        {
+            cabinets = GetComponentsInChildren<ClassroomCabinet>();
+            cabinetCnt = cabinets.Length;
+            for(int i=0; i<cabinetCnt; i++)
+            {
+                cabinetList.Add(cabinets[i]);
+            }
+        }
+        // 청소도구함
+        if (classroomCleanTool == null)
+        {
+            classroomCleanTool = GetComponentInChildren<ClassroomCleanTool>();
+        }
+    }
+
+    public void InitClassState()
+    {
+        // Init Window
+        int windowCnt = classroomWindow.Length;
+        for (int i = 0; i < windowCnt; i++)
+        {
+            classroomWindow[i].InitWindowState(this);
+        }
+        // Remove Not Need Object / Script
+        if (currentType == ClassroomCleanType.None)
+            Destroy(allTransformParent);
+        if (!isSpawnNameTag)
+        {
+            int cabinetCnt = cabinetList.Count;
+            for(int i=cabinetCnt-1; i>=0; i--)
+            {
+                cabinetList[i].RemoveThis();
+            }
+            cabinetList.Clear();
+        }
+    }
+    #endregion
+
+    #region Window & Send Out Method
+    public void OpenWindow()
+    {
+        int windowCnt = classroomWindow.Length;
+        for (int i = 0; i < windowCnt; i++)
+        {
+            if (!classroomWindow[i].IsOpenWindow)
+                return;
+        }
+        isOpenAllWindow = true;
+        CheckCleanStartCondition();
+    }
+
+    public void SendOutStudent()
+    {
+        isNobodyInClass = true;
+        CheckCleanStartCondition();
+    }
+
+    /// <summary>
+    /// 청소 이벤트를 받을 수 있는 조건 완수했는지를 조사 
+    /// </summary>
+    public void CheckCleanStartCondition()
+    {
+        if (isNobodyInClass && isOpenAllWindow)
+            classroomCleanTool.Active(this);
+    }
+    #endregion
+
+    #region Clean Method
+    public void InitDirtyState()
+    {
+        switch (currentType)
+        {
+            case ClassroomCleanType.Cabinet:
+                InstantiateDirtyObject(cabinetDirtyObjectName,cabinetCleanTf);
                 break;
-            case CleanType.Board:
-                SpawnTrash(cleanFabs[classID], boardCleanPosisions[classID]);
-                SpawnTriggerArea();
+            case ClassroomCleanType.Board:
+                InstantiateDirtyObject(boardDirtyObjectName,boardCleanTf);
                 break;
-            case CleanType.Floor:
-                SpawnTrash(cleanFabs[classID], floorCleanPositions[classID]);
-                SpawnTriggerArea();
+            case ClassroomCleanType.Floor:
+                InstantiateDirtyObjects(floorDirtyObjectName);
                 break;
             default:
                 break;
         }
     }
 
-    public void SpawnTrash(GameObject _go, Transform _tf)
+    /// <summary>
+    /// 하나의 쓰레기 형성
+    /// </summary>
+    /// <param name="_name"></param>
+    /// <param name="_transform"></param>
+    public void InstantiateDirtyObject(string _name, Transform _transform)
     {
-        GameObject go = Instantiate(_go,transform);
-        Vector3 pos = _tf.position;
-        go.transform.position = pos;
-        go.GetComponentInChildren<InteractionClean>().classRoom = this;
-        if (spawnPosParent != null)
-            Destroy(spawnPosParent);
-    }   
-
-    public void SpawnTriggerArea()
-    {
-        GameObject go = Instantiate(cleanTriggerFab, transform);
-        go.transform.localPosition = cleanEventTriggerPosition.position;
-        cleaningTrigger = go.GetComponent<CleaningTrigger>();
+        GameObject loadGo = IdealSceneManager.Instance.CurrentGameManager.Fab_Manager.LoadPrefab(_name);
+        GameObject instGo = Instantiate(loadGo, _transform.position, Quaternion.identity);
+        ClassroomDirtyObject dirtyObject = instGo.GetComponent<ClassroomDirtyObject>();
+        dirtyObject.Init(this);
+        classroomDirtyObjectList.Add(dirtyObject);
+        Destroy(allTransformParent);
     }
 
     /// <summary>
-    /// Call When you clean classroom 
+    /// 다수의 쓰레기 형성
     /// </summary>
-    public void CompleteClean()
-    {
-        int cabinetCounts = cabinets.Length;
-        int randomNum = Random.Range(0, cabinetCounts);
-        cabinets[randomNum].SpawnNameTag(nameTagFabs);
-        if (cleaningTrigger == null)
-            return;
-        cleaningTrigger.IsCleanRoom = true;
+    /// <param name="_name"></param>
+    /// <param name="_cnt"></param>
+    public void InstantiateDirtyObjects(string _name, int _cnt=3)
+    { 
+        GameObject loadGo = IdealSceneManager.Instance.CurrentGameManager.Fab_Manager.LoadPrefab(_name);
+        for(int i=0; i<_cnt; i++)
+        {
+            int randomCnt = Random.Range(i * 4, i * 4 + 4);
+            GameObject instGo = Instantiate(loadGo, floorCleanTf[randomCnt].position, Quaternion.identity);
+            ClassroomDirtyObject dirtyObject = instGo.GetComponent<ClassroomDirtyObject>();
+            dirtyObject.Init(this);
+            classroomDirtyObjectList.Add(dirtyObject);
+        }
+        Destroy(allTransformParent);
     }
+
+    public void CleanClassroom()
+    {
+        int cnt = classroomDirtyObjectList.Count;
+        for (int i = 0; i < cnt; i++)
+        {
+            if (!classroomDirtyObjectList[i].IsCleanTrash)
+                return;
+        }
+        // 청소 끝!
+        IsCleanClassroom = true;
+        // 명찰 생성
+        if (isSpawnNameTag)
+        {
+            int cabinetCnt = cabinetList.Count;
+            int randomNum = Random.Range(0, cabinetCnt);
+            cabinetList[randomNum].SpawnNameTag();
+            for (int i = cabinetCnt - 1; i >= 0; i--)
+            {
+                cabinetList[i].RemoveThis();
+            }
+            cabinetList.Clear();
+        }
+    }
+    #endregion
 }

@@ -35,8 +35,8 @@ public class InteractionClean : AbstractInteraction
         if (availableCount < 1)
         {
             // Call when you complete clean classroom
-            if (classRoom != null)
-                classRoom.CompleteClean();
+            //if (classRoom != null)
+            //    classRoom.CompleteClean();
             Destroy(this.gameObject);
         }
         if (audioSource != null)
