@@ -49,19 +49,19 @@ public class EntityManager : MonoBehaviour
     /// <summary>
     /// Awake = Enable = Start 순으로 호출 
     /// </summary>
-    public void OnEnable()
-    {
-        if (isEnable)
-        {
-            Init();
-            return;
-        }
-        isEnable = true;
-    }
-    public void Update()
-    {
-        EntityGroupUpdate();
-    }
+    //public void OnEnable()
+    //{
+    //    if (isEnable)
+    //    {
+    //        Init();
+    //        return;
+    //    }
+    //    isEnable = true;
+    //}
+    //public void Update()
+    //{
+    //    EntityGroupUpdate();
+    //}
     public void EntityGroupUpdate()
     {
         for (int idx = 0; idx < currentActiveEntityCount; idx++) 

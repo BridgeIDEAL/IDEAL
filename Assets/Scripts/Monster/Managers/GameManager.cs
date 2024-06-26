@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
         interactionManager.Init(); 
         interactionDetect.Init();
         conversationManager.Init();
-        if (entity_Manager == null)
-            return;
-        entity_Manager.Init();
+        //if (entity_Manager == null)
+        //    return;
+        //entity_Manager.Init();
     }
 
 

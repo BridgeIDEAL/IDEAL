@@ -132,26 +132,26 @@ public class Principal : ChaseEntity, IPatrol
     #region Animation
     public override void StateAnimation(EntityStateType _entityState, bool _setBool)
     {
-        switch (_entityState)
-        {
-            case EntityStateType.Idle:
-                anim.SetBool("WALK", _setBool);
-                break;
-            case EntityStateType.Talk:
-                anim.SetBool("IDLE", _setBool);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("WALK", _setBool);
-                break;
-            case EntityStateType.Penalty:
-                anim.SetBool("IDLE", _setBool);
-                break;
-            case EntityStateType.Chase:
-                anim.SetBool("WALK", _setBool);
-                break;
-            default:
-                break;
-        }
+        //switch (_entityState)
+        //{
+        //    case EntityStateType.Idle:
+        //        anim.SetBool("WALK", _setBool);
+        //        break;
+        //    case EntityStateType.Talk:
+        //        anim.SetBool("IDLE", _setBool);
+        //        break;
+        //    case EntityStateType.Quiet:
+        //        anim.SetBool("WALK", _setBool);
+        //        break;
+        //    case EntityStateType.Penalty:
+        //        anim.SetBool("IDLE", _setBool);
+        //        break;
+        //    case EntityStateType.Chase:
+        //        anim.SetBool("WALK", _setBool);
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
     #endregion
 }
