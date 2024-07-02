@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FabManager : MonoBehaviour
 {
+    public Transform player;
     [SerializeField] GameObject[] prefabs;
     Dictionary<string, GameObject> fabsDictionary = new Dictionary<string, GameObject>();
 

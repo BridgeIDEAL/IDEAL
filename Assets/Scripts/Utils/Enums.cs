@@ -6,8 +6,8 @@ public enum EntityStateType
     Talk=1,
     Quiet=2,
     Penalty=3,
-    Extra=4,
-    Chase=5
+    Chase=4,
+    None=5
 }
 
 public enum SoundType
@@ -58,5 +58,12 @@ public enum ClassroomCleanType
     Cabinet,
     Board,
     Floor,
+    None
+}
+
+public enum RootMotionType
+{
+    Walk,
+    Run,
     None
 }

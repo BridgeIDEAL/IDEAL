@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Refer To Managers")]
     // Refer To Manager & Hub
-    [SerializeField] private EntityManager entity_Manager;
-    public EntityManager Entity_Manager { get { return entity_Manager; } }
     [SerializeField] private GameEventManager gameEvent_Manager;
     public GameEventManager GameEvent_Manager { get { return gameEvent_Manager; } }
     [SerializeField] private FabManager fab_Manager;
@@ -56,9 +54,6 @@ public class GameManager : MonoBehaviour
         interactionManager.Init(); 
         interactionDetect.Init();
         conversationManager.Init();
-        //if (entity_Manager == null)
-        //    return;
-        //entity_Manager.Init();
     }
 
 
