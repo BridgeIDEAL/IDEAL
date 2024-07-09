@@ -1,0 +1,102 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "자넨 누군가? <font=\"Santokki\">처음보는</font> 얼굴인데.",
+        "^<color=red>외부인</color>^인가?",
+        "잠시 ^<b>신분증</b>^ 좀 보겠네.",
+        "$TestLog(나는,배고프다)$"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "잠깐 학교 견학 중입니다.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "오늘 전학온 학생입니다.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "아, 그런가. 그럼 출입 명부를 작성해야 하는데.",
+        "잠시 수위실로 와주겠나?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수위실로 간다.",
+          "nextID": 4
+        },
+        {
+          "choiceText": "가지 않는다.",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "아, 그런가. 그런데 왜 여기서 서성이고 있지?",
+        "$Name(나)$",
+        "전학 수속때문에 교무센터에 가야 하는데",
+        "식사하러 가셨는지 문이 잠겨 있네요.",
+        "혹시 잠깐 ^<color=blue>교무센터 열쇠</color>^를 빌려주실 수 있나요?",
+        "$Name(수위)$",
+        "흠... 얼른 돌려줘야 하네.",
+        "$Name( )$",
+        "교무센터 열쇠를 획득했다."
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "//게임오버 - n번 실종자가 학교 견학을 왔다고 하자, 수위는 실종자를 경비실로 데려감.",
+        "//지침서 G02 추가"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "수위: 명부를 작성하지 않겠다고?",
+        "수위: 수상한데, 너 어디에서 왔나."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "진실을 말한다.",
+          "nextID": 6
+        },
+        {
+          "choiceText": "거짓말을 한다.",
+          "nextID": 7
+        }
+      ]
+    },
+    {
+      "storyID": 6,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "//게임오버 - n번 실종자가 경비실 인솔을 거절하자, 수위는 불같이 화내며 실종자를 구타.",
+        "//지침서 G03 추가"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 7,
+      "storySpeaker": "수위",
+      "storyLines": [
+        "수위: 너희들 학교에서 무슨 일이 있었는지 알아?"
+      ],
+      "choiceLine": []
+    }
+  ]
+}
