@@ -57,5 +57,10 @@ public class ImmovableEntity : BaseEntity
     public virtual void PenaltyEnter() { }
     public virtual void PenaltyExecute() { }
     public virtual void PenaltyExit() { }
+
+    public override void Setup()
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
 }

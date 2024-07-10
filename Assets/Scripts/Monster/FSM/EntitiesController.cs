@@ -4,91 +4,129 @@ using UnityEngine;
 
 public class EntitiesController : MonoBehaviour
 {
-    int entityListCnt = 0;
-    int activeEntityListCnt = 0;
-    [SerializeField] List<BaseEntity> entityList = new List<BaseEntity>();
+    [SerializeField] GameObject entityParent;
+
+    int listCnt = 0;
+
+    Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
     #region Unity Life Cycle
-    // Start
-    void Start()
+    
+    // Awake
+    private void Awake()
     {
-        InitActiveEntityList();
+        LinkAllEntity();
     }
 
-    public void InitActiveEntityList()
+    public void LinkAllEntity()
     {
-        // 추후에 entity들의 데이터를 통해 스폰 여부를 확인하고 리스트에 삽입
-        entityListCnt = entityList.Count;
-        for (int i = 0; i < entityListCnt; i++)
+        BaseEntity[] entities = entityParent.GetComponentsInChildren<BaseEntity>();
+        int entityCnt = entities.Length;
+        for (int idx = 0; idx < entityCnt; idx++)
         {
-            activeEntityList.Add(entityList[i]);
+            if (allEntityDictionary.ContainsKey(entities[idx].name))
+                continue;
+            allEntityDictionary.Add(entities[idx].name, entities[idx]);
         }
+    }
 
-        // 추후에 BaseEntity 스크립트 작성 후, Init 호출해주기
-        activeEntityListCnt = activeEntityList.Count;
-        for (int i = 0; i < activeEntityListCnt; i++)
+    // Start
+    private void Start()
+    {
+        SetupAllEntity();
+    }
+
+    public void SetupAllEntity()
+    {
+        foreach(KeyValuePair<string,BaseEntity> variable in allEntityDictionary)
         {
-            //activeEntityList[i].Init();
+            variable.Value.Setup();
         }
     }
 
     // Update
-    void Update()
+    private void Update()
     {
-        ExecuteActiveEntity();
+        ExecuteActiveEntities();
     }
 
-    public void ExecuteActiveEntity()
+    public void ExecuteActiveEntities()
     {
-        // 추후에 BaseEntity 스크립트 작성 후, Execute 호출해주기
-        for (int i = 0; i < activeEntityListCnt; i++)
+        for (int idx = 0; idx < listCnt; idx++)
         {
-            //activeEntityList[i].Execute();
+            activeEntityList[idx].Execute();
         }
+    }
+
+    #endregion
+
+    #region FindEntityMethod
+    public void ActiveEntity(string _name)
+    {
+        if (!allEntityDictionary.ContainsKey(_name))
+            return;
+        listCnt = activeEntityList.Count;
+        for (int idx = 0; idx < listCnt; idx++)
+        {
+            if (activeEntityList[idx] == allEntityDictionary[_name])
+                return;
+        }
+        activeEntityList.Add(allEntityDictionary[_name]);
+        allEntityDictionary[_name].SetActiveState(true);
+        listCnt = activeEntityList.Count;
+    }
+
+    public void InActiveEntity(string _name)
+    {
+        if (!allEntityDictionary.ContainsKey(_name))
+            return;
+        listCnt = activeEntityList.Count;
+        for(int idx=0; idx<listCnt; idx++)
+        {
+            if(activeEntityList[idx]== allEntityDictionary[_name])
+            {
+                BaseEntity entity = activeEntityList[idx];
+                entity.SetActiveState(false);
+                activeEntityList.RemoveAt(idx);
+            }
+        }
+        listCnt = activeEntityList.Count;
+    }
+
+    public BaseEntity GetEntity(string _name)
+    {
+        if (allEntityDictionary.ContainsKey(_name))
+            return allEntityDictionary[_name];
+        else
+            return null;
     }
     #endregion
 
-    public void ActiveEntity(string _entityIndex)
-    {
-        for (int i = 0; i < entityListCnt; i++)
-        {
-            //if () 아이디와 같으면 추가
-            //{
-            //    activeEntityList.Add(entityList[i]);
-            //}
-        }
-    }
-
-    public void InactiveEntity(string _entityIndex)
-    {
-        for (int i = 0; i < activeEntityListCnt; i++)
-        {
-            //if () 아이디와 같으면 삭제
-            //{
-            //    activeEntityList.RemoveAll(i);
-            //}
-        }
-    }
-
-    // 모두 같은 행동을 시킬 때
+    #region Message Method
+    // All Entity Same Action
     public void SendMessage(EntityStateType _all)
     {
-        for(int i=0; i<activeEntityListCnt; i++)
+        int listCnt = activeEntityList.Count;
+        for(int idx=0; idx< listCnt; idx++)
         {
-            activeEntityList[i].ReceiveMessage(_all);
+            activeEntityList[idx].ReceiveMessage(_all);
         }
     }
 
-    // 특정 한 개체만 다른 행동을 시킬 때
-    public void SendMessage(string _entityIndex, EntityStateType _one, EntityStateType _allButOne)
+    // All Entity Same Action without One
+    public void SendMessage(string _name, EntityStateType _one, EntityStateType _allButOne)
     {
-        for (int i = 0; i < activeEntityListCnt; i++)
+        int listCnt = activeEntityList.Count;
+        for (int idx = 0; idx < listCnt; idx++)
         {
-            if(activeEntityList[i].name==_entityIndex)
-                activeEntityList[i].ReceiveMessage(_one);
-            else
-                activeEntityList[i].ReceiveMessage(_allButOne);
+            if (activeEntityList[idx] == allEntityDictionary[_name])
+            {
+                activeEntityList[idx].ReceiveMessage(_one);
+                continue;
+            }
+            activeEntityList[idx].ReceiveMessage(_allButOne);
         }
     }
+    #endregion
 }

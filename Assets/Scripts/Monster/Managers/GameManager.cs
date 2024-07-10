@@ -9,7 +9,19 @@ public class GameManager : MonoBehaviour
     // Singleton 을 더이상 사용하지 않음 씬이 2개이기 때문
     public bool canUpdate = false;
 
-    [Header("Refer To Managers")]
+    [Header("Refer Controller")]
+    [SerializeField] private EntitiesController entities_Controller;
+    public EntitiesController Entities_Controller 
+    { 
+        get 
+        {   
+            if (entities_Controller == null)
+                entities_Controller = FindObjectOfType<EntitiesController>();
+            return entities_Controller; 
+        } 
+    }
+
+    [Header("Refer Managers")]
     // Refer To Manager & Hub
     [SerializeField] private GameEventManager gameEvent_Manager;
     public GameEventManager GameEvent_Manager { get { return gameEvent_Manager; } }

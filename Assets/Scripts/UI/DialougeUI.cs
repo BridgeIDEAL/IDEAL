@@ -28,9 +28,9 @@ public class DialougeUI : MonoBehaviour
         } 
     }
 
-    public void StartDialouge(int _storyID, float _typeSpeed = 0.1f)
+    public void StartDialouge(string _key, float _typeSpeed = 0.1f)
     {
-        dialogue = DialogueManager.Instance.GetDialogue(_storyID);
+        dialogue = DialogueManager.Instance.GetDialogue(_key);
         if (dialogue == null)
             return;
         dialogueBox.SetActive(true);
@@ -151,19 +151,20 @@ public class DialougeUI : MonoBehaviour
                 text.text = dialogue.choiceLine[idx].choiceText;
                 int currentIndex = idx;
                 choiceBtns[currentIndex].onClick.RemoveAllListeners();
-                choiceBtns[currentIndex].onClick.AddListener(() => ChooseConversation(dialogue.choiceLine[currentIndex].nextID));
+                string nextKeyName = dialogue.storySpeaker+dialogue.choiceLine[currentIndex].nextID;
+                choiceBtns[currentIndex].onClick.AddListener(() => ChooseConversation(nextKeyName));
             }
         }
     }
 
-    public void ChooseConversation(int _storyID)
+    public void ChooseConversation(string _key)
     {
         int choiceCnt = dialogue.choiceLine.Count;
         for (int idx = 0; idx < choiceCnt; idx++)
         {
             choiceBtns[idx].gameObject.SetActive(false);
         }
-        StartDialouge(_storyID);
+        StartDialouge(_key);
     }
 
     public void DialogueEvent(string _eventName, List<string> _parameterList)

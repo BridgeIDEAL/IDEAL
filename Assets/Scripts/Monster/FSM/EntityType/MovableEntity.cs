@@ -3,26 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class MovableEntity : BaseEntity
 {
     protected EntityStateType currentType;
-    
-    // Need Value
-    // ---------------------------
-    // walk or patrol speed
-    // chase speed
-    // animation speed multiply
-    // spawn 
-    // dialogue name
-    
-    // if have aggressive montion?
-    // (chase = true) -> aggressive motion -> chase motion(Loop) ->  (chase = false)
-
     protected Animator anim;
     protected NavMeshAgent agent;
     protected EntityState<MovableEntity>[] states;
     protected EntityStateMachine<MovableEntity> stateMachine;
 
+    public EntitiesController link;
+    #region Unity Life Cycle
+    
+    // Awake
     public override void Init()
     {
         currentType = EntityStateType.Idle;
@@ -43,6 +36,33 @@ public class MovableEntity : BaseEntity
 
     public virtual void AdditionalInit() { }
 
+    // Start
+    public override void Setup()
+    {
+        data = EntityDataLoader.Instance.GetEntityData(gameObject.name);
+        if (data == null)
+        {
+            Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
+            return;
+        }
+        //IdealSceneManager.Instance.CurrentGameManager.Entities_Controller.ActiveEntity(gameObject.name);
+        if (data.isSpawn)
+            link.ActiveEntity(gameObject.name);
+        else
+            SetActiveState(false);
+
+        // Interaction Regist
+    }
+
+    // Update
+    public override void Execute()
+    {
+        //stateMachine.Execute();
+    }
+
+    #endregion
+
+    #region State Method (Receive & Change)
     public override void ReceiveMessage(EntityStateType _messageType)
     {
         ChangeState(_messageType);
@@ -53,37 +73,36 @@ public class MovableEntity : BaseEntity
         currentType = _changeType;
         stateMachine.ChangeState(states[(int)currentType]);
     }
+    #endregion
 
-    public override void Execute()
-    {
-        stateMachine.Execute();
-    }
+    #region Act Frame
 
+    // Animation
     public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
         switch (_currentType)
         {
-            case EntityStateType.Idle:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Talk:
-                anim.SetBool("Talk", _isStart);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("Quiet", _isStart);
-                break;
-            case EntityStateType.Penalty:
-                anim.SetBool("Penalty", _isStart);
-                break;
-            case EntityStateType.Chase:
-                anim.SetBool("Chase", _isStart);
-                break;
-            default:
-                break;
+            //case EntityStateType.Idle:
+            //    anim.SetBool("Idle", _isStart);
+            //    break;
+            //case EntityStateType.Talk:
+            //    anim.SetBool("Talk", _isStart);
+            //    break;
+            //case EntityStateType.Quiet:
+            //    anim.SetBool("Quiet", _isStart);
+            //    break;
+            //case EntityStateType.Penalty:
+            //    anim.SetBool("Penalty", _isStart);
+            //    break;
+            //case EntityStateType.Chase:
+            //    anim.SetBool("Chase", _isStart);
+            //    break;
+            //default:
+            //    break;
         }
     }
 
-    #region Act Frame
+    // Act
     public virtual void IdleEnter() { SetAnimation(currentType, true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }

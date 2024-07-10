@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class RootMotionMover : MonoBehaviour
 {
     [SerializeField, Tooltip("쓰고자 하는 루트 모션의 종류 : 걷기, 뛰기")] RootMotionType motionType;

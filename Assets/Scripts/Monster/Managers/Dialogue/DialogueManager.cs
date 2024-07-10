@@ -9,11 +9,11 @@ public class DialogueManager : MonoBehaviour
     public DialougeUI Dialouge_UI { get { return dialouge_UI; } set { dialouge_UI = value; } }
 
     [SerializeField] List<TextAsset> dialougeList = new List<TextAsset>();
-    Dictionary<int, Dialogue> dialogueDic = new Dictionary<int, Dialogue>();
+    Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
 
     public bool IsDialogue { get; set; } = false;
 
-    [SerializeField] int storyID;
+    [SerializeField] string keyName;
     [SerializeField] float typeSpeed;
     private void Awake()
     {
@@ -40,17 +40,18 @@ public class DialogueManager : MonoBehaviour
             int dataCnt = data.dialogues.Count;
             for(int i =0; i<dataCnt; i++)
             {
-                if (dialogueDic.ContainsKey(data.dialogues[i].storyID))
+                string key = data.dialogues[i].storySpeaker + data.dialogues[i].storyID;
+                if (dialogueDic.ContainsKey(key))
                     return;
-                dialogueDic.Add(data.dialogues[i].storyID, data.dialogues[i]);
+                dialogueDic.Add(key, data.dialogues[i]);
             }
         }
     }
 
-    public Dialogue GetDialogue(int _storyID)
+    public Dialogue GetDialogue(string _key)
     {
-        if (dialogueDic.ContainsKey(_storyID))
-            return dialogueDic[_storyID];
+        if (dialogueDic.ContainsKey(_key))
+            return dialogueDic[_key];
         return null;
     }
 
@@ -59,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             if(!IsDialogue)
-                Dialouge_UI.StartDialouge(storyID, typeSpeed);
+                Dialouge_UI.StartDialouge(keyName, typeSpeed);
         }
     }
 }
