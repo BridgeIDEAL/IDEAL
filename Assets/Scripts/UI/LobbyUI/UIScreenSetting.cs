@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,23 @@ public class UIScreenSetting : MonoBehaviour
         screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Borderless Window" });
         screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Windowed" });
 
-        // 초기 값 설정
-        Debug.Log("Start Screen: " + Screen.fullScreenMode);
-        screenModeDropdown.value = (int)Screen.fullScreenMode;
+
+
+        Debug.Log("Start Screen: " + SettingDataManager.Instance.playerSettingData.screenMode);
+        switch(SettingDataManager.Instance.playerSettingData.screenMode){
+            case FullScreenMode.ExclusiveFullScreen:
+                screenModeDropdown.value = 0;
+                break;
+            case FullScreenMode.FullScreenWindow:
+                screenModeDropdown.value = 1;
+                break;
+            case FullScreenMode.Windowed:
+                screenModeDropdown.value = 2;
+                break;
+            default:
+                Debug.LogError("Not allowed Screen mode!");
+                break;
+        }
         screenModeDropdown.RefreshShownValue();
 
         // 이벤트 리스너 추가
@@ -25,20 +40,6 @@ public class UIScreenSetting : MonoBehaviour
 
     public void OnScreenModeChange(int mode)
     {
-        switch (mode)
-        {
-            case 0:
-                Debug.Log("Fullscreen");
-                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-            case 1:
-                Debug.Log("Borderless");
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow; // Borderless mode 설정
-                break;
-            case 2:
-                Debug.Log("Window");
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-        }
+        SettingDataManager.Instance.SetScreenMode(mode);
     }
 }
