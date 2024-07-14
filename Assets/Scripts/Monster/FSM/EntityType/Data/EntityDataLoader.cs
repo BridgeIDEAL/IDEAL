@@ -6,11 +6,9 @@ using System;
 [Serializable]
 public class EntityData 
 {
-    // Load File Path != Use File Path
-    // Load Json Dialouge File ( Key = speakerName + speakIndex)
-    public string speakerName="수위";
-    public int speakIndex = 0;
-    public bool isSpawn=true;
+    public string speakerName;
+    public int speakIndex;
+    public bool isSpawn;
 }
 
 
@@ -34,18 +32,6 @@ public class EntityDataLoader : MonoBehaviour
             Destroy(this.gameObject);
         LoadAllEntityData();
     }
-
-    //public void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Z))
-    //    {
-    //        Debug.Log("출력중!");
-    //        Debug.Log(Application.dataPath + "/TestEntity");
-    //        EntityData edata = new EntityData();
-    //        string newData = JsonUtility.ToJson(edata);
-    //        System.IO.File.WriteAllText(Application.dataPath+"/TestEntity",newData);
-    //    }
-    //}
 
     public void LoadAllEntityData()
     {

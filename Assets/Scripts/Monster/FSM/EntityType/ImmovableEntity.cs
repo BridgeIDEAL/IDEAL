@@ -10,8 +10,9 @@ public class ImmovableEntity : BaseEntity
     protected EntityState<ImmovableEntity>[] states;
     protected EntityStateMachine<ImmovableEntity> stateMachine;
 
-    public override void Init()
+    public override void Init(Transform _playerTransfrom)
     {
+        playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         // States

@@ -11,9 +11,10 @@ public class EntitiesController : MonoBehaviour
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
-    #region Unity Life Cycle
-    
-    // Awake
+    Transform playerTransform;
+    public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
+
+    #region Awake
     private void Awake()
     {
         LinkAllEntity();
@@ -28,10 +29,13 @@ public class EntitiesController : MonoBehaviour
             if (allEntityDictionary.ContainsKey(entities[idx].name))
                 continue;
             allEntityDictionary.Add(entities[idx].name, entities[idx]);
+            entities[idx].Init(PlayerTransform);
+            entities[idx].Controller = this;
         }
     }
+    #endregion
 
-    // Start
+    #region Start
     private void Start()
     {
         SetupAllEntity();
@@ -39,13 +43,16 @@ public class EntitiesController : MonoBehaviour
 
     public void SetupAllEntity()
     {
-        foreach(KeyValuePair<string,BaseEntity> variable in allEntityDictionary)
+        List<string> keyList = new List<string>(allEntityDictionary.Keys);
+        int keyCnt = keyList.Count;
+        for(int idx=0; idx<keyCnt; idx++)
         {
-            variable.Value.Setup();
+            allEntityDictionary[keyList[idx]].Setup();
         }
     }
+    #endregion
 
-    // Update
+    #region Update
     private void Update()
     {
         ExecuteActiveEntities();
@@ -58,7 +65,6 @@ public class EntitiesController : MonoBehaviour
             activeEntityList[idx].Execute();
         }
     }
-
     #endregion
 
     #region FindEntityMethod

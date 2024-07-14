@@ -11,16 +11,18 @@ public class MovableEntity : BaseEntity
     protected NavMeshAgent agent;
     protected EntityState<MovableEntity>[] states;
     protected EntityStateMachine<MovableEntity> stateMachine;
+    protected DetectPlayer detectPlayer;
 
-    public EntitiesController link;
     #region Unity Life Cycle
-    
+   
     // Awake
-    public override void Init()
+    public override void Init(Transform _playerTransfrom)
     {
+        playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        detectPlayer = GetComponentInChildren<DetectPlayer>();
         // States
         states = new EntityState<MovableEntity>[(int)EntityStateType.None];
         states[(int)EntityStateType.Idle] = new MovableEntityStates.IdleState();
@@ -45,9 +47,9 @@ public class MovableEntity : BaseEntity
             Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
             return;
         }
-        //IdealSceneManager.Instance.CurrentGameManager.Entities_Controller.ActiveEntity(gameObject.name);
+        IdealSceneManager.Instance.CurrentGameManager.Entities_Controller.ActiveEntity(gameObject.name);
         if (data.isSpawn)
-            link.ActiveEntity(gameObject.name);
+            controller.ActiveEntity(data.speakerName);
         else
             SetActiveState(false);
 
@@ -57,7 +59,7 @@ public class MovableEntity : BaseEntity
     // Update
     public override void Execute()
     {
-        //stateMachine.Execute();
+        stateMachine.Execute();
     }
 
     #endregion

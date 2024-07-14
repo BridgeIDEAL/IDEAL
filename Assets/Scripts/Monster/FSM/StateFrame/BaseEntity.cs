@@ -5,13 +5,17 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
+    protected Transform playerTransform;
     protected EntityData data;
+    protected EntitiesController controller;
+    public EntitiesController Controller { get { return controller; } set { controller = value; } }
     public EntityData Data { get {  return data;  }  set  {  data = value;  } }
 
+    #region Unity Life Cycle : Call By Entities Controller
     /// <summary>
     /// Awake
     /// </summary>
-    public abstract void Init();
+    public abstract void Init(Transform _playerTransfrom);
     
     /// <summary>
     /// Start
@@ -22,6 +26,7 @@ public abstract class BaseEntity : MonoBehaviour
     /// Update
     /// </summary>
     public abstract void Execute();
+    #endregion
 
     /// <summary>
     /// Set State
@@ -43,4 +48,10 @@ public abstract class BaseEntity : MonoBehaviour
         data.isSpawn = _isSpawn;
         gameObject.SetActive(_isSpawn);
     }
+
+    /// <summary>
+    /// Trigger로 인해 호출되는 이벤트
+    /// </summary>
+    /// <param name="_isActive"></param>
+    public virtual void EntityTriggerEvent(bool _isActive=true) { }
 }
