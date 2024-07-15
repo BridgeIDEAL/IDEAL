@@ -53,7 +53,7 @@ public class MovableEntity : BaseEntity
         else
             SetActiveState(false);
 
-        // Interaction Regist
+        // Interaction Add
     }
 
     // Update

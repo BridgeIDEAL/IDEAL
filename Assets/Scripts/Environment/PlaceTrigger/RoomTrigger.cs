@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RoomTrigger : MonoBehaviour
 {
-
+    [SerializeField] BaseEntity baseEntity;
     public PlaceTriggerType currentPlace = PlaceTriggerType.StudyRoom_1F;
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.PlayerInPlace = currentPlace;
+            baseEntity.EntityTriggerEvent(true);
         }
     }
 
@@ -18,7 +18,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.GameEvent_Manager.PlayerInPlace = PlaceTriggerType.None;
+            baseEntity.EntityTriggerEvent(false);
         }
     }
 }

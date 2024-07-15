@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    // Singleton
     public static DialogueManager Instance;
-    [SerializeField] DialougeUI dialouge_UI;
-    public DialougeUI Dialouge_UI { get { return dialouge_UI; } set { dialouge_UI = value; } }
+
+    [Header("DialogueData & UI")]
+    [SerializeField] DialogueUI dialouge_UI;
+    public DialogueUI Dialouge_UI { get { if (dialouge_UI == null) dialouge_UI = GetComponentInChildren<DialogueUI>(); return dialouge_UI; } }
 
     [SerializeField] List<TextAsset> dialougeList = new List<TextAsset>();
     Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
 
-    public bool IsDialogue { get; set; } = false;
+    bool isTalking = false;
+    public bool IsTalking { get { return IsTalking; } set { isTalking = value; } }
 
-    [SerializeField] string keyName;
-    [SerializeField] float typeSpeed;
     private void Awake()
     {
         Singleton();
@@ -24,7 +26,10 @@ public class DialogueManager : MonoBehaviour
     public void Singleton()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             Destroy(gameObject);
     }
@@ -55,12 +60,19 @@ public class DialogueManager : MonoBehaviour
         return null;
     }
 
-    //public void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.L))
-    //    {
-    //        if(!IsDialogue)
-    //            Dialouge_UI.StartDialouge(keyName, typeSpeed);
-    //    }
-    //}
+    // Call when you start Dialogue
+    public void StartDialogue(string _storyKey)
+    {
+        if (isTalking)
+            return;
+        isTalking = true;
+        Dialouge_UI.StartDialogue(_storyKey);
+    }
+
+    // Call By DialogueUI
+    public void EndDialogue()
+    {
+        isTalking = false;
+        // 
+    }
 }
