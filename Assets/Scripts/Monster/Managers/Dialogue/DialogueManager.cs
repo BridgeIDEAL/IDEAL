@@ -55,12 +55,12 @@ public class DialogueManager : MonoBehaviour
         return null;
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            if(!IsDialogue)
-                Dialouge_UI.StartDialouge(keyName, typeSpeed);
-        }
-    }
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.L))
+    //    {
+    //        if(!IsDialogue)
+    //            Dialouge_UI.StartDialouge(keyName, typeSpeed);
+    //    }
+    //}
 }

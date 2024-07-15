@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    protected Transform playerTransform;
+    [SerializeField] protected Transform playerTransform;
     protected EntityData data;
     protected EntitiesController controller;
     public EntitiesController Controller { get { return controller; } set { controller = value; } }
@@ -15,7 +15,7 @@ public abstract class BaseEntity : MonoBehaviour
     /// <summary>
     /// Awake
     /// </summary>
-    public abstract void Init(Transform _playerTransfrom);
+    public virtual void Init(Transform _playerTransfrom) { playerTransform = _playerTransfrom; }
     
     /// <summary>
     /// Start

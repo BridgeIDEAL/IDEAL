@@ -167,19 +167,26 @@ public class DialougeUI : MonoBehaviour
         StartDialouge(_key);
     }
 
+    #region DialogueEvent Method
     public void DialogueEvent(string _eventName, List<string> _parameterList)
     {
         switch (_eventName)
         {
             case "Hurt":
-                break;
-            case "TestLog":
-                TestLog(_parameterList);
-                break;
+                Damaged(_parameterList);
+                break;          
             case "Name":
                 ChangeSpeakerName(_parameterList);
                 break;
+            case "Item":
+                GetItem(_parameterList);
+                break;
         }
+    }
+
+    public void Damaged(List<string> _parameterList)
+    {
+
     }
 
     public void ChangeSpeakerName(List<string> _parameterList)
@@ -187,18 +194,12 @@ public class DialougeUI : MonoBehaviour
         dialogueTexts[0].text = _parameterList[0];
     }
 
-
-    public void TestLog(List<string> _parameterList)
+    public void GetItem(List<string> _parameterList)
     {
-        int cnt = _parameterList.Count;
-        string testTex = "";
-        for(int i=0; i<cnt; i++)
-        {
-            testTex += _parameterList[i];
-        }
-        Debug.Log(testTex);
-    }
 
+    }
+    #endregion
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)

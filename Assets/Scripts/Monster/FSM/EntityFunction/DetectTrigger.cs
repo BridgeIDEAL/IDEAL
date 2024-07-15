@@ -13,7 +13,7 @@ public class DetectTrigger : DetectPlayer
     {
         if (other.CompareTag("Player"))
         {
-            isDetectPlayer = false;
+            isDetectPlayer = true;
         }  
     }
 }

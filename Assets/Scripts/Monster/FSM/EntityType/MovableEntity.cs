@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovableEntity : BaseEntity
 {
-    protected EntityStateType currentType;
+    [SerializeField] protected EntityStateType currentType;
     protected Animator anim;
     protected NavMeshAgent agent;
     protected EntityState<MovableEntity>[] states;
@@ -18,7 +18,7 @@ public class MovableEntity : BaseEntity
     // Awake
     public override void Init(Transform _playerTransfrom)
     {
-        playerTransform = _playerTransfrom;
+        base.Init(_playerTransfrom);
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -47,7 +47,7 @@ public class MovableEntity : BaseEntity
             Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
             return;
         }
-        IdealSceneManager.Instance.CurrentGameManager.Entities_Controller.ActiveEntity(gameObject.name);
+        controller.ActiveEntity(gameObject.name);
         if (data.isSpawn)
             controller.ActiveEntity(data.speakerName);
         else

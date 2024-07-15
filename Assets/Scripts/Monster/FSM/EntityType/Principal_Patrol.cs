@@ -8,9 +8,10 @@ public class Principal_Patrol : MovableEntity, IPatrol
     bool isCallChangeState = false;
 
     #region Patrol Val
-    int currentPoint;
-    int maxPoint;
-    float stopDistance;
+    [SerializeField] int currentPoint;
+    [SerializeField] int maxPoint;
+    [SerializeField, Range(0.5f, 1f)] float stopDistance;
+    bool isChasePlayer = false;
 
     [Header("Patrol")]
     [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
@@ -18,7 +19,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
 
     #region In StudyRoom Val
     bool isRotate = false;
-    bool isInStudyRoom = false;
+    [SerializeField] bool isInStudyRoom = false;
     public bool IsInStudyRoom { set { isInStudyRoom = value; if (value) agent.SetDestination(studyRoomFrontPoint); else isRotate = false; } }
     [Header("StudyRoom")]
     [SerializeField, Tooltip("자습실 앞 위치")] Vector3 studyRoomFrontPoint;
@@ -32,40 +33,21 @@ public class Principal_Patrol : MovableEntity, IPatrol
     {
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
-    } 
-
-    #region Implement Patrol Interface
-    public void OnOffPatrol(bool _isOnPatrol = true)
-    {
-        if (_isOnPatrol) // 패트롤 시작
-        {
-            StartCoroutine("PatrolCor");
-            return;
-        }
-        else // 패트롤 중단
-        {
-            agent.ResetPath();
-            StopCoroutine("PatrolCor");
-            return;
-        }
     }
 
-    public IEnumerator PatrolCor()
+    #region Patrol Interface
+    public void StartPatrol()
     {
-        CheckMaintainCurrentRoute();
         agent.SetDestination(patrolPoints[currentPoint]);
-        while (agent.remainingDistance > stopDistance)
-        {
-            yield return null;
-        }
-        SeekNextRoute();
-        StartCoroutine("PatrolCor");
     }
 
-    public void CheckMaintainCurrentRoute()
+    public void Patrol()
     {
         if (agent.remainingDistance < stopDistance)
+        {
             SeekNextRoute();
+            return;
+        }
     }
 
     public void SeekNextRoute()
@@ -73,6 +55,12 @@ public class Principal_Patrol : MovableEntity, IPatrol
         currentPoint += 1;
         if (currentPoint > maxPoint)
             currentPoint = 0;
+        agent.SetDestination(patrolPoints[currentPoint]);
+    }
+
+    public void EndPatrol()
+    {
+        agent.ResetPath();
     }
     #endregion
 
@@ -114,7 +102,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
     public override void IdleEnter()
     {
         base.IdleEnter();
-        OnOffPatrol(true);
+        StartPatrol();
     }
 
     public override void IdleExecute() 
@@ -124,13 +112,14 @@ public class Principal_Patrol : MovableEntity, IPatrol
             isCallChangeState = true;
             controller.SendMessage(data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
         }
+        Patrol();
     }
 
     public override void IdleExit()
     {
         base.IdleExit();
+        EndPatrol();
         isCallChangeState = false;
-        OnOffPatrol(false);
     }
     #endregion
 
@@ -175,6 +164,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
     #region Chase State
     public override void ChaseEnter()
     {
+        isChasePlayer = true;
         base.ChaseEnter();
     }
 
@@ -190,7 +180,17 @@ public class Principal_Patrol : MovableEntity, IPatrol
     {
         base.ChaseExit();
         isRotate = false;
+        isChasePlayer = false;
         detectPlayer.IsDetectPlayer = false;
     }
     #endregion
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(isChasePlayer && collision.collider.CompareTag("Player"))
+        {
+            DialogueManager.Instance.Dialouge_UI.StartDialouge(data.speakerName, 0.1f);
+            controller.SendMessage(data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
+        }
+    }
 }
