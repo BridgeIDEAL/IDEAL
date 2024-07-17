@@ -12,7 +12,7 @@ public class EyePenaltyManager : MonoBehaviour
 
     void Awake(){
         playerTransform = scriptHub.playerArmatureObject.transform;
-        cameraTransform = scriptHub.playerCameraRootObject.transform;
+        cameraTransform = scriptHub.playerCamera.transform;
     }
     
     public EyePenaltyObject ActiveEyePenaltyObject(){
