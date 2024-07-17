@@ -5,8 +5,10 @@ using UnityEngine;
 public class FemaleTeacher_OnGuard : ImmovableEntity
 {
     [SerializeField] float thresholdAngle= 60f;
-    [SerializeField] OnGuard onGuard;
-    [SerializeField] DetectPlayer detectPlayer;
+    OnGuard onGuard;
+    DetectPlayer detectPlayer;
+
+    bool isRotate = false;
 
     public override void AdditionalInit() 
     {
@@ -16,21 +18,32 @@ public class FemaleTeacher_OnGuard : ImmovableEntity
 
     public void MaintainAngle()
     {
-        Vector3 directionToTarget = playerTransform.position - transform.position;
-        directionToTarget.y = 0; // 높이 무시
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+        directionToPlayer.y = 0; 
+        Vector3 monsterForward = transform.forward;
+        monsterForward.y = 0; 
 
-        // 현재 플레이어가 바라보는 방향과 목표물 사이의 각도 계산
-        float angle = Vector3.Angle(transform.forward, directionToTarget);
-
-        // 각도가 thresholdAngle을 넘으면 물체쪽으로 회전
-        if (angle > thresholdAngle)
+        float angle = Vector3.Angle(monsterForward, directionToPlayer);
+        if (angle > thresholdAngle && !isRotate)
         {
-            // 물체를 바라보는 회전 계산
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            // 플레이어를 해당 방향으로 회전
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            isRotate = true;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            StartCoroutine(RotateCor(targetRotation));
         }
     }
+
+    public IEnumerator RotateCor(Quaternion _target)
+    {
+        float timer = 0f;
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, _target, timer/1f);
+            yield return null;
+        }
+        isRotate = false;
+    }
+
 
     public override void IdleEnter() { SetAnimation(currentType, true); }
     public override void IdleExecute() { if (detectPlayer.DetectExecute()) { ChangeState(EntityStateType.Penalty); } }

@@ -113,7 +113,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
         {
             isCoolDown = false;
             isCallChangeState = true;
-            controller.SendMessage(data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
+            controller.SendMessage(entity_Data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
         }
         Patrol();
     }
@@ -199,8 +199,8 @@ public class Principal_Patrol : MovableEntity, IPatrol
     {
         if(isChasePlayer && collision.collider.CompareTag("Player"))
         {
-            DialogueManager.Instance.StartDialogue(data.speakerName);
-            controller.SendMessage(data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
+            DialogueManager.Instance.StartDialogue(entity_Data.speakerName);
+            controller.SendMessage(entity_Data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
         }
     }
 }

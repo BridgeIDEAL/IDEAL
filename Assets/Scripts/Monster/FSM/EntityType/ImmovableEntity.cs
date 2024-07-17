@@ -32,15 +32,15 @@ public class ImmovableEntity : BaseEntity
 
     public override void Setup()
     {
-        data = EntityDataLoader.Instance.GetEntityData(gameObject.name);
-        if (data == null)
+        entity_Data = EntityDataManager.Instance.GetEntityData(gameObject.name);
+        if (entity_Data == null)
         {
             Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
             return;
         }
         controller.ActiveEntity(gameObject.name);
-        if (data.isSpawn)
-            controller.ActiveEntity(data.speakerName);
+        if (entity_Data.isSpawn)
+            controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
 

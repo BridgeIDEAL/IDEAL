@@ -5,11 +5,20 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    [SerializeField] protected Transform playerTransform;
-    protected EntityData data;
+    [SerializeField, Tooltip("Use for find Entity Data, Dialogue Data Key")]protected string entityName;
+    protected Transform playerTransform;
+
+    // Entity Data
+    protected Entity entity_Data =null;
+    public Entity Entity_Data { get { if (entity_Data == null) EntityDataManager.Instance.GetEntityData(entityName);  return entity_Data;  }  set  {  entity_Data = value;  } }
+    
+    // Entity Controller
     protected EntitiesController controller;
     public EntitiesController Controller { get { return controller; } set { controller = value; } }
-    public EntityData Data { get {  return data;  }  set  {  data = value;  } }
+
+    // Entity Dialogue
+    protected Dialogue entity_Dialogue =null;
+    public Dialogue Entity_Dialogue { get { if (entity_Dialogue == null) entity_Dialogue = DialogueManager.Instance.GetDialogue(Entity_Data.speakerName+Entity_Data.speakIndex); return entity_Dialogue; } set { entity_Dialogue = value; } }
 
     #region Unity Life Cycle : Call By Entities Controller
     /// <summary>
@@ -40,12 +49,12 @@ public abstract class BaseEntity : MonoBehaviour
     /// <param name="_isSpawn"></param>
     public virtual void SetActiveState(bool _isSpawn)
     {
-        if (data == null)
+        if (entity_Data == null)
         {
             Debug.LogError("이형체 데이터가 존재하지 않습니다.");
             return;
         }
-        data.isSpawn = _isSpawn;
+        entity_Data.isSpawn = _isSpawn;
         gameObject.SetActive(_isSpawn);
     }
 
