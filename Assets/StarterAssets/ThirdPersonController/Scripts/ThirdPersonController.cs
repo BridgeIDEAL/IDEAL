@@ -173,7 +173,16 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
+            if(!needTeleportation){
+                Move();
+            }
+
+        }
+
+        // Invoke로 호출될 함수
+        private void SetTeleportationFalse()
+        {
+            needTeleportation = false;
         }
 
         private void LateUpdate()
@@ -183,7 +192,7 @@ namespace StarterAssets
             }
             if(needTeleportation){
                 TelePortPositionRotation();
-                needTeleportation = false;
+                Invoke("SetTeleportationFalse", 0.1f);
             }
         }
 

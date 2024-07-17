@@ -216,8 +216,10 @@ public class IdealSceneManager : MonoBehaviour
             }
             prototype2GameManager = GameObject.Find("GameManager2").GetComponent<GameManager>();
             currentGameManager = prototype2GameManager;
-            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            
         }
         else if(currentSceneName == "Prototype_Second"){
             AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Single);
@@ -227,8 +229,9 @@ public class IdealSceneManager : MonoBehaviour
             }
             prototypeGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             currentGameManager = prototypeGameManager;
-            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
         }
 
         // 화면 fade In 효과 넣기
