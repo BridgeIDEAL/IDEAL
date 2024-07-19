@@ -8,10 +8,12 @@ public class DialogueEvent : MonoBehaviour
     public void Damaged(List<string> _parameterList)
     {
         // Damage
+        // ConversationManager에 있는 Hurt 추가
     }
 
     public void GetItem(List<string> _parameterList)
     {
+        // ConversationManager에서 Inventory에 추가
         string _itemName = _parameterList[0];
         string path = folderPath + _itemName;
         InteractionItemData _itemData = Resources.Load<InteractionItemData>(path);
@@ -25,4 +27,7 @@ public class DialogueEvent : MonoBehaviour
     {
         // GameOver
     }
+
+    // Scripthub - > thirdplayermovelock => 멈추기
+    // uimanager => updatemovelock 
 }
