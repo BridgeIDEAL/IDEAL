@@ -118,7 +118,7 @@ public class PenaltyPointManager : MonoBehaviour
                     eyeWatchingTimer += Time.deltaTime;
                 }
 
-                uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime);
+                uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
 
                 // 제한 시간 보다 더 보는 경우 게임 오버
                 if(eyeWatchingTimer >= eyeWatchingGameOverTime){
@@ -131,7 +131,7 @@ public class PenaltyPointManager : MonoBehaviour
             else{
                 if(eyeWatchingTimer > 0.0f){
                     eyeWatchingTimer -= Time.deltaTime;
-                    uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime);
+                    uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
                 }
                 else{
                     eyeWatchingTimer = 0.0f;

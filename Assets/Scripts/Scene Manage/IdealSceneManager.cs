@@ -16,8 +16,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private List<GameObject> lobbyObjectList;
     private List<string> lobbyObjectNameList;
 
-    private SceneObjectController prototypeObjectController;
-    private SceneObjectController prototype2ObjectController;
+
 
     private GameManager prototypeGameManager;
     private GameManager prototype2GameManager;
@@ -111,49 +110,19 @@ public class IdealSceneManager : MonoBehaviour
         LoadingImageManager.Instance.StartIntroText();
         yield return null;
 
-        AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Additive);
-        loadPrototype.allowSceneActivation = false;
-        AsyncOperation loadPrototype2 = SceneManager.LoadSceneAsync("Prototype_Second", LoadSceneMode.Additive);
-        loadPrototype2.allowSceneActivation = false;
-
-        Debug.Log("Load 2 Scenes Start!");
-        while(!(loadPrototype.progress >= 0.9f && loadPrototype2.progress >= 0.9f)){
-            yield return null;
-        }
-
-        Debug.Log("Load 2 Scenes Done!");
-        
+        AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Single);
         loadPrototype.allowSceneActivation = true;
-        loadPrototype2.allowSceneActivation = true;
-        while(!(loadPrototype.isDone && loadPrototype2.isDone)){
+
+        
+        while(!loadPrototype.isDone){
             yield return null;
         }
-        for(int i = 0 ; i < lobbyObjectList.Count; i++){
-            lobbyObjectList[i].SetActive(false);
-        }
-        lobbyObjectList = new List<GameObject>();
         
-        
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prototype_Second"));
-        prototype2GameManager = GameObject.Find("GameManager2").GetComponent<GameManager>();
-        currentGameManager = prototype2GameManager;
-        prototype2GameManager.Init();
-        yield return null;
-        yield return null;      // UImanager 등 프레임 여유가 필요한 스크립트들이 있음
-        prototype2ObjectController = GameObject.Find("SceneObjectController2").GetComponent<SceneObjectController>();
-        prototype2ObjectController.SceneObjectsSetActive(false);
-
-
-        Debug.Log("~~~~~~~~~~~~~~~~~~~Change");
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Prototype"));
         prototypeGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentGameManager = prototypeGameManager;
         prototypeGameManager.Init();
         ImplementScriptHub(prototypeGameManager);
-        prototypeObjectController = GameObject.Find("SceneObjectController").GetComponent<SceneObjectController>();
         
-        // 한 프레임 쉬지 않고 바로 IngameFade 호출 시 해당 코루틴이 한 루틴만 돌고 오류남
         yield return null;
 
         // 인트로 텍스트가 나오는 동안 이동 및 UI 조정 불가능하도록 
@@ -161,27 +130,39 @@ public class IdealSceneManager : MonoBehaviour
         currentGameManager.scriptHub.uIManager.uIInputLock = true;
 
         yield return null;
+
         // Scene이 준비되었다고 LoadingImageManager에게 알리기
         LoadingImageManager.Instance.LoadEnded();
 
         // LoadingImage를 종료하고자 하는지 변수로 체크
-        while(true){
-            if(LoadingImageManager.Instance.goNext){
-                break;
-            }
+        while(!LoadingImageManager.Instance.goNext){
             yield return null;
         }
-
+        
         currentGameManager.scriptHub.thirdPersonController.MoveLock = false;
         currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
-        prototypeGameManager.scriptHub.uIManager.IngameFadeInEffect();
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);
         LobbyBGMFade(false);
 
         yield return null;
+
+        // 화면 fade In 효과 넣기
+        Image fadeFilter = LoadingImageManager.Instance.fadeFilter;
+        float stepTimer = 0.0f;
+        Color color = fadeFilter.color;
+        float startAlpha = 1.0f;
+        float endAlpha = 0.0f;
+        while(stepTimer <= fadeEffectTime){
+            color.a = Mathf.Lerp(startAlpha, endAlpha, stepTimer / fadeEffectTime);
+            fadeFilter.color = color;
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        color.a = endAlpha;
+        fadeFilter.color = color;
+        
         LoadingImageManager.Instance.SetActiveLoadingImage(false);
-        SceneManager.UnloadSceneAsync("Lobby");
     }
 
     private void ImplementScriptHub(GameManager gameManager){
@@ -228,22 +209,29 @@ public class IdealSceneManager : MonoBehaviour
 
         // 현재 씬 비활성화 및 다음 씬 활성화
         if(currentSceneName == "Prototype"){
-            prototypeObjectController.SceneObjectsSetActive(false);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(destSceneName));
+            AsyncOperation loadPrototype2 = SceneManager.LoadSceneAsync("Prototype_Second", LoadSceneMode.Single);
+            loadPrototype2.allowSceneActivation = true;
+            while(!loadPrototype2.isDone){
+                yield return null;
+            }
+            prototype2GameManager = GameObject.Find("GameManager2").GetComponent<GameManager>();
             currentGameManager = prototype2GameManager;
-            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
-            prototype2ObjectController.SceneObjectsSetActive(true);
+            currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
-            currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            
         }
         else if(currentSceneName == "Prototype_Second"){
-            prototype2ObjectController.SceneObjectsSetActive(false);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(destSceneName));
+            AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Single);
+            loadPrototype.allowSceneActivation = true;
+            while(!loadPrototype.isDone){
+                yield return null;
+            }
+            prototypeGameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             currentGameManager = prototypeGameManager;
-            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
-            prototypeObjectController.SceneObjectsSetActive(true);
+            currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
-            currentGameManager.scriptHub.uIManager.IngameFadeInEffect();
+            currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
         }
 
         // 화면 fade In 효과 넣기

@@ -10,6 +10,12 @@ public class EyePenaltyObject : MonoBehaviour
 
     private Transform playerTransform = null;
 
+    [SerializeField] private Transform headTransform;
+
+    void Start(){
+        headTransform = transform.GetChild(0);
+    }
+
     public void PlayActiveSound(){
         Debug.Log("PlayActiveSound");
         // audioSource.Play();
@@ -22,12 +28,12 @@ public class EyePenaltyObject : MonoBehaviour
 
     void Update(){
         if(playerTransform != null){
-            Vector3 targetDir = (playerTransform.position - transform.position).normalized;
+            Vector3 targetDir = (playerTransform.position - headTransform.position).normalized;
             // 해당 방향으로의 회전을 생성합니다.
             Quaternion lookRotation = Quaternion.LookRotation(targetDir);
             
-            // 현재 오브젝트의 회전에서 y축만 변경하여 적용합니다.
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lookRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            // 현재 오브젝트의 회전에서 x축, y축만 변경하여 적용합니다.
+            headTransform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x, lookRotation.eulerAngles.y, headTransform.rotation.eulerAngles.z);
         }
         if(stepTimer > activeTime){
             stepTimer = 0.0f;
