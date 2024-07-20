@@ -48,6 +48,11 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Item[] items;
 
+    /// <summary> 합성되는 조각 아이템 목록 </summary>
+    private int[] keyPieces_SecondFloor = {};
+    private int[] keyPieces_StudentRoom = {};
+    private int[] keyPieces_serverRoomKey = {};
+
     /// <summary>  업데이트 할 인덱스 목록 </summary>
     private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
 
@@ -280,7 +285,7 @@ public class Inventory : MonoBehaviour
     /// <para/> 모두 성공했다면 리턴 0
     /// </summary>
     public int Add(ItemData itemData, int amount = 1){
-
+        int amount_ = amount;
         int index;
 
         // 1. 수량이 있는 아이템
@@ -367,6 +372,7 @@ public class Inventory : MonoBehaviour
         if(amount == 0){
             GetItemSound(itemData);
             ActivationLogManager.Instance.AddActivationLogWithItem(itemData.ID, true);
+            ProgressManager.Instance.SetItemLog(itemData.ID, amount_);
         }
         return amount;
     }
