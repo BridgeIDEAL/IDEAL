@@ -36,10 +36,7 @@ public class HealthPointManager : MonoBehaviour
     public static int maxHP = 2;
     public static int minHP = 0;
 
-    private float speedReduction = 0.15f;
 
-    private float interactionReduction = 0.2f;
-    // private float visualReduction = 0.5f;   // 현재는 사용하지 않는 값
     
     public void Init(){
         if(instance == null){
@@ -160,36 +157,43 @@ public class HealthPointManager : MonoBehaviour
     }
 
     private void UpdateLegCondition(){
-        // damage는 음수 값
-        int damage = healthPoint[(int)IdealBodyPart.LeftLeg] - maxHP + healthPoint[(int)IdealBodyPart.RightLeg] - maxHP;
-        if(damage > 0){
-            Debug.Log("UpdateLegCondition: damage > 0");
-            damage = 0;
+        float speedReduction = 0.0f;
+        if(maxHP - healthPoint[(int)IdealBodyPart.LeftLeg] == 1){
+            speedReduction += 0.2f;
         }
-        if(damage < -4) {
-            Debug.Log("UpdateLegCondition: damage < -4");
-            damage = -4;
+        else if(maxHP - healthPoint[(int)IdealBodyPart.LeftLeg] == 2){
+            speedReduction += 0.5f;
+        }
+        if(maxHP - healthPoint[(int)IdealBodyPart.RightLeg] == 1){
+            speedReduction += 0.2f;
+        }
+        else if(maxHP - healthPoint[(int)IdealBodyPart.RightLeg] == 2){
+            speedReduction += 0.5f;
         }
 
-        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f + damage * speedReduction);
+        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f - speedReduction);
         uIMoveSetting.UpdateMoveSpeedValueText();
-        thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f + damage * speedReduction);
+        thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f - speedReduction);
         uIMoveSetting.UpdateSprintSpeedValueText();
     }
 
     private void UpdateArmCondition(){
-        // damage는 음수 값
-        int damage = healthPoint[(int)IdealBodyPart.LeftArm] - maxHP + healthPoint[(int)IdealBodyPart.RightArm] - maxHP;
-        if(damage > 0){
-            Debug.Log("UpdateArmCondition: damage > 0");
-            damage = 0;
+        float interactionReduction = 0.0f;
+        if(maxHP - healthPoint[(int)IdealBodyPart.LeftArm] == 1){
+            interactionReduction += 0.2f;
         }
-        if(damage < -4) {
-            Debug.Log("UpdateArmCondition: damage < -4");
-            damage = -4;
+        else if(maxHP - healthPoint[(int)IdealBodyPart.LeftArm] == 2){
+            interactionReduction += 0.5f;
         }
 
-        interactionDetect.requiredTimeRatio = 1.0f - damage * interactionReduction;
+        if(maxHP - healthPoint[(int)IdealBodyPart.RightArm] == 1){
+            interactionReduction += 0.2f;
+        }
+        else if(maxHP - healthPoint[(int)IdealBodyPart.RightArm] == 2){
+            interactionReduction += 0.5f;
+        }
+
+        interactionDetect.requiredTimeRatio = 1.0f + interactionReduction;
 
         // 팔 손상으로 인한 장비 슬롯 비활성화
         if(healthPoint[(int)IdealBodyPart.LeftArm] <= minHP){

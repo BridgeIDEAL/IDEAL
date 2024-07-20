@@ -23,6 +23,7 @@ public class InteractionDetect : MonoBehaviour
     private UIInteraction uIInteraction;
 
     public float requiredTimeRatio = 1.0f;
+    private string disableInteractionStr = "팔이 심하게 손상되어 상호작용이 불가능하다.";
 
     public void Init(){
         playerCamera = scriptHub.playerCamera;
@@ -111,19 +112,26 @@ public class InteractionDetect : MonoBehaviour
             yield break;
         }
         float requiredTime = interactionObject.GetRequiredTime() * requiredTimeRatio;
-        
-        if(requiredTime <= 0.0f){
+
+        if (requiredTimeRatio >= 2.0f){ // 양 손 다 체력 0인 경우, 상호작용 불가능
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(disableInteractionStr);
+        }
+        else{
+            if(requiredTime <= 0.0f){
+                interactionObject.DetectedInteraction();
+                yield break;
+            }
+            float stepTimer = 0.0f;
+            while(stepTimer <= requiredTime){
+                uIInteraction.SetProgressFillAmount(stepTimer / requiredTime);
+                stepTimer += Time.deltaTime;
+                yield return null;
+            }
+            uIInteraction.SetProgressFillAmount(0.0f);
             interactionObject.DetectedInteraction();
-            yield break;
         }
-        float stepTimer = 0.0f;
-        while(stepTimer <= requiredTime){
-            uIInteraction.SetProgressFillAmount(stepTimer / requiredTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-        uIInteraction.SetProgressFillAmount(0.0f);
-        interactionObject.DetectedInteraction();
+        
+        
     }
 
     private void StopInteractionCoroutine(){
