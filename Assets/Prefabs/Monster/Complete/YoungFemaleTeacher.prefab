@@ -2311,7 +2311,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a931902c1db4242439e4e736c2a39dce, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2344,8 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89caaeecb09949a41b86711cb9e59e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpawn: 1
-  anim: {fileID: 19356821242602545}
+  entityName: 
 --- !u!114 &-2350333428677131529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2379,6 +2378,8 @@ MonoBehaviour:
   dialogueRunner: {fileID: 0}
   conversationManager: {fileID: 0}
   detectedStr: 
+  dialougeSeries: 0
+  cantalk: 1
   dialogueName: 
   monsterName: 
   lookPlayerwithConversation: 1
