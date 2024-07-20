@@ -35,7 +35,7 @@ public class PenaltyPointManager : MonoBehaviour
     private float soundPenaltyRespawnTime = 90.0f;
     private float soundPenaltyStepTimer = 85.0f;
     private bool isSoundHearing = false;
-    private float soundHearingGameOverTime = 6.0f;
+    private float soundHearingGameOverTime = 10.0f;
     private float soundHearingTimer = 0.0f;
     private bool insideSafeZone = false;
 
