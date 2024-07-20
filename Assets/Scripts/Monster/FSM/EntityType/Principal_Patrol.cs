@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Principal_Patrol : MovableEntity, IPatrol
 {
     bool isCallChangeState = false;
+    bool isCoolDown = true;
+    [SerializeField] float chaseCoolDownTimer;
 
     #region Patrol Val
     [SerializeField] int currentPoint;
@@ -93,7 +95,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
     public void ChasePlayer()
     {
         if (playerTransform == null)
-                return;
+            return;
         agent.SetDestination(playerTransform.position);
     }
     #endregion
@@ -105,12 +107,13 @@ public class Principal_Patrol : MovableEntity, IPatrol
         StartPatrol();
     }
 
-    public override void IdleExecute() 
+    public override void IdleExecute()
     {
-        if (detectPlayer.DetectExecute() && !isCallChangeState)
+        if (isCoolDown && detectPlayer.DetectExecute() && !isCallChangeState)
         {
+            isCoolDown = false;
             isCallChangeState = true;
-            controller.SendMessage(data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
+            controller.SendMessage(entity_Data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
         }
         Patrol();
     }
@@ -132,6 +135,13 @@ public class Principal_Patrol : MovableEntity, IPatrol
     public override void TalkExit()
     {
         base.TalkExit();
+        StartCoroutine(ChaseCoolDownCor());
+    }
+
+    public IEnumerator ChaseCoolDownCor()
+    {
+        yield return new WaitForSeconds(chaseCoolDownTimer);
+        isCoolDown = true;
     }
     #endregion
 
@@ -170,7 +180,7 @@ public class Principal_Patrol : MovableEntity, IPatrol
 
     public override void ChaseExecute() 
     {
-        if (isInStudyRoom)
+        if (!isInStudyRoom)
             agent.SetDestination(playerTransform.position);
         else
             PlayerInStudyRoom();
@@ -189,8 +199,8 @@ public class Principal_Patrol : MovableEntity, IPatrol
     {
         if(isChasePlayer && collision.collider.CompareTag("Player"))
         {
-            DialogueManager.Instance.Dialouge_UI.StartDialouge(data.speakerName, 0.1f);
-            controller.SendMessage(data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
+            DialogueManager.Instance.StartDialogue(entity_Data.speakerName);
+            controller.SendMessage(entity_Data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
         }
     }
 }

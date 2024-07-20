@@ -11,21 +11,19 @@ public class OnGuard : MonoBehaviour
     [Header("Rig")]
     [SerializeField] MultiAimConstraint multiAim;
     [SerializeField] RigBuilder rigBuilder;
-    [SerializeField, Range(0,1f)] float weightValue;
+    [SerializeField, Range(0,1f)] float weightValue =1f;
 
-    public void GazePlayer()
+    public void GazePlayer(Transform _playerTransform)
     {
+        
         if (playerTransform == null)
-        {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player == null)
-                return;
-            playerTransform = player.transform;
-        }
+            playerTransform = _playerTransform;
+
         var sourceObjects = multiAim.data.sourceObjects;
         sourceObjects.Clear();
         multiAim.data.sourceObjects = sourceObjects;
         sourceObjects.Add(new WeightedTransform(playerTransform, weightValue));
+        multiAim.data.sourceObjects = sourceObjects;
         rigBuilder.Build();
     }
 

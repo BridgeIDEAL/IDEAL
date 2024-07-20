@@ -1,0 +1,92 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "StuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "거기 너.",
+        "혹시 학생회에 가입할 생각 없어?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "얘기를 더 듣는다",
+          "nextID": 2
+        },
+        {
+          "choiceText": "정중히 거절한다",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "StuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "학생회가 된다면 학교 시설을 마음대로 쓸 수 있지",
+        "그리고 학생들 관리 권한도 받을 수 있어",
+        "마침 지금 사람이 부족한 참인데"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수락한다",
+          "nextID": 4
+        },
+        {
+          "choiceText": "거절한다",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "StuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "이거 정말 좋은 기회인데",
+        "거절하는거야?",
+        "학생회가 지금 사람이 부족한 참인데"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수락한다",
+          "nextID": 4
+        },
+        {
+          "choiceText": "거절한다",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "StuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "잘 생각했어",
+        "그럼, 가입 절차를 진행할게",
+        "학생회에 가입하려면",
+        "오른손가락을 맹세의 의미로 내야 해",
+        //신체 손상도 (오른손 -1)
+        "축하해, 넌 이제 학생회 말단이야",
+        "말단의 권한? 크크, 말단은 아무 권한도 없지",
+        "선물로 이정도는 챙겨줄게",
+        //학교 지도 획득
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "StuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "그래? 아쉽네",
+        "혹시 나중에 생각이 바뀌면 말해줘",
+        "이건 뇌물이라고 생각해",
+        //학교 지도 획득
+      ],
+      "choiceLine": []
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "호호호, 어서와",
+        "처음 보는 얼굴이구나",
+        "싸게 해줄게, 골라보렴"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "메론빵을 고른다",
+          "nextID": 2
+        },
+        {
+          "choiceText": "단팥빵을 고른다",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "어머 미안, 메론빵은 품절이란다.",
+        "대신 단팥빵으로 줄게~"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "단팥빵을 고른다",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "단팥빵 말이지? 그래 여기 있다~",
+        "가격은 네 양 팔 전부랑, 다리 한쪽이면 될거같은데?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "알겠어요",
+          "nextID": 4
+        },
+        {
+          "choiceText": "너무 비싸요",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "//신체 손상 오른팔 -2, 왼팔 -2, 왼다리 -2",
+        "단팥빵을 획득"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "흠… 그래?",
+        "순진해 보이는데 그렇게 멍청하진 않구나",
+        "아쉽게 됐네, 맞아 원래 가격은 양 팔만이야"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "알겠어요",
+          "nextID": 6
+        },
+        {
+          "choiceText": "그것도 너무 비싸요",
+          "nextID": 7
+        }
+      ]
+    },
+    {
+      "storyID": 6,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "//신체 손상 오른팔 -2, 왼팔 -2",
+        "단팥빵을 획득"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 7,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "너… 조심하는게 좋을거야",
+        "아줌마를 상대로 너무 놀리면 못써",
+        "자, 그럼 팔 말고 손가락만 양쪽 내놔"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "좀만 더 깎아 주세요",
+          "nextID": 9
+        },
+		{
+          "choiceText": "알겠어요",
+          "nextID": 8
+        }
+      ]
+    },
+    {
+      "storyID": 8,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "//신체 손상 오른팔-1, 왼팔 -1",
+        "단팥빵을 획득"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 9,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "도대체 살 생각이 있는거니 없는거니?",
+        "아줌마가 깎아준다고 했으면 적당히 깎고 가져갈것이지",
+        "얼마까지 깎아 먹으려고 그러는거니 대체",
+        "필요 없어 안 팔아",
+        "너한테 살거면 양 팔 양 다리 전부 다 내놔 아니면 안 팔거니까"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "살 수밖에 없다",
+          "nextID": 10
+        }
+      ]
+    },
+    {
+      "storyID": 10,
+      "storySpeaker": "ShopManager",
+      "speakerName": "매점 아주머니",
+      "storyLines": [
+        "//신체 손상 오른팔 -2, 왼팔 -2, 오른다리 -2, 왼다리 -1",
+        "단팥빵을 획득",
+        "흥, 서비스로 왼쪽 다리 조금은 남겨주마.",
+        "얼른 꺼져!"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

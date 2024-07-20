@@ -22,18 +22,27 @@ public class InteractionConversation : AbstractInteraction
     public override float RequiredTime { get => 1.0f;}
     [SerializeField] private bool lookPlayerwithConversation = true;
 
+    Entity entityData = null;
+
     protected override string GetDetectedString(){
         if(detectedStr == "") return "";
         return $"<sprite=0> {detectedStr}";
     }
-
+        
     protected override void ActInteraction(){
         if(!cantalk) return;
+        if (entityData == null)
+        {
+            BaseEntity baseEntity = GetComponent<BaseEntity>();
+            entityData = baseEntity.Entity_Data;
+        }
         if(dialogueName != ""){
             dialogueName = FindRightDialougeName();
             if(lookPlayerwithConversation) LookPlayer();
-            conversationManager.SetTalkerName(monsterName);
-            dialogueRunner.StartDialogue(dialogueName);
+
+            // Jun
+            dialogueName = entityData.speakerName + entityData.speakIndex;
+            DialogueManager.Instance.StartDialogue(dialogueName);
             cantalk = false;
         }
     }
