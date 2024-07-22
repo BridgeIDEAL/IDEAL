@@ -7,9 +7,17 @@ public class DialogueManager : MonoBehaviour
     // Singleton
     public static DialogueManager Instance;
 
+    [Header("DialogueController")]
+    [SerializeField] DialogueController dialogue_Controller;
+    public DialogueController Dialogue_Controller { get { FindDialogueController();  return dialogue_Controller; } }
+
     [Header("DialogueUI")]
     [SerializeField] DialogueUI dialogue_UI;
-    public DialogueUI Dialouge_UI { get { if (dialogue_UI == null) FindDialogueUI(); return dialogue_UI; } }
+    public DialogueUI Dialouge_UI { get { FindDialogueUI(); return dialogue_UI; } }
+
+    [Header("PasswordUI")]
+    [SerializeField] PasswordUI password_UI;
+    public PasswordUI Password_UI { get { FindPasswordUI(); return password_UI; } }
 
     [Header("DialogueEvent")]
     [SerializeField] DialogueEvent dialogue_Event;
@@ -60,14 +68,28 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    public void FindDialogueController()
+    {
+        if (dialogue_Controller != null)
+            return;
+        GameObject _controller = GameObject.FindWithTag("DialogueUI");
+        dialogue_Controller = _controller.GetComponent<DialogueController>();
+    }
 
     public void FindDialogueUI()
     {
-        GameObject _dialogueUI = GameObject.FindWithTag("DialogueUI");
-        dialogue_UI = _dialogueUI.GetComponentInChildren<DialogueUI>();
+        if(dialogue_UI==null)
+            dialogue_UI = Dialogue_Controller.Dialogue;
     }
 
-    #endregion
+    public void FindPasswordUI()
+    {
+        if (password_UI == null)
+            password_UI = Dialogue_Controller.Password;
+    }
+
 
     #region Relate Dialogue Function
     public Dialogue GetDialogue(string _key)

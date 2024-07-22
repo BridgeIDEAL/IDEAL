@@ -6,6 +6,7 @@ using TMPro;
 
 public class DialogueUI : MonoBehaviour
 {
+    #region Component & Variable
     [SerializeField] GameObject dialogueBox;
     [SerializeField, Tooltip("0:Name, 1:Text, 2:Btn")] TextMeshProUGUI[] dialogueTexts;
     [SerializeField] Button[] choiceBtns;
@@ -19,6 +20,9 @@ public class DialogueUI : MonoBehaviour
     int curDialogueLineIdx = 0;
     float curTypeSpeed = 0.1f;
     bool canSkip = false;
+    #endregion
+
+    #region Dialogue System Method
     public bool CanSkip 
     {   
         get { return canSkip; } 
@@ -168,7 +172,17 @@ public class DialogueUI : MonoBehaviour
         StartDialogue(_key);
     }
 
-   
+    public void NextDialogue()
+    {
+        curDialogueLineIdx += 1;
+        if (curDialogueLineIdx < dialogue.storyLines.Count)
+            StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
+        else
+            EndDialouge();
+    }
+    #endregion
+
+    #region Dialogue Event
     public void CallDialogueEvent(string _eventName, List<string> _parameterList)
     {
         switch (_eventName)
@@ -190,7 +204,6 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    #region Dialogue Type Effect Event 
     public void ChangeSpeakerName(List<string> _parameterList)
     {
         dialogueTexts[0].text = _parameterList[0];
@@ -202,8 +215,9 @@ public class DialogueUI : MonoBehaviour
         curTypeSpeed = _typeSpeed;
     }
     #endregion
-    
-    private void Update()
+
+    #region Input Dialogue
+    public void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)
         {
@@ -213,13 +227,5 @@ public class DialogueUI : MonoBehaviour
                 EndDialouge();
         }
     }
-
-    public void NextDialogue()
-    {
-        curDialogueLineIdx += 1;
-        if (curDialogueLineIdx < dialogue.storyLines.Count)
-            StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
-        else
-            EndDialouge();
-    }
+    #endregion
 }

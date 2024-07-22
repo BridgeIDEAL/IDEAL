@@ -11,10 +11,12 @@ public class FootstepTest : MonoBehaviour
 
     [SerializeField] int curIdx = 1;
     [SerializeField] int maxIdx = 0;
-
+    [SerializeField] int randomNum;
     NavMeshAgent agent;
     Animator anim;
     AudioSource audioSource;
+
+    int last =-1;
 
     private void Awake()
     {
@@ -33,12 +35,40 @@ public class FootstepTest : MonoBehaviour
 
     public void Update()
     {
-        if (agent.remainingDistance > 0.3f)
+        if (agent.remainingDistance < 0.3f)
         {
             curIdx += 1;
             if (maxIdx <= curIdx)
                 curIdx = 0;
             agent.SetDestination(positions[curIdx]);
         }
+    }
+
+    public void FootStepWalkClip()
+    {
+        int cnt = audioWalkClips.Length;
+        randomNum = Random.Range(0, cnt);
+        if (randomNum == last)
+            randomNum += 1;
+        if (randomNum >= cnt)
+            randomNum = 0;
+        last = randomNum;
+        audioSource.Stop();
+        audioSource.clip = audioWalkClips[randomNum];
+        audioSource.Play();
+    }
+
+    public void FootStepRunClip()
+    {
+        int cnt = audioRunClips.Length;
+        randomNum = Random.Range(0, cnt);
+        if (randomNum == last)
+            randomNum += 1;
+        if (randomNum >= cnt)
+            randomNum = 0;
+        last = randomNum;
+        audioSource.Stop();
+        audioSource.clip = audioRunClips[randomNum];
+        audioSource.Play();
     }
 }
