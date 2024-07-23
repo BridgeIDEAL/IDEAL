@@ -201,6 +201,9 @@ public class DialogueUI : MonoBehaviour
             case "Hurt":
                 Event.Damaged(_parameterList);
                 break;
+            case "UnableCommunicate":
+                Event.UnableCommunicate(_parameterList);
+                break;
         }
     }
 

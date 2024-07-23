@@ -43,7 +43,7 @@ public class InteractionConversation : AbstractInteraction
             // Jun
             dialogueName = entityData.speakerName + entityData.speakIndex;
             DialogueManager.Instance.StartDialogue(dialogueName);
-            cantalk = false;
+            // cantalk = false;
         }
     }
 

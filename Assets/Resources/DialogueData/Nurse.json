@@ -5,13 +5,81 @@
       "storySpeaker": "Nurse",
       "speakerName": "보건교사",
       "storyLines": [
-        "어라, 안녕",
-        "어디가 아프니?",
-        "학생이 오는건 오랜만이구나.",
-        "우리 학교 학생들은 통 보건실을 오질 않아서…",
-        "결국 뭐, 가끔 꾀병부리는 애들이 누워있다가 가는 정도지",
-        "약이 필요하니?",
-        "그래그래, 저쪽 선반에서 가져가렴."
+        "어서 오렴",
+        "어떤 게 필요하니?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "멍 치료제가 필요해요",
+          "nextID": 2
+        },
+        {
+          "choiceText": "약이 필요해요",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Nurse",
+      "speakerName": "보건교사",
+      "storyLines": [
+        "뭐라고? 멍 치료제?",
+        "우리 보건실에는 멍 치료제는 없는데?",
+        "너 어디서 듣고 온거니?"
+      ],
+      "choiceLine": [
+        {
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Nurse",
+      "speakerName": "보건교사",
+      "storyLines": [
+        "그래그래, 약이 필요하구나",
+        "자, 여기 소화제를 줄게"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "다른 약은 없나요?",
+          "nextID": 4
+        },
+        {
+          "choiceText": "멍 치료제가 필요해요",
+          "nextID": 2
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "Nurse",
+      "speakerName": "보건교사",
+      "storyLines": [
+        "음... 까다로운 친구구나",
+        "자 여기 다른 약이란다.",
+        "이것도 소화제야."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "멍 치료제는 없나요?",
+          "nextID": 2
+        }
+      ]
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "Nurse",
+      "speakerName": "보건교사",
+      "storyLines": [
+        "흠... 어쩔 수 없구나",
+        "멍 치료제는 너무 빨리 가져가서",
+        "우리 보건실에는 더 이상 들어오지 않아",
+        "마지막 남은 건데, 전학생이니까 넘겨주마.",
+        "귀한 거니 꼭 필요할 때 쓰도록 해."
+		//멍 치료제 획득
       ],
       "choiceLine": []
     }

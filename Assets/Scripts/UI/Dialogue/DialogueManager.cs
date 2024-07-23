@@ -7,6 +7,8 @@ public class DialogueManager : MonoBehaviour
     // Singleton
     public static DialogueManager Instance;
 
+    public BaseEntity CurrentTalkEntity { get; set; } = null;
+
     [Header("DialogueController")]
     [SerializeField] DialogueController dialogue_Controller;
     public DialogueController Dialogue_Controller { get { FindDialogueController();  return dialogue_Controller; } }
@@ -70,6 +72,7 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
+    #region Link Component
     public void FindDialogueController()
     {
         if (dialogue_Controller != null)
@@ -89,7 +92,7 @@ public class DialogueManager : MonoBehaviour
         if (password_UI == null)
             password_UI = Dialogue_Controller.Password;
     }
-
+    #endregion
 
     #region Relate Dialogue Function
     public Dialogue GetDialogue(string _key)
@@ -108,10 +111,20 @@ public class DialogueManager : MonoBehaviour
         Dialouge_UI.StartDialogue(_storyKey);
     }
 
+    public void StartDialogue(string _storyKey, BaseEntity _entity)
+    {
+        if (isTalking)
+            return;
+        isTalking = true;
+        Dialouge_UI.StartDialogue(_storyKey);
+        CurrentTalkEntity = _entity;
+    }
+
     // Call By DialogueUI
     public void EndDialogue()
     {
         isTalking = false;
+        CurrentTalkEntity = null;
         // Set DialogueIndex
     }
     #endregion

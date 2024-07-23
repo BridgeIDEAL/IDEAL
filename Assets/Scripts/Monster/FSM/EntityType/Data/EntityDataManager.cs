@@ -15,10 +15,7 @@ public class EntityDataManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-
-        }
         else
             Destroy(this.gameObject);
         LoadAllEntityData();
@@ -26,13 +23,14 @@ public class EntityDataManager : MonoBehaviour
 
     public void LoadAllEntityData()
     {
+        if (entityDatas == null)
+            entityDatas = Resources.Load<TextAsset>("EntityData/EntityDatas");
         EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
         int cnt = data.entities.Count;
         for(int idx=0; idx<cnt; idx++)
         {
             if(!entityDataDic.ContainsKey(data.entities[idx].speakerName))
                 entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
-            //Debug.Log(data.entities[idx].speakerName);
         }
     }
 
@@ -42,8 +40,20 @@ public class EntityDataManager : MonoBehaviour
             return entityDataDic[_name];
         else
         {
-            Debug.LogError("없습니다/!!!");
-        return null;
+            Debug.LogError("데이터가 없습니다.");
+            return null;
+        }
+    }
+
+    public void ResetData()
+    {
+        entityDataDic.Clear();
+        EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
+        int cnt = data.entities.Count;
+        for (int idx = 0; idx < cnt; idx++)
+        {
+            if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
+                entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
         }
     }
 }
