@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractionGetItem : AbstractInteraction
 {
-    [SerializeField] private InteractionItemData interactionItemData;
+    public InteractionItemData interactionItemData;
     [SerializeField] private string detectedStr;
     [SerializeField] private string afterInteractionStr = "";
     [SerializeField] private int activationLogNum = -1;

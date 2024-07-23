@@ -13,13 +13,12 @@ public class EyePenaltyObject : MonoBehaviour
     [SerializeField] private Transform headTransform;
 
     void Start(){
-        headTransform = transform.GetChild(0);
+        headTransform = transform.GetChild(1);
     }
 
     public void PlayActiveSound(){
-        Debug.Log("PlayActiveSound");
-        // audioSource.Play();
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.CCTVActive);
+        audioSource.Play();
+        // IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.CCTVActive);
     }
 
     public void SetPlayerTransform(Transform playerT){
