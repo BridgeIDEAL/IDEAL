@@ -14,6 +14,10 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] char fontTriggerStr = '^';
     [SerializeField] float defaultTypeSpeed = 0.1f;
 
+    [Header("DialogueBox")]
+    [SerializeField] Image textBoxImage;
+    [SerializeField, Tooltip("0:Light, 1:Dark")] Sprite[] textBoxSprites;
+
     Dialogue dialogue = new Dialogue();
     public DialogueEvent Event { get; set; } = null;
 
@@ -198,6 +202,9 @@ public class DialogueUI : MonoBehaviour
             case "Name":
                 ChangeSpeakerName(_parameterList);
                 break;
+            case "UIBox":
+                ChangeUI(_parameterList);
+                break;
             // Call DialogueEvent Method
             case "Item":
                 Event.GetItem(_parameterList);
@@ -223,6 +230,19 @@ public class DialogueUI : MonoBehaviour
     {
         float _typeSpeed = float.Parse(_parameterList[0]);
         curTypeSpeed = _typeSpeed;
+    }
+
+    public void ChangeUI(List<string> _parameterList)
+    {
+        switch (_parameterList[0])
+        {
+            case "Dark":
+                textBoxImage.sprite = textBoxSprites[1];
+                break;
+            case "Light":
+                textBoxImage.sprite = textBoxSprites[0];
+                break;
+        }
     }
     #endregion
 

@@ -27,7 +27,7 @@
       "storySpeaker": "Student12",
       "speakerName": "멍이 든 학생",
       "storyLines": [
-        "고마워...흐흐...멍 치료제면 될거야...",
+        "고마워...흐흐...^<font=HanSMemory>^멍 치료제^</font>^면 될거야...",
         "$Index(4)$"
       ],
       "choiceLine": []
@@ -58,9 +58,11 @@
         "무...무사히 돌아왔네...?",
         "이제 그 약을 줘...",
         "빨리...",
-        "$TypeSpeed(0.01)$",
-        "빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리",
-        "$TypeSpeed(0.1)$"
+        "$UIBox(Dark)$",
+        "$TypeSpeed(0.025)$",
+        "^<font=HanSMemory>^빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리^</font>^",
+        "$TypeSpeed(0.05)$",
+        "$UIBox(Light)$"
       ],
       "choiceLine": [
         {
@@ -93,13 +95,15 @@
       "storySpeaker": "Student12",
       "speakerName": "멍이 든 학생",
       "storyLines": [
-        "뭐...?",
-        "나...놀리는거야...?",
-        "너...너도 내가 만만해...?",
-        "만만하게...보지...마...!",
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^뭐...?^</font>^",
+        "^<font=HanSMemory>^나...놀리는거야...?^</font>^",
+        "^<font=HanSMemory>^너...너도 내가 만만해...?^</font>^",
+        "^<font=HanSMemory>^만만하게...보지...마...!^</font>^",
         "$Hurt(RightArm,1)$",
-        "약 내놓고 얼른 나가...",
-        "1학년 교무실 열쇠를 얻었다.",
+        "^<font=HanSMemory>^약 내놓고 얼른 나가...^</font>^",
+        "^<font=HanSMemory>^1학년 교무실 열쇠를 얻었다.^</font>^",
+        "$UIBox(Light)$",
         "$Item(FirstTeacherOfficeKey)$",
         "$Unable(-1)$"
       ],

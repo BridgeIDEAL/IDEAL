@@ -52,11 +52,6 @@ public class DialogueEvent : MonoBehaviour
         conversation.ChangeIndex(nextIndex);
     }
 
-    public void CleanEvent()
-    {
-        // To Do ~~~
-    }
-
     #region Hurt & Heal Method
     public void Hurt(IdealBodyPart _bodyPart, int _damage)
     {
