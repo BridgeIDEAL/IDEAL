@@ -20,6 +20,8 @@ public class DialogueUI : MonoBehaviour
     int curDialogueLineIdx = 0;
     float curTypeSpeed = 0.1f;
     bool canSkip = false;
+
+    bool isChooseState = false;
     #endregion
 
     #region Dialogue System Method
@@ -151,6 +153,7 @@ public class DialogueUI : MonoBehaviour
 
             for (int idx = 0; idx < choiceCnt; idx++)
             {
+                isChooseState = true;
                 choiceBtns[idx].gameObject.SetActive(true);
                 TextMeshProUGUI text = choiceBtns[idx].GetComponentInChildren<TextMeshProUGUI>();
                 text.text = dialogue.choiceLine[idx].choiceText;
@@ -170,6 +173,7 @@ public class DialogueUI : MonoBehaviour
             choiceBtns[idx].gameObject.SetActive(false);
         }
         StartDialogue(_key);
+        isChooseState = false;
     }
 
     public void NextDialogue()
@@ -201,8 +205,11 @@ public class DialogueUI : MonoBehaviour
             case "Hurt":
                 Event.Damaged(_parameterList);
                 break;
-            case "UnableCommunicate":
+            case "Unable":
                 Event.UnableCommunicate(_parameterList);
+                break;
+            case "Index":
+                Event.DialogueIndexChange(_parameterList);
                 break;
         }
     }
@@ -228,6 +235,16 @@ public class DialogueUI : MonoBehaviour
                 StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
             else
                 EndDialouge();
+        }
+
+        if (isChooseState)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                choiceBtns[0].onClick.Invoke();
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && choiceBtns[1].gameObject.activeSelf)
+                choiceBtns[1].onClick.Invoke();
+            else if (Input.GetKeyDown(KeyCode.Alpha3) && choiceBtns[2].gameObject.activeSelf)
+                choiceBtns[2].onClick.Invoke();
         }
     }
     #endregion

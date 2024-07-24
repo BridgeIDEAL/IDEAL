@@ -9,5 +9,9 @@ public class TestPassword : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.B))
             DialogueManager.Instance.Password_UI.ActivePassword();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            DialogueManager.Instance.StartDialogue("ShopManager1");
+        }
     }
 }

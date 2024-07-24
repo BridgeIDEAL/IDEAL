@@ -25,6 +25,14 @@ public class ActivationLogManager : MonoBehaviour
         public string itemName;
     }
     private List<ItemID_Name> itemID_NameList= new List<ItemID_Name>{
+        new ItemID_Name{itemID = 10, itemName = "멍 치료제를"},
+        new ItemID_Name{itemID = 11, itemName = "1학년 교무실 열쇠를"},
+        new ItemID_Name{itemID = 12, itemName = "열쇠 조각을"},
+        new ItemID_Name{itemID = 13, itemName = "명찰 조각을"},
+        new ItemID_Name{itemID = 14, itemName = "학교 지도를"},
+        new ItemID_Name{itemID = 15, itemName = "단팥빵을"},
+        
+        // ---------------------------------------------------------------------------------------- //
         new ItemID_Name{itemID = 1201, itemName = "알코올램프를"},
         new ItemID_Name{itemID = 1202, itemName = "분필을"},
         new ItemID_Name{itemID = 1101, itemName = "교무센터 열쇠를"},

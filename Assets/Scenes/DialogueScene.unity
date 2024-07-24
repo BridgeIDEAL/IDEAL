@@ -193,6 +193,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c7d6d3e862096b4eb819a8b96dc0861, type: 3}
+--- !u!114 &255353645 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6760057421549485389, guid: 6d41a3cebdac35040bcf58857dae37e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6760057421162738383}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a89108b44837542a18d3c651b05ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &296843138
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +336,18 @@ Transform:
   m_Father: {fileID: 1533207459}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &854597182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 26213242298081709, guid: 42893aac3219970469f7f6c451371652,
+    type: 3}
+  m_PrefabInstance: {fileID: 1337033500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b0be4b410251a4d9daf1100429d2d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &909582805
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,6 +953,18 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1779392782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3890261678214730052, guid: 42893aac3219970469f7f6c451371652,
+    type: 3}
+  m_PrefabInstance: {fileID: 1337033500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470f7fd9b23600c459e319c182b211cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1804119208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 872407d0aded86b47980eb9e6157e2fc,
@@ -1069,7 +1105,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogue_UI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1779392782}
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
       propertyPath: password_UI
@@ -1079,17 +1115,22 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogue_Event
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 255353645}
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
       propertyPath: dialogue_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 854597182}
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
       propertyPath: dialougeList.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
+        type: 3}
+      propertyPath: dialougeList.Array.data[3]
+      value: 
+      objectReference: {fileID: 4900000, guid: e20cf70880234dc4c84789c150a327e1, type: 3}
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
       propertyPath: dialougeList.Array.data[5]

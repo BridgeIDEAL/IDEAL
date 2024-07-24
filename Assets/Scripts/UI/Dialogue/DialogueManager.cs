@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
     Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
 
     // Variable
-    bool isTalking = false;
+    [SerializeField] bool isTalking = false;
     public bool IsTalking { get { return IsTalking; } set { isTalking = value; } }
 
     #region Awake Method
@@ -118,6 +118,9 @@ public class DialogueManager : MonoBehaviour
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
         CurrentTalkEntity = _entity;
+        // Lock Player Move & Rotate : Later Delete Annotation
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
     }
 
     // Call By DialogueUI
@@ -125,7 +128,9 @@ public class DialogueManager : MonoBehaviour
     {
         isTalking = false;
         CurrentTalkEntity = null;
-        // Set DialogueIndex
+        // Unlock Player Move & Rotate : Later Delete Annotation
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = false;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = false;
     }
     #endregion
 }
