@@ -143,13 +143,13 @@ public class DialogueUI : MonoBehaviour
 
     public void EndDialouge()
     {
-        dialogueBox.SetActive(false);
         if (dialogue.choiceLine.Count == 0)
         {
             curTypeSpeed = defaultTypeSpeed;
             dialogue = null;
             CanSkip = false;
             DialogueManager.Instance.EndDialogue();
+            dialogueBox.SetActive(false);
         }
         else
         {
@@ -209,14 +209,17 @@ public class DialogueUI : MonoBehaviour
             case "Item":
                 Event.GetItem(_parameterList);
                 break;
-            case "Hurt":
-                Event.Damaged(_parameterList);
+            case "Use":
+                Event.UseItem(_parameterList);
                 break;
             case "Unable":
                 Event.UnableCommunicate(_parameterList);
                 break;
             case "Index":
                 Event.DialogueIndexChange(_parameterList);
+                break;
+            case "Hurt":
+                Event.Damaged(_parameterList);
                 break;
         }
     }
@@ -263,8 +266,6 @@ public class DialogueUI : MonoBehaviour
                 choiceBtns[0].onClick.Invoke();
             else if (Input.GetKeyDown(KeyCode.Alpha2) && choiceBtns[1].gameObject.activeSelf)
                 choiceBtns[1].onClick.Invoke();
-            else if (Input.GetKeyDown(KeyCode.Alpha3) && choiceBtns[2].gameObject.activeSelf)
-                choiceBtns[2].onClick.Invoke();
         }
     }
     #endregion

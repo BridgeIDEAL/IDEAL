@@ -6,21 +6,19 @@ public class InteractionConditionConversation : AbstractInteraction
 {
     #region Class Data
     public ConversationManager conversationManager;
-    BaseEntity baseEntity = null;
-    Entity talkData = null;
+    protected BaseEntity baseEntity = null;
+    protected Entity talkData = null;
     public Entity TalkData { get { InitTalkData(); return talkData; } set { talkData = value; } }
     #endregion
 
     #region Struct Data
     [Header("Check Dialogue Condition")]
-    [SerializeField, Tooltip("아이템, 행동 등 선행조건이 있는지")] bool haveCondition = false;
-    public int conditionIndex = -1;
-    public bool isSameIndex= false;
+    [SerializeField, Tooltip("Don't Check Index = -1")] protected int conditionIndex = -1;
+    protected bool isSameIndex= false;
 
     [Header("Check Dialogue State")]
-    string dialogueName = "";
+    protected string dialogueName = "";
     public bool canTalk = true;
-    public bool blockTalk = false;
     public string detectedStr = "";
     public override float RequiredTime { get => 1.0f; }
     #endregion
@@ -35,33 +33,11 @@ public class InteractionConditionConversation : AbstractInteraction
         return $"<sprite=0> {detectedStr}";
     }
 
-    protected override void ActInteraction()
-    {
-        if (!canTalk) return;
-
-        if (baseEntity == null)
-            baseEntity = GetComponent<BaseEntity>();
-        // Not Have Conversation Condition
-        if (!haveCondition)
-        {
-            dialogueName = TalkData.speakerName + TalkData.speakIndex;
-            DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
-            return;
-        }
-
-        if (isSameIndex && !CheckCondition())
-        {
-            dialogueName = "Block1";
-            DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
-            return;
-        }
-        dialogueName = TalkData.speakerName + TalkData.speakIndex;
-        DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
-    }
+    protected override void ActInteraction() { }
     #endregion
 
     /****************************************************************************
-                                        Jun Method : To Do ~~ Check Condition (Check Item)
+           Jun Method : To Do ~~ Check Condition (Check Item)
     ****************************************************************************/
     #region Jun Method : Link & Manage Talk Index 
 
@@ -100,14 +76,6 @@ public class InteractionConditionConversation : AbstractInteraction
             return;
         if (TalkData.speakIndex == conditionIndex)
             isSameIndex = true;
-    }
-
-    public bool CheckCondition()
-    {
-        // To Do ~~ Check Have Item
-        // If Have Item => 
-        //return false;
-        return true;
     }
     #endregion
 }

@@ -9,6 +9,10 @@ public class DialogueManager : MonoBehaviour
 
     public BaseEntity CurrentTalkEntity { get; set; } = null;
 
+    /********************************************************************
+                    Dialogue UI & Controller, Event, Data 
+      ******************************************************************/
+    #region Link Component
     [Header("DialogueController")]
     [SerializeField] DialogueController dialogue_Controller;
     public DialogueController Dialogue_Controller { get { FindDialogueController();  return dialogue_Controller; } }
@@ -28,10 +32,11 @@ public class DialogueManager : MonoBehaviour
     [Header("DialogueData")]
     [SerializeField] List<TextAsset> dialougeList = new List<TextAsset>();
     Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
+    #endregion
 
     // Variable
     [SerializeField] bool isTalking = false;
-    public bool IsTalking { get { return IsTalking; } set { isTalking = value; } }
+    public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
 
     #region Awake Method
     private void Awake()
@@ -115,12 +120,16 @@ public class DialogueManager : MonoBehaviour
     {
         if (isTalking)
             return;
+        if (Password_UI.IsSolvingPassword)
+            return;
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
         CurrentTalkEntity = _entity;
         // Lock Player Move & Rotate : Later Delete Annotation
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
+        // To Do ~~~ : Prevent Active Another UI
+        // To Do ~~~ : Entity State 
     }
 
     // Call By DialogueUI
@@ -131,6 +140,8 @@ public class DialogueManager : MonoBehaviour
         // Unlock Player Move & Rotate : Later Delete Annotation
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = false;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = false;
+        // To Do ~~~ : Prevent Active Another UI
+        // To Do ~~~ : Entity State 
     }
     #endregion
 }

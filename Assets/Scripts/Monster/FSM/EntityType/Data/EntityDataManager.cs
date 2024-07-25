@@ -45,6 +45,9 @@ public class EntityDataManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 죽을 때 한번 호출
+    /// </summary>
     public void ResetData()
     {
         entityDataDic.Clear();

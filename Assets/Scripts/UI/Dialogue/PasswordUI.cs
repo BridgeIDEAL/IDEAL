@@ -20,6 +20,7 @@ public class PasswordUI : MonoBehaviour
     [Header("임시 비밀번호")]
     public string tempPassword;
     [SerializeField] bool isSolvingPassword = false;
+    public bool IsSolvingPassword { get { return isSolvingPassword; } }
     public void Init()
     {
         decideButtons[0].onClick.RemoveAllListeners();
@@ -37,6 +38,8 @@ public class PasswordUI : MonoBehaviour
     public void ActivePassword()
     {
         if (isSolvingPassword)
+            return;
+        if (DialogueManager.Instance.IsTalking)
             return;
         isSolvingPassword = true;
         indicateText.text = beforeEnterPassword;
@@ -99,10 +102,7 @@ public class PasswordUI : MonoBehaviour
 
     public void ClickPasswordNoBtn()
     {
-        passwordField.text = "";
-        // 이 코드 없어도 작동하는지 확인해볼 것.
-        decideButtons[0].gameObject.SetActive(false);
-        decideButtons[1].gameObject.SetActive(false);
+        InActivePassword();
     }
     #endregion
 
