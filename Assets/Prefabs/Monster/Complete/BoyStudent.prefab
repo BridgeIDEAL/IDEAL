@@ -1517,9 +1517,7 @@ GameObject:
   - component: {fileID: 6792338791611538791}
   - component: {fileID: 622359797582350109}
   - component: {fileID: 4903140325648246660}
-  - component: {fileID: 5498802221959583924}
   - component: {fileID: 5081983838848442869}
-  - component: {fileID: 1071863376843309341}
   - component: {fileID: 2404565329638286630}
   m_Layer: 6
   m_Name: BoyStudent
@@ -1587,19 +1585,6 @@ CapsuleCollider:
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
---- !u!114 &5498802221959583924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6127407363485648861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89caaeecb09949a41b86711cb9e59e1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: 
 --- !u!114 &5081983838848442869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,27 +1602,6 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
   outlineMask: 
---- !u!114 &1071863376843309341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6127407363485648861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  dialogueRunner: {fileID: 0}
-  conversationManager: {fileID: 0}
-  detectedStr: "\uB0A8\uD559\uC0DD\uACFC \uB300\uD654\uD55C\uB2E4."
-  dialougeSeries: 0
-  cantalk: 1
-  dialogueName: 
-  monsterName: 
-  lookPlayerwithConversation: 1
 --- !u!114 &2404565329638286630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1650,7 +1614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 1071863376843309341}
+  abstractInteraction: {fileID: 0}
   interactionOutline: {fileID: 5081983838848442869}
   outlineActive: 0
 --- !u!1 &6138580839646837337

@@ -12,7 +12,7 @@ public class ImmovableEntity : BaseEntity
 
     public override void Init(Transform _playerTransfrom)
     {
-        base.Init(_playerTransfrom);
+        playerTransform = _playerTransfrom;
         playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
@@ -25,10 +25,7 @@ public class ImmovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<ImmovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
-        AdditionalInit();
     }
-
-    public virtual void AdditionalInit() { }
 
     public override void Setup()
     {
