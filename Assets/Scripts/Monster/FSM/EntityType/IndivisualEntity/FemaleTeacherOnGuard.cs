@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class FemaleTeacherOnGuard : ImmovableEntity
 {
-    //bool isComplete
-
     [SerializeField] float thresholdAngle= 60f;
     OnGuard onGuard;
     DetectPlayer detectPlayer;
 
     bool isRotate = false;
 
-    public override void Init(Transform _playerTransfrom)
+    public override void AdditionalInit() 
     {
-        base.Init(_playerTransfrom);
         detectPlayer = GetComponentInChildren<DetectPlayer>();
         onGuard = GetComponent<OnGuard>();
     }

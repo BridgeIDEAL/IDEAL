@@ -28,9 +28,11 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     [SerializeField, Tooltip("자습실 앞 위치를 바라보는 각도")] Vector3 studyRoomFrontRotation;
     #endregion
 
-    public override void Init(Transform _playerTransfrom)
+    /// <summary>
+    /// Set Patrol Point
+    /// </summary>
+    public override void AdditionalInit()
     {
-        base.Init(_playerTransfrom);
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
     }
@@ -65,6 +67,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     #endregion
 
     #region In StudyRoom
+    public override void EntityTriggerEvent(bool _isActive = true) { IsInStudyRoom = _isActive; }
 
     public void PlayerInStudyRoom()
     {
@@ -198,30 +201,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         {
             DialogueManager.Instance.StartDialogue(entity_Data.speakerName);
             controller.SendMessage(entity_Data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
-        }
-    }
-
-    public override void SetAnimation(EntityStateType _currentType, bool _isStart)
-    {
-        switch (_currentType)
-        {
-            case EntityStateType.Idle:
-                anim.SetBool("Walk", _isStart);
-                break;
-            case EntityStateType.Talk:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Penalty:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Chase:
-                anim.SetBool("Run", _isStart);
-                break;
-            default:
-                break;
         }
     }
 }

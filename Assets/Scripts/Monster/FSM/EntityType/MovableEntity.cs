@@ -18,7 +18,7 @@ public class MovableEntity : BaseEntity
     // Awake
     public override void Init(Transform _playerTransfrom)
     {
-        playerTransform = _playerTransfrom;
+        base.Init(_playerTransfrom);
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -33,7 +33,10 @@ public class MovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<MovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
+        AdditionalInit();
     }
+
+    public virtual void AdditionalInit() { }
 
     // Start
     public override void Setup()
@@ -79,26 +82,26 @@ public class MovableEntity : BaseEntity
     // Animation
     public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
-        //switch (_currentType)
-        //{
-        //    case EntityStateType.Idle:
-        //        anim.SetBool("Idle", _isStart);
-        //        break;
-        //    case EntityStateType.Talk:
-        //        anim.SetBool("Talk", _isStart);
-        //        break;
-        //    case EntityStateType.Quiet:
-        //        anim.SetBool("Quiet", _isStart);
-        //        break;
-        //    case EntityStateType.Penalty:
-        //        anim.SetBool("Penalty", _isStart);
-        //        break;
-        //    case EntityStateType.Chase:
-        //        anim.SetBool("Chase", _isStart);
-        //        break;
-        //    default:
-        //        break;
-        //}
+        switch (_currentType)
+        {
+            //case EntityStateType.Idle:
+            //    anim.SetBool("Idle", _isStart);
+            //    break;
+            //case EntityStateType.Talk:
+            //    anim.SetBool("Talk", _isStart);
+            //    break;
+            //case EntityStateType.Quiet:
+            //    anim.SetBool("Quiet", _isStart);
+            //    break;
+            //case EntityStateType.Penalty:
+            //    anim.SetBool("Penalty", _isStart);
+            //    break;
+            //case EntityStateType.Chase:
+            //    anim.SetBool("Chase", _isStart);
+            //    break;
+            //default:
+            //    break;
+        }
     }
 
     // Act

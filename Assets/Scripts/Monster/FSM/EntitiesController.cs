@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EntitiesController : MonoBehaviour
 {
+    [SerializeField] GameObject entityParent;
+
     int listCnt = 0;
+
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
@@ -19,7 +22,7 @@ public class EntitiesController : MonoBehaviour
 
     public void LinkAllEntity()
     {
-        BaseEntity[] entities = gameObject.GetComponentsInChildren<BaseEntity>();
+        BaseEntity[] entities = entityParent.GetComponentsInChildren<BaseEntity>();
         int entityCnt = entities.Length;
         for (int idx = 0; idx < entityCnt; idx++)
         {
@@ -131,6 +134,5 @@ public class EntitiesController : MonoBehaviour
             activeEntityList[idx].ReceiveMessage(_allButOne);
         }
     }
-
     #endregion
 }
