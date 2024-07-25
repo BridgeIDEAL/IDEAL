@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractionConditionConversation : AbstractInteraction
 {
     #region Class Data
-    public ConversationManager conversationManager;
+    //public ConversationManager conversationManager;
     protected BaseEntity baseEntity = null;
     protected Entity talkData = null;
     public Entity TalkData { get { InitTalkData(); return talkData; } set { talkData = value; } }

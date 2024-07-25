@@ -8,7 +8,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     bool isCallChangeState = false;
     bool isCoolDown = true;
     [SerializeField] float chaseCoolDownTimer;
-
+    protected DetectPlayer detectPlayer;
     #region Patrol Val
     [SerializeField] int currentPoint;
     [SerializeField] int maxPoint;
@@ -27,12 +27,11 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     [SerializeField, Tooltip("자습실 앞 위치")] Vector3 studyRoomFrontPoint;
     [SerializeField, Tooltip("자습실 앞 위치를 바라보는 각도")] Vector3 studyRoomFrontRotation;
     #endregion
-
-    /// <summary>
-    /// Set Patrol Point
-    /// </summary>
-    public override void AdditionalInit()
+    
+    public override void Init(Transform _playerTransfrom)
     {
+        base.Init(_playerTransfrom);
+        detectPlayer = GetComponentInChildren<DetectPlayer>();
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
     }
@@ -67,7 +66,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     #endregion
 
     #region In StudyRoom
-    public override void EntityTriggerEvent(bool _isActive = true) { IsInStudyRoom = _isActive; }
 
     public void PlayerInStudyRoom()
     {

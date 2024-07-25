@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
-    [SerializeField, Tooltip("Use for find Entity Data, Dialogue Data Key")]protected string entityName;
     protected Transform playerTransform;
 
     // Entity Data
     protected Entity entity_Data =null;
-    public Entity Entity_Data { get { if (entity_Data == null) EntityDataManager.Instance.GetEntityData(entityName);  return entity_Data;  }  set  {  entity_Data = value;  } }
+    public Entity Entity_Data { get { if (entity_Data == null) EntityDataManager.Instance.GetEntityData(gameObject.name);  return entity_Data;  }  set  {  entity_Data = value;  } }
     
     // Entity Controller
     protected EntitiesController controller;
@@ -24,7 +23,7 @@ public abstract class BaseEntity : MonoBehaviour
     /// <summary>
     /// Awake
     /// </summary>
-    public virtual void Init(Transform _playerTransfrom) { playerTransform = _playerTransfrom; }
+    public abstract void Init(Transform _playerTransfrom);
     
     /// <summary>
     /// Start
@@ -57,10 +56,4 @@ public abstract class BaseEntity : MonoBehaviour
         entity_Data.isSpawn = _isSpawn;
         gameObject.SetActive(_isSpawn);
     }
-
-    /// <summary>
-    /// Trigger로 인해 호출되는 이벤트
-    /// </summary>
-    /// <param name="_isActive"></param>
-    public virtual void EntityTriggerEvent(bool _isActive=true) { }
 }

@@ -10,8 +10,9 @@ public class FemaleTeacherOnGuard : ImmovableEntity
 
     bool isRotate = false;
 
-    public override void AdditionalInit() 
+    public override void Init(Transform _playerTransfrom)
     {
+        base.Init(_playerTransfrom);
         detectPlayer = GetComponentInChildren<DetectPlayer>();
         onGuard = GetComponent<OnGuard>();
     }

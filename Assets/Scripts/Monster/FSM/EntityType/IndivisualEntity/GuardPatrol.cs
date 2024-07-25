@@ -5,15 +5,17 @@ using UnityEngine.AI;
 
 public class GuardPatrol : MovableEntity, IPatrol
 {
-
     #region Patrol Val
-    [SerializeField] int currentPoint;
-    [SerializeField] int maxPoint;
-    [SerializeField, Range(0.5f, 1f)] float stopDistance;
-    bool isChasePlayer = false;
-
     [Header("Patrol")]
     [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
+    [SerializeField] int currentPoint;
+    [SerializeField] int maxPoint;
+    [SerializeField, Range(0.5f, 1f)] float checkPatrolDistance;
+
+    [Header("Dialogue")]
+    [SerializeField] bool onceTalk = true;
+    [SerializeField] DetectPlayer detectPlayer;
+
     #endregion
 
     #region Patrol Interface
@@ -24,7 +26,7 @@ public class GuardPatrol : MovableEntity, IPatrol
 
     public void Patrol()
     {
-        if (agent.remainingDistance < stopDistance)
+        if (agent.remainingDistance < checkPatrolDistance)
         {
             SeekNextRoute();
             return;
@@ -45,40 +47,58 @@ public class GuardPatrol : MovableEntity, IPatrol
     }
     #endregion
 
+    #region Dialogue Method
+    public void DetectPlayer()
+    {
+        if (!detectPlayer.DetectExecute())
+            return;
+        if (onceTalk)
+        {
+            onceTalk = false;
+            controller.SendMessage(gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
+        }
+    }
+
+    public void Talk()
+    {
+        string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
+        DialogueManager.Instance.StartDialogue(talkID);
+    }
+
+    // To Do ~~~ Look Player
+    #endregion
+
     #region Animation
     public override void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
         switch (_currentType)
         {
-            //case EntityStateType.Idle:
-            //    anim.SetBool("Idle", _isStart);
-            //    break;
-            //case EntityStateType.Talk:
-            //    anim.SetBool("Talk", _isStart);
-            //    break;
-            //case EntityStateType.Quiet:
-            //    anim.SetBool("Quiet", _isStart);
-            //    break;
-            //case EntityStateType.Penalty:
-            //    anim.SetBool("Penalty", _isStart);
-            //    break;
-            //case EntityStateType.Chase:
-            //    anim.SetBool("Chase", _isStart);
-            //    break;
-            //default:
-            //    break;
+            case EntityStateType.Idle:
+                anim.SetBool("Walk", _isStart);
+                break;
+            case EntityStateType.Talk:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Quiet:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Penalty:
+                anim.SetBool("Idle", _isStart);
+                break;
+            default:
+                break;
         }
     }
     #endregion
 
     #region Idle
-    public override void IdleEnter() { SetAnimation(currentType, true); }
-    public override void IdleExecute() { }
-    public override void IdleExit() { SetAnimation(currentType, false); }
+    public override void IdleEnter() { SetAnimation(currentType, true); StartPatrol(); }
+    public override void IdleExecute() { Patrol(); DetectPlayer(); }
+    public override void IdleExit() { SetAnimation(currentType, false); EndPatrol(); }
     #endregion
 
     #region Talk
-    public override void TalkEnter() { SetAnimation(currentType, true); }
+    public override void TalkEnter() { SetAnimation(currentType, true); Talk(); }
     public override void TalkExecute() { }
     public override void TalkExit() { SetAnimation(currentType, false); }
     #endregion

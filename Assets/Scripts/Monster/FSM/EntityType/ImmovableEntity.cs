@@ -12,7 +12,6 @@ public class ImmovableEntity : BaseEntity
 
     public override void Init(Transform _playerTransfrom)
     {
-        base.Init(_playerTransfrom);
         playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
@@ -25,10 +24,7 @@ public class ImmovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<ImmovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
-        AdditionalInit();
     }
-
-    public virtual void AdditionalInit() { }
 
     public override void Setup()
     {
@@ -43,8 +39,6 @@ public class ImmovableEntity : BaseEntity
             controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
-
-        // Interaction Add
     }
 
     public override void ReceiveMessage(EntityStateType _messageType)
@@ -68,23 +62,20 @@ public class ImmovableEntity : BaseEntity
     {
         switch (_currentType)
         {
-            //case EntityStateType.Idle:
-            //    anim.SetBool("Idle", _isStart);
-            //    break;
-            //case EntityStateType.Talk:
-            //    anim.SetBool("Talk", _isStart);
-            //    break;
-            //case EntityStateType.Quiet:
-            //    anim.SetBool("Quiet", _isStart);
-            //    break;
-            //case EntityStateType.Penalty:
-            //    anim.SetBool("Penalty", _isStart);
-            //    break;
-            //case EntityStateType.Chase:
-            //    anim.SetBool("Chase", _isStart);
-            //    break;
-            //default:
-            //    break;
+            case EntityStateType.Idle:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Talk:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Quiet:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Penalty:
+                anim.SetBool("Idle", _isStart);
+                break;
+            default:
+                break;
         }
     }
 

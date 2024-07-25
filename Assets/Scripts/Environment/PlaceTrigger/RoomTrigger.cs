@@ -10,7 +10,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            baseEntity.EntityTriggerEvent(true);
+            //baseEntity.EntityTriggerEvent(true);
         }
     }
 
@@ -18,7 +18,7 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            baseEntity.EntityTriggerEvent(false);
+            //baseEntity.EntityTriggerEvent(false);
         }
     }
 }
