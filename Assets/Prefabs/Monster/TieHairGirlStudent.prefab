@@ -3564,8 +3564,8 @@ GameObject:
   - component: {fileID: 1318176515882025717}
   - component: {fileID: -5515877573560405431}
   - component: {fileID: -1540805323257359298}
-  - component: {fileID: -7738181427144941789}
   - component: {fileID: 1601485066588085548}
+  - component: {fileID: 7076869603835966518}
   m_Layer: 6
   m_Name: TieHairGirlStudent
   m_TagString: Monster
@@ -3644,8 +3644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89caaeecb09949a41b86711cb9e59e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpawn: 1
-  anim: {fileID: 8999594779510584657}
 --- !u!114 &-1540805323257359298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3663,27 +3661,6 @@ MonoBehaviour:
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
   outlineMask: 
---- !u!114 &-7738181427144941789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7032839458544709394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5a697b83d385d74bb59b18fe3590ed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  dialogueRunner: {fileID: 0}
-  conversationManager: {fileID: 0}
-  detectedStr: "\uC5EC\uD559\uC0DD\uACFC \uB300\uD654\uD55C\uB2E4."
-  dialougeSeries: 0
-  cantalk: 1
-  dialogueName: 
-  monsterName: 
-  lookPlayerwithConversation: 1
 --- !u!114 &1601485066588085548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3696,9 +3673,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: -7738181427144941789}
+  abstractInteraction: {fileID: 7076869603835966518}
   interactionOutline: {fileID: -1540805323257359298}
   outlineActive: 0
+--- !u!114 &7076869603835966518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032839458544709394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db658f9bd26eec478a11e9cb4faffdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  conditionIndex: -1
+  canTalk: 1
+  detectedStr: "\uC5EC\uD559\uC0DD\uACFC \uB300\uD654\uD55C\uB2E4."
 --- !u!1 &7238700248108839771
 GameObject:
   m_ObjectHideFlags: 0
