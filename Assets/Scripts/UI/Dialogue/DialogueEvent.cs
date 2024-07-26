@@ -79,4 +79,10 @@ public class DialogueEvent : MonoBehaviour
             HealthPointManager.Instance.Heal(_bodyPart, _damage);
     }
     #endregion
+
+    public void EntityAnimationTrigger(List<string> _parameterList)
+    {
+        BaseEntity _baseEntity = EntityDataManager.Instance.Controller.GetEntity(_parameterList[0]);
+        _baseEntity.EntityAnimationTrigger(_parameterList[1]);
+    }
 }

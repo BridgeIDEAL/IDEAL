@@ -221,6 +221,9 @@ public class DialogueUI : MonoBehaviour
             case "Hurt":
                 Event.Damaged(_parameterList);
                 break;
+            case "AnimationTrigger":
+                Event.EntityAnimationTrigger(_parameterList);
+                break;
         }
     }
 

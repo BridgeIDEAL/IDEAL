@@ -11,7 +11,10 @@ public class EntityDataManager : MonoBehaviour
     [SerializeField] TextAsset entityDatas;
 
     Dictionary<string, Entity> entityDataDic = new Dictionary<string, Entity>();
-    
+
+    private EntitiesController controller = null;
+    public EntitiesController Controller { get { LinkEntitiesController(); return controller; } set { controller = value; } }
+
     private void Awake()
     {
         if (Instance == null)
@@ -59,4 +62,6 @@ public class EntityDataManager : MonoBehaviour
                 entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
         }
     }
+
+    public void LinkEntitiesController() { if (controller == null) { GameObject go = GameObject.FindWithTag("EntitiesController"); controller = go.GetComponent<EntitiesController>(); } }
 }

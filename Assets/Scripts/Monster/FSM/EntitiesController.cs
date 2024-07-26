@@ -37,6 +37,7 @@ public class EntitiesController : MonoBehaviour
     private void Start()
     {
         SetupAllEntity();
+        EntityDataManager.Instance.Controller = this;
     }
 
     public void SetupAllEntity()

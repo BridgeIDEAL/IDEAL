@@ -57,7 +57,7 @@ public class ImmovableEntity : BaseEntity
         stateMachine.Execute();
     }
 
-    #region Act Frame
+    #region Animation
     public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
         switch (_currentType)
@@ -65,20 +65,19 @@ public class ImmovableEntity : BaseEntity
             case EntityStateType.Idle:
                 anim.SetBool("Idle", _isStart);
                 break;
-            case EntityStateType.Talk:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Penalty:
-                anim.SetBool("Idle", _isStart);
-                break;
             default:
+                anim.SetBool("Idle", _isStart);
                 break;
         }
     }
+    public override void EntityAnimationTrigger(string _triggerName)
+    {
+        base.EntityAnimationTrigger(_triggerName);
+        anim.SetTrigger(_triggerName);
+    }
+    #endregion
 
+    #region Act Frame
     public virtual void IdleEnter() { SetAnimation(currentType,true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }

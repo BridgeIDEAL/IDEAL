@@ -56,4 +56,6 @@ public abstract class BaseEntity : MonoBehaviour
         entity_Data.isSpawn = _isSpawn;
         gameObject.SetActive(_isSpawn);
     }
+
+    public virtual void EntityAnimationTrigger(string _triggerName) {  }
 }
