@@ -19,6 +19,8 @@ public class ProgressManager : MonoBehaviour
 
     public Dictionary<int, int> itemState = new Dictionary<int, int>();
 
+    public Dictionary<int, int> doorState = new Dictionary<int, int>();     // 상호작용 없을 시 코드 없음 문 열림 1 문 닫힘 2
+
 
     void Awake(){
         if(instance == null){
@@ -66,6 +68,26 @@ public class ProgressManager : MonoBehaviour
     public int GetItemLog(int itemCode){
         if(itemState.ContainsKey(itemCode)){
             return itemState[itemCode];
+        }
+        else{
+            return -1;
+        }
+    }
+
+    public void SetDoorLog(int doorCode, int state){
+        if(doorState.ContainsKey(doorCode)){
+            // 이미 문 상호작용을 한 경우 state 값을 갱신
+            doorState[doorCode] = state;
+        }
+        else{
+            // 상호작용 하지 않은 문이라면 등록
+            doorState.Add(doorCode, state);
+        }
+    }
+
+    public int GetDoorLog(int doorCode){
+        if(doorState.ContainsKey(doorCode)){
+            return doorState[doorCode];
         }
         else{
             return -1;
