@@ -197,7 +197,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         if(isChasePlayer && collision.collider.CompareTag("Player"))
         {
-            DialogueManager.Instance.StartDialogue(entity_Data.speakerName);
+            DialogueManager.Instance.StartDialogue(entity_Data.speakerName, this);
             controller.SendMessage(entity_Data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
         }
     }

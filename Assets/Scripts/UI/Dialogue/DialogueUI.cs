@@ -19,7 +19,9 @@ public class DialogueUI : MonoBehaviour
     [SerializeField, Tooltip("0:Light, 1:Dark")] Sprite[] textBoxSprites;
 
     Dialogue dialogue = new Dialogue();
-    public DialogueEvent Event { get; set; } = null;
+    
+    DialogueEvent dialogueEvent ;
+    public DialogueEvent Event { get { if (dialogueEvent == null) dialogueEvent = DialogueManager.Instance.Dialogue_Event; return dialogueEvent; } set { dialogueEvent = value;  } }
 
     int curDialogueLineIdx = 0;
     float curTypeSpeed = 0.1f;
@@ -253,6 +255,7 @@ public class DialogueUI : MonoBehaviour
     #endregion
 
     #region Input Dialogue
+
     public void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)

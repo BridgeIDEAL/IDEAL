@@ -5,6 +5,7 @@ using System;
 
 public class EntityDataManager : MonoBehaviour
 {
+    #region Entity Dialogue Data
     //string dataPath = Application.dataPath+"/EntityData/";
     public static EntityDataManager Instance;
 
@@ -62,6 +63,37 @@ public class EntityDataManager : MonoBehaviour
                 entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
         }
     }
+
+    #endregion
+
+    #region Entity EventData
+    public EntityEventTriggerController EventTriggerController { get; set; } = null;
+    public bool IsLastEvent { get; set; } = false;
+    Dictionary<string, EntityEventData> eventDic = new Dictionary<string, EntityEventData>();
+
+    public EntityEventData GetEventData(string _name)
+    {
+        if (eventDic.ContainsKey(_name))
+            return eventDic[_name];
+        else
+            return null;
+    }
+
+    public void AddData(EntityEventData _eventData)
+    {
+        if (eventDic.ContainsKey(_eventData.eventName))
+            return;
+        eventDic.Add(_eventData.eventName, _eventData);
+    }
+
+    public bool HaveEventData(string _name)
+    {
+        if (eventDic.ContainsKey(_name))
+            return true;
+        return false;
+    }
+
+    #endregion
 
     public void LinkEntitiesController() { if (controller == null) { GameObject go = GameObject.FindWithTag("EntitiesController"); controller = go.GetComponent<EntitiesController>(); } }
 }

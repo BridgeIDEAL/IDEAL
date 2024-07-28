@@ -43,7 +43,7 @@ public class DialogueManager : MonoBehaviour
     {
         Singleton();
         LoadDialogueDatas();
-        Dialouge_UI.Event = Dialogue_Event;
+        //Dialouge_UI.Event = Dialogue_Event;
     }
 
     public void Singleton()
@@ -108,10 +108,11 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Call when you start Dialogue
-    public void StartDialogue(string _storyKey)
+    public void StartDialogue(string _storyKey, string _name)
     {
         if (isTalking)
             return;
+       
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
     }
@@ -124,6 +125,7 @@ public class DialogueManager : MonoBehaviour
             return;
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
+        EntityDataManager.Instance.Controller.SendMessage(_entity.gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
         CurrentTalkEntity = _entity;
         // Lock Player Move & Rotate : Later Delete Annotation
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
@@ -138,6 +140,7 @@ public class DialogueManager : MonoBehaviour
         isTalking = false;
         CurrentTalkEntity = null;
         // Unlock Player Move & Rotate : Later Delete Annotation
+        EntityDataManager.Instance.Controller.SendMessage(EntityStateType.Idle);
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = false;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = false;
         // To Do ~~~ : Prevent Active Another UI

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImmovableEntity : BaseEntity
 {
-    protected EntityStateType currentType;
+    [SerializeField] protected EntityStateType currentType;
 
     protected Animator anim;
     protected EntityState<ImmovableEntity>[] states;

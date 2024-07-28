@@ -62,7 +62,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public void Talk()
     {
         string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
-        DialogueManager.Instance.StartDialogue(talkID);
+        DialogueManager.Instance.StartDialogue(talkID, this);
     }
 
     // To Do ~~~ Look Player

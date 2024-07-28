@@ -134,4 +134,17 @@ public class EntitiesController : MonoBehaviour
         }
     }
     #endregion
+
+
+    #region Chase Event
+
+    [SerializeField, Tooltip("  Last1F_Principal, Last1F_Guard, Last3F_GirlStudent, Last3F_StudentOfHeadTeacher, Jump3F_StudentOfHeadTeacher,Jump2F_GirlStudent")] 
+    GameObject[] ChaseEntityGroup;
+
+    public void ActiveChaseEntity(ChaseEventType _type)
+    {
+        ChaseEntityGroup[(int)_type].SetActive(true);
+    }
+
+    #endregion
 }

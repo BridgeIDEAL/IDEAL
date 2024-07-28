@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 341076275445054850}
   - component: {fileID: 341076275445054852}
+  - component: {fileID: 2510889174484063603}
+  - component: {fileID: 1251021852037174071}
   m_Layer: 0
   m_Name: ReverseChaseGirlStudent
   m_TagString: Untagged
@@ -55,6 +57,36 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &2510889174484063603
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341076275445054849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1251021852037174071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341076275445054849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d89a19d3b7b1d140ade01d23a76d58a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 341076275445054852}
+  anim: {fileID: 341076275814244200}
+  multiValue: 1
+  deathReason: "\uC5EC\uD559\uC0DD\uC5D0\uAC8C \uB9DE\uC544\uC8FD\uC5C8\uB2E4."
 --- !u!1001 &341076276223473104
 PrefabInstance:
   m_ObjectHideFlags: 0
