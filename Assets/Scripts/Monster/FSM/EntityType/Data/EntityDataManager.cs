@@ -49,29 +49,6 @@ public class EntityDataManager : MonoBehaviour
             return null;
         }
     }
-
-    /// <summary>
-    /// 죽을 때 한번 호출
-    /// </summary>
-    public void ResetData()
-    { 
-        entityDataDic.Clear();
-        EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
-        int cnt = data.entities.Count;
-        for (int idx = 0; idx < cnt; idx++)
-        {
-            if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
-                entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
-        }
-
-        string[] keys = eventDic.Keys.ToArray();
-        int keyCnt = keys.Length;
-        for(int idx = 0; idx<keyCnt; idx++)
-        {
-            eventDic[keys[idx]].ResetData();
-        }
-    }
-
     #endregion
 
     #region Entity EventData
@@ -103,5 +80,28 @@ public class EntityDataManager : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// 죽을 때 한번 호출
+    /// </summary>
+    public void ResetData()
+    {
+        entityDataDic.Clear();
+        EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
+        int cnt = data.entities.Count;
+        for (int idx = 0; idx < cnt; idx++)
+        {
+            if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
+                entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
+        }
+
+        string[] keys = eventDic.Keys.ToArray();
+        int keyCnt = keys.Length;
+        for (int idx = 0; idx < keyCnt; idx++)
+        {
+            eventDic[keys[idx]].ResetData();
+        }
+
+        IsLastEvent = false;
+    }
     public void LinkEntitiesController() { if (controller == null) { GameObject go = GameObject.FindWithTag("EntitiesController"); controller = go.GetComponent<EntitiesController>(); } }
 }

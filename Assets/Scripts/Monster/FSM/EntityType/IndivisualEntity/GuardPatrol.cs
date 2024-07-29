@@ -25,6 +25,13 @@ public class GuardPatrol : MovableEntity, IPatrol
         maxPoint = patrolPoints.Length;
     }
 
+    public override void Setup()
+    {
+        base.Setup();
+        if (Entity_Data.speakIndex == -1)
+            onceTalk = false;
+    }
+
     #region Patrol Interface
     public void StartPatrol()
     {
@@ -63,7 +70,6 @@ public class GuardPatrol : MovableEntity, IPatrol
         {
             onceTalk = false;
             Talk();
-            //controller.SendMessage(gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
         }
     }
 

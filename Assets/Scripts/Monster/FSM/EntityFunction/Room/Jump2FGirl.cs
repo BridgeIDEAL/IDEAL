@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jump2FGirl : JumpSpace
 {
     bool once = true;
-
+    public bool CanActive { get; set; } = false;
     private void Start()
     {
         if (EventData.isDoneEvent)
@@ -20,7 +20,7 @@ public class Jump2FGirl : JumpSpace
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && once)
+        if (other.CompareTag("Player") && once && CanActive)
         {
             once = false;
             ActiveEvent();

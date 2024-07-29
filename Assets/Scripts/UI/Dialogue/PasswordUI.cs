@@ -114,6 +114,7 @@ public class PasswordUI : MonoBehaviour
         //decideButtons[0].gameObject.SetActive(false);
         //decideButtons[1].gameObject.SetActive(false);
         InActivePassword();
+        EntityDataManager.Instance.EventTriggerController.TriggerLastEvent();
         // To Do ~~ Ring Bell
         // To Do ~~ Inactive Computer
     }

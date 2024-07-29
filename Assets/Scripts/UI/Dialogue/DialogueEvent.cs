@@ -7,9 +7,7 @@ public class DialogueEvent : MonoBehaviour
     #region Get & Use Item
     public void GetItem(List<string> _parameterList)
     {
-        string path = "DialogueItemData/";
-        path += _parameterList[0];
-        InteractionItemData _itemData = Resources.Load<InteractionItemData>(path);
+        InteractionItemData _itemData = FabManager.Instance.LoadInteractionItemData(_parameterList[0]);
         if (_itemData == null)
             return;
         Inventory.Instance.Add(_itemData, 1);
@@ -19,6 +17,12 @@ public class DialogueEvent : MonoBehaviour
     {
         int _itemCode = int.Parse(_parameterList[0]);
         Inventory.Instance.UseItemWithItemCode(_itemCode);
+    }
+
+    public void SpawnItem(List<string> _parameterList)
+    {
+        GameObject _spawnItem = FabManager.Instance.LoadPrefab(_parameterList[0]);
+        Instantiate(_spawnItem);
     }
     #endregion
 

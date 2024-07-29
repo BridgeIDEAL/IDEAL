@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class InteractionGetKeyBundle : AbstractInteraction
 {
-    [SerializeField] private InteractionItemData interactionItemData;
-    [SerializeField] private string detectedStr;
-    [SerializeField] private string afterInteractionStr = "";
-    [SerializeField] private int activationLogNum = -1;
-    [SerializeField] private float requiredTime = 1.0f;
-    [SerializeField] private int availableCount = 1;
+    [SerializeField] protected InteractionItemData interactionItemData;
+    [SerializeField] protected string detectedStr;
+    [SerializeField] protected string afterInteractionStr = "";
+    [SerializeField] protected int activationLogNum = -1;
+    [SerializeField] protected float requiredTime = 1.0f;
+    [SerializeField] protected int availableCount = 1;
     public override float RequiredTime { get => requiredTime; }
-    public RandomKeySpawn RandomKey_Spawn { get; set; } = null;
+    public KeyBoxSpawn KeyBox_Spawn { get; set; } = null;
     protected override string GetDetectedString()
     {
         return $"<sprite=0> {detectedStr}";
@@ -29,8 +29,8 @@ public class InteractionGetKeyBundle : AbstractInteraction
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--; 
-        if (RandomKey_Spawn != null)
-            RandomKey_Spawn.GetKeyBundle(this);
+        if (KeyBox_Spawn != null)
+            KeyBox_Spawn.GetKeyBundle(this);
         if (availableCount < 1)
         {
             Destroy(this.gameObject);

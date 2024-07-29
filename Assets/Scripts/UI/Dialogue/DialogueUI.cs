@@ -226,6 +226,9 @@ public class DialogueUI : MonoBehaviour
             case "AnimationTrigger":
                 Event.EntityAnimationTrigger(_parameterList);
                 break;
+            case "SpawnItem":
+                Event.SpawnItem(_parameterList);
+                break;
         }
     }
 

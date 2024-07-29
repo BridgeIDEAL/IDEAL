@@ -5,17 +5,12 @@ using UnityEngine;
 public class Jump3FHeadOfStudentTeacher : JumpSpace
 {
     bool once = true;
-    bool openKeyBox = false;
+    public bool CanActive { get; set; } = false;
 
     private void Start()
     {
         if (EventData.isDoneEvent)
             gameObject.SetActive(false);
-    }
-
-    public void IsOpenKeyBox()
-    {
-        openKeyBox = true;
     }
 
     public void ActiveEvent()
@@ -26,7 +21,7 @@ public class Jump3FHeadOfStudentTeacher : JumpSpace
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && once && openKeyBox)
+        if (other.CompareTag("Player") && once && CanActive)
         {
             once = false;
             ActiveEvent();

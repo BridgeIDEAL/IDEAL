@@ -17,8 +17,19 @@ public class EntityEventTriggerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 0:2F Girl, 1:3F Male Teachre
+    /// </summary>
+    /// <param name="_idx"></param>
+    /// <returns></returns>
     public JumpSpace GetJumpSpace(int _idx)
     {
         return jumpSpaces[_idx];
+    }
+
+    public void TriggerLastEvent()
+    {
+        EntityDataManager.Instance.IsLastEvent = true;
+        lastTriggerObject.SetActive(true);
     }
 }
