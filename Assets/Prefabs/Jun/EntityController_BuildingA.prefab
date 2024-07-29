@@ -53,8 +53,8 @@ MonoBehaviour:
   - {fileID: 3792130435402279486}
   - {fileID: 8360957801614385122}
   - {fileID: 812620946461496581}
-  - {fileID: 8773843051921464800}
-  - {fileID: 4382073295567542675}
+  - {fileID: 438948499253243289}
+  - {fileID: 6772375249676628148}
   - {fileID: 3337724731142524081}
 --- !u!1 &9168811592166282092
 GameObject:
@@ -496,6 +496,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd3d69da5b7965149a3866243f2389f1, type: 3}
+--- !u!1 &438948499253243289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5087459517060496852, guid: fd3d69da5b7965149a3866243f2389f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4651440151820243021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &812620946461496581 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5461246073565414728, guid: fd3d69da5b7965149a3866243f2389f1,
@@ -520,21 +526,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4651440151820243021}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4382073295567542675 stripped
+--- !u!1 &6772375249676628148 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8961455574646213086, guid: fd3d69da5b7965149a3866243f2389f1,
+  m_CorrespondingSourceObject: {fileID: 2121603635457777913, guid: fd3d69da5b7965149a3866243f2389f1,
     type: 3}
   m_PrefabInstance: {fileID: 4651440151820243021}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8360957801614385122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3784478336386699183, guid: fd3d69da5b7965149a3866243f2389f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4651440151820243021}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8773843051921464800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4129747984834547117, guid: fd3d69da5b7965149a3866243f2389f1,
     type: 3}
   m_PrefabInstance: {fileID: 4651440151820243021}
   m_PrefabAsset: {fileID: 0}
@@ -963,6 +963,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.00000047421992
       objectReference: {fileID: 0}
+    - target: {fileID: 2015007994596841874, guid: 7f25e4a23df86fb4d88184fdc23857fb,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 859125109bcae8042b3e27cf38bca753, type: 2}
     - target: {fileID: 2097602204043361120, guid: 7f25e4a23df86fb4d88184fdc23857fb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3339,7 +3344,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360

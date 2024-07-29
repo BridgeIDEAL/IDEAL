@@ -64,10 +64,10 @@ public class MovableEntity : BaseEntity
         ChangeState(_messageType);
     }
 
-    public void ChangeState(EntityStateType _changeType)
+    public virtual void ChangeState(EntityStateType _changeType)
     {
+        stateMachine.ChangeState(states[(int)_changeType]);
         currentType = _changeType;
-        stateMachine.ChangeState(states[(int)currentType]);
     }
     #endregion
 

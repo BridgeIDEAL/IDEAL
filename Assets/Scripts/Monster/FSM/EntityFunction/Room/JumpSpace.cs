@@ -13,12 +13,13 @@ public class JumpSpace : MonoBehaviour
             return;
         if (EntityDataManager.Instance.HaveEventData(this.gameObject.name))
         {
-            EntityDataManager.Instance.GetEventData(this.gameObject.name);
+            entityEventData = EntityDataManager.Instance.GetEventData(this.gameObject.name);
         }
         else
         {
             EntityEventData _eventData = new EntityEventData(false, this.gameObject.name);
             EntityDataManager.Instance.AddData(_eventData);
+            entityEventData = _eventData;
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class EntityDataManager : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class EntityDataManager : MonoBehaviour
     /// 죽을 때 한번 호출
     /// </summary>
     public void ResetData()
-    {
+    { 
         entityDataDic.Clear();
         EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
         int cnt = data.entities.Count;
@@ -61,6 +62,13 @@ public class EntityDataManager : MonoBehaviour
         {
             if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
                 entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
+        }
+
+        string[] keys = eventDic.Keys.ToArray();
+        int keyCnt = keys.Length;
+        for(int idx = 0; idx<keyCnt; idx++)
+        {
+            eventDic[keys[idx]].ResetData();
         }
     }
 

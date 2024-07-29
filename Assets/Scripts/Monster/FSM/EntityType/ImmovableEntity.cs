@@ -62,12 +62,12 @@ public class ImmovableEntity : BaseEntity
     {
         switch (_currentType)
         {
-            case EntityStateType.Idle:
-                anim.SetBool("Idle", _isStart);
-                break;
-            default:
-                anim.SetBool("Idle", _isStart);
-                break;
+            //case EntityStateType.Idle:
+            //    anim.SetBool("Idle", _isStart);
+            //    break;
+            //default:
+            //    anim.SetBool("Idle", _isStart);
+            //    break;
         }
     }
     public override void EntityAnimationTrigger(string _triggerName)

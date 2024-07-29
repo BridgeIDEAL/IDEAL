@@ -27,4 +27,6 @@ public class EntityEventData
         isDoneEvent = _done;
         eventName = _name;
     }
+
+    public void ResetData() { isDoneEvent = false; }
 }

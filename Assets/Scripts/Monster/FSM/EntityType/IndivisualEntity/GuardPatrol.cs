@@ -18,6 +18,13 @@ public class GuardPatrol : MovableEntity, IPatrol
 
     #endregion
 
+    public override void Init(Transform _playerTransfrom)
+    {
+        base.Init(_playerTransfrom);
+        currentPoint = 1;
+        maxPoint = patrolPoints.Length;
+    }
+
     #region Patrol Interface
     public void StartPatrol()
     {
@@ -36,7 +43,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public void SeekNextRoute()
     {
         currentPoint += 1;
-        if (currentPoint > maxPoint)
+        if (currentPoint >= maxPoint)
             currentPoint = 0;
         agent.SetDestination(patrolPoints[currentPoint]);
     }
@@ -55,7 +62,8 @@ public class GuardPatrol : MovableEntity, IPatrol
         if (onceTalk)
         {
             onceTalk = false;
-            controller.SendMessage(gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
+            Talk();
+            //controller.SendMessage(gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
         }
     }
 
@@ -63,11 +71,37 @@ public class GuardPatrol : MovableEntity, IPatrol
     {
         string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
         DialogueManager.Instance.StartDialogue(talkID, this);
+        StartCoroutine(MoveAndRotateTowardsPlayer());
+    }
+
+    IEnumerator MoveAndRotateTowardsPlayer()
+    {
+        Vector3 startPosition = transform.position;  
+        Vector3 targetPosition = playerTransform.position;
+        Quaternion startRotation = transform.rotation; 
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - startPosition); 
+        
+        float timer  = 0; 
+        while (timer < 1f)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, timer / 1f);
+            timer += Time.deltaTime; 
+            yield return null;  
+        }
+
+        transform.rotation = targetRotation;
+    }
+
+    public override void ChangeState(EntityStateType _changeType)
+    {
+        currentType = _changeType;
+        stateMachine.ChangeState(states[(int)currentType]);
     }
 
     // To Do ~~~ Look Player
     #endregion
 
+    int testCnt = 0;
     #region Animation
     public override void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
@@ -82,9 +116,6 @@ public class GuardPatrol : MovableEntity, IPatrol
             case EntityStateType.Quiet:
                 anim.SetBool("Idle", _isStart);
                 break;
-            case EntityStateType.Penalty:
-                anim.SetBool("Idle", _isStart);
-                break;
             default:
                 break;
         }
@@ -92,21 +123,21 @@ public class GuardPatrol : MovableEntity, IPatrol
     #endregion
 
     #region Idle
-    public override void IdleEnter() { SetAnimation(currentType, true); StartPatrol(); }
+    public override void IdleEnter() { SetAnimation(EntityStateType.Idle, true); StartPatrol(); }
     public override void IdleExecute() { Patrol(); DetectPlayer(); }
-    public override void IdleExit() { SetAnimation(currentType, false); EndPatrol(); }
+    public override void IdleExit() { SetAnimation(EntityStateType.Idle, false); EndPatrol(); }
     #endregion
 
     #region Talk
-    public override void TalkEnter() { SetAnimation(currentType, true); Talk(); }
+    public override void TalkEnter() {  SetAnimation(EntityStateType.Talk, true); }
     public override void TalkExecute() { }
-    public override void TalkExit() { SetAnimation(currentType, false); }
+    public override void TalkExit() { SetAnimation(EntityStateType.Talk, false); }
     #endregion
 
     #region Quiet
-    public override void QuietEnter() { SetAnimation(currentType, true); }
+    public override void QuietEnter() { SetAnimation(EntityStateType.Quiet, true); }
     public override void QuietExecute() { }
-    public override void QuietExit() { SetAnimation(currentType, false); }
+    public override void QuietExit() { SetAnimation(EntityStateType.Quiet, false); }
     #endregion
 
     #region Penalty : Not Use
