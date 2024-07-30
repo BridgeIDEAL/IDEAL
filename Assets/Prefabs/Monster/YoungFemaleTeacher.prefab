@@ -2455,9 +2455,8 @@ GameObject:
   - component: {fileID: 32601802093535509}
   - component: {fileID: 2677729470149665359}
   - component: {fileID: 1764089896637051277}
-  - component: {fileID: 1764089896637051278}
   - component: {fileID: 1764089896637051279}
-  - component: {fileID: 1764089896637051280}
+  - component: {fileID: 493629547025794417}
   m_Layer: 6
   m_Name: YoungFemaleTeacher
   m_TagString: Monster
@@ -2588,93 +2587,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentType: 0
+  lookPlayer: {fileID: 493629547025794417}
   thresholdAngle: 90
-  onGuard: {fileID: 0}
-  detectPlayer: {fileID: 0}
+  detectPlayer: {fileID: 5270780015402909964}
   isOnGuard: 1
   immediatelyDeathObject: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
---- !u!114 &1764089896637051278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6768690978533991665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 2078108905786499173}
-  - {fileID: 6663276656061853841}
-  - {fileID: 1606997519187686815}
-  - {fileID: 2336141220659213607}
-  - {fileID: 4314506263115342342}
-  - {fileID: 3424960258164318598}
-  - {fileID: 3076066196625075686}
-  - {fileID: 8105821193229959021}
-  - {fileID: 6778473971611080471}
-  - {fileID: 5286980626562364769}
-  - {fileID: 3929174181830177408}
-  - {fileID: 7014386790884896700}
-  - {fileID: 6766860214832251508}
-  - {fileID: 67776939743549045}
-  - {fileID: 3252481198710947526}
-  - {fileID: 5370117040787317470}
-  - {fileID: 1402308869713225389}
-  - {fileID: 787172421591683284}
-  - {fileID: 6886796580209578607}
-  - {fileID: 5633280035711402805}
-  - {fileID: 5222767251359806493}
-  - {fileID: 6752173127330062643}
-  - {fileID: 1507878918779248101}
-  - {fileID: 7724947016228657771}
-  - {fileID: 5813192960289704048}
-  - {fileID: 9095688370901913420}
-  - {fileID: 600248901732864560}
-  - {fileID: 6845758552585033159}
-  - {fileID: 5282838692529045277}
-  - {fileID: 5521736954821216380}
-  - {fileID: 791208731781507256}
-  - {fileID: 9112489124577299303}
-  - {fileID: 7910408885700585183}
-  - {fileID: 4925882906535798986}
-  - {fileID: 135171860969874595}
-  - {fileID: 6509768930603502461}
-  - {fileID: 913236040715975473}
-  - {fileID: 7701413944646080694}
-  - {fileID: 2012291829905894306}
-  - {fileID: 3532781669855696044}
-  - {fileID: 7053023476166187550}
-  - {fileID: 2004261560299671561}
-  - {fileID: 690774040569883412}
-  - {fileID: 924667069969545910}
-  - {fileID: 6388934509943138769}
-  - {fileID: 660770162912135331}
-  - {fileID: 2477435915330641164}
-  - {fileID: 5132586914444989257}
-  - {fileID: 6214655397461328105}
-  - {fileID: 3406022685888279365}
-  - {fileID: 2690657755998518982}
-  - {fileID: 1863426536710237316}
-  - {fileID: 3051365649848559165}
-  - {fileID: 8836368998593205842}
-  - {fileID: 9027919497244470180}
-  - {fileID: 1158910173815024626}
-  - {fileID: 5192333694075438887}
-  - {fileID: 710008513402396756}
-  - {fileID: 2041012984938530617}
-  - {fileID: 5200026366856217428}
-  - {fileID: 6765840627070249391}
-  - {fileID: 6900850154695243936}
 --- !u!114 &1764089896637051279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2691,7 +2609,7 @@ MonoBehaviour:
   - m_Rig: {fileID: 40478132}
     m_Active: 1
   m_Effectors: []
---- !u!114 &1764089896637051280
+--- !u!114 &493629547025794417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2700,12 +2618,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6768690978533991665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62dde2c81e2f96e4d9dafcf47b35ad86, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d6a1fa67b69704a94de1ad9f455d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   multiAim: {fileID: 1832535705}
   rigBuilder: {fileID: 1764089896637051279}
   weightValue: 1
+  thresholdAngle: 90
 --- !u!1 &6802381897860392328
 GameObject:
   m_ObjectHideFlags: 0

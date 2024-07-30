@@ -5,6 +5,7 @@ using UnityEngine;
 public class ImmovableEntity : BaseEntity
 {
     [SerializeField] protected EntityStateType currentType;
+    [SerializeField] protected LookPlayer lookPlayer;
 
     protected Animator anim;
     protected EntityState<ImmovableEntity>[] states;
@@ -24,6 +25,9 @@ public class ImmovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<ImmovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
+
+        if(lookPlayer==null)
+            lookPlayer = GetComponent<LookPlayer>();
     }
 
     public override void Setup()
@@ -70,6 +74,7 @@ public class ImmovableEntity : BaseEntity
             //    break;
         }
     }
+
     public override void EntityAnimationTrigger(string _triggerName)
     {
         base.EntityAnimationTrigger(_triggerName);
@@ -81,9 +86,9 @@ public class ImmovableEntity : BaseEntity
     public virtual void IdleEnter() { SetAnimation(currentType,true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }
-    public virtual void TalkEnter() { SetAnimation(currentType, true); }
+    public virtual void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { SetAnimation(currentType, false); }
+    public virtual void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); }
     public virtual void QuietEnter() { SetAnimation(currentType, true); }
     public virtual void QuietExecute() { }
     public virtual void QuietExit() { SetAnimation(currentType, false); }

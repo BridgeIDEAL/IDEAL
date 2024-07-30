@@ -15,6 +15,10 @@ public class EntityEventTriggerController : MonoBehaviour
         {
             lastTriggerObject.SetActive(true);
         }
+        else
+        {
+            lastTriggerObject.SetActive(false);
+        }
     }
 
     /// <summary>

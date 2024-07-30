@@ -25,7 +25,11 @@ public class ActivationLogManager : MonoBehaviour
         public string itemName;
     }
     private List<ItemID_Name> itemID_NameList= new List<ItemID_Name>{
-        new ItemID_Name{itemID = 10, itemName = "멍 치료제를"},
+
+        /*------------------------------------ Use ----------------------------------------------*/
+        
+        new ItemID_Name{itemID = 994, itemName = "멍 치료제를"},
+        /*--------------------------- Not Use  Only Test------------------------------------*/
         new ItemID_Name{itemID = 11, itemName = "1학년 교무실 열쇠를"},
         new ItemID_Name{itemID = 12, itemName = "열쇠 조각을"},
         new ItemID_Name{itemID = 13, itemName = "명찰 조각을"},

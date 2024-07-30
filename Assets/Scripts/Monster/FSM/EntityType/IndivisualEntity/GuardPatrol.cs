@@ -8,13 +8,13 @@ public class GuardPatrol : MovableEntity, IPatrol
     #region Patrol Val
     [Header("Patrol")]
     [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
-    [SerializeField] int currentPoint;
-    [SerializeField] int maxPoint;
     [SerializeField, Range(0.5f, 1f)] float checkPatrolDistance;
+    int currentPoint;
+    int maxPoint;
 
     [Header("Dialogue")]
-    [SerializeField] bool onceTalk = true;
     [SerializeField] DetectPlayer detectPlayer;
+    bool onceTalk = true;
 
     #endregion
 
