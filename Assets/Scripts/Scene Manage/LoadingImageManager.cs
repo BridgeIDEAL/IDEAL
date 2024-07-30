@@ -42,6 +42,8 @@ public class LoadingImageManager : MonoBehaviour
     private bool loadEnded = false;
     public bool goNext = false;
 
+    private bool skipPage = false;
+    private bool skipParagraph = false;
     private void Awake(){
         if(Instance == null){
             instance = this;
@@ -96,6 +98,8 @@ public class LoadingImageManager : MonoBehaviour
         }
         introTextLoadedTextObject.SetActive(false);
         
+        skipPage = false;
+        skipParagraph = false;
         while (introTextStep < introTexts.Length){
             if(typingSoundCoroutine != null){
                 StopCoroutine(typingSoundCoroutine);
@@ -104,7 +108,7 @@ public class LoadingImageManager : MonoBehaviour
             yield return StartCoroutine(TypeText(introTexts[introTextStep]));
             StopCoroutine(typingSoundCoroutine);
 
-            yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
+            if(!skipPage)yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
             introTextStep++;
 
             if(introTextStep == 3){
@@ -112,9 +116,11 @@ public class LoadingImageManager : MonoBehaviour
                 introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = stopText;
                 introTextLoadedTextObject.SetActive(true);
                 while(true){
-                    if(Input.anyKey) break;
+                    if(Input.anyKeyDown) break;
                     yield return null;
                 }
+                skipPage = false;
+                skipParagraph = false;
                 introTextTMP.text = "";
                 introTextLoadedTextObject.SetActive(false);
             }
@@ -132,8 +138,15 @@ public class LoadingImageManager : MonoBehaviour
         foreach (char letter in text.ToCharArray()){
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
-            // 처음에는 스킵이 안되도록 설정 
-            if(Input.anyKey && cnt > 10 && CountAttempts.Instance.GetAttemptCount() > 1){ 
+            // 처음에는 문단 단위 스킵 이후에는 페이지 단위 스킵
+            if(Input.anyKey && cnt > 10 && CountAttempts.Instance.GetAttemptCount() > 1){
+                skipPage = true;
+            }
+            else if(Input.anyKey && cnt > 10){
+                skipParagraph = true;
+            }
+            
+            if(skipPage || skipParagraph){ 
                 audioSource.Stop();
                 introTextTMP.text = currentText + text;
                 break;
@@ -142,6 +155,7 @@ public class LoadingImageManager : MonoBehaviour
             cnt++;
             yield return new WaitForSeconds(0.1f); // 타이핑 속도 조절
         }
+        skipParagraph = false;
         introTextTMP.text += " \n\n";
     }
 
