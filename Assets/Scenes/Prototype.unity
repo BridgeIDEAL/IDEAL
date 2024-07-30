@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.7816689, g: 0.91795707, b: 0.97883976, a: 1}
+  m_IndirectSpecularColor: {r: 0.78146946, g: 0.9179593, b: 0.97888505, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -367,6 +367,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 01010001
 --- !u!1001 &236553311
 PrefabInstance:
@@ -582,6 +583,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &271701977
 MonoBehaviour:
@@ -2180,6 +2182,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &704083745
 MonoBehaviour:
@@ -2918,6 +2921,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &891104593
 MonoBehaviour:
@@ -3515,6 +3519,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &1007890277
 MonoBehaviour:
@@ -4403,6 +4408,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 1
+  planeObject: 0
   outlineMask: 
 --- !u!114 &1371537080
 MonoBehaviour:
@@ -6771,6 +6777,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.01
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 1
+  planeObject: 0
   outlineMask: 
 --- !u!114 &1475033502
 MonoBehaviour:
@@ -7793,6 +7800,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2585271184521575186, guid: 154f30412c0ce7f47a2b31083159b401,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2854276913687949129, guid: 154f30412c0ce7f47a2b31083159b401,
         type: 3}
       propertyPath: m_IsActive
@@ -7851,6 +7863,77 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1548097551}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1548097553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2585271184521575186, guid: 154f30412c0ce7f47a2b31083159b401,
+    type: 3}
+  m_PrefabInstance: {fileID: 1548097551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1548097554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548097553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6a7217014259042be8aefd2a779dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  detectedStr: "\uC9C0\uCE68\uC11C\uB97C \uD655\uC778\uD55C\uB2E4."
+  afterInteractionStr: 
+  activationLogNum: -1
+  checkListNum: 101
+  requiredTime: 0.5
+--- !u!114 &1548097555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548097553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.03
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  reverseY: 0
+  planeObject: 1
+  outlineMask: 
+--- !u!114 &1548097556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548097553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 1548097554}
+  interactionOutline: {fileID: 1548097555}
+  outlineActive: 1
+--- !u!64 &1548097557
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548097553}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6470618566686300151, guid: b938e55e48f31174180c66ea39d96806, type: 3}
 --- !u!1 &1563995763
 GameObject:
   m_ObjectHideFlags: 0
@@ -8255,6 +8338,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &1623370837
 MonoBehaviour:
@@ -8458,6 +8542,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!65 &1625180625
 BoxCollider:
@@ -8862,6 +8947,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!82 &1712866263
 AudioSource:
@@ -9076,6 +9162,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.1
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!114 &1771253996
 MonoBehaviour:
@@ -9203,6 +9290,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 01010101010000010001
 --- !u!114 &1805430236
 MonoBehaviour:
@@ -10597,6 +10685,7 @@ MonoBehaviour:
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
   reverseY: 0
+  planeObject: 0
   outlineMask: 
 --- !u!1 &2087509160
 GameObject:

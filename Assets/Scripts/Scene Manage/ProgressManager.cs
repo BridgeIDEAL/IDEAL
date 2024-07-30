@@ -129,8 +129,11 @@ public class ProgressManager : MonoBehaviour
 
     public void EnterAnotherSceneInit(bool isLobby){
         if(isLobby){
-            foreach(int key in checkListDic.Keys){
-                checkListDic[key] = -1;
+            List<int> keys = new List<int>(checkListDic.Keys); // 키 목록을 리스트로 복사
+
+            for (int i = 0; i < keys.Count; i++) {
+                int key = keys[i];
+                checkListDic[key] = -1; // 수정 작업 수행
             }
 
             itemState = new Dictionary<int, int>();

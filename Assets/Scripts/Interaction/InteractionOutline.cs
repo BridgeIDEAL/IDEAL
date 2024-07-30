@@ -11,6 +11,7 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
     [SerializeField] private bool reverseY = false;
+    [SerializeField] private bool planeObject = false;
     [SerializeField] private bool[] outlineMask;
 
     private GameObject outlineObject;
@@ -27,6 +28,12 @@ public class InteractionOutline : MonoBehaviour
     {
         outlineObject = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
         outlineObject.transform.localScale = new Vector3(1, 1, 1);
+
+        if(planeObject){
+            Vector3 localP = outlineObject.transform.localPosition;
+            localP.z = -0.0005f;
+            outlineObject.transform.localPosition = localP;
+        }
 
         outlineObject.GetComponent<InteractionOutline>().enabled = false;
         outlineObject.GetComponent<Collider>().enabled = false;

@@ -69,6 +69,7 @@ public class IdealSceneManager : MonoBehaviour
 
     private void Start(){
         SceneManager.sceneLoaded += AfterSceneLoaded;
+        AfterSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
 
