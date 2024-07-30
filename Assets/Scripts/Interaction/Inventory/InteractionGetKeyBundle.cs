@@ -22,7 +22,7 @@ public class InteractionGetKeyBundle : AbstractInteraction
         Inventory.Instance.Add(interactionItemData, 1);
         if (activationLogNum != -1)
         {
-            ActivationLogManager.Instance.AddActivationLog(activationLogNum);
+            //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
         if (afterInteractionStr != "")
         {
@@ -37,7 +37,7 @@ public class InteractionGetKeyBundle : AbstractInteraction
         }
         if (audioSource != null)
         {
-            // Inventory.GetItemSound¿¡¼­ ¾ÆÀÌÅÛ È¹µæ ¼Ò¸®µé Ã³¸®
+            // Inventory.GetItemSoundï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         }
     }
 

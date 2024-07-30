@@ -143,7 +143,7 @@ public class ConversationManager : MonoBehaviour
         // TO DO
         // 1층 자습 성공 처리 필요
         ChalkBoardText.Instance.SetChalkBoardText("다음 시간\n자습");
-        ActivationLogManager.Instance.AddActivationLog(4105);
+        //ActivationLogManager.Instance.AddActivationLog(4105);
     }
 
     public void UseItem(int itemCode){
@@ -155,10 +155,10 @@ public class ConversationManager : MonoBehaviour
         Inventory.Instance.Add(alcoholLamp, 1);
     }
 
-    [YarnFunction("CheckProgressState")]
-    public static int CheckProgressState(int floor_, int progress_){
-        return ProgressManager.Instance.progressState[floor_, progress_];
-    }
+    // [YarnFunction("CheckProgressState")]
+    // public static int CheckProgressState(int floor_, int progress_){
+    //     return ProgressManager.Instance.progressState[floor_, progress_];
+    // }
 
     [YarnFunction("CheckPlayerItem")]
     public static int CheckPlayerItem(int itemCode){
@@ -242,7 +242,7 @@ public class ConversationManager : MonoBehaviour
 
     #region Activation Log
     public void HurtBothArmLog(){
-        ActivationLogManager.Instance.AddActivationLog(1002);
+        //ActivationLogManager.Instance.AddActivationLog(1002);
     }
 
 
@@ -267,7 +267,8 @@ public class ConversationManager : MonoBehaviour
     }
 
     public void UpdateProgressState(int floor, int progress, int state){
-        ProgressManager.Instance.UpdateProgressState(floor, progress, state);
+        Debug.LogError("sss");
+        // ProgressManager.Instance.UpdateProgressState(floor, progress, state);
     }
 
     public void GetHandCream(){

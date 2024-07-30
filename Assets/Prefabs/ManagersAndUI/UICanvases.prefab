@@ -4946,9 +4946,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5402395637971869046
 CanvasRenderer:
@@ -7330,7 +7330,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7584,7 +7584,7 @@ GameObject:
   - component: {fileID: 5402395638664534767}
   - component: {fileID: 5402395638664534547}
   - component: {fileID: 5402395638664534548}
-  - component: {fileID: 5402395638664534544}
+  - component: {fileID: 8755456164170276042}
   m_Layer: 0
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -7710,7 +7710,7 @@ MonoBehaviour:
     type: 3}
   itemTooltip: {fileID: 5402395639140612836}
   mouseReversed: 0
---- !u!114 &5402395638664534544
+--- !u!114 &8755456164170276042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7719,17 +7719,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5402395638664534550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53adaed9a091bac488ca7f488e1b3c80, type: 3}
+  m_Script: {fileID: 11500000, guid: df3a2fdcbc0cdce41bba3dbf74a43896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIActivationLogPrefab: {fileID: 6006004703732871331, guid: e8ee2c934b90cad48b85f78b1d61a906,
+  uICheckListPrefab: {fileID: 6006004703732871331, guid: 966b9d113a907b646aabadc7e6d8c1d2,
     type: 3}
-  activationLogArea: {fileID: 5402395638677811412}
-  noSpace: 0
-  randomSpace: 0
-  reverseString: 0
-  reverseWord: 0
-  uIActivationLogList: []
+  checkListArea: {fileID: 5402395638677811412}
 --- !u!1 &5402395638677811413
 GameObject:
   m_ObjectHideFlags: 0
@@ -7766,7 +7761,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -792}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5402395638677811410
 MonoBehaviour:
@@ -9016,7 +9011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5402395638944323024
 RectTransform:
   m_ObjectHideFlags: 0

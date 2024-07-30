@@ -29,7 +29,7 @@ public class InteractionConditionalDoor : AbstractInteraction
             }
             OpenDoor();
             if(activationLogNum != -1){
-                ActivationLogManager.Instance.AddActivationLog(activationLogNum);
+                //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
             }
             if(successInteractionStr != ""){
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);

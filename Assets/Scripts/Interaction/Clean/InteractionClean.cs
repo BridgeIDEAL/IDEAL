@@ -25,7 +25,7 @@ public class InteractionClean : AbstractInteraction
         }
         if (activationLogNum != -1)
         {
-            ActivationLogManager.Instance.AddActivationLog(activationLogNum);
+            //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
         if (afterInteractionStr != "")
         {

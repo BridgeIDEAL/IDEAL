@@ -2321,10 +2321,8 @@ GameObject:
   m_Component:
   - component: {fileID: 426624385}
   - component: {fileID: 426624384}
-  - component: {fileID: 426624388}
   - component: {fileID: 426624387}
   - component: {fileID: 426624386}
-  - component: {fileID: 426624389}
   - component: {fileID: 426624390}
   - component: {fileID: 426624391}
   - component: {fileID: 426624392}
@@ -2359,7 +2357,7 @@ MonoBehaviour:
   - {fileID: 177719814}
   - {fileID: 1762913326}
   - {fileID: 832850715}
-  activationLogManager: {fileID: 426624388}
+  activationLogManager: {fileID: 0}
   healthPointManager: {fileID: 426624387}
   mentalPointManager: {fileID: 426624390}
   inventory: {fileID: 426624386}
@@ -2415,32 +2413,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptHub: {fileID: 0}
---- !u!114 &426624388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426624383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2422b88c497ea0e4caeb0a0eda8b5191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scriptHub: {fileID: 0}
-  activationLogData: {fileID: 426624389}
---- !u!114 &426624389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426624383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b817b31e1692d4ab8fa56f47f90624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &426624390
 MonoBehaviour:
   m_ObjectHideFlags: 0

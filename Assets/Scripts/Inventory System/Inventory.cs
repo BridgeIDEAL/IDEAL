@@ -402,7 +402,7 @@ public class Inventory : MonoBehaviour
         SortAll();
         if(amount == 0){
             GetItemSound(itemData);
-            ActivationLogManager.Instance.AddActivationLogWithItem(itemData.ID, true);
+            //ActivationLogManager.Instance.AddActivationLogWithItem(itemData.ID, true);
             ProgressManager.Instance.SetItemLog(itemData.ID, amount_);
             CheckPieceItems();
         }
@@ -442,7 +442,7 @@ public class Inventory : MonoBehaviour
             bool succeeded = uItem.Use();
 
             if(succeeded){
-                ActivationLogManager.Instance.AddActivationLogWithItem(items[index].Data.ID, false);
+                //ActivationLogManager.Instance.AddActivationLogWithItem(items[index].Data.ID, false);
                 if(!(items[index] is CountableItem)){
                     Remove(index);
                 }
