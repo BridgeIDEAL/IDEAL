@@ -45,6 +45,8 @@ public class PasswordUI : MonoBehaviour
         indicateText.text = beforeEnterPassword;
         passwordObject.SetActive(true);
         passwordField.text = "";
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
     }
 
     public void InActivePassword()
@@ -53,6 +55,8 @@ public class PasswordUI : MonoBehaviour
         passwordObject.SetActive(false);
         passwordField.text = "";
         isSolvingPassword = false;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = false;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = false;
     }
     #endregion
 
@@ -115,7 +119,8 @@ public class PasswordUI : MonoBehaviour
         //decideButtons[1].gameObject.SetActive(false);
         InActivePassword();
         EntityDataManager.Instance.EventTriggerController.TriggerLastEvent();
-        // To Do ~~ Ring Bell
+        // To Do ~~~
+
         // To Do ~~ Inactive Computer
     }
 
