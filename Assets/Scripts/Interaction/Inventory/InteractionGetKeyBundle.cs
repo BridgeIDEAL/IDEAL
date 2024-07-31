@@ -33,7 +33,8 @@ public class InteractionGetKeyBundle : AbstractInteraction
             KeyBox_Spawn.GetKeyBundle(this);
         if (availableCount < 1)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
+            //Destroy(this.gameObject);
         }
         if (audioSource != null)
         {

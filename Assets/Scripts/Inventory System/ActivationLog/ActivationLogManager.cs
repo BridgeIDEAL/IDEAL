@@ -29,6 +29,12 @@ public class ActivationLogManager : MonoBehaviour
         /*------------------------------------ Use ----------------------------------------------*/
         
         new ItemID_Name{itemID = 994, itemName = "멍 치료제를"},
+        new ItemID_Name{itemID = 102, itemName = "1-2반 열쇠를"},
+        new ItemID_Name{itemID = 103, itemName = "1-3반 열쇠를"},
+        new ItemID_Name{itemID = 105, itemName = "1-5반 열쇠를"},
+        new ItemID_Name{itemID = 202, itemName = "2-2반 열쇠를"},
+        new ItemID_Name{itemID = 204, itemName = "2-4반 열쇠를"},
+        new ItemID_Name{itemID = 207, itemName = "2-7반 열쇠를"},
         /*--------------------------- Not Use  Only Test------------------------------------*/
         new ItemID_Name{itemID = 11, itemName = "1학년 교무실 열쇠를"},
         new ItemID_Name{itemID = 12, itemName = "열쇠 조각을"},
