@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntitiesController : MonoBehaviour
 {
     int listCnt = 0;
+    public GameObject interactionEntitiesParent;
 
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
@@ -38,6 +39,8 @@ public class EntitiesController : MonoBehaviour
     {
         SetupAllEntity();
         EntityDataManager.Instance.Controller = this;
+        if (EntityDataManager.Instance.IsLastEvent)
+            InActiveInteractionEntities();
     }
 
     public void SetupAllEntity()
@@ -144,6 +147,11 @@ public class EntitiesController : MonoBehaviour
     public void ActiveChaseEntity(ChaseEventType _type)
     {
         ChaseEntityGroup[(int)_type].SetActive(true);
+    }
+
+    public void InActiveInteractionEntities()
+    {
+        interactionEntitiesParent.SetActive(false);
     }
 
     #endregion
