@@ -36,8 +36,8 @@ public class InteractionChangeScene : AbstractInteraction
             if (failInteractionStr != "")
             {
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
-                return;
             }
+            return;
         }
         if (onceActiveEvent && needItem!=0)
         {
@@ -56,7 +56,10 @@ public class InteractionChangeScene : AbstractInteraction
         // 아이템이 없을 경우 Inventory.Instance.GetCurrentAmount(itemIndex) == -1
         if (Inventory.Instance.GetCurrentAmount(itemIndex) < 3 && !isInBuildingA)
         {
-            PenaltyPointManager.Instance.AddPenaltyPoint(1);
+            // PenaltyPointManager.Instance.AddPenaltyPoint(1);
+        }
+        if(isInBuildingA){
+            ProgressManager.Instance.UpdateCheckList(104, 1);
         }
         IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName, destPosition, destRotation);
         if (successInteractionStr != "")

@@ -11,7 +11,9 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
     [SerializeField] private bool reverseY = false;
+    [SerializeField] private bool hasChild = false;
     [SerializeField] private bool planeObject = false;
+    [SerializeField] private float planeValue = -0.0005f;
     [SerializeField] private bool[] outlineMask;
 
     private GameObject outlineObject;
@@ -31,7 +33,7 @@ public class InteractionOutline : MonoBehaviour
 
         if(planeObject){
             Vector3 localP = outlineObject.transform.localPosition;
-            localP.z = -0.0005f;
+            localP.z = planeValue;
             outlineObject.transform.localPosition = localP;
         }
 
@@ -56,9 +58,9 @@ public class InteractionOutline : MonoBehaviour
             rend.shadowCastingMode = ShadowCastingMode.Off;
             rend.enabled = true;
             outlineRenderer = rend;
-        }
-        else
-        {   // Renderer가 여러 개인 경우, 현재는 자식까지만 가능 손자까지 탐색하진 않음
+        }  
+        if(hasChild){
+            // Renderer가 여러 개인 경우, 현재는 자식까지만 가능 손자까지 탐색하진 않음
             if (outlineObject.transform.childCount > 0)
             {
                 for (int i = 0; i < outlineObject.transform.childCount; i++)
@@ -83,7 +85,6 @@ public class InteractionOutline : MonoBehaviour
                 return;
             }
         }
-
     }
 
     public void SetOutlineObject(bool active)

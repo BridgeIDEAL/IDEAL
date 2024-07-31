@@ -31,7 +31,7 @@ public class InteractionDoor : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        if(Inventory.Instance.UseItemWithItemCode(needItem)){
+        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0){
             if(audioSource != null){
                 audioSource.clip = unlockDoorAudio;
                 audioSource.Play();
@@ -65,12 +65,13 @@ public class InteractionDoor : AbstractInteraction
 
     private IEnumerator OpenDoorCoroutine(){
         Debug.Log("실행하는중..");
-        Vector3 startPos = doorObject.transform.position;
+        Vector3 startPos = doorObject.transform.localPosition;
         float stepTimer = 0.0f;
-        while(stepTimer <= openRequiredTime){
+        float moveTime = openRequiredTime * 0.75f;
+        while(stepTimer <= moveTime){
             // TO DO
             // 등속도 운동과 삼각함수 사용한 거 비교해보고 골라보기
-            doorObject.transform.position = Vector3.Lerp(startPos, destPosition, stepTimer/openRequiredTime);
+            doorObject.transform.localPosition = Vector3.Lerp(startPos, destPosition, stepTimer/moveTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }

@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.78151065, g: 0.9179357, b: 0.97885764, a: 1}
+  m_IndirectSpecularColor: {r: 0.78165334, g: 0.9179257, b: 0.9788851, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5660,6 +5660,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1396899227}
     m_Modifications:
+    - target: {fileID: 95051456245341482, guid: 154f30412c0ce7f47a2b31083159b401,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 254238037669828172, guid: 154f30412c0ce7f47a2b31083159b401,
         type: 3}
       propertyPath: m_IsActive
@@ -5893,7 +5898,9 @@ MonoBehaviour:
   outlineScaleFactor: -1.03
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   reverseY: 0
+  hasChild: 0
   planeObject: 1
+  planeValue: -0.0005
   outlineMask: 
 --- !u!114 &1548097556
 MonoBehaviour:
@@ -7052,6 +7059,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9039ed7102a6e54886592aad30b3834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2014081756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 95051456245341482, guid: 154f30412c0ce7f47a2b31083159b401,
+    type: 3}
+  m_PrefabInstance: {fileID: 1548097551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2014081757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014081756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b93665e763f1649ba8e50b08770dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  unlockDoorAudio: {fileID: 0}
+  lockDoorAudio: {fileID: 0}
+  doorObject: {fileID: 2014081756}
+  destPosition: {x: -18.47227, y: 4.974, z: 12.96062}
+  destRotation: {x: 0, y: -90, z: 0}
+  currentSceneName: Prototype
+  destSceneName: Prototype_Second
+  detectedStr: "\uAD50\uC2E4\uB3D9\uC73C\uB85C \uB118\uC5B4\uAC04\uB2E4."
+  successInteractionStr: 
+  failInteractionStr: "\uBB38\uC774 \uC7A0\uACA8\uC788\uB2E4."
+  needItem: 401
+  isInBuildingA: 1
+--- !u!114 &2014081758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014081756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
+  outlineMask: 
+--- !u!114 &2014081759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014081756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 2014081757}
+  interactionOutline: {fileID: 2014081758}
+  outlineActive: 0
 --- !u!1001 &2055368341
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class GuardPatrol : MovableEntity, IPatrol
 {
     #region Patrol Val
     [Header("Patrol")]
-    [SerializeField, Tooltip("¼øÂû ÁöÁ¡µé")] Vector3[] patrolPoints;
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")] Vector3[] patrolPoints;
     [SerializeField, Range(0.5f, 1f)] float checkPatrolDistance;
     int currentPoint;
     int maxPoint;
@@ -76,6 +76,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public void Talk()
     {
         string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
+        ProgressManager.Instance.UpdateCheckList(102, 1);
         DialogueManager.Instance.StartDialogue(talkID, this);
         StartCoroutine(MoveAndRotateTowardsPlayer());
     }
