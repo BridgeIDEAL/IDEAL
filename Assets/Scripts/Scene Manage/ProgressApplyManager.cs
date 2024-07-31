@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProgressApplyManager : MonoBehaviour
 {
     [SerializeField] private InteractionGetItem[] interactionGetItems;
+    [SerializeField] private InteractionDoor[] interactionDoors;
 
     public void Init(){
         for(int i = 0; i < interactionGetItems.Length; i++){

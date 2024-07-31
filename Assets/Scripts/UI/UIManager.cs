@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
 
             uIInventory.HideHighlightAllSlot();
 
-            ActivationLogManager.Instance.InActiveActivationLog();
+            // ActivationLogManager.Instance.InActiveActivationLog();
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 

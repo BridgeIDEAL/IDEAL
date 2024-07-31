@@ -13,6 +13,6 @@ public class InteractionGetFlashlight_201 : AbstractInteraction
 
     protected override void ActInteraction(){
         Inventory.Instance.Add(flashlightItemData, 1);
-        ActivationLogManager.Instance.AddActivationLog(4004);
+        //ActivationLogManager.Instance.AddActivationLog(4004);
     }
 }

@@ -29,7 +29,6 @@ public class IdealSceneManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private ActivationLogManager activationLogManager;
     [SerializeField] private HealthPointManager healthPointManager;
     [SerializeField] private MentalPointManager mentalPointManager;
     [SerializeField] private Inventory inventory;
@@ -52,9 +51,7 @@ public class IdealSceneManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
-        SceneManager.sceneLoaded += AfterSceneLoaded;
         
-        activationLogManager.Init();
         healthPointManager.Init();
         mentalPointManager.Init();
         inventory.Init();
@@ -68,6 +65,11 @@ public class IdealSceneManager : MonoBehaviour
             lobbyObjectNameList.Add(lobbyObjectList[i].name);
         }
         soundInitVolume = lobbyBGMBox.volume;
+    }
+
+    private void Start(){
+        SceneManager.sceneLoaded += AfterSceneLoaded;
+        AfterSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
 
@@ -85,7 +87,6 @@ public class IdealSceneManager : MonoBehaviour
                 lobbyObjectList.Add(GameObject.Find(lobbyObjectNameList[i]));
             }
 
-            activationLogManager.EnterAnotherSceneInit(true);
             healthPointManager.EnterAnotherSceneInit(true);
             mentalPointManager.EnterAnotherSceneInit(true);
             inventory.EnterAnotherSceneInit(true);
@@ -94,6 +95,8 @@ public class IdealSceneManager : MonoBehaviour
             reformPointManager.EnterAnotherSceneInit(true);
             conversationPointManager.EnterAnotherSceneInit(true);
             LobbyBGMFade(true);
+
+            ProgressManager.Instance.EnterAnotherSceneInit(true);
         }
     }
 
@@ -166,8 +169,6 @@ public class IdealSceneManager : MonoBehaviour
     }
 
     private void ImplementScriptHub(GameManager gameManager){
-        activationLogManager.scriptHub = gameManager.scriptHub;
-        activationLogManager.EnterAnotherSceneInit(false);
         healthPointManager.scriptHub = gameManager.scriptHub;
         healthPointManager.EnterAnotherSceneInit(false);
         mentalPointManager.scriptHub = gameManager.scriptHub;
@@ -181,6 +182,7 @@ public class IdealSceneManager : MonoBehaviour
         reformPointManager.scriptHub = gameManager.scriptHub;
         reformPointManager.EnterAnotherSceneInit(false);
         conversationPointManager.EnterAnotherSceneInit(false);
+        ProgressManager.Instance.EnterAnotherSceneInit(false);
     }
     
 

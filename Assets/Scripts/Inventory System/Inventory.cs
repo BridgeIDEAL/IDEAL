@@ -49,9 +49,28 @@ public class Inventory : MonoBehaviour
     private Item[] items;
 
     /// <summary> 합성되는 조각 아이템 목록 </summary>
-    private int[] keyPieces_SecondFloor = {};
-    private int[] keyPieces_StudentRoom = {};
-    private int[] keyPieces_serverRoomKey = {};
+    private int[] keyPieces_SecondFloor = {20101, 20102, 20103};
+    private int[] keyPieces_StudentRoom = {99101, 99102, 99103};
+    private int[] keyPieces_ServerRoom = {99201, 99202, 99203};
+    private int[] mapPieces = {99001, 99002, 99003};
+
+    /// <summary> 합성을 통해 생성되는 아이템 목록 </summary>
+    [SerializeField] private ItemData secondFloorKeyItem;
+    [SerializeField] private ItemData studentRoomKeyItem;
+    [SerializeField] private ItemData serverRoomKeyItem;
+    [SerializeField] private ItemData mapItem;
+
+    /// <summary > 체크리스트 충족하는 아이템 목록 </summary>
+    private Dictionary<int, int> checkListItemDic = new Dictionary<int, int>{
+        {401, 103},
+        {308, 105},
+        {903, 106},
+        {20101, 109},
+        {20102, 110},
+        {20103, 111}
+    };
+
+    private int[] check3rdGradeRooms = {301, 303, 306};
 
     /// <summary>  업데이트 할 인덱스 목록 </summary>
     private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
@@ -215,6 +234,34 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    /// <summary> 조각 아이템들이 충분히 모였는지 체크하여 온전품으로 변환 </summary>
+    private void CheckPieceItems(){
+        CheckPieceItem(secondFloorKeyItem, keyPieces_SecondFloor);
+        CheckPieceItem(studentRoomKeyItem, keyPieces_StudentRoom);
+        CheckPieceItem(serverRoomKeyItem, keyPieces_ServerRoom);
+        CheckPieceItem(mapItem, mapPieces);
+    }
+
+    private void CheckPieceItem(ItemData completeItemData, int[] itemPieces){
+        bool allPieces = true;
+        foreach(var piece in itemPieces){
+            if(FindItemIndex(piece) == -1){
+                allPieces = false;
+                break;
+            }
+        }
+        if(allPieces){
+            foreach(var piece in itemPieces){
+                UseItemWithItemCode(piece);
+            }
+            Add(completeItemData, 1);
+        }
+    }
+
+    private void CheckCheckList(int itemCode){
+
+    }
+
     #endregion
 
 
@@ -371,8 +418,9 @@ public class Inventory : MonoBehaviour
         SortAll();
         if(amount == 0){
             GetItemSound(itemData);
-            ActivationLogManager.Instance.AddActivationLogWithItem(itemData.ID, true);
+            //ActivationLogManager.Instance.AddActivationLogWithItem(itemData.ID, true);
             ProgressManager.Instance.SetItemLog(itemData.ID, amount_);
+            CheckPieceItems();
         }
         return amount;
     }
@@ -410,7 +458,7 @@ public class Inventory : MonoBehaviour
             bool succeeded = uItem.Use();
 
             if(succeeded){
-                ActivationLogManager.Instance.AddActivationLogWithItem(items[index].Data.ID, false);
+                //ActivationLogManager.Instance.AddActivationLogWithItem(items[index].Data.ID, false);
                 if(!(items[index] is CountableItem)){
                     Remove(index);
                 }

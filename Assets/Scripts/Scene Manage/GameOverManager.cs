@@ -26,7 +26,7 @@ public class GameOverManager : MonoBehaviour
         thirdPersonController = scriptHub.thirdPersonController;
     }
 
-    public void GameOver(string endingMent){
+    public void GameOver(string endingMent, int stateNum = 0){
         backgroundObject.SetActive(true);
         endingMent = endingMent.Replace("$attempts", CountAttempts.Instance.GetAttemptCount().ToString());
         endingMentText.text = endingMent;
@@ -35,6 +35,8 @@ public class GameOverManager : MonoBehaviour
         stepTimer = 0.0f;
         CountAttempts.Instance.AddAttemptCount();
         GuideLogManager.Instance.SavePlayerSaveData();
+        ArchiveLog archiveLog = new ArchiveLog(CountAttempts.Instance.GetAttemptCount(), ArchiveLogManager.Instance.GetArchiveState(stateNum), endingMent);
+        ArchiveLogManager.Instance.AddArchiveLog(archiveLog);
     }
 
     private void Update(){
