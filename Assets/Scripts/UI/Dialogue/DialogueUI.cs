@@ -6,6 +6,7 @@ using TMPro;
 
 public class DialogueUI : MonoBehaviour
 {
+    #region Component & Variable
     [SerializeField] GameObject dialogueBox;
     [SerializeField, Tooltip("0:Name, 1:Text, 2:Btn")] TextMeshProUGUI[] dialogueTexts;
     [SerializeField] Button[] choiceBtns;
@@ -13,12 +14,23 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] char fontTriggerStr = '^';
     [SerializeField] float defaultTypeSpeed = 0.1f;
 
+    [Header("DialogueBox")]
+    [SerializeField] Image textBoxImage;
+    [SerializeField, Tooltip("0:Light, 1:Dark")] Sprite[] textBoxSprites;
+
     Dialogue dialogue = new Dialogue();
-    public DialogueEvent Event { get; set; } = null;
+    
+    DialogueEvent dialogueEvent ;
+    public DialogueEvent Event { get { if (dialogueEvent == null) dialogueEvent = DialogueManager.Instance.Dialogue_Event; return dialogueEvent; } set { dialogueEvent = value;  } }
 
     int curDialogueLineIdx = 0;
     float curTypeSpeed = 0.1f;
     bool canSkip = false;
+
+    bool isChooseState = false;
+    #endregion
+
+    #region Dialogue System Method
     public bool CanSkip 
     {   
         get { return canSkip; } 
@@ -133,13 +145,13 @@ public class DialogueUI : MonoBehaviour
 
     public void EndDialouge()
     {
-        dialogueBox.SetActive(false);
         if (dialogue.choiceLine.Count == 0)
         {
             curTypeSpeed = defaultTypeSpeed;
             dialogue = null;
             CanSkip = false;
             DialogueManager.Instance.EndDialogue();
+            dialogueBox.SetActive(false);
         }
         else
         {
@@ -147,6 +159,7 @@ public class DialogueUI : MonoBehaviour
 
             for (int idx = 0; idx < choiceCnt; idx++)
             {
+                isChooseState = true;
                 choiceBtns[idx].gameObject.SetActive(true);
                 TextMeshProUGUI text = choiceBtns[idx].GetComponentInChildren<TextMeshProUGUI>();
                 text.text = dialogue.choiceLine[idx].choiceText;
@@ -166,9 +179,20 @@ public class DialogueUI : MonoBehaviour
             choiceBtns[idx].gameObject.SetActive(false);
         }
         StartDialogue(_key);
+        isChooseState = false;
     }
 
-   
+    public void NextDialogue()
+    {
+        curDialogueLineIdx += 1;
+        if (curDialogueLineIdx < dialogue.storyLines.Count)
+            StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
+        else
+            EndDialouge();
+    }
+    #endregion
+
+    #region Dialogue Event
     public void CallDialogueEvent(string _eventName, List<string> _parameterList)
     {
         switch (_eventName)
@@ -180,17 +204,34 @@ public class DialogueUI : MonoBehaviour
             case "Name":
                 ChangeSpeakerName(_parameterList);
                 break;
+            case "UIBox":
+                ChangeUI(_parameterList);
+                break;
             // Call DialogueEvent Method
             case "Item":
                 Event.GetItem(_parameterList);
                 break;
+            case "Use":
+                Event.UseItem(_parameterList);
+                break;
+            case "Unable":
+                Event.UnableCommunicate(_parameterList);
+                break;
+            case "Index":
+                Event.DialogueIndexChange(_parameterList);
+                break;
             case "Hurt":
                 Event.Damaged(_parameterList);
+                break;
+            case "AnimationTrigger":
+                Event.EntityAnimationTrigger(_parameterList);
+                break;
+            case "SpawnItem":
+                Event.SpawnItem(_parameterList);
                 break;
         }
     }
 
-    #region Dialogue Type Effect Event 
     public void ChangeSpeakerName(List<string> _parameterList)
     {
         dialogueTexts[0].text = _parameterList[0];
@@ -201,9 +242,24 @@ public class DialogueUI : MonoBehaviour
         float _typeSpeed = float.Parse(_parameterList[0]);
         curTypeSpeed = _typeSpeed;
     }
+
+    public void ChangeUI(List<string> _parameterList)
+    {
+        switch (_parameterList[0])
+        {
+            case "Dark":
+                textBoxImage.sprite = textBoxSprites[1];
+                break;
+            case "Light":
+                textBoxImage.sprite = textBoxSprites[0];
+                break;
+        }
+    }
     #endregion
-    
-    private void Update()
+
+    #region Input Dialogue
+
+    public void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)
         {
@@ -212,14 +268,14 @@ public class DialogueUI : MonoBehaviour
             else
                 EndDialouge();
         }
-    }
 
-    public void NextDialogue()
-    {
-        curDialogueLineIdx += 1;
-        if (curDialogueLineIdx < dialogue.storyLines.Count)
-            StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
-        else
-            EndDialouge();
+        if (isChooseState)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                choiceBtns[0].onClick.Invoke();
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && choiceBtns[1].gameObject.activeSelf)
+                choiceBtns[1].onClick.Invoke();
+        }
     }
+    #endregion
 }

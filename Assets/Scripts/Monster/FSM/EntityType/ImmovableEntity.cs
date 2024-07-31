@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ImmovableEntity : BaseEntity
 {
-    protected EntityStateType currentType;
+    [SerializeField] protected EntityStateType currentType;
+    [SerializeField] protected LookPlayer lookPlayer;
 
     protected Animator anim;
     protected EntityState<ImmovableEntity>[] states;
@@ -12,7 +13,6 @@ public class ImmovableEntity : BaseEntity
 
     public override void Init(Transform _playerTransfrom)
     {
-        base.Init(_playerTransfrom);
         playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
@@ -25,10 +25,10 @@ public class ImmovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<ImmovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
-        AdditionalInit();
-    }
 
-    public virtual void AdditionalInit() { }
+        if(lookPlayer==null)
+            lookPlayer = GetComponent<LookPlayer>();
+    }
 
     public override void Setup()
     {
@@ -43,8 +43,6 @@ public class ImmovableEntity : BaseEntity
             controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
-
-        // Interaction Add
     }
 
     public override void ReceiveMessage(EntityStateType _messageType)
@@ -63,7 +61,7 @@ public class ImmovableEntity : BaseEntity
         stateMachine.Execute();
     }
 
-    #region Act Frame
+    #region Animation
     public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
         switch (_currentType)
@@ -71,29 +69,26 @@ public class ImmovableEntity : BaseEntity
             //case EntityStateType.Idle:
             //    anim.SetBool("Idle", _isStart);
             //    break;
-            //case EntityStateType.Talk:
-            //    anim.SetBool("Talk", _isStart);
-            //    break;
-            //case EntityStateType.Quiet:
-            //    anim.SetBool("Quiet", _isStart);
-            //    break;
-            //case EntityStateType.Penalty:
-            //    anim.SetBool("Penalty", _isStart);
-            //    break;
-            //case EntityStateType.Chase:
-            //    anim.SetBool("Chase", _isStart);
-            //    break;
             //default:
+            //    anim.SetBool("Idle", _isStart);
             //    break;
         }
     }
 
+    public override void EntityAnimationTrigger(string _triggerName)
+    {
+        base.EntityAnimationTrigger(_triggerName);
+        anim.SetTrigger(_triggerName);
+    }
+    #endregion
+
+    #region Act Frame
     public virtual void IdleEnter() { SetAnimation(currentType,true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }
-    public virtual void TalkEnter() { SetAnimation(currentType, true); }
+    public virtual void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { SetAnimation(currentType, false); }
+    public virtual void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); }
     public virtual void QuietEnter() { SetAnimation(currentType, true); }
     public virtual void QuietExecute() { }
     public virtual void QuietExit() { SetAnimation(currentType, false); }

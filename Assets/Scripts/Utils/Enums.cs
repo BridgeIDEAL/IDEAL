@@ -67,3 +67,13 @@ public enum RootMotionType
     Run,
     None
 }
+
+public enum ChaseEventType
+{
+    Last1F_Principal,
+    Last1F_Guard,
+    Last3F_GirlStudent,
+    Last3F_StudentOfHeadTeacher,
+    Jump3F_StudentOfHeadTeacher,
+    Jump2F_GirlStudent
+}

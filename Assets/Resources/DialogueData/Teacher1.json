@@ -3,7 +3,7 @@
     {
       "storyID": 1,
       "storySpeaker": "Teacher1",
-      "speakerName": "선생님",
+      "speakerName": "신입선생님",
       "storyLines": [
         "안녕, 전학생이니?",
         "그래, 공부 열심히 해라",
@@ -24,25 +24,29 @@
     {
       "storyID": 2,
       "storySpeaker": "Teacher1",
-      "speakerName": "선생님",
+      "speakerName": "신입선생님",
       "storyLines": [
         "하하, 그렇지",
         "학생들도 착하고 말이야",
-        "너도 열심히 하렴"
+        "너도 열심히 하렴",
+        "$Unable(-1)$"
       ],
       "choiceLine": []
     },
     {
       "storyID": 3,
       "storySpeaker": "Teacher1",
-      "speakerName": "선생님",
+      "speakerName": "신입선생님",
       "storyLines": [
         "그렇지…",
         "약간의 체벌도 하지만",
-        "선생님들도 수업을 열심히 한단다?",
-        "손바닥 좀 대볼래?",
-        "엄청난 강도로 왼손을 맞았다.",
-        //신체 손상 (왼팔 -1)
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^선생님들도 수업을 열심히 한단다?^</font>^",
+        "^<font=HanSMemory>^손바닥 좀 대볼래?^</font>^",
+        "^<font=HanSMemory>^엄청난 강도로 왼손을 맞았다.^</font>^",
+        "$Hurt(LeftArm,1)$",
+        "$Unable(-1)$",
+        "$UIBox(Light)$"
       ],
       "choiceLine": []
     }

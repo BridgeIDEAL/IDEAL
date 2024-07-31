@@ -8,17 +8,16 @@
         "아…아파…흑흑",
         "이대로는…이대로는 못살겠어…",
         "너… 약 혹시 가지고 있어…?",
-        "어떻게 약이 있어…? 우리는 보건실 못가잖아…",
-        "아, 전학생이라 아직 금지당하지 않은거야?",
-        "그 약… 나한테 넘겨주지 않을래?"
+        "괜찮으면...약 좀 가져다주지 않을래?",
+        "나...나는 보건실 못가..."
       ],
       "choiceLine": [
         {
-          "choiceText": "약을 넘겨준다",
+          "choiceText": "대신 가져다준다",
           "nextID": 2
         },
         {
-          "choiceText": "약을 넘기지 않는다",
+          "choiceText": "거절한다",
           "nextID": 3
         }
       ]
@@ -28,14 +27,8 @@
       "storySpeaker": "Student12",
       "speakerName": "멍이 든 학생",
       "storyLines": [
-        "흐흐… 고마워",
-        "이제 아프지 않을거야...",
-        "지금 빨리 해치워야겠다…",
-        "너 아직도 있었어?",
-        "이거 줄테니까 빨리 가버려.",
-        "누구한테도 말하지 말고 학교를 나가.",
-        "1학년 교무실 열쇠 획득",
-        //1학년 교무실 열쇠 획득
+        "고마워...흐흐...^<font=HanSMemory>^멍 치료제^</font>^면 될거야...",
+        "$Index(4)$"
       ],
       "choiceLine": []
     },
@@ -44,16 +37,75 @@
       "storySpeaker": "Student12",
       "speakerName": "멍이 든 학생",
       "storyLines": [
-        "뭐? 내놔 빨리",
-        "내놔내놔내놔내놔내놔내놔내놔내놔",
-        //신체 손상 오른팔-1
+        "제발... 약 좀 구해다주라..."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "대신 가져다준다",
+          "nextID": 2
+        },
+        {
+          "choiceText": "거절한다",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "Student12",
+      "speakerName": "멍이 든 학생",
+      "storyLines": [
+        "무...무사히 돌아왔네...?",
+        "이제 그 약을 줘...",
+        "빨리...",
+        "$UIBox(Dark)$",
+        "$TypeSpeed(0.025)$",
+        "^<font=HanSMemory>^빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리빨리^</font>^",
+        "$TypeSpeed(0.05)$"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "약을 넘겨준다",
+          "nextID": 5
+        },
+        {
+          "choiceText": "약을 넘기지 않는다",
+          "nextID": 6
+        }
+      ]
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "Student12",
+      "speakerName": "멍이 든 학생",
+      "storyLines": [
+        "$UIBox(Light)$",
+        "흐흐...고마워...",
         "이제 아프지 않을거야...",
-        "지금 빨리 해치워야겠다…",
-        "너 아직도 있었어?",
-        "이거 줄테니까 빨리 가버려.",
-        "누구한테도 말하지 말고 학교를 나가.",
-        "1학년 교무실 열쇠 획득",
-        //1학년 교무실 열쇠 획득
+        "이제 넌 필요없어... 나가...",
+        "아무한테도 말하지 말고 학교를 나가...",
+        "1학년 교무실 열쇠를 얻었다.",
+        "$Item(FirstTeacherOfficeKey)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 6,
+      "storySpeaker": "Student12",
+      "speakerName": "멍이 든 학생",
+      "storyLines": [
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^뭐...?^</font>^",
+        "^<font=HanSMemory>^나...놀리는거야...?^</font>^",
+        "^<font=HanSMemory>^너...너도 내가 만만해...?^</font>^",
+        "^<font=HanSMemory>^만만하게...보지...마...!^</font>^",
+        "$Hurt(RightArm,1)$",
+        "^<font=HanSMemory>^약 내놓고 얼른 나가...^</font>^",
+        "^<font=HanSMemory>^1학년 교무실 열쇠를 얻었다.^</font>^",
+        "$UIBox(Light)$",
+        "$Item(FirstTeacherOfficeKey)$",
+        "$Unable(-1)$"
       ],
       "choiceLine": []
     }

@@ -15,10 +15,8 @@ public class OnGuard : MonoBehaviour
 
     public void GazePlayer(Transform _playerTransform)
     {
-        
         if (playerTransform == null)
             playerTransform = _playerTransform;
-
         var sourceObjects = multiAim.data.sourceObjects;
         sourceObjects.Clear();
         multiAim.data.sourceObjects = sourceObjects;

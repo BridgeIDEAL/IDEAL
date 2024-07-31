@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EntitiesController : MonoBehaviour
 {
-    [SerializeField] GameObject entityParent;
-
     int listCnt = 0;
 
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
@@ -22,7 +20,7 @@ public class EntitiesController : MonoBehaviour
 
     public void LinkAllEntity()
     {
-        BaseEntity[] entities = entityParent.GetComponentsInChildren<BaseEntity>();
+        BaseEntity[] entities = GetComponentsInChildren<BaseEntity>();
         int entityCnt = entities.Length;
         for (int idx = 0; idx < entityCnt; idx++)
         {
@@ -39,6 +37,7 @@ public class EntitiesController : MonoBehaviour
     private void Start()
     {
         SetupAllEntity();
+        EntityDataManager.Instance.Controller = this;
     }
 
     public void SetupAllEntity()
@@ -134,5 +133,18 @@ public class EntitiesController : MonoBehaviour
             activeEntityList[idx].ReceiveMessage(_allButOne);
         }
     }
+    #endregion
+
+
+    #region Chase Event
+
+    [SerializeField, Tooltip("  Last1F_Principal, Last1F_Guard, Last3F_GirlStudent, Last3F_StudentOfHeadTeacher, Jump3F_StudentOfHeadTeacher,Jump2F_GirlStudent")] 
+    GameObject[] ChaseEntityGroup;
+
+    public void ActiveChaseEntity(ChaseEventType _type)
+    {
+        ChaseEntityGroup[(int)_type].SetActive(true);
+    }
+
     #endregion
 }

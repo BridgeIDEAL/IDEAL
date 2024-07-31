@@ -6,7 +6,7 @@
       "speakerName": "학생회장",
       "storyLines": [
         "거기 너.",
-        "혹시 학생회에 가입할 생각 없어?"
+        "^<font=HanSMemory>^혹시 학생회에 가입할 생각 없어?^</font>^"
       ],
       "choiceLine": [
         {
@@ -44,9 +44,9 @@
       "storySpeaker": "StuPresident",
       "speakerName": "학생회장",
       "storyLines": [
-        "이거 정말 좋은 기회인데",
-        "거절하는거야?",
-        "학생회가 지금 사람이 부족한 참인데"
+        "^<font=HanSMemory>^이거 정말 좋은 기회인데^</font>^",
+        "^<font=HanSMemory>^거절하는거야?^</font>^",
+        "^<font=HanSMemory>^학생회가 지금 사람이 부족한 참인데^</font>^"
       ],
       "choiceLine": [
         {
@@ -64,15 +64,18 @@
       "storySpeaker": "StuPresident",
       "speakerName": "학생회장",
       "storyLines": [
-        "잘 생각했어",
-        "그럼, 가입 절차를 진행할게",
-        "학생회에 가입하려면",
-        "오른손가락을 맹세의 의미로 내야 해",
-        //신체 손상도 (오른손 -1)
-        "축하해, 넌 이제 학생회 말단이야",
-        "말단의 권한? 크크, 말단은 아무 권한도 없지",
-        "선물로 이정도는 챙겨줄게",
-        //학교 지도 획득
+        "^<font=HanSMemory>^잘 생각했어^</font>^",
+        "^<font=HanSMemory>^그럼, 가입 절차를 진행할게^</font>^",
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^학생회에 가입하려면^</font>^",
+        "^<font=HanSMemory>^오른손가락을 맹세의 의미로 내야 해^</font>^",
+        "$Hurt(RightHand,1)$",
+        "^<font=HanSMemory>^축하해, 넌 이제 학생회 말단이야^</font>^",
+        "^<font=HanSMemory>^말단의 권한? 크크, 말단은 아무 권한도 없지^</font>^",
+        "^<font=HanSMemory>^선물로 이정도는 챙겨줄게^</font>^",
+        "$UIBox(Light)$",
+        "$Item(SchoolMap)$",
+        "$Unable(-1)$"
       ],
       "choiceLine": []
     },
@@ -84,7 +87,8 @@
         "그래? 아쉽네",
         "혹시 나중에 생각이 바뀌면 말해줘",
         "이건 뇌물이라고 생각해",
-        //학교 지도 획득
+        "$Item(SchoolMap)$",
+        "$Unable(-1)$"
       ],
       "choiceLine": []
     }

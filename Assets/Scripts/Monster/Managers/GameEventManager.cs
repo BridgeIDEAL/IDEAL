@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Use TimeLine or EntityEvent or Camera
+/// 나중에 지울 스크립트
 /// </summary>
 public class GameEventManager : MonoBehaviour
 {
+
+
     bool isOpen = false;
     [SerializeField] float rotateSpeed;
     [SerializeField] GameObject[] frontDoors;

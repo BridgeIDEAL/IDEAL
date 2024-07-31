@@ -41,9 +41,9 @@ public class InteractionConversation : AbstractInteraction
             if(lookPlayerwithConversation) LookPlayer();
 
             // Jun
-            dialogueName = entityData.speakerName + entityData.speakIndex;
-            DialogueManager.Instance.StartDialogue(dialogueName);
-            cantalk = false;
+            //dialogueName = entityData.speakerName + entityData.speakIndex;
+            //DialogueManager.Instance.StartDialogue(dialogueName, entityData.speakerName);
+            // cantalk = false;
         }
     }
 

@@ -11,18 +11,17 @@ public class MovableEntity : BaseEntity
     protected NavMeshAgent agent;
     protected EntityState<MovableEntity>[] states;
     protected EntityStateMachine<MovableEntity> stateMachine;
-    protected DetectPlayer detectPlayer;
+
 
     #region Unity Life Cycle
    
     // Awake
     public override void Init(Transform _playerTransfrom)
     {
-        base.Init(_playerTransfrom);
+        playerTransform = _playerTransfrom;
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        detectPlayer = GetComponentInChildren<DetectPlayer>();
         // States
         states = new EntityState<MovableEntity>[(int)EntityStateType.None];
         states[(int)EntityStateType.Idle] = new MovableEntityStates.IdleState();
@@ -33,10 +32,7 @@ public class MovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<MovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
-        AdditionalInit();
     }
-
-    public virtual void AdditionalInit() { }
 
     // Start
     public override void Setup()
@@ -52,8 +48,6 @@ public class MovableEntity : BaseEntity
             controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
-
-        // Interaction Add
     }
 
     // Update
@@ -70,10 +64,10 @@ public class MovableEntity : BaseEntity
         ChangeState(_messageType);
     }
 
-    public void ChangeState(EntityStateType _changeType)
+    public virtual void ChangeState(EntityStateType _changeType)
     {
+        stateMachine.ChangeState(states[(int)_changeType]);
         currentType = _changeType;
-        stateMachine.ChangeState(states[(int)currentType]);
     }
     #endregion
 

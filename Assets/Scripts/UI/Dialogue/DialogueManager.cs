@@ -7,9 +7,23 @@ public class DialogueManager : MonoBehaviour
     // Singleton
     public static DialogueManager Instance;
 
+    public BaseEntity CurrentTalkEntity { get; set; } = null;
+
+    /********************************************************************
+                    Dialogue UI & Controller, Event, Data 
+      ******************************************************************/
+    #region Link Component
+    [Header("DialogueController")]
+    [SerializeField] DialogueController dialogue_Controller;
+    public DialogueController Dialogue_Controller { get { FindDialogueController();  return dialogue_Controller; } }
+
     [Header("DialogueUI")]
     [SerializeField] DialogueUI dialogue_UI;
-    public DialogueUI Dialouge_UI { get { if (dialogue_UI == null) FindDialogueUI(); return dialogue_UI; } }
+    public DialogueUI Dialouge_UI { get { FindDialogueUI(); return dialogue_UI; } }
+
+    [Header("PasswordUI")]
+    [SerializeField] PasswordUI password_UI;
+    public PasswordUI Password_UI { get { FindPasswordUI(); return password_UI; } }
 
     [Header("DialogueEvent")]
     [SerializeField] DialogueEvent dialogue_Event;
@@ -18,17 +32,18 @@ public class DialogueManager : MonoBehaviour
     [Header("DialogueData")]
     [SerializeField] List<TextAsset> dialougeList = new List<TextAsset>();
     Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
+    #endregion
 
     // Variable
-    bool isTalking = false;
-    public bool IsTalking { get { return IsTalking; } set { isTalking = value; } }
+    [SerializeField] bool isTalking = false;
+    public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
 
     #region Awake Method
     private void Awake()
     {
         Singleton();
         LoadDialogueDatas();
-        Dialouge_UI.Event = Dialogue_Event;
+        //Dialouge_UI.Event = Dialogue_Event;
     }
 
     public void Singleton()
@@ -60,13 +75,28 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Link Component
+    public void FindDialogueController()
+    {
+        if (dialogue_Controller != null)
+            return;
+        GameObject _controller = GameObject.FindWithTag("DialogueUI");
+        dialogue_Controller = _controller.GetComponent<DialogueController>();
+    }
 
     public void FindDialogueUI()
     {
-        GameObject _dialogueUI = GameObject.FindWithTag("DialogueUI");
-        dialogue_UI = _dialogueUI.GetComponentInChildren<DialogueUI>();
+        if(dialogue_UI==null)
+            dialogue_UI = Dialogue_Controller.Dialogue;
     }
 
+    public void FindPasswordUI()
+    {
+        if (password_UI == null)
+            password_UI = Dialogue_Controller.Password;
+    }
     #endregion
 
     #region Relate Dialogue Function
@@ -78,19 +108,43 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Call when you start Dialogue
-    public void StartDialogue(string _storyKey)
+    public void StartDialogue(string _storyKey, string _name)
     {
         if (isTalking)
             return;
+       
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
+    }
+
+    public void StartDialogue(string _storyKey, BaseEntity _entity)
+    {
+        if (isTalking)
+            return;
+        if (Password_UI.IsSolvingPassword)
+            return;
+        isTalking = true;
+        Dialouge_UI.StartDialogue(_storyKey);
+        EntityDataManager.Instance.Controller.SendMessage(_entity.gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
+        CurrentTalkEntity = _entity;
+        // Lock Player Move & Rotate : Later Delete Annotation
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
+        // To Do ~~~ : Prevent Active Another UI
+        // To Do ~~~ : Entity State 
     }
 
     // Call By DialogueUI
     public void EndDialogue()
     {
         isTalking = false;
-        // Set DialogueIndex
+        CurrentTalkEntity = null;
+        // Unlock Player Move & Rotate : Later Delete Annotation
+        EntityDataManager.Instance.Controller.SendMessage(EntityStateType.Idle);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = false;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = false;
+        // To Do ~~~ : Prevent Active Another UI
+        // To Do ~~~ : Entity State 
     }
     #endregion
 }
