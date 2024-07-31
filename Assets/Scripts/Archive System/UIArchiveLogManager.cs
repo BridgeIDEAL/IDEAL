@@ -9,6 +9,12 @@ public class UIArchiveLogManager : MonoBehaviour
     private List<ArchiveLog> archiveLogList;
 
     public void LoadArchiveLog(){
+        int childCount = archiveLogArea.transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--){
+            Transform child = archiveLogArea.transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
+        
         archiveLogList = ArchiveLogManager.Instance.playerArchiveData.archiveLogRecordList;
 
         for(int i = 0; i < archiveLogList.Count; i++){
