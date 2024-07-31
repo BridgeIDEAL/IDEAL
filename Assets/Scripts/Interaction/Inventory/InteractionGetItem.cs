@@ -28,6 +28,7 @@ public class InteractionGetItem : AbstractInteraction
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--;
+
         if (availableCount < 1) {
             Destroy(this.gameObject);
         }

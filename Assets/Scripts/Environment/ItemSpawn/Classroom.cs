@@ -179,17 +179,7 @@ public class Classroom : MonoBehaviour
         // 没家 场!
         IsCleanClassroom = true;
         // 疙蔓 积己
-        if (isSpawnNameTag)
-        {
-            int cabinetCnt = cabinetList.Count;
-            int randomNum = Random.Range(0, cabinetCnt);
-            cabinetList[randomNum].SpawnNameTag();
-            for (int i = cabinetCnt - 1; i >= 0; i--)
-            {
-                cabinetList[i].RemoveThis();
-            }
-            cabinetList.Clear();
-        }
+       
     }
     #endregion
 }

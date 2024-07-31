@@ -10,8 +10,8 @@ public class InteractionClean : AbstractInteraction
     [SerializeField] private float requiredTime = 1.0f;
     [SerializeField] private int availableCount = 1;
     public override float RequiredTime { get => requiredTime; }
-    public Classroom classRoom { get; set; } = null;
-         
+
+    public CleanSystem Clean { get; set; } = null;
     protected override string GetDetectedString()
     {
         return $"<sprite=0> {detectedStr}";
@@ -32,11 +32,10 @@ public class InteractionClean : AbstractInteraction
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--;
+
         if (availableCount < 1)
         {
-            // Call when you complete clean classroom
-            //if (classRoom != null)
-            //    classRoom.CompleteClean();
+            Clean.DoneEvent();
             Destroy(this.gameObject);
         }
         if (audioSource != null)
