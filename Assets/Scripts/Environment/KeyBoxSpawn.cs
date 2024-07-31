@@ -11,10 +11,10 @@ public class KeyBoxSpawn : MonoBehaviour
     private List<InteractionGetKeyBundle> classKeyBundle = new List<InteractionGetKeyBundle>();
     private void Awake()
     {
-        RandomKeyBundleSpawn();
+        KeyBundleSpawn();
     }
 
-    public void RandomKeyBundleSpawn()
+    public void KeyBundleSpawn()
     {
         int spawnKeyCnt = spawnKeyIndexs.Length;
 
@@ -24,6 +24,7 @@ public class KeyBoxSpawn : MonoBehaviour
             MeshRenderer meshRenderer = classRoomKeys[keyIndex].GetComponent<MeshRenderer>();
             Material material = new Material(meshRenderer.material);
             material.SetTexture("_BaseMap", classRoomKeyTexts[keyIndex]);
+            classRoomKeys[keyIndex].SetActive(true);
             meshRenderer.material = material;
             InteractionGetKeyBundle keyBundle = classRoomKeys[keyIndex].GetComponent<InteractionGetKeyBundle>();
             classKeyBundle.Add(keyBundle);
