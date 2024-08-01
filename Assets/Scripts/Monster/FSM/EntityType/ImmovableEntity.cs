@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ImmovableEntity : BaseEntity
 {
-    [SerializeField] protected EntityStateType currentType;
+    //[SerializeField] protected EntityStateType currentType;
     [SerializeField] protected LookPlayer lookPlayer;
 
     protected Animator anim;

@@ -204,6 +204,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         base.ChaseEnter();
         agent.speed = runSpeed;
         anim.SetFloat("RunValue", runMotionSpeed);
+        EntityDataManager.Instance.Controller.ChaseState(true);
     }
 
     public override void ChaseExecute() 
@@ -219,6 +220,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         base.ChaseExit();
         isRotate = false;
         detectPlayer.IsDetectPlayer = false;
+        EntityDataManager.Instance.Controller.NotChaseState();
     }
     #endregion
 

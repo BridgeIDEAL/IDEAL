@@ -24,6 +24,7 @@ public class OnlyChase : MonoBehaviour
     {
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
+        EntityDataManager.Instance.Controller.ChaseState();
     }
 
     private void Update()
@@ -41,6 +42,7 @@ public class OnlyChase : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
+            Destroy(EntityDataManager.Instance.Controller.gameObject);
         }
     }
 }

@@ -3476,101 +3476,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9168811592945829897}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9168811592945829898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543754554786077996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 9168811592945829900}
-  interactionOutline: {fileID: 9168811592945829901}
-  outlineActive: 0
---- !u!114 &9168811592945829900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543754554786077996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db658f9bd26eec478a11e9cb4faffdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  conditionIndex: -1
-  canTalk: 1
-  detectedStr: "\uACBD\uBE44\uC6D0\uACFC \uB300\uD654\uD55C\uB2E4."
---- !u!114 &9168811592945829901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543754554786077996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
-  outlineScaleFactor: -1.05
-  outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  reverseY: 0
-  hasChild: 0
-  planeObject: 0
-  planeValue: -0.0005
-  outlineMask: 
---- !u!195 &9168811592945829902
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543754554786077996}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 1
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 720
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &9168811592945829903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7543754554786077996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13768f597a9d0754785ef05a7bec5aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentType: 0
-  patrolPoints:
-  - {x: 54, y: 0, z: 20}
-  - {x: 28, y: 0, z: 20}
-  - {x: 28, y: 0, z: 8}
-  - {x: -10, y: 0, z: 8}
-  - {x: 28, y: 0, z: 8}
-  - {x: 28, y: 0, z: 20}
-  checkPatrolDistance: 0.5
-  detectPlayer: {fileID: 9168811592731648178}
 --- !u!82 &6406064463293786235
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3688,6 +3593,101 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4ded738547fe91b4599ea9ba387b0d7d, type: 3}
   - {fileID: 8300000, guid: 95cb76e9a18425a44bf6cee34afd4c2d, type: 3}
   runStepClips: []
+--- !u!114 &9168811592945829898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543754554786077996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 9168811592945829900}
+  interactionOutline: {fileID: 9168811592945829901}
+  outlineActive: 0
+--- !u!114 &9168811592945829900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543754554786077996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db658f9bd26eec478a11e9cb4faffdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  conditionIndex: -1
+  canTalk: 1
+  detectedStr: "\uACBD\uBE44\uC6D0\uACFC \uB300\uD654\uD55C\uB2E4."
+--- !u!114 &9168811592945829901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543754554786077996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
+  outlineMask: 
+--- !u!195 &9168811592945829902
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543754554786077996}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 720
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &9168811592945829903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7543754554786077996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13768f597a9d0754785ef05a7bec5aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 0
+  patrolPoints:
+  - {x: 54, y: 0, z: 20}
+  - {x: 28, y: 0, z: 20}
+  - {x: 28, y: 0, z: 8}
+  - {x: -10, y: 0, z: 8}
+  - {x: 28, y: 0, z: 8}
+  - {x: 28, y: 0, z: 20}
+  checkPatrolDistance: 0.5
+  detectPlayer: {fileID: 9168811592731648178}
 --- !u!1001 &9168811593870760811
 PrefabInstance:
   m_ObjectHideFlags: 0

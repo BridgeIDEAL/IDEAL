@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public abstract class BaseEntity : MonoBehaviour
 {
     protected Transform playerTransform;
-
+    [SerializeField] protected EntityStateType currentType;
+    public EntityStateType CurrentType { get { return currentType; } }
     // Entity Data
     protected Entity entity_Data =null;
     public Entity Entity_Data { get { if (entity_Data == null) EntityDataManager.Instance.GetEntityData(gameObject.name);  return entity_Data;  }  set  {  entity_Data = value;  } }

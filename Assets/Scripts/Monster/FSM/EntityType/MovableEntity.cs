@@ -6,7 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovableEntity : BaseEntity
 {
-    [SerializeField] protected EntityStateType currentType;
     protected Animator anim;
     protected NavMeshAgent agent;
     protected EntityState<MovableEntity>[] states;

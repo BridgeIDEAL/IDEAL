@@ -123,6 +123,8 @@ public class DialogueManager : MonoBehaviour
             return;
         if (Password_UI.IsSolvingPassword)
             return;
+        if (_entity.CurrentType == EntityStateType.Quiet)
+            return;
         isTalking = true;
         Dialouge_UI.StartDialogue(_storyKey);
         EntityDataManager.Instance.Controller.SendMessage(_entity.gameObject.name, EntityStateType.Talk, EntityStateType.Quiet);
