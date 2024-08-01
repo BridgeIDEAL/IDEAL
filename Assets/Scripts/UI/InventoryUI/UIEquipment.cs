@@ -13,7 +13,12 @@ public class UIEquipment : MonoBehaviour
 
     [SerializeField] private UIItemTooltip itemTooltip;
 
-    // private int leftClick = 0;
+    [SerializeField] private Image pillImage;
+    private float pillTime = 1.0f;
+
+    private Coroutine pillCoroutine;
+
+    private int leftClick = 0;
     private int rightClick = 1;
 
 
@@ -49,6 +54,7 @@ public class UIEquipment : MonoBehaviour
 
         ShowOrHideItemTooltip();
         OnPointerDown();
+        OnPointerUp();
     }
     #endregion
 
@@ -88,13 +94,45 @@ public class UIEquipment : MonoBehaviour
     private void OnPointerDown(){
         // Drag 기능은 구현하지 않음
         // Right Click : Detach(탈착)
-        if(Input.GetMouseButtonDown(rightClick)){
+        // if(Input.GetMouseButtonDown(rightClick)){
+        //     UIEquipmentSlot slot = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIRayCaster.RaycastAndGetFirstComponent<UIEquipmentSlot>();
+
+        //     if(slot != null && slot.HasItem){
+        //         EquipmentManager.Instance.DetachEquipedItem(slot.IsLeftSlot);
+        //     }
+        // }
+
+        // Left Click: 사용 상호작용
+        if(Input.GetMouseButtonDown(leftClick)){
             UIEquipmentSlot slot = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIRayCaster.RaycastAndGetFirstComponent<UIEquipmentSlot>();
 
             if(slot != null && slot.HasItem){
-                EquipmentManager.Instance.DetachEquipedItem(slot.IsLeftSlot);
+                if(pillCoroutine != null){
+                    StopCoroutine(pillCoroutine);
+                }
+                pillCoroutine = StartCoroutine(UseInteractionCoroutine(slot.currentItem));
             }
         }
+    }
+
+    private void OnPointerUp(){
+        if(Input.GetMouseButtonUp(leftClick)){
+            if(pillCoroutine != null){
+                StopCoroutine(pillCoroutine);
+            }
+            pillImage.fillAmount = 0.0f;
+        }
+    }
+
+    private IEnumerator UseInteractionCoroutine(Item item){
+        float stepTimer = 0.0f;
+        while(stepTimer <= pillTime){
+            pillImage.fillAmount = stepTimer / pillTime;
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.ActivePillUI(true);
     }
 
 

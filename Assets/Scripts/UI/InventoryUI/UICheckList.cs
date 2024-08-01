@@ -7,24 +7,14 @@ using TMPro;
 public class UICheckList : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI logText;
-    [SerializeField] private Image backgroundImage;
-
-    private float activeAlpha = 0.8f;
-    private float inactiveAlpha = 0.5f;
-
+    [SerializeField] private Image checkImage;
 
     public void SetLogText(string _text){
         logText.text = _text;
     }
 
-    public void SetImageActive(bool active){
-        Color _color = backgroundImage.color;
-        if(active){
-            _color.a = activeAlpha;
-        }
-        else{
-            _color.a = inactiveAlpha;
-        }
-        backgroundImage.color = _color;
+    public void SetChecked(){
+        checkImage.gameObject.SetActive(true);
+        logText.text = "<color=#272727><s>" + logText.text + "</s></color>";
     }
 }
