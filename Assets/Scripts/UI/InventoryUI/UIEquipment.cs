@@ -108,15 +108,18 @@ public class UIEquipment : MonoBehaviour
 
             if(slot != null && slot.HasItem){
                 if(pillCoroutine != null){
-                    pillCoroutine = StartCoroutine(UseInteractionCoroutine(slot.currentItem));
+                    StopCoroutine(pillCoroutine);
                 }
+                pillCoroutine = StartCoroutine(UseInteractionCoroutine(slot.currentItem));
             }
         }
     }
 
     private void OnPointerUp(){
         if(Input.GetMouseButtonUp(leftClick)){
-            StopCoroutine(pillCoroutine);
+            if(pillCoroutine != null){
+                StopCoroutine(pillCoroutine);
+            }
             pillImage.fillAmount = 0.0f;
         }
     }

@@ -104,6 +104,12 @@ public class EquipmentManager : MonoBehaviour
         }
         else{
             uIEquipment = scriptHub.uIEquipment;
+            if(leftHandItem != null){
+                uIEquipment.EquipItem(true, leftHandItem);
+            }
+            if(rightHandItem != null){
+                uIEquipment.EquipItem(false, rightHandItem);
+            }
         }
     }
 

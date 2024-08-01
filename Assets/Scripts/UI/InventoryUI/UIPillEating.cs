@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIPillEating : MonoBehaviour
 {
     public void EatPill(){
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.ActivePillUI(false);
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(8);
     }
 
