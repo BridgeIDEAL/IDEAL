@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionDoor : AbstractInteraction
 {
     [SerializeField] private AudioClip unlockDoorAudio;
+    [SerializeField] private AudioClip slidingDoorAudio;
     [SerializeField] private AudioClip lockDoorAudio;
     
     [SerializeField] GameObject doorObject;
@@ -32,10 +33,6 @@ public class InteractionDoor : AbstractInteraction
 
     protected override void ActInteraction(){
         if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0){
-            if(audioSource != null){
-                audioSource.clip = unlockDoorAudio;
-                audioSource.Play();
-            }
             OpenDoor();
             if(activationLogNum != -1){
                 //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
@@ -64,10 +61,21 @@ public class InteractionDoor : AbstractInteraction
     }
 
     private IEnumerator OpenDoorCoroutine(){
-        Debug.Log("실행하는중..");
         Vector3 startPos = doorObject.transform.localPosition;
         float stepTimer = 0.0f;
         float moveTime = openRequiredTime * 0.75f;
+
+        if(audioSource != null){
+            audioSource.clip = unlockDoorAudio;
+            audioSource.Play();
+        }
+
+        yield return new WaitForSeconds(unlockDoorAudio.length);
+
+        if(audioSource != null){
+            audioSource.clip = slidingDoorAudio;
+            audioSource.Play();
+        }
         while(stepTimer <= moveTime){
             // TO DO
             // 등속도 운동과 삼각함수 사용한 거 비교해보고 골라보기
