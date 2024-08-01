@@ -17,7 +17,7 @@ public class OnlyChase : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         if (anim == null)
             anim = GetComponent<Animator>();
-        anim.SetFloat("Multivalue", multiValue);
+        anim.SetFloat("MultiValue", multiValue);
     }
 
     private void Start()
