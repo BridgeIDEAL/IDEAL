@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Refer Managers")]
     // Refer To Manager & Hub
-    [SerializeField] private GameEventManager gameEvent_Manager;
-    public GameEventManager GameEvent_Manager { get { return gameEvent_Manager; } }
+    [SerializeField] private LastDoorOpen gameEvent_Manager;
+    public LastDoorOpen GameEvent_Manager { get { return gameEvent_Manager; } }
     [SerializeField] private FabManager fab_Manager;
     public FabManager Fab_Manager { get { return fab_Manager; } }
     // Not Use Now

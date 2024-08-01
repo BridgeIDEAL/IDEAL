@@ -9,7 +9,7 @@ public class OnlyChase : MonoBehaviour
     [SerializeField, Tooltip("애니메이션 속도")] float multiValue;
     [SerializeField] string deathReason;
 
-    Transform playerTransform;
+    [SerializeField] Transform playerTransform;
 
     private void Awake()
     {

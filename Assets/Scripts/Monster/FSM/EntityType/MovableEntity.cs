@@ -99,20 +99,20 @@ public class MovableEntity : BaseEntity
     }
 
     // Act
-    public virtual void IdleEnter() { SetAnimation(currentType, true); }
+    public virtual void IdleEnter() { SetAnimation(EntityStateType.Idle, true); }
     public virtual void IdleExecute() { }
-    public virtual void IdleExit() { SetAnimation(currentType, false); }
-    public virtual void TalkEnter() { SetAnimation(currentType, true); }
+    public virtual void IdleExit() { SetAnimation(EntityStateType.Idle, false); }
+    public virtual void TalkEnter() { SetAnimation(EntityStateType.Talk, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { SetAnimation(currentType, false); }
-    public virtual void QuietEnter() { SetAnimation(currentType, true); }
+    public virtual void TalkExit() { SetAnimation(EntityStateType.Talk, false); }
+    public virtual void QuietEnter() { SetAnimation(EntityStateType.Quiet, true); }
     public virtual void QuietExecute() { }
-    public virtual void QuietExit() { SetAnimation(currentType, false); }
-    public virtual void PenaltyEnter() { SetAnimation(currentType, true); }
+    public virtual void QuietExit() { SetAnimation(EntityStateType.Quiet, false); }
+    public virtual void PenaltyEnter() { SetAnimation(EntityStateType.Penalty, true); }
     public virtual void PenaltyExecute() { }
-    public virtual void PenaltyExit() { SetAnimation(currentType, false); }
-    public virtual void ChaseEnter() { SetAnimation(currentType, true); }
+    public virtual void PenaltyExit() { SetAnimation(EntityStateType.Penalty, false); }
+    public virtual void ChaseEnter() { SetAnimation(EntityStateType.Chase, true); }
     public virtual void ChaseExecute() { }
-    public virtual void ChaseExit() { SetAnimation(currentType, false); }
+    public virtual void ChaseExit() { SetAnimation(EntityStateType.Chase, false); }
     #endregion
 }
