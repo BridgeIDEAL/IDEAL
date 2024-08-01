@@ -77,3 +77,10 @@ public enum ChaseEventType
     Jump3F_StudentOfHeadTeacher,
     Jump2F_GirlStudent
 }
+
+public enum ClassCabinetSpawnItem
+{
+    BrokenKey201,
+    BrokenKeyStudentRoom,
+    BrokenKeyComputerRoom
+}

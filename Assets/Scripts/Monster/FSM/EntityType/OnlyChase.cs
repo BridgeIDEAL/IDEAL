@@ -9,7 +9,7 @@ public class OnlyChase : MonoBehaviour
     [SerializeField, Tooltip("애니메이션 속도")] float multiValue;
     [SerializeField] string deathReason;
 
-    Transform playerTransform;
+    [SerializeField] Transform playerTransform;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class OnlyChase : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         if (anim == null)
             anim = GetComponent<Animator>();
-        anim.SetFloat("Multivalue", multiValue);
+        anim.SetFloat("MultiValue", multiValue);
     }
 
     private void Start()

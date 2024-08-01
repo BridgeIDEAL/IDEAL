@@ -32,6 +32,12 @@ public class FabManager : MonoBehaviour
             interactionItemDatasDic.Add(interactionItemDatas[i].name, interactionItemDatas[i]);
         }
         #endregion
+
+        //List<string> keys = new List<string>(interactionItemDatasDic.Keys);
+        //for(int i=0; i<keys.Count; i++)
+        //{
+        //    Debug.Log(keys[i]);
+        //}
     }
 
     #region Load GameObject

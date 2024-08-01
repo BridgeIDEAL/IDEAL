@@ -5,15 +5,12 @@ using UnityEngine.AI;
 
 public class PrincipalPatrol : MovableEntity, IPatrol
 {
-    bool isCallChangeState = false;
-    bool isCoolDown = true;
     [SerializeField] float chaseCoolDownTimer;
     protected DetectPlayer detectPlayer;
     #region Patrol Val
     [SerializeField] int currentPoint;
     [SerializeField] int maxPoint;
-    [SerializeField, Range(0.5f, 1f)] float stopDistance;
-    bool isChasePlayer = false;
+    float stopDistance = 0.8f;
 
     [Header("Patrol")]
     [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
@@ -31,9 +28,14 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public override void Init(Transform _playerTransfrom)
     {
         base.Init(_playerTransfrom);
+
         detectPlayer = GetComponentInChildren<DetectPlayer>();
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
+    }
+    public override void Setup()
+    {
+        controller.ActiveEntity(gameObject.name);
     }
 
     #region Patrol Interface
@@ -44,6 +46,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void Patrol()
     {
+        Debug.Log("패트롤중");
         if (agent.remainingDistance < stopDistance)
         {
             SeekNextRoute();
@@ -54,9 +57,10 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public void SeekNextRoute()
     {
         currentPoint += 1;
-        if (currentPoint > maxPoint)
+        if (currentPoint >= maxPoint)
             currentPoint = 0;
         agent.SetDestination(patrolPoints[currentPoint]);
+        Debug.Log("새로운 경로 찾기~~");
     }
 
     public void EndPatrol()
@@ -79,6 +83,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         isRotate = true;
         float timer = 0f;
+        anim.SetBool("Idle", true);
+        anim.SetBool("Run", false);
         Quaternion lookQuaternion = Quaternion.Euler(studyRoomFrontRotation);
         while (timer <= 1f)
         {
@@ -98,29 +104,61 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     }
     #endregion
 
+    public void SolveChaseState()
+    {
+        anim.SetBool("Idle", false);
+        controller.SendMessage(EntityStateType.Idle);
+    }
+
+    #region Animation
+    public override void SetAnimation(EntityStateType _currentType, bool _isStart)
+    {
+        switch (_currentType)
+        {
+            case EntityStateType.Idle:
+                anim.SetBool("Walk", _isStart);
+                break;
+            case EntityStateType.Talk:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Quiet:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Penalty:
+                anim.SetBool("Idle", _isStart);
+                break;
+            case EntityStateType.Chase:
+                anim.SetBool("Run", _isStart);
+                break;
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
     #region Idle State
     public override void IdleEnter()
     {
         base.IdleEnter();
         StartPatrol();
+        agent.speed = walkSpeed;
+        anim.SetFloat("WalkValue", walkMotionSpeed);
     }
 
     public override void IdleExecute()
     {
-        if (isCoolDown && detectPlayer.DetectExecute() && !isCallChangeState)
-        {
-            isCoolDown = false;
-            isCallChangeState = true;
-            controller.SendMessage(entity_Data.speakerName, EntityStateType.Chase, EntityStateType.Quiet);
-        }
         Patrol();
+        if (detectPlayer.DetectExecute() )
+        {
+            controller.SendMessage(gameObject.name, EntityStateType.Chase, EntityStateType.Quiet);
+        }
     }
 
     public override void IdleExit()
     {
         base.IdleExit();
         EndPatrol();
-        isCallChangeState = false;
     }
     #endregion
 
@@ -133,13 +171,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public override void TalkExit()
     {
         base.TalkExit();
-        StartCoroutine(ChaseCoolDownCor());
-    }
-
-    public IEnumerator ChaseCoolDownCor()
-    {
-        yield return new WaitForSeconds(chaseCoolDownTimer);
-        isCoolDown = true;
     }
     #endregion
 
@@ -172,8 +203,9 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     #region Chase State
     public override void ChaseEnter()
     {
-        isChasePlayer = true;
         base.ChaseEnter();
+        agent.speed = runSpeed;
+        anim.SetFloat("RunValue", runMotionSpeed);
     }
 
     public override void ChaseExecute() 
@@ -188,17 +220,33 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         base.ChaseExit();
         isRotate = false;
-        isChasePlayer = false;
         detectPlayer.IsDetectPlayer = false;
     }
     #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(isChasePlayer && collision.collider.CompareTag("Player"))
+        if(collision.collider.CompareTag("Player"))
         {
-            DialogueManager.Instance.StartDialogue(entity_Data.speakerName, this);
-            controller.SendMessage(entity_Data.speakerName, EntityStateType.Talk, EntityStateType.Quiet);
+            GameOver(deathReason);
         }
+    }
+    [SerializeField] float walkSpeed;
+    [SerializeField] float walkMotionSpeed;
+    [SerializeField] float runSpeed;
+    [SerializeField] float runMotionSpeed;
+    [SerializeField] string deathReason;
+    public void GameOver(string str, int guideLogID = -1)
+    {
+        int attempts = CountAttempts.Instance.GetAttemptCount();
+        if (str.Contains("$attempts"))
+        {
+            str = str.Replace("$attempts", attempts.ToString());
+        }
+        if (guideLogID > -1)
+        {
+            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
+        }
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(str);
     }
 }

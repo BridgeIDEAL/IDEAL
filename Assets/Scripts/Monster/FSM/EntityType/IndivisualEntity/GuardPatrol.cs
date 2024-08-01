@@ -7,7 +7,7 @@ public class GuardPatrol : MovableEntity, IPatrol
 {
     #region Patrol Val
     [Header("Patrol")]
-    [SerializeField, Tooltip("���� ������")] Vector3[] patrolPoints;
+    [SerializeField, Tooltip("Patrol Point : World Pos")] Vector3[] patrolPoints;
     [SerializeField, Range(0.5f, 1f)] float checkPatrolDistance;
     int currentPoint;
     int maxPoint;
@@ -108,7 +108,6 @@ public class GuardPatrol : MovableEntity, IPatrol
     // To Do ~~~ Look Player
     #endregion
 
-    int testCnt = 0;
     #region Animation
     public override void SetAnimation(EntityStateType _currentType, bool _isStart)
     {

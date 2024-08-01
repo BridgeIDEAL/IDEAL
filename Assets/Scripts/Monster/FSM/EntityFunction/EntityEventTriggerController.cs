@@ -33,6 +33,8 @@ public class EntityEventTriggerController : MonoBehaviour
 
     public void TriggerLastEvent()
     {
+        GameObject go = GameObject.Find("SchoolFrontDoors");
+        go.GetComponent<LastDoorOpen>().OpenFrontDoors();
         EntityDataManager.Instance.IsLastEvent = true;
         lastTriggerObject.SetActive(true);
     }

@@ -6,6 +6,11 @@ public class StudyRoom1F : MonoBehaviour
 {
     [SerializeField] PrincipalPatrol principal;
 
+    private void Start()
+    {
+        principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

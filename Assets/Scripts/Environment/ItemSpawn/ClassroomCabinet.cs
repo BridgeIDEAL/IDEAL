@@ -7,13 +7,15 @@ public class ClassroomCabinet : MonoBehaviour
     [SerializeField] Vector3 spawnPosition = new Vector3(0, 0.045f, 0);
     [SerializeField] GameObject interactionObject;
 
-    public void SpawnNameTag()
+    public void SpawnNameTag(SetClassCabinet _setClassCabinet, ClassCabinetSpawnItem _cabinetItem)
     {
-        GameObject loadGo = IdealSceneManager.Instance.CurrentGameManager.Fab_Manager.LoadPrefab("NameTag");
+        string _itemName = _cabinetItem.ToString();
+        GameObject loadGo = FabManager.Instance.LoadPrefab(_itemName);
         if (loadGo == null)
             return;
         GameObject go = Instantiate(loadGo, transform);
         go.transform.localPosition = spawnPosition;
+        go.GetComponent<InteractionCleanItem>().SetCabinet = _setClassCabinet;
         ActiveInteraction();
     }
 
