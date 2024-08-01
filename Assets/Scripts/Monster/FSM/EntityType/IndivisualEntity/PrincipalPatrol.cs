@@ -46,7 +46,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void Patrol()
     {
-        Debug.Log("패트롤중");
         if (agent.remainingDistance < stopDistance)
         {
             SeekNextRoute();
@@ -60,7 +59,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         if (currentPoint >= maxPoint)
             currentPoint = 0;
         agent.SetDestination(patrolPoints[currentPoint]);
-        Debug.Log("새로운 경로 찾기~~");
     }
 
     public void EndPatrol()
