@@ -11,9 +11,9 @@ public class UIScreenSetting : MonoBehaviour
     {
         // 드롭다운 옵션 설정
         screenModeDropdown.options.Clear();
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Fullscreen" });
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Borderless Window" });
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Windowed" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "전체화면 모드" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "테두리없는 창모드" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "창모드" });
 
 
 
