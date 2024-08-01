@@ -39,6 +39,20 @@ public class GameOverManager : MonoBehaviour
         ArchiveLogManager.Instance.AddArchiveLog(archiveLog);
     }
 
+    public void GameOver(int stateNum=0){
+        backgroundObject.SetActive(true);
+        string endingMent = ArchiveLogManager.Instance.GetArchiveText(stateNum);
+        endingMent = endingMent.Replace("$attempts", CountAttempts.Instance.GetAttemptCount().ToString());
+        endingMentText.text = endingMent;
+        endingMentObject.SetActive(true);
+        isEnd = true;
+        stepTimer = 0.0f;
+        CountAttempts.Instance.AddAttemptCount();
+        GuideLogManager.Instance.SavePlayerSaveData();
+        ArchiveLog archiveLog = new ArchiveLog(CountAttempts.Instance.GetAttemptCount(), ArchiveLogManager.Instance.GetArchiveState(stateNum), endingMent);
+        ArchiveLogManager.Instance.AddArchiveLog(archiveLog);
+    }
+
     private void Update(){
         if(isEnd){
             thirdPersonController.MoveLock = true;
