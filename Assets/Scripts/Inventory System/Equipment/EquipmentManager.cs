@@ -12,6 +12,8 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private ItemData pillItemData;
+
     public ScriptHub scriptHub; 
     private UIEquipment uIEquipment;
     private Item leftHandItem = null;
@@ -26,6 +28,10 @@ public class EquipmentManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
+    }
+
+    public void EquipPillItem(){
+        EquipItem(true, pillItemData.CreateItem());
     }
     
     public void EquipItem(bool isLeft, Item item){
@@ -52,17 +58,17 @@ public class EquipmentManager : MonoBehaviour
     }
 
     public void SetHandActive(bool isLeft, bool active){
-        if(!active){
-            DetachEquipedItem(isLeft);
-        }
-        uIEquipment.SetSlotActive(isLeft, active);
+        // if(!active){
+        //     DetachEquipedItem(isLeft);
+        // }
+        // uIEquipment.SetSlotActive(isLeft, active);
 
-        if(isLeft){
-            leftHandActive = active;
-        }
-        else{
-            rightHandActive = active;
-        }
+        // if(isLeft){
+        //     leftHandActive = active;
+        // }
+        // else{
+        //     rightHandActive = active;
+        // }
     }
 
     public void RemoveEquipedItem(bool isLeft){
@@ -77,16 +83,16 @@ public class EquipmentManager : MonoBehaviour
     }
 
     public void DetachEquipedItem(bool isLeft){
-        if(isLeft){
-            if(leftHandItem == null) return;
-            Inventory.Instance.Add(leftHandItem.Data);
-        }
-        else{
-            if(rightHandItem == null) return;
-            Inventory.Instance.Add(rightHandItem.Data);
-        }
+        // if(isLeft){
+        //     if(leftHandItem == null) return;
+        //     Inventory.Instance.Add(leftHandItem.Data);
+        // }
+        // else{
+        //     if(rightHandItem == null) return;
+        //     Inventory.Instance.Add(rightHandItem.Data);
+        // }
 
-        RemoveEquipedItem(isLeft);
+        // RemoveEquipedItem(isLeft);
     }
 
     public void EnterAnotherSceneInit(bool isLobby){

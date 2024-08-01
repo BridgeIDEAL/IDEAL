@@ -13,6 +13,7 @@ public enum UIType{
     GuideBookUI,
     MapUI,
     InventoryUI,
+    PillUI,
     SettingUI,
     MoveSettingUI
 }
@@ -185,5 +186,22 @@ public class UIManager : MonoBehaviour
 
     public bool CanInteraction(){
         return !UIActives[(int)UIType.GuideBookUI] && !UIActives[(int)UIType.MapUI];
+    }
+
+    public void ActivePillUI(bool active){
+        if(active){
+            UIActives[(int)UIType.InventoryUI] = false;
+            isInventoryActive = false;
+            SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
+            UIActives[(int)UIType.PillUI] = true;
+            isDialogueActive = true;
+            SetUIActive(UIType.PillUI, UIActives[(int)UIType.PillUI]);
+        }
+        else{
+            UIActives[(int)UIType.PillUI] = false;
+            isDialogueActive = false;
+            SetUIActive(UIType.PillUI, UIActives[(int)UIType.PillUI]);
+        }
+
     }
 }

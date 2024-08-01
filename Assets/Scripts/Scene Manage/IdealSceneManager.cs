@@ -166,6 +166,7 @@ public class IdealSceneManager : MonoBehaviour
         fadeFilter.color = color;
         
         LoadingImageManager.Instance.SetActiveLoadingImage(false);
+        EquipmentManager.Instance.EquipPillItem();
     }
 
     private void ImplementScriptHub(GameManager gameManager){

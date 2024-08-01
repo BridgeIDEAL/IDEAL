@@ -27,14 +27,16 @@ public class UICheckListManager : MonoBehaviour
             rt.SetParent(checkListArea);
             UICheckList uICheckList = checkListGameObject.GetComponent<UICheckList>();
             uICheckList.SetLogText(ProgressManager.Instance.checkListStr[key]);
-            uICheckList.SetImageActive(ProgressManager.Instance.checkListDic[key] == -1);
+            if(ProgressManager.Instance.checkListDic[key] == 1) uICheckList.SetChecked();
             uICheckLists.Add(uICheckList);
         }
     }
 
     public void UpdateCheckListUI(){
         for(int i = 0; i < uICheckLists.Count; i++){
-            uICheckLists[i].SetImageActive(ProgressManager.Instance.checkListDic[checkListDicKeys[i]] == -1);
+            if(ProgressManager.Instance.checkListDic[checkListDicKeys[i]] == 1){
+                uICheckLists[i].SetChecked();
+            }
         }
     }
 
