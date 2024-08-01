@@ -5,6 +5,8 @@ using UnityEngine;
 public class BlackBoardClean : CleanSystem
 {
     [SerializeField] GameObject[] graffities;
+    [SerializeField] GameObject suddenDeathTrigger;
+    [SerializeField] GameObject blackBoardCleanTrigger;
 
     void Start()
     {
@@ -26,7 +28,9 @@ public class BlackBoardClean : CleanSystem
         else
         {
             Destroy(graffities[0].transform.parent.gameObject);
-        }
+            Destroy(suddenDeathTrigger);
+            Destroy(blackBoardCleanTrigger);
+        }                
     }
 
     public void Setting()
@@ -35,6 +39,16 @@ public class BlackBoardClean : CleanSystem
         graffities[randNum].SetActive(true);
         interactionClean = graffities[randNum].GetComponent<InteractionClean>();
         interactionClean.Clean = this;
-        Debug.Log(randNum);
+    }
+
+    public void SetCleanEvent(bool _isActive)
+    {
+        suddenDeathTrigger.SetActive(_isActive);
+    }
+
+    public override void DoneEvent()
+    {
+        eventData.isDoneEvent = true;
+        SetCleanEvent(false);
     }
 }

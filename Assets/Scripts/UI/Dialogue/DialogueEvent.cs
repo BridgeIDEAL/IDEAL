@@ -7,6 +7,12 @@ public class DialogueEvent : MonoBehaviour
     #region Get & Use Item
     public void GetItem(List<string> _parameterList)
     {
+        Debug.Log(_parameterList[0]);
+        if (!FabManager.Instance.IsInItemDataDictionary(_parameterList[0]))
+        {
+            Debug.LogError("없습니다");
+            return;
+        }
         InteractionItemData _itemData = FabManager.Instance.LoadInteractionItemData(_parameterList[0]);
         if (_itemData == null)
             return;
