@@ -151,6 +151,8 @@ public class EntitiesController : MonoBehaviour
 
     public void InActiveInteractionEntities()
     {
+        listCnt = 0;
+        activeEntityList.Clear();
         interactionEntitiesParent.SetActive(false);
     }
 

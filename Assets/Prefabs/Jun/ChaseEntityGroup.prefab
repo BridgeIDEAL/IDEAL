@@ -5848,7 +5848,8 @@ MonoBehaviour:
   agent: {fileID: 3784478336386699182}
   anim: {fileID: 7579231097879269231}
   multiValue: 1
-  deathReason: "\uACBD\uBE44\uC5D0\uAC8C \uB9DE\uC544 \uC8FD\uC5C8\uB2E4."
+  deathIndex: 10
+  playerTransform: {fileID: 0}
 --- !u!195 &3784478336386699182
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8944,7 +8945,8 @@ MonoBehaviour:
   agent: {fileID: 5461246073565414733}
   anim: {fileID: 5461246072121894817}
   multiValue: 1
-  deathReason: "\uC5EC\uD559\uC0DD\uC5D0\uAC8C \uB9DE\uC544\uC8FD\uC5C8\uB2E4."
+  deathIndex: 10
+  playerTransform: {fileID: 0}
 --- !u!1 &5506794352368284435
 GameObject:
   m_ObjectHideFlags: 0
@@ -12853,7 +12855,8 @@ MonoBehaviour:
   agent: {fileID: 7988478474542472441}
   anim: {fileID: 7988478475985681941}
   multiValue: 1
-  deathReason: "\uC5EC\uD559\uC0DD\uC5D0\uAC8C \uB9DE\uC544\uC8FD\uC5C8\uB2E4."
+  deathIndex: 2
+  playerTransform: {fileID: 0}
 --- !u!1 &8001894914397512238
 GameObject:
   m_ObjectHideFlags: 0
@@ -13771,8 +13774,8 @@ MonoBehaviour:
   agent: {fileID: 1710707419108177539}
   anim: {fileID: 2992249282601958067}
   multiValue: 1
-  deathReason: "n\uBC88 \uC2E4\uC885\uC790\uB294 \uAD50\uC7A5\uC5D0\uAC8C \uC7A1\uD600\uC11C
-    \uC8FD\uC5C8\uB2E4."
+  deathIndex: 10
+  playerTransform: {fileID: 0}
 --- !u!136 &1710707419108177536
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15003,6 +15006,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8745032364303940906}
     m_Modifications:
+    - target: {fileID: 7030322276411063910, guid: 7344a229a9835624586c94ea68251c11,
+        type: 3}
+      propertyPath: deathIndex
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7357194735674612105, guid: 7344a229a9835624586c94ea68251c11,
         type: 3}
       propertyPath: m_RootOrder
@@ -15083,6 +15091,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8745032364295982412}
     m_Modifications:
+    - target: {fileID: 7030322276411063910, guid: 7344a229a9835624586c94ea68251c11,
+        type: 3}
+      propertyPath: deathIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7357194735674612105, guid: 7344a229a9835624586c94ea68251c11,
         type: 3}
       propertyPath: m_RootOrder

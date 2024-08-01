@@ -7,7 +7,7 @@ public class OnlyChase : MonoBehaviour
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField, Tooltip("애니메이션 속도")] float multiValue;
-    [SerializeField] string deathReason;
+    [SerializeField] int deathIndex;
 
     [SerializeField] Transform playerTransform;
 
@@ -40,21 +40,7 @@ public class OnlyChase : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            GameOver(deathReason);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
         }
-    }
-
-    public void GameOver(string str, int guideLogID = -1)
-    {
-        int attempts = CountAttempts.Instance.GetAttemptCount();
-        if (str.Contains("$attempts"))
-        {
-            str = str.Replace("$attempts", attempts.ToString());
-        }
-        if (guideLogID > -1)
-        {
-            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
-        }
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(str);
     }
 }

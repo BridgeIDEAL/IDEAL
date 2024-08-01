@@ -228,25 +228,12 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         if(collision.collider.CompareTag("Player"))
         {
-            GameOver(deathReason);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
         }
     }
     [SerializeField] float walkSpeed;
     [SerializeField] float walkMotionSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float runMotionSpeed;
-    [SerializeField] string deathReason;
-    public void GameOver(string str, int guideLogID = -1)
-    {
-        int attempts = CountAttempts.Instance.GetAttemptCount();
-        if (str.Contains("$attempts"))
-        {
-            str = str.Replace("$attempts", attempts.ToString());
-        }
-        if (guideLogID > -1)
-        {
-            GuideLogManager.Instance.UpdateGuideLogRecord(guideLogID, attempts);
-        }
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(str);
-    }
+    [SerializeField] int deathIndex;
 }
