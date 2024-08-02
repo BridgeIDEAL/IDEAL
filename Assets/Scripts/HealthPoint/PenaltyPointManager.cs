@@ -30,9 +30,9 @@ public class PenaltyPointManager : MonoBehaviour
     private float eyeWatchingTimer = 0.0f;
 
     
-    private float soundPenaltyRespawnTime = 90.0f;
+    private float soundPenaltyRespawnTime = 100.0f;
     private float soundPenaltyStepTimer = 0.0f;
-    private bool isSoundHearing = false;
+    public bool isSoundHearing = false;
     private float soundHearingGameOverTime = 10.0f;
     private float soundHearingTimer = 0.0f;
     private bool insideSafeZone = false;

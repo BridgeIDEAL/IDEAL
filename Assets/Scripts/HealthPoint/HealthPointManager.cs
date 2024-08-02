@@ -173,7 +173,7 @@ public class HealthPointManager : MonoBehaviour
             speedReduction += 0.5f;
         }
 
-        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f - speedReduction) * (chased ? 1.25f : 1.0f);
+        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f - speedReduction) * (chased ? 1.25f : 1.0f) * (PenaltyPointManager.Instance.isSoundHearing ? 1.25f : 1.0f);
         uIMoveSetting.UpdateMoveSpeedValueText();
         thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f - speedReduction)* (chased ? 1.25f : 1.0f);
         uIMoveSetting.UpdateSprintSpeedValueText();
