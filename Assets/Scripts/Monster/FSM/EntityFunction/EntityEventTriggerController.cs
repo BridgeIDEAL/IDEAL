@@ -15,6 +15,7 @@ public class EntityEventTriggerController : MonoBehaviour
 
         if (EntityDataManager.Instance.IsLastEvent)
         {
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
             lastTriggerObject.SetActive(true);
             RenderSettings.skybox = lastBoxMat;
         }
@@ -38,6 +39,7 @@ public class EntityEventTriggerController : MonoBehaviour
 
     public void TriggerLastEvent()
     {
+        ProgressManager.Instance.UpdateCheckList(401, 1);
         if (lastDoorOpen != null)
             lastDoorOpen.OpenFrontDoors();
 
@@ -50,5 +52,6 @@ public class EntityEventTriggerController : MonoBehaviour
 
         RenderSettings.skybox = lastBoxMat;
         // To Do ~~ Audio
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
     }
 }

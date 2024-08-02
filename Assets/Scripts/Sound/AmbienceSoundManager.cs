@@ -13,7 +13,8 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
     [SerializeField] private AudioSource chaseAudioSource;
-    [SerializeField] private AudioSource lastRunAudioSource;
+    [SerializeField] private AudioSource lastRunAudioSource_1;
+    [SerializeField] private AudioSource lastRunAudioSource_2;
     [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
@@ -158,12 +159,15 @@ public class AmbienceSoundManager : MonoBehaviour
         float outsideVol = outsideAudioSource.volume;
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
-        lastRunAudioSource.volume = 0.0f;
-        lastRunAudioSource.Play();
+        lastRunAudioSource_1.volume = 0.0f;
+        lastRunAudioSource_1.Play();
+        lastRunAudioSource_2.volume = 0.0f;
+        lastRunAudioSource_2.Play();
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
-            lastRunAudioSource.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
+            lastRunAudioSource_1.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
+            lastRunAudioSource_2.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
