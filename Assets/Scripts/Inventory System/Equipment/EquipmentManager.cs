@@ -13,6 +13,7 @@ public class EquipmentManager : MonoBehaviour
     }
 
     [SerializeField] private ItemData pillItemData;
+    [SerializeField] private ItemData flashLightItemData;
 
     public ScriptHub scriptHub; 
     private UIEquipment uIEquipment;
@@ -32,6 +33,10 @@ public class EquipmentManager : MonoBehaviour
 
     public void EquipPillItem(){
         EquipItem(true, pillItemData.CreateItem());
+    }
+
+    public void EquipFlashLight(){
+        EquipItem(false, flashLightItemData.CreateItem());
     }
     
     public void EquipItem(bool isLeft, Item item){
