@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 public class OnlyChase : MonoBehaviour
 {
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] Animator anim;
-    [SerializeField, Tooltip("애니메이션 속도")] float multiValue;
-    [SerializeField] int deathIndex;
+    [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected Animator anim;
+    [SerializeField, Tooltip("애니메이션 속도")] protected float multiValue;
+    [SerializeField] protected int deathIndex;
 
-    [SerializeField] Transform playerTransform;
+    [SerializeField] protected Transform playerTransform;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
@@ -20,11 +20,11 @@ public class OnlyChase : MonoBehaviour
         anim.SetFloat("MultiValue", multiValue);
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
-        EntityDataManager.Instance.Controller.ChaseState();
+        EntityDataManager.Instance.Controller.IsChase = true;
     }
 
     private void Update()
@@ -37,12 +37,17 @@ public class OnlyChase : MonoBehaviour
         agent.SetDestination(playerTransform.position);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
             Destroy(EntityDataManager.Instance.Controller.gameObject);
         }
+    }
+
+    private void OnDisable()
+    {
+        EntityDataManager.Instance.Controller.IsChase = false;
     }
 }

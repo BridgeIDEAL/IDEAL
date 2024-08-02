@@ -77,8 +77,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         isRotate = true;
         float timer = 0f;
-        anim.SetBool("Idle", true);
-        anim.SetBool("Run", false);
+        anim.SetBool("Run",false);
+        anim.SetBool("Idle",true);
         Quaternion lookQuaternion = Quaternion.Euler(studyRoomFrontRotation);
         while (timer <= 1f)
         {
@@ -100,7 +100,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void SolveChaseState()
     {
-        anim.SetBool("Idle", false);
         controller.SendMessage(EntityStateType.Idle);
     }
 
@@ -143,7 +142,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public override void IdleExecute()
     {
         Patrol();
-        if (detectPlayer.DetectExecute() )
+        if (detectPlayer.DetectExecute() && !isInStudyRoom)
         {
             controller.SendMessage(gameObject.name, EntityStateType.Chase, EntityStateType.Quiet);
         }
@@ -200,7 +199,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         base.ChaseEnter();
         agent.speed = runSpeed;
         anim.SetFloat("RunValue", runMotionSpeed);
-        EntityDataManager.Instance.Controller.ChaseState(true);
+        EntityDataManager.Instance.Controller.IsChase = true;
     }
 
     public override void ChaseExecute() 
@@ -216,7 +215,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         base.ChaseExit();
         isRotate = false;
         detectPlayer.IsDetectPlayer = false;
-        EntityDataManager.Instance.Controller.NotChaseState();
+        EntityDataManager.Instance.Controller.IsChase = false;
     }
     #endregion
 
