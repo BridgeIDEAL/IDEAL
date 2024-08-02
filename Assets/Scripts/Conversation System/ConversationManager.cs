@@ -173,7 +173,7 @@ public class ConversationManager : MonoBehaviour
     }
 
     public void AddPenaltyPoint(int addPoint){
-        PenaltyPointManager.Instance.AddPenaltyPoint(addPoint);
+        // PenaltyPointManager.Instance.AddPenaltyPoint(addPoint);
     }
 
     #endregion
