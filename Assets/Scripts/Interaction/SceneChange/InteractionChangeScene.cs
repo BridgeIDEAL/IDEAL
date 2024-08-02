@@ -58,9 +58,7 @@ public class InteractionChangeScene : AbstractInteraction
         {
             // PenaltyPointManager.Instance.AddPenaltyPoint(1);
         }
-        if(isInBuildingA){
-            ProgressManager.Instance.UpdateCheckList(104, 1);
-        }
+        ProgressManager.Instance.UpdateCheckList(104, 1);
         IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName, destPosition, destRotation);
         if (successInteractionStr != "")
         {

@@ -232,6 +232,9 @@ public class DialogueUI : MonoBehaviour
             case "SpawnItem":
                 Event.SpawnItem(_parameterList);
                 break;
+            case "CheckList":
+                CheckList(_parameterList);
+                break;
         }
     }
 
@@ -257,6 +260,10 @@ public class DialogueUI : MonoBehaviour
                 textBoxImage.sprite = textBoxSprites[0];
                 break;
         }
+    }
+
+    public void CheckList(List<string> _parameterList){
+        ProgressManager.Instance.UpdateCheckList(int.Parse(_parameterList[0]), 1);
     }
     #endregion
 
