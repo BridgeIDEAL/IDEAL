@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.7816673, g: 0.917957, b: 0.97883904, a: 1}
+  m_IndirectSpecularColor: {r: 0.7815217, g: 0.91795397, b: 0.9788515, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2886,6 +2886,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1406381554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5402395639364842871, guid: 58e27b6797b626a4087ae497de5bd92b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1954166887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954166896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ca4ce9d33ccdf45a8c14b836376287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1408941246
 GameObject:
   m_ObjectHideFlags: 0
@@ -4007,7 +4019,7 @@ PrefabInstance:
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: MoveSpeed
-      value: 4
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -4017,7 +4029,7 @@ PrefabInstance:
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: SprintSpeed
-      value: 5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -4028,6 +4040,16 @@ PrefabInstance:
         type: 3}
       propertyPath: SpeedChangeRate
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: DefaultMoveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: DefaultSprintSpeed
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918491, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -5602,6 +5624,11 @@ PrefabInstance:
       propertyPath: playerTempEffectSound
       value: 
       objectReference: {fileID: 1563995766}
+    - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
+      propertyPath: uIMap
+      value: 
+      objectReference: {fileID: 1406381554}
     - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
       propertyPath: uIIngame
