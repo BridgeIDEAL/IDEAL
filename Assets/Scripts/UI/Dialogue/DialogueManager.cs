@@ -114,6 +114,8 @@ public class DialogueManager : MonoBehaviour
             return;
        
         isTalking = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
         Dialouge_UI.StartDialogue(_storyKey);
     }
 
