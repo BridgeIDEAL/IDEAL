@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
 
     private UIIngame uIIngame;
     private UIMap uIMap;
+    private UIGuideBook uIGuideBook;
 
     public bool uIInputLock = false;
 
@@ -66,6 +67,7 @@ public class UIManager : MonoBehaviour
         uIInventory = scriptHub.uIInventory;
         uIIngame = scriptHub.uIIngame;
         uIMap = scriptHub.uIMap;
+        uIGuideBook = scriptHub.uIGuideBook;
         
         StartCoroutine(ActivateCanvasCoroutine());
 
@@ -185,6 +187,7 @@ public class UIManager : MonoBehaviour
     public void ActiveGuideBook(){
         UIActives[(int)UIType.GuideBookUI] = true;
         SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
+        uIGuideBook.ActiveGuide();
         thirdPersonController.MoveLock = true;
     }
 
