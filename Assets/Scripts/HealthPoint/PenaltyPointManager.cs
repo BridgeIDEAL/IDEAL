@@ -124,7 +124,7 @@ public class PenaltyPointManager : MonoBehaviour
                 if(eyeWatchingTimer >= eyeWatchingGameOverTime){
                     eyeWatchingTimer = 0.0f;
                     penaltyPoint = 0;
-                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번 생존자는 눈에서 극심한 고통을 호소하던 중,\n눈을 스스로 뽑아버린 후 신호가 끊기며 실종됨.");
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(7);
                 }
 
             }
@@ -152,7 +152,7 @@ public class PenaltyPointManager : MonoBehaviour
                 soundHearingTimer += Time.deltaTime;
                 if(soundHearingTimer >= soundHearingGameOverTime){
                     if(!insideSafeZone){
-                        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver("$attempts번 생존자는 보이지 않는 무언가에 휩쓸려가는 소리와 함께 신호가 끊김. \n이후 온몸이 발로 심하게 짓밟힌 흔적과 함께 사망 상태로 발견.");
+                        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(6);
                     }
                     soundHearingTimer = 0.0f;
                     IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
