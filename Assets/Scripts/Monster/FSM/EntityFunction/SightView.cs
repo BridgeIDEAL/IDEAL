@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SightView : MonoBehaviour
 {
-    public Transform target;    // ºÎÃ¤²Ã¿¡ Æ÷ÇÔµÇ´ÂÁö ÆÇº°ÇÒ Å¸°Ù
+    public Transform target;    // ï¿½ï¿½Ã¤ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ÔµÇ´ï¿½ï¿½ï¿½ ï¿½Çºï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
     public float angleRange = 30f;
     public float radius = 3f;
 
@@ -18,17 +18,17 @@ public class SightView : MonoBehaviour
     {
         Vector3 interV = target.position - transform.position;
 
-        // target°ú ³ª »çÀÌÀÇ °Å¸®°¡ radius º¸´Ù ÀÛ´Ù¸é
+        // targetï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ radius ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù¸ï¿½
         if (interV.magnitude <= radius)
         {
-            // 'Å¸°Ù-³ª º¤ÅÍ'¿Í '³» Á¤¸é º¤ÅÍ'¸¦ ³»Àû
+            // 'Å¸ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ 'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float dot = Vector3.Dot(interV.normalized, transform.forward);
-            // µÎ º¤ÅÍ ¸ðµÎ ´ÜÀ§ º¤ÅÍÀÌ¹Ç·Î ³»Àû °á°ú¿¡ cosÀÇ ¿ªÀ» ÃëÇØ¼­ theta¸¦ ±¸ÇÔ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ cosï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ thetaï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float theta = Mathf.Acos(dot);
-            // angleRange¿Í ºñ±³ÇÏ±â À§ÇØ degree·Î º¯È¯
+            // angleRangeï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ degreeï¿½ï¿½ ï¿½ï¿½È¯
             float degree = Mathf.Rad2Deg * theta;
 
-            // ½Ã¾ß°¢ ÆÇº°
+            // ï¿½Ã¾ß°ï¿½ ï¿½Çºï¿½
             if (degree <= angleRange / 2f)
                 isCollision = true;
             else
@@ -38,13 +38,15 @@ public class SightView : MonoBehaviour
         else
             isCollision = false;
     }
-
-    // À¯´ÏÆ¼ ¿¡µðÅÍ¿¡ ºÎÃ¤²ÃÀ» ±×·ÁÁÙ ¸Þ¼Òµå
+    #if UNITY_EDITOR
+    // ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     private void OnDrawGizmos()
     {
         Handles.color = isCollision ? _red : _blue;
-        // DrawSolidArc(½ÃÀÛÁ¡, ³ë¸Öº¤ÅÍ(¹ý¼±º¤ÅÍ), ±×·ÁÁÙ ¹æÇâ º¤ÅÍ, °¢µµ, ¹ÝÁö¸§)
+        // DrawSolidArc(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Öºï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½), ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, radius);
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, radius);
     }
+
+    #endif
 }
