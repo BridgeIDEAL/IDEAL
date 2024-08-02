@@ -24,7 +24,7 @@ public class PenaltyPointManager : MonoBehaviour
     private EyePenaltyObject eyePenaltyObject;
 
     private float eyeObjectRespawnTime = 60.0f;
-    private float eyePenaltyStepTimer = 0.0f;
+    public float eyePenaltyStepTimer = 0.0f;
     private float eyeWatchingGameOverTime = 3.0f;
     private float eyeWatchingTimer = 0.0f;
 
@@ -39,6 +39,7 @@ public class PenaltyPointManager : MonoBehaviour
     private bool isTimerFreeze = false;
     public bool isChased = false;
 
+    private bool inLobby = true;
 
     public void Init(){
         if(instance == null){
@@ -61,6 +62,8 @@ public class PenaltyPointManager : MonoBehaviour
             eyePenaltyManager = scriptHub.eyePenaltyManager;
             playerTransform = scriptHub.playerArmatureObject.transform;
             cameraTransform = scriptHub.playerCameraRootObject.transform;
+
+            inLobby = false;
         }
     }
 
@@ -72,6 +75,7 @@ public class PenaltyPointManager : MonoBehaviour
         isSoundHearing = false;
         soundHearingTimer = 0.0f;
         insideSafeZone = false;
+        inLobby = true;
     }
 
 
@@ -84,7 +88,7 @@ public class PenaltyPointManager : MonoBehaviour
                 eyePenaltyStepTimer = 0.0f;
             }
         }
-        if(isChased || isTimerFreeze || insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
+        if(!inLobby &&!isChased && !isTimerFreeze && !insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
 
         
         // 패널티 오브젝트가 존재하는 경우
@@ -123,7 +127,7 @@ public class PenaltyPointManager : MonoBehaviour
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren);
             isSoundHearing = true;
         }
-        if(isChased || isTimerFreeze || insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
+        if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
 
         if(isSoundHearing){
             soundHearingTimer += Time.deltaTime;
