@@ -62,6 +62,7 @@ public class InteractionDoor : AbstractInteraction
     private void Awake(){
         if(ProgressManager.Instance.GetDoorLog(this.transform.parent.parent.name + this.transform.name) == 1){
             doorObject.transform.localPosition = destPosition;
+            isOpen = true;
         }
     }
 
