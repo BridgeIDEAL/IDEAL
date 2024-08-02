@@ -5,6 +5,7 @@ using UnityEngine.Animations.Rigging;
 
 public class StandLookPlayer : LookPlayer
 {
+    Transform playerTransform;
     Quaternion initRotation;
     LookPlayerDirection lookDir = LookPlayerDirection.None;
     [Header("Body Rotate Time")]
@@ -27,11 +28,13 @@ public class StandLookPlayer : LookPlayer
     {
         if (lookTransform == null)
             lookTransform = _lookTransform;
+        if (playerTransform == null)
+            playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
 
         if (IsOverAngle())
         {
             lookDir = LookPlayerDirection.BodyRotate;
-            Vector3 directionToPlayer = _lookTransform.position - transform.position;
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             StartCoroutine(RotateCor(targetRotation));
         }
