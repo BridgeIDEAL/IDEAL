@@ -22,7 +22,7 @@ public class HeadOfStudentTeacher : ImmovableEntity
     public override void IdleExit() { SetAnimation(currentType, false); }
     public override void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
     public override void TalkExecute() { }
-    public override void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); Entity_Data.isSpawn = false; Controller.InActiveEntity(Entity_Data.speakerName);}
+    public override void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); Entity_Data.isSpawn = false; IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.FadeOutInEffect(Teleport2ndTeacherOffice);}
     public override void QuietEnter() { SetAnimation(currentType, true); }
     public override void QuietExecute() { }
     public override void QuietExit() { SetAnimation(currentType, false); }
@@ -30,4 +30,12 @@ public class HeadOfStudentTeacher : ImmovableEntity
     public override void PenaltyExecute() { }
     public override void PenaltyExit() { SetAnimation(currentType, false); }
     #endregion
+
+    private void Teleport2ndTeacherOffice(){
+        Controller.InActiveEntity(Entity_Data.speakerName);
+        Vector3 destPosition = new Vector3(34.10423f, 7.93f, 31.81402f);
+        Vector3 destRotation = new Vector3(0.0f, 90.0f, 0.0f);
+        ProgressManager.Instance.SetItemLog(902, 1);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+    }
 }

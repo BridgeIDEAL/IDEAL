@@ -10,7 +10,7 @@ public class DialogueEvent : MonoBehaviour
         Debug.Log(_parameterList[0]);
         if (!FabManager.Instance.IsInItemDataDictionary(_parameterList[0]))
         {
-            Debug.LogError("¾ø½À´Ï´Ù");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
             return;
         }
         InteractionItemData _itemData = FabManager.Instance.LoadInteractionItemData(_parameterList[0]);
@@ -35,7 +35,7 @@ public class DialogueEvent : MonoBehaviour
     #region Dialogue Index
     public void UnableCommunicate(List<string> _parameterList)
     {
-        // DialogueManager.Instance.CurrentTalkEntity¸¦ ÅëÇØ Interaction ½ºÅ©¸³Æ® Á¢±Ù ÈÄ, ´õ ÀÌ»ó ´ëÈ­ÇÏÁö ¸øÇÏµµ·Ï ¼öÁ¤ 
+        // DialogueManager.Instance.CurrentTalkEntityï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Interaction ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
         InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
         conversation.ChangeIndex(-1);
     }
@@ -93,7 +93,6 @@ public class DialogueEvent : MonoBehaviour
     #region Entity Event
     public void SpawnEntity(List<string> _parameterList)
     {
-        Debug.Log("È£ÃâµÊ");
         string _name = _parameterList[0];
         EntityDataManager.Instance.Controller.ActiveEntity(_name);
     }
