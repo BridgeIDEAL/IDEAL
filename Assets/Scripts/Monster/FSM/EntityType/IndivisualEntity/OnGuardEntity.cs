@@ -33,7 +33,7 @@ public class OnGuardEntity : ImmovableEntity
     public override void QuietEnter() { SetAnimation(currentType, true); }
     public override void QuietExecute() { }
     public override void QuietExit() { SetAnimation(currentType, false); }
-    public override void PenaltyEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
+    public override void PenaltyEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); }
     public override void PenaltyExecute() { if (!detectPlayer.DetectExecute() && onceSpawn) { SpawnFrontPlayer();} }
     public override void PenaltyExit() { SetAnimation(currentType, false); }
 

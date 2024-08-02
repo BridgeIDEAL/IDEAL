@@ -20,7 +20,7 @@ public class HeadOfStudentTeacher : ImmovableEntity
     public override void IdleEnter() { SetAnimation(currentType, true); }
     public override void IdleExecute() { if (detectPlayer.DetectExecute() && once) Talk(); }
     public override void IdleExit() { SetAnimation(currentType, false); }
-    public override void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
+    public override void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); }
     public override void TalkExecute() { }
     public override void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); Entity_Data.isSpawn = false; IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.FadeOutInEffect(Teleport2ndTeacherOffice);}
     public override void QuietEnter() { SetAnimation(currentType, true); }
