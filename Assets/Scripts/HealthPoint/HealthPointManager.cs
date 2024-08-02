@@ -36,6 +36,8 @@ public class HealthPointManager : MonoBehaviour
     public static int maxHP = 2;
     public static int minHP = 0;
 
+    public bool chased = false;
+
 
     
     public void Init(){
@@ -171,9 +173,9 @@ public class HealthPointManager : MonoBehaviour
             speedReduction += 0.5f;
         }
 
-        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f - speedReduction);
+        thirdPersonController.MoveSpeed = thirdPersonController.DefaultMoveSpeed * (1.0f - speedReduction) * (chased ? 1.25f : 1.0f);
         uIMoveSetting.UpdateMoveSpeedValueText();
-        thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f - speedReduction);
+        thirdPersonController.SprintSpeed = thirdPersonController.DefaultSprintSpeed * (1.0f - speedReduction)* (chased ? 1.25f : 1.0f);
         uIMoveSetting.UpdateSprintSpeedValueText();
     }
 
