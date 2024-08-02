@@ -86,7 +86,7 @@ public class ImmovableEntity : BaseEntity
     public virtual void IdleEnter() { SetAnimation(currentType,true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }
-    public virtual void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(playerTransform); }
+    public virtual void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); }
     public virtual void TalkExecute() { }
     public virtual void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); }
     public virtual void QuietEnter() { SetAnimation(currentType, true); }

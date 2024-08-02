@@ -13,6 +13,8 @@ public class EntitiesController : MonoBehaviour
     Transform playerTransform;
     public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
 
+    public Transform lookTransform;
+
     #region Awake
     private void Awake()
     {
