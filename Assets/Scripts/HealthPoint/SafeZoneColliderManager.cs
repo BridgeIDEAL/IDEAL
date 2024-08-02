@@ -7,14 +7,21 @@ public class SafeZoneColliderManager : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Rest")) {
             PenaltyPointManager.Instance.GoSafeZone(true);
-            Debug.Log("Trigger IN");
+        }
+        if (other.CompareTag("FreezeRoom")) {
+            PenaltyPointManager.Instance.GoFreezeZone(true);
+            Debug.Log("Trigger Freeze");
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Rest")) {
             PenaltyPointManager.Instance.GoSafeZone(false);
-            Debug.Log("Tirgger Exit");
         }
+        if (other.CompareTag("FreezeRoom")) {
+            PenaltyPointManager.Instance.GoFreezeZone(false);
+            Debug.Log("Trigger Boiled");
+        }
+
     }
 }
