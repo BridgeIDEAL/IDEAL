@@ -108,7 +108,6 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F1)){
             UIActives[(int)UIType.MoveSettingUI] = !UIActives[(int)UIType.MoveSettingUI];
             SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
-            Cursor.lockState = UIActives[(int)UIType.MoveSettingUI] ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         // Inventory UI 관련 코드
@@ -168,7 +167,8 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMouseLock(){
         // CameraLock & MouseUnLock이 필요한 경우
-        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI] || UIActives[(int)UIType.SettingUI] || UIActives[(int)UIType.MapUI]){
+        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI] || UIActives[(int)UIType.SettingUI] || UIActives[(int)UIType.MapUI]
+            || UIActives[(int)UIType.MoveSettingUI]){
             thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
