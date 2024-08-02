@@ -164,13 +164,20 @@ public class EntitiesController : MonoBehaviour
 
     public void ChaseSound(bool _value)
     {
+        //EntityDataManager.Instance.IsLastEvent
         if (_value)
         {
             //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseStart();
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
+            HealthPointManager.Instance.chased = true;
+            // To Do ~~ Speed Up
         }
         else
         {
             //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseEnd();
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
+            HealthPointManager.Instance.chased = false;
+            // To Do ~~ Speed Down
         }
     }
     #endregion

@@ -100,7 +100,7 @@ public class AmbienceSoundManager : MonoBehaviour
         chaseAudioCoroutine = StartCoroutine(ChaseStartCoroutine());
     }
 
-    private IEnumerator ChaseStartCoroutine(){
+    private IEnumerator ChaseEndCoroutine(){
         float insideVol = insideAudioSource.volume;
         float outsideVol = outsideAudioSource.volume;
         float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
@@ -126,7 +126,7 @@ public class AmbienceSoundManager : MonoBehaviour
         chaseAudioCoroutine = StartCoroutine(ChaseEndCoroutine());
     }
 
-    private IEnumerator ChaseEndCoroutine(){
+    private IEnumerator ChaseStartCoroutine(){
         float insideVol = insideAudioSource.volume;
         float outsideVol = outsideAudioSource.volume;
         float stepTimer = 0.0f;
