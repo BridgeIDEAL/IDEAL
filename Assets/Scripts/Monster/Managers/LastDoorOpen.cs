@@ -8,7 +8,8 @@ using UnityEngine;
 public class LastDoorOpen : MonoBehaviour
 {
     [SerializeField] float rotateSpeed;
-    [SerializeField] GameObject[] frontDoors;
+    [SerializeField] GameObject frontDoors;
+    Quaternion destQuaternion = new Quaternion(0,90,0,1);
     #region Variable Player Place
     public PlaceTriggerType PlayerInPlace { get; set; } = PlaceTriggerType.None;
     #endregion
@@ -26,19 +27,17 @@ public class LastDoorOpen : MonoBehaviour
 
     public void OpenFrontDoors()
     {
-        StartCoroutine(RotateDoor(0, new Vector3(0, 90, 0)));
-        StartCoroutine(RotateDoor(1, new Vector3(0, -90, 0)));
+        StartCoroutine(RotateDoor());
     }
     
-    public IEnumerator RotateDoor(int _idx, Vector3 _rotate)
+    public IEnumerator RotateDoor()
     {
         float timer = 0f;
-        Quaternion startRotate = frontDoors[_idx].transform.rotation;
-        Quaternion endRotate = Quaternion.Euler(_rotate);
+        Quaternion startRotate = frontDoors.transform.rotation;
         while (timer < rotateSpeed)
         {
             timer += Time.deltaTime;
-            frontDoors[_idx].transform.rotation = Quaternion.Lerp(startRotate, endRotate, timer / rotateSpeed);
+            frontDoors.transform.rotation = Quaternion.Lerp(startRotate, destQuaternion, timer / rotateSpeed);
             yield return null;
         }
     }

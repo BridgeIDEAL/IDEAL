@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntityEventTriggerController : MonoBehaviour
 {
+    [SerializeField] LastDoorOpen lastDoorOpen;
     [SerializeField] LastFence lastFence;
     public GameObject lastTriggerObject;
     [SerializeField, Tooltip("0 : Jump2FGirl, 1 : Jump3FHeadOfStudentTeacher")] JumpSpace[] jumpSpaces;
@@ -15,6 +16,7 @@ public class EntityEventTriggerController : MonoBehaviour
         if (EntityDataManager.Instance.IsLastEvent)
         {
             lastTriggerObject.SetActive(true);
+            RenderSettings.skybox = lastBoxMat;
         }
         else
         {
@@ -32,16 +34,21 @@ public class EntityEventTriggerController : MonoBehaviour
         return jumpSpaces[_idx];
     }
 
+    [SerializeField] Material lastBoxMat;
+
     public void TriggerLastEvent()
     {
-        GameObject go = GameObject.Find("SchoolFrontDoors");
-        go.GetComponent<LastDoorOpen>().OpenFrontDoors();
+        if (lastDoorOpen != null)
+            lastDoorOpen.OpenFrontDoors();
+
         EntityDataManager.Instance.IsLastEvent = true;
         EntityDataManager.Instance.Controller.InActiveInteractionEntities();
         lastTriggerObject.SetActive(true);
-
+ 
         if (lastFence != null)
             lastFence.Active();
+
+        RenderSettings.skybox = lastBoxMat;
         // To Do ~~ Audio
     }
 }
