@@ -20,6 +20,7 @@ public class InteractionGetKeyBundle : AbstractInteraction
     protected override void ActInteraction()
     {
         Inventory.Instance.Add(interactionItemData, 1);
+        ProgressManager.Instance.SetItemLog(interactionItemData.ID, 1);
         if (activationLogNum != -1)
         {
             //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
@@ -39,6 +40,12 @@ public class InteractionGetKeyBundle : AbstractInteraction
         if (audioSource != null)
         {
             // Inventory.GetItemSound���� ������ ȹ�� �Ҹ��� ó��
+        }
+    }
+
+    void Awake(){
+        if(ProgressManager.Instance.GetItemLogExist(interactionItemData.ID)){
+            this.gameObject.SetActive(false);
         }
     }
 

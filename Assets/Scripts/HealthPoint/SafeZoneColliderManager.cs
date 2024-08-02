@@ -10,7 +10,6 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
         if (other.CompareTag("FreezeRoom")) {
             PenaltyPointManager.Instance.GoFreezeZone(true);
-            Debug.Log("Trigger Freeze");
         }
     }
 
@@ -20,7 +19,6 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
         if (other.CompareTag("FreezeRoom")) {
             PenaltyPointManager.Instance.GoFreezeZone(false);
-            Debug.Log("Trigger Boiled");
         }
 
     }
