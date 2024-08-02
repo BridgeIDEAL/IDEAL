@@ -38,10 +38,12 @@ public class UIManager : MonoBehaviour
     private UIInventory uIInventory;
 
     private UIIngame uIIngame;
+    private UIMap uIMap;
 
     public bool uIInputLock = false;
 
-    private int mapItemCode = 1106;
+    private int mapItemCode = 990;
+    private int mapPieceItemCode = 99001;
 
     private bool isDialogueActive = false;
     public bool IsDialogueActive {
@@ -63,6 +65,7 @@ public class UIManager : MonoBehaviour
         uIInteraction = scriptHub.uIInteraction;
         uIInventory = scriptHub.uIInventory;
         uIIngame = scriptHub.uIIngame;
+        uIMap = scriptHub.uIMap;
         
         StartCoroutine(ActivateCanvasCoroutine());
 
@@ -121,10 +124,11 @@ public class UIManager : MonoBehaviour
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
-        if(Input.GetKeyDown(KeyCode.BackQuote) && Inventory.Instance.FindItemIndex(mapItemCode) != -1){    // ` 누른 경우 Map 활성화 비활성화
+        if(Input.GetKeyDown(KeyCode.BackQuote) && (Inventory.Instance.FindItemIndex(mapItemCode) != -1 || Inventory.Instance.FindItemIndex(mapPieceItemCode) != -1)){    // ` 누른 경우 Map 활성화 비활성화
             UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
         }
         SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
+        uIMap.ActiveMap();
 
         if(UIActives[(int)UIType.GuideBookUI] && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
             UIActives[(int)UIType.GuideBookUI] = false;
@@ -162,7 +166,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMouseLock(){
         // CameraLock & MouseUnLock이 필요한 경우
-        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI] || UIActives[(int)UIType.SettingUI]){
+        if(isDialogueActive || isInventoryActive || UIActives[(int)UIType.GuideBookUI] || UIActives[(int)UIType.SettingUI] || UIActives[(int)UIType.MapUI]){
             thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
             cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;

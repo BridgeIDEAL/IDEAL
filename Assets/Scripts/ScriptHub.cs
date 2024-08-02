@@ -30,6 +30,7 @@ public class ScriptHub : MonoBehaviour
     public UIInventory uIInventory;
     public UIRayCaster uIRayCaster;
     public UIIngame uIIngame;
+    public UIMap uIMap;
     public UIActivationLogManager uIActivationLogManager;
     public UICheckListManager uICheckListManager;
     public UIHealthPoint uIHealthPoint;
