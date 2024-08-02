@@ -108,7 +108,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Call when you start Dialogue
-    public void StartDialogue(string _storyKey, string _name)
+    public void StartDialogue(string _storyKey)
     {
         if (isTalking)
             return;

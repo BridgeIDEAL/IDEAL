@@ -67,6 +67,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void PlayerInStudyRoom()
     {
+        onceInStudyroom = true;
         if (!isRotate && agent.remainingDistance < 0.1f)
         {
             StartCoroutine(RotateCor());
@@ -193,6 +194,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     }
     #endregion
 
+    bool onceInStudyroom = false;
+
     #region Chase State
     public override void ChaseEnter()
     {
@@ -205,7 +208,15 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public override void ChaseExecute() 
     {
         if (!isInStudyRoom)
+        {
+            if (onceInStudyroom)
+            {
+                anim.SetBool("Idle", false);
+                anim.SetBool("Run", true);
+                onceInStudyroom = false;
+            }
             agent.SetDestination(playerTransform.position);
+        }
         else
             PlayerInStudyRoom();
     }
@@ -216,6 +227,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         isRotate = false;
         detectPlayer.IsDetectPlayer = false;
         EntityDataManager.Instance.Controller.IsChase = false;
+        onceInStudyroom = false;
+        anim.SetBool("Idle", false);
     }
     #endregion
 
