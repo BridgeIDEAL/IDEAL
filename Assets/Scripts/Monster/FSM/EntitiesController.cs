@@ -165,6 +165,9 @@ public class EntitiesController : MonoBehaviour
     public void ChaseSound(bool _value)
     {
         //EntityDataManager.Instance.IsLastEvent
+        if (EntityDataManager.Instance.IsLastEvent)
+            return;
+
         if (_value)
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
