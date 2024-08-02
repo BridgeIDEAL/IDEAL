@@ -147,7 +147,7 @@ public class EntitiesController : MonoBehaviour
     GameObject[] ChaseEntityGroup;
 
     private bool isChase = false;
-    public bool IsChase{ get { return isChase; } set { isChase = value; } } 
+    public bool IsChase{ get { return isChase; } set { isChase = value; ChaseSound(value); } } 
 
     public void ActiveChaseEntity(ChaseEventType _type)
     {
@@ -161,5 +161,17 @@ public class EntitiesController : MonoBehaviour
         interactionEntitiesParent.SetActive(false);
     }
 
+
+    public void ChaseSound(bool _value)
+    {
+        if (_value)
+        {
+            //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseStart();
+        }
+        else
+        {
+            //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseEnd();
+        }
+    }
     #endregion
 }

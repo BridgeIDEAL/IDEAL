@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntityEventTriggerController : MonoBehaviour
 {
+    [SerializeField] LastFence lastFence;
     public GameObject lastTriggerObject;
     [SerializeField, Tooltip("0 : Jump2FGirl, 1 : Jump3FHeadOfStudentTeacher")] JumpSpace[] jumpSpaces;
 
@@ -39,6 +40,8 @@ public class EntityEventTriggerController : MonoBehaviour
         EntityDataManager.Instance.Controller.InActiveInteractionEntities();
         lastTriggerObject.SetActive(true);
 
+        if (lastFence != null)
+            lastFence.Active();
         // To Do ~~ Audio
     }
 }

@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.78159213, g: 0.9179592, b: 0.97886187, a: 1}
+  m_IndirectSpecularColor: {r: 0.78146064, g: 0.9180205, b: 0.9788846, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1375,6 +1375,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 188d85e8b34e602448d6e07b93ab87a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &765780830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4094035835116227912, guid: 154f30412c0ce7f47a2b31083159b401,
+    type: 3}
+  m_PrefabInstance: {fileID: 1548097551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2f6f3a54f890e47aaebadcd133c951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &773051288
@@ -7559,6 +7571,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EntityEventTriggerController
       objectReference: {fileID: 0}
+    - target: {fileID: 2185186999123171495, guid: c2bbc2d264675fa44b1e06ec9f1bfc62,
+        type: 3}
+      propertyPath: lastFence
+      value: 
+      objectReference: {fileID: 765780830}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bbc2d264675fa44b1e06ec9f1bfc62, type: 3}
 --- !u!1001 &2082563665
