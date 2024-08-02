@@ -23,7 +23,7 @@ public class SettingDataManager : MonoBehaviour
 
     [SerializeField] private AudioMixer idealAudioMixer;
 
-    private string playerSettingPath = "Assets/Resources/Data/PlayerSettingData.json";
+    private string playerSettingPath;
     public PlayerSettingData playerSettingData = null;
 
     void Awake()
@@ -35,6 +35,8 @@ public class SettingDataManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
+
+        playerSettingPath = Path.Combine(Application.persistentDataPath, "PlayerSettingData.json");
 
         // 저장된 파일 불러오기
         if (File.Exists(playerSettingPath)){

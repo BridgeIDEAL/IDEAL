@@ -18,7 +18,7 @@ public class ArchiveLogManager : MonoBehaviour
         }
     }
 
-    private string archiveDataPath = "Assets/Resources/Data/PlayerArchiveLogData.json";
+    private string archiveDataPath;
 
     public PlayerArchiveData playerArchiveData;
 
@@ -60,10 +60,12 @@ public class ArchiveLogManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
+
+        archiveDataPath = Path.Combine(Application.persistentDataPath, "PlayerArchiveLogData.json");
     }
 
     private void Start(){
-        if(File.Exists(archiveDataPath)){
+        if (File.Exists(archiveDataPath)){
             LoadArchiveData();
         }
         else{
@@ -87,7 +89,6 @@ public class ArchiveLogManager : MonoBehaviour
 
     private void LoadArchiveData(){
         string loadJson = File.ReadAllText(archiveDataPath);
-        playerArchiveData = new PlayerArchiveData();
         playerArchiveData = JsonUtility.FromJson<PlayerArchiveData>(loadJson);
     }
 
@@ -106,5 +107,6 @@ public class ArchiveLogManager : MonoBehaviour
 
     public void AddArchiveLog(ArchiveLog archiveLog){
         playerArchiveData.archiveLogRecordList.Add(archiveLog);
+        SaveArchiveData();
     }
 }

@@ -1,7 +1,10 @@
+using System;
+
+[Serializable]
 public class ArchiveLog{
-    private int attempt;
-    private string state;
-    private string archiveText;
+    public int attempt;
+    public string state;
+    public string archiveText;
 
     public ArchiveLog(int _attempt, string _state, string _archiveText){
         this.attempt = _attempt;

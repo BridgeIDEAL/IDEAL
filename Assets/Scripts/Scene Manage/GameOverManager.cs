@@ -33,10 +33,10 @@ public class GameOverManager : MonoBehaviour
         endingMentObject.SetActive(true);
         isEnd = true;
         stepTimer = 0.0f;
-        CountAttempts.Instance.AddAttemptCount();
-        GuideLogManager.Instance.SavePlayerSaveData();
         ArchiveLog archiveLog = new ArchiveLog(CountAttempts.Instance.GetAttemptCount(), ArchiveLogManager.Instance.GetArchiveState(stateNum), endingMent);
         ArchiveLogManager.Instance.AddArchiveLog(archiveLog);
+        CountAttempts.Instance.AddAttemptCount();
+        GuideLogManager.Instance.SavePlayerSaveData();
     }
 
     public void GameOver(int stateNum=0){
@@ -47,10 +47,10 @@ public class GameOverManager : MonoBehaviour
         endingMentObject.SetActive(true);
         isEnd = true;
         stepTimer = 0.0f;
-        CountAttempts.Instance.AddAttemptCount();
-        GuideLogManager.Instance.SavePlayerSaveData();
         ArchiveLog archiveLog = new ArchiveLog(CountAttempts.Instance.GetAttemptCount(), ArchiveLogManager.Instance.GetArchiveState(stateNum), endingMent);
         ArchiveLogManager.Instance.AddArchiveLog(archiveLog);
+        CountAttempts.Instance.AddAttemptCount();
+        GuideLogManager.Instance.SavePlayerSaveData();
     }
 
     private void Update(){

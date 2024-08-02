@@ -22,7 +22,7 @@ public class GuideLogManager : MonoBehaviour
             return instance;
         }
     }
-    private string playerDataPath = "Assets/Resources/Data/PlayerGuideLogData.json";
+    private string playerDataPath;
 
     [SerializeField] private GuideLogData guideLogData;
     [SerializeField] private UIGuideLogManager uIGuideLogManager;
@@ -41,6 +41,8 @@ public class GuideLogManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        playerDataPath = Path.Combine(Application.persistentDataPath, "PlayerGuideLogData.json");
 
         guideLogData.Init();
     }
