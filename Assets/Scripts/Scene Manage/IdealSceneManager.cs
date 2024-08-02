@@ -167,6 +167,7 @@ public class IdealSceneManager : MonoBehaviour
         
         LoadingImageManager.Instance.SetActiveLoadingImage(false);
         EquipmentManager.Instance.EquipPillItem();
+        EquipmentManager.Instance.EquipFlashLight();
     }
 
     private void ImplementScriptHub(GameManager gameManager){

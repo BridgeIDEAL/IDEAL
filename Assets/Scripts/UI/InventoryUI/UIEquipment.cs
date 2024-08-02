@@ -131,8 +131,13 @@ public class UIEquipment : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+        if(item.Data.ID == 888){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.ActivePillUI(true);
+        }
 
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.ActivePillUI(true);
+        if(item.Data.ID == 889){
+            
+        }
     }
 
 

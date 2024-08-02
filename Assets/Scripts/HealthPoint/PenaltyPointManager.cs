@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PenaltyPointManager : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class PenaltyPointManager : MonoBehaviour
 
     private bool inLobby = true;
 
+    private bool inPrototypeSecond = false;
+
     public void Init(){
         if(instance == null){
             instance = this;
@@ -64,6 +67,12 @@ public class PenaltyPointManager : MonoBehaviour
             cameraTransform = scriptHub.playerCameraRootObject.transform;
 
             inLobby = false;
+            if(SceneManager.GetActiveScene().name == "Prototype_Second"){
+                inPrototypeSecond = true;
+            }
+            else{
+                inPrototypeSecond = false;
+            }
         }
     }
 
@@ -76,6 +85,7 @@ public class PenaltyPointManager : MonoBehaviour
         soundHearingTimer = 0.0f;
         insideSafeZone = false;
         inLobby = true;
+        inPrototypeSecond = false;
     }
 
 
@@ -88,7 +98,7 @@ public class PenaltyPointManager : MonoBehaviour
                 eyePenaltyStepTimer = 0.0f;
             }
         }
-        if(!inLobby &&!isChased && !isTimerFreeze && !insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
+        if(!inPrototypeSecond && !inLobby &&!isChased && !isTimerFreeze && !insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
 
         
         // 패널티 오브젝트가 존재하는 경우

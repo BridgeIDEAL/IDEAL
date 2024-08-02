@@ -13,6 +13,7 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
     [SerializeField] private AudioSource chaseAudioSource;
+    [SerializeField] private AudioSource lastRunAudioSource;
     [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
@@ -23,7 +24,10 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
     [SerializeField] private float chaseAudioVolume;
+    [SerializeField] private float lastRunAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
+
+    private bool isLastRun = false;
 
     void Awake(){
         outsideAudioSource.volume = outsideAudioVolume;
@@ -45,6 +49,8 @@ public class AmbienceSoundManager : MonoBehaviour
     
     void Update()
     {
+        if(isLastRun) return;
+
         bool isOutSide = (playerTransform.localPosition.z < triggerZ && playerTransform.localPosition.x > 7.0f && playerTransform.localPosition.x < 18.5f)
                         || playerTransform.localPosition.z < -1.4f;
         if(!isOutSide && currentArea == IdealArea.Outside){
@@ -137,6 +143,27 @@ public class AmbienceSoundManager : MonoBehaviour
             insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
             chaseAudioSource.volume = Mathf.Lerp(0.0f, chaseAudioVolume, stepTimer/ fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void LastRunStart(){
+        isLastRun = true;
+        StartCoroutine(LastRunStartCoroutine());
+    }
+
+    private IEnumerator LastRunStartCoroutine(){
+        float insideVol = insideAudioSource.volume;
+        float outsideVol = outsideAudioSource.volume;
+        float stepTimer = 0.0f;
+        float fadeTime = soundFadeTime * 2.0f;
+        lastRunAudioSource.volume = 0.0f;
+        lastRunAudioSource.Play();
+        while(stepTimer <=fadeTime){
+            insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
+            outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
+            lastRunAudioSource.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
