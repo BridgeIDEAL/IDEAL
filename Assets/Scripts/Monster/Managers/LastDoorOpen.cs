@@ -27,7 +27,6 @@ public class LastDoorOpen : MonoBehaviour
     public void OpenFrontDoors()
     {
         StartCoroutine(RotateDoor(0, new Vector3(0, 90, 0)));
-        StartCoroutine(RotateDoor(1, new Vector3(0, -90, 0)));
     }
     
     public IEnumerator RotateDoor(int _idx, Vector3 _rotate)
