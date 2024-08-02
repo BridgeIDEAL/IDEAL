@@ -149,19 +149,6 @@ public class EntitiesController : MonoBehaviour
     private bool isChase = false;
     public bool IsChase{ get { return isChase; } set { isChase = value; } } 
 
-    public void ChaseState(bool _isPrincipal = false)
-    {
-        isChase = true;
-        if(!_isPrincipal)
-            SendMessage(EntityStateType.Quiet);
-    }
-
-    public void NotChaseState()
-    {
-        isChase = false;
-        SendMessage(EntityStateType.Idle);
-    }
-
     public void ActiveChaseEntity(ChaseEventType _type)
     {
         ChaseEntityGroup[(int)_type].SetActive(true);

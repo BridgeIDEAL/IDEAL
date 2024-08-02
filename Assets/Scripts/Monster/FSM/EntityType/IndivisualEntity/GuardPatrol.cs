@@ -139,17 +139,25 @@ public class GuardPatrol : MovableEntity, IPatrol
     }
     #endregion
 
+    bool isTalk = false;
+
     #region Idle
-    public override void IdleEnter() { SetAnimation(EntityStateType.Idle, true); StartPatrol(); }
-    public override void IdleExecute() { Patrol(); DetectPlayer(); }
-    public override void IdleExit() { SetAnimation(EntityStateType.Idle, false); EndPatrol(); }
+    public override void IdleEnter() { if(isTalk) anim.Play("WALK");  else anim.Play("IDLE"); }
+    public override void IdleExecute() { if(isTalk)Patrol(); DetectPlayer(); }
+    public override void IdleExit() {EndPatrol(); }
     #endregion
 
     #region Talk
-    public override void TalkEnter() {  SetAnimation(EntityStateType.Talk, true); }
+    public override void TalkEnter() { isTalk = true; anim.Play("IDLE"); }
     public override void TalkExecute() { }
-    public override void TalkExit() { SetAnimation(EntityStateType.Talk, false); }
+    public override void TalkExit() { }
     #endregion
+
+    public void CheckPatrolState() 
+    {
+        if(currentType== EntityStateType.Idle)
+            anim.SetBool("Walk", true);
+    }
 
     #region Quiet
     public override void QuietEnter() { SetAnimation(EntityStateType.Quiet, true); }
