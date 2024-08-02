@@ -32,14 +32,12 @@ public class InteractionDoor : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0){
+        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0 || ProgressManager.Instance.GetItemLogExist(needItem)){
             OpenDoor();
             if(activationLogNum != -1){
                 //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
             }
-            if(successInteractionStr != ""){
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
-            }
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
         }
         else{
             if(audioSource != null){
@@ -58,6 +56,13 @@ public class InteractionDoor : AbstractInteraction
             StopCoroutine(moveCoroutine);
         }
         moveCoroutine = StartCoroutine(OpenDoorCoroutine());
+        ProgressManager.Instance.SetDoorLog(this.transform.parent.parent.name + this.transform.name, 1);
+    }
+
+    private void Awake(){
+        if(ProgressManager.Instance.GetDoorLog(this.transform.parent.parent.name + this.transform.name) == 1){
+            doorObject.transform.localPosition = destPosition;
+        }
     }
 
     private IEnumerator OpenDoorCoroutine(){
@@ -65,12 +70,14 @@ public class InteractionDoor : AbstractInteraction
         float stepTimer = 0.0f;
         float moveTime = openRequiredTime * 0.75f;
 
-        if(audioSource != null){
-            audioSource.clip = unlockDoorAudio;
-            audioSource.Play();
+        if(needItem != 0){
+            if(audioSource != null){
+                audioSource.clip = unlockDoorAudio;
+                audioSource.Play();
+            }
+            yield return new WaitForSeconds(unlockDoorAudio.length);
         }
-
-        yield return new WaitForSeconds(unlockDoorAudio.length);
+        
 
         if(audioSource != null){
             audioSource.clip = slidingDoorAudio;

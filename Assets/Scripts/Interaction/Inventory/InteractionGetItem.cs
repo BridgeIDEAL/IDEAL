@@ -16,8 +16,15 @@ public class InteractionGetItem : AbstractInteraction
         return $"<sprite=0> {detectedStr}";
     }
 
+    private void Awake(){
+        if(ProgressManager.Instance.GetItemLogExist(interactionItemData.ID)){
+            this.gameObject.SetActive(false);
+        }
+    }
+
     protected override void ActInteraction() {
         Inventory.Instance.Add(interactionItemData, 1);
+        ProgressManager.Instance.SetItemLog(interactionItemData.ID, 1);
         if(audioSource != null){
             audioSource.Play();
         }
