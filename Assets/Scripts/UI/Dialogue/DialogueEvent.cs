@@ -90,9 +90,18 @@ public class DialogueEvent : MonoBehaviour
     }
     #endregion
 
+    #region Entity Event
+    public void SpawnEntity(List<string> _parameterList)
+    {
+        Debug.Log("»£√‚µ ");
+        string _name = _parameterList[0];
+        EntityDataManager.Instance.Controller.ActiveEntity(_name);
+    }
+
     public void EntityAnimationTrigger(List<string> _parameterList)
     {
         BaseEntity _baseEntity = EntityDataManager.Instance.Controller.GetEntity(_parameterList[0]);
         _baseEntity.EntityAnimationTrigger(_parameterList[1]);
     }
+    #endregion
 }

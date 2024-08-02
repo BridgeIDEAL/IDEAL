@@ -27,7 +27,17 @@ public class GuardPatrol : MovableEntity, IPatrol
 
     public override void Setup()
     {
-        base.Setup();
+        entity_Data = EntityDataManager.Instance.GetEntityData(gameObject.name);
+        if (entity_Data == null)
+        {
+            Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
+            return;
+        }
+        if (entity_Data.isSpawn && Entity_Data.speakIndex!=-1)
+            controller.ActiveEntity(entity_Data.speakerName);
+        else
+            SetActiveState(false);
+
         if (Entity_Data.speakIndex == -1)
             onceTalk = false;
     }
@@ -79,6 +89,7 @@ public class GuardPatrol : MovableEntity, IPatrol
         ProgressManager.Instance.UpdateCheckList(102, 1);
         DialogueManager.Instance.StartDialogue(talkID, this);
         StartCoroutine(MoveAndRotateTowardsPlayer());
+        Entity_Data.isSpawn = false;
     }
 
     IEnumerator MoveAndRotateTowardsPlayer()

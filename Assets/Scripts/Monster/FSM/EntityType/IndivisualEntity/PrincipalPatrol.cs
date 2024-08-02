@@ -33,10 +33,6 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
     }
-    public override void Setup()
-    {
-        controller.ActiveEntity(gameObject.name);
-    }
 
     #region Patrol Interface
     public void StartPatrol()

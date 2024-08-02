@@ -197,6 +197,9 @@ public class DialogueUI : MonoBehaviour
     {
         switch (_eventName)
         {
+            case "SpawnEntity":
+                Event.SpawnEntity(_parameterList);
+                break;
             // Call Here : Relate Text Effect
             case "TypeSpeed":
                 ChangeTypeSpeed(_parameterList);

@@ -38,7 +38,7 @@ public class ImmovableEntity : BaseEntity
             Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
             return;
         }
-        controller.ActiveEntity(gameObject.name);
+        //controller.ActiveEntity(gameObject.name);
         if (entity_Data.isSpawn)
             controller.ActiveEntity(entity_Data.speakerName);
         else
