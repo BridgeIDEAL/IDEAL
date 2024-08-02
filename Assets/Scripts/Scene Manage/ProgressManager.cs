@@ -92,7 +92,7 @@ public class ProgressManager : MonoBehaviour
 
     public Dictionary<int, int> itemState = new Dictionary<int, int>();
 
-    public Dictionary<int, int> doorState = new Dictionary<int, int>();     // 상호작용 없을 시 코드 없음 문 열림 1 문 닫힘 2
+    public Dictionary<string, int> doorState = new Dictionary<string, int>();     // 상호작용 없을 시 코드 없음 문 열림 1
 
     private UICheckListManager uICheckListManager;
     void Awake(){
@@ -137,7 +137,7 @@ public class ProgressManager : MonoBehaviour
             }
 
             itemState = new Dictionary<int, int>();
-            doorState = new Dictionary<int, int>();
+            doorState = new Dictionary<string, int>();
         }
         else{
             uICheckListManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uICheckListManager;
@@ -170,20 +170,20 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
-    public void SetDoorLog(int doorCode, int state){
-        if(doorState.ContainsKey(doorCode)){
+    public void SetDoorLog(string doorName, int state){
+        if(doorState.ContainsKey(doorName)){
             // 이미 문 상호작용을 한 경우 state 값을 갱신
-            doorState[doorCode] = state;
+            doorState[doorName] = state;
         }
         else{
             // 상호작용 하지 않은 문이라면 등록
-            doorState.Add(doorCode, state);
+            doorState.Add(doorName, state);
         }
     }
 
-    public int GetDoorLog(int doorCode){
-        if(doorState.ContainsKey(doorCode)){
-            return doorState[doorCode];
+    public int GetDoorLog(string doorName){
+        if(doorState.ContainsKey(doorName)){
+            return doorState[doorName];
         }
         else{
             return -1;

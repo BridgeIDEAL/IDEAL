@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionDoor : AbstractInteraction
 {
     [SerializeField] private AudioClip unlockDoorAudio;
+    [SerializeField] private AudioClip slidingDoorAudio;
     [SerializeField] private AudioClip lockDoorAudio;
     
     [SerializeField] GameObject doorObject;
@@ -31,18 +32,12 @@ public class InteractionDoor : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0){
-            if(audioSource != null){
-                audioSource.clip = unlockDoorAudio;
-                audioSource.Play();
-            }
+        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0 || ProgressManager.Instance.GetItemLogExist(needItem)){
             OpenDoor();
             if(activationLogNum != -1){
                 //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
             }
-            if(successInteractionStr != ""){
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
-            }
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
         }
         else{
             if(audioSource != null){
@@ -61,13 +56,33 @@ public class InteractionDoor : AbstractInteraction
             StopCoroutine(moveCoroutine);
         }
         moveCoroutine = StartCoroutine(OpenDoorCoroutine());
+        ProgressManager.Instance.SetDoorLog(this.transform.parent.parent.name + this.transform.name, 1);
+    }
+
+    private void Awake(){
+        if(ProgressManager.Instance.GetDoorLog(this.transform.parent.parent.name + this.transform.name) == 1){
+            doorObject.transform.localPosition = destPosition;
+        }
     }
 
     private IEnumerator OpenDoorCoroutine(){
-        Debug.Log("실행하는중..");
         Vector3 startPos = doorObject.transform.localPosition;
         float stepTimer = 0.0f;
         float moveTime = openRequiredTime * 0.75f;
+
+        if(needItem != 0){
+            if(audioSource != null){
+                audioSource.clip = unlockDoorAudio;
+                audioSource.Play();
+            }
+            yield return new WaitForSeconds(unlockDoorAudio.length);
+        }
+        
+
+        if(audioSource != null){
+            audioSource.clip = slidingDoorAudio;
+            audioSource.Play();
+        }
         while(stepTimer <= moveTime){
             // TO DO
             // 등속도 운동과 삼각함수 사용한 거 비교해보고 골라보기
