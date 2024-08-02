@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)){
             UIActives[(int)UIType.SettingUI] = !UIActives[(int)UIType.SettingUI];
             SetUIActive(UIType.SettingUI, UIActives[(int)UIType.SettingUI]);
-            thirdPersonController.MoveLock = !UIActives[(int)UIType.SettingUI];
+            thirdPersonController.MoveLock = UIActives[(int)UIType.SettingUI];
         }
 
         UpdateMouseLock();
