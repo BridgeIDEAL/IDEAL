@@ -37,6 +37,7 @@ public class PenaltyPointManager : MonoBehaviour
     private bool insideSafeZone = false;
 
     private bool isTimerFreeze = false;
+    public bool isChased = false;
 
 
     public void Init(){
@@ -83,7 +84,7 @@ public class PenaltyPointManager : MonoBehaviour
                 eyePenaltyStepTimer = 0.0f;
             }
         }
-        if(EntityDataManager.Instance.Controller.IsChase || isTimerFreeze || insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
+        if(isChased || isTimerFreeze || insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
 
         
         // 패널티 오브젝트가 존재하는 경우
@@ -122,7 +123,7 @@ public class PenaltyPointManager : MonoBehaviour
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren);
             isSoundHearing = true;
         }
-        if(EntityDataManager.Instance.Controller.IsChase || isTimerFreeze || insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
+        if(isChased || isTimerFreeze || insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
 
         if(isSoundHearing){
             soundHearingTimer += Time.deltaTime;

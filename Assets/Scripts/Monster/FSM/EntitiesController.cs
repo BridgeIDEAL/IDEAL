@@ -170,6 +170,7 @@ public class EntitiesController : MonoBehaviour
             //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseStart();
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
             HealthPointManager.Instance.chased = true;
+            PenaltyPointManager.Instance.isChased = true;
             // To Do ~~ Speed Up
         }
         else
@@ -177,6 +178,7 @@ public class EntitiesController : MonoBehaviour
             //IdealSceneManager.Instance.CurrentManager.scriptHub.ambienceSoundManager.ChaseEnd();
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
             HealthPointManager.Instance.chased = false;
+            PenaltyPointManager.Instance.isChased = false;
             // To Do ~~ Speed Down
         }
     }
