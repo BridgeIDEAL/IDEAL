@@ -15,6 +15,7 @@ public class InteractionDoorRotation : AbstractInteraction
     [SerializeField] private string failInteractionStr = "";
     [SerializeField] private int needItem = -1; // 아이템이 필요 없으면 -1
     [SerializeField] private int activationLogNum = -1;
+    [SerializeField] private bool isKeyBox = false;
     
     public override float RequiredTime { get => 1.0f;}
 
@@ -49,14 +50,29 @@ public class InteractionDoorRotation : AbstractInteraction
             StopCoroutine(moveCoroutine);
         }
         moveCoroutine = StartCoroutine(OpenDoorCoroutine());
-        ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name, 1);
+        if(isKeyBox){
+            ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name, 1);
+        }
+        else{
+            ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name, 1);
+        }
+        
     }
 
     private void Awake(){
-        if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + this.transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name) == 1){
-            doorObject.transform.localRotation = Quaternion.Euler(destRotation);
-            isOpen = true;
+        if(isKeyBox){
+            if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name) == 1){
+                doorObject.transform.localRotation = Quaternion.Euler(destRotation);
+                isOpen = true;
+            }
         }
+        else{
+            if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + this.transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name) == 1){
+                doorObject.transform.localRotation = Quaternion.Euler(destRotation);
+                isOpen = true;
+            }
+        }
+        
     }
 
     private IEnumerator OpenDoorCoroutine(){
