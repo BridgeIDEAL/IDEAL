@@ -12,13 +12,17 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
+    [SerializeField] private AudioSource chaseAudioSource;
     [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
     private IdealArea currentArea = IdealArea.Outside;
 
+    private Coroutine chaseAudioCoroutine;
+
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
+    [SerializeField] private float chaseAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
 
     void Awake(){
@@ -86,5 +90,55 @@ public class AmbienceSoundManager : MonoBehaviour
             yield return null;
         }
         insideAudioSource.Stop();
+    }
+
+
+    public void ChaseStart(){
+        if(chaseAudioCoroutine != null){
+            StopCoroutine(chaseAudioCoroutine);
+        }
+        chaseAudioCoroutine = StartCoroutine(ChaseStartCoroutine());
+    }
+
+    private IEnumerator ChaseStartCoroutine(){
+        float insideVol = insideAudioSource.volume;
+        float outsideVol = outsideAudioSource.volume;
+        float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
+        float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
+        float stepTimer = 0.0f;
+        float fadeTime = soundFadeTime * 2.0f;
+        chaseAudioSource.volume = 0.0f;
+        chaseAudioSource.Play();
+        while(stepTimer <=fadeTime){
+            insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
+            outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(chaseAudioVolume, 0.0f, stepTimer/ fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        chaseAudioSource.Stop();
+    }
+
+    public void ChaseEnd(){
+        if(chaseAudioCoroutine != null){
+            StopCoroutine(chaseAudioCoroutine);
+        }
+        chaseAudioCoroutine = StartCoroutine(ChaseEndCoroutine());
+    }
+
+    private IEnumerator ChaseEndCoroutine(){
+        float insideVol = insideAudioSource.volume;
+        float outsideVol = outsideAudioSource.volume;
+        float stepTimer = 0.0f;
+        float fadeTime = soundFadeTime * 2.0f;
+        chaseAudioSource.volume = 0.0f;
+        chaseAudioSource.Play();
+        while(stepTimer <=fadeTime){
+            insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
+            outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(0.0f, chaseAudioVolume, stepTimer/ fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 }
