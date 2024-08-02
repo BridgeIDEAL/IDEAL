@@ -2448,6 +2448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptHub: {fileID: 0}
+  chased: 0
 --- !u!114 &426624390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,6 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c966b7e488cd4c429c6f8ebac32fe8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  watchMapNum: 0
 --- !u!82 &426624392
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6598,6 +6600,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
+        type: 3}
+      propertyPath: dialougeList.Array.size
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
+        type: 3}
+      propertyPath: dialougeList.Array.data[19]
+      value: 
+      objectReference: {fileID: 4900000, guid: 718cedf403c68944a99e5f06b27ec406, type: 3}
     - target: {fileID: 6760057421549485488, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
       propertyPath: m_RootOrder
