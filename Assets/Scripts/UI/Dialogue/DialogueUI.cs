@@ -28,6 +28,8 @@ public class DialogueUI : MonoBehaviour
     bool canSkip = false;
 
     bool isChooseState = false;
+    bool isTyping = false;
+    bool isPressDialogueSkipBtn = false;
     #endregion
 
     #region Dialogue System Method
@@ -58,6 +60,7 @@ public class DialogueUI : MonoBehaviour
     {
         // Init
         CanSkip = false;
+        isTyping = true;
         dialogueTexts[1].text = "";
         string curDialogueLine = _dialogueLine;
         int dialogueLineLen = curDialogueLine.Length;
@@ -100,6 +103,8 @@ public class DialogueUI : MonoBehaviour
                 }
             }
             CallDialogueEvent(eventName, parameterList);
+            isTyping = false;
+            isPressDialogueSkipBtn = false;
             NextDialogue();
             yield break;
         }
@@ -111,6 +116,17 @@ public class DialogueUI : MonoBehaviour
 
             for (int i = 0; i < dialogueLineLen; i++)
             {
+                if (isPressDialogueSkipBtn && i > 3)
+                {
+                    curDialogueLine=curDialogueLine.Replace("^","");
+                    dialogueTexts[1].text = curDialogueLine;
+                    CanSkip = true;
+                    isTyping = false;
+                    isPressDialogueSkipBtn = false;
+                    break; 
+                }
+
+
                 if (haveFontTrigger)
                 {
                     if (curDialogueLine[i] == fontTriggerStr)
@@ -140,7 +156,9 @@ public class DialogueUI : MonoBehaviour
             }
         }
         curDialogueLineIdx += 1;
+        isPressDialogueSkipBtn = false;
         CanSkip = true;
+        isTyping = false;
     }
 
     public void EndDialouge()
@@ -271,6 +289,14 @@ public class DialogueUI : MonoBehaviour
 
     public void Execute()
     {
+        if (isTyping)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                isPressDialogueSkipBtn = true;
+            else if (Input.GetKeyUp(KeyCode.Space))
+                isPressDialogueSkipBtn = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)
         {
             if (curDialogueLineIdx < dialogue.storyLines.Count)

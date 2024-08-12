@@ -38,6 +38,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] bool isTalking = false;
     public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
 
+    [SerializeField] LayerMask interactionLayer;
+    [SerializeField] LayerMask defaultLayer;
     #region Awake Method
     private void Awake()
     {
@@ -135,12 +137,16 @@ public class DialogueManager : MonoBehaviour
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
         // To Do ~~~ : Prevent Active Another UI
-        // To Do ~~~ : Entity State 
+        // Prevent Interaction 
+        CurrentTalkEntity.gameObject.layer = defaultLayer;
     }
 
     // Call By DialogueUI
     public void EndDialogue()
     {
+        InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
+        if (conversation.canTalk)
+            CurrentTalkEntity.gameObject.layer = interactionLayer;
         isTalking = false;
         CurrentTalkEntity = null;
         // Unlock Player Move & Rotate : Later Delete Annotation

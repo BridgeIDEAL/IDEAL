@@ -35,6 +35,7 @@ public class StandLookPlayer : LookPlayer
         {
             lookDir = LookPlayerDirection.BodyRotate;
             Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             StartCoroutine(RotateCor(targetRotation));
         }
