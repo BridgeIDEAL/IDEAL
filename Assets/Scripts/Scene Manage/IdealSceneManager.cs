@@ -145,6 +145,7 @@ public class IdealSceneManager : MonoBehaviour
         currentGameManager.scriptHub.thirdPersonController.MoveLock = false;
         currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
+        PenaltyPointManager.Instance.watchIntroEnded = true;
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);
         LobbyBGMFade(false);
 

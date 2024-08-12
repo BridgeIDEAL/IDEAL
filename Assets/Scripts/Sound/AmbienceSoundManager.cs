@@ -18,7 +18,7 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
-    private IdealArea currentArea = IdealArea.Outside;
+    public IdealArea currentArea = IdealArea.Outside;
 
     private Coroutine chaseAudioCoroutine;
 

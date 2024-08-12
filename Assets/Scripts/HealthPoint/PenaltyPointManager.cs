@@ -43,6 +43,7 @@ public class PenaltyPointManager : MonoBehaviour
     private bool inLobby = true;
 
     private bool inPrototypeSecond = false;
+    public bool watchIntroEnded = false;
 
     public void Init(){
         if(instance == null){
@@ -58,6 +59,7 @@ public class PenaltyPointManager : MonoBehaviour
     public void EnterAnotherSceneInit(bool isLobby){
         if(isLobby){
             InitPenaltyPoint();
+            watchIntroEnded = false;
         }
         else{
             uIIngame = scriptHub.uIIngame;
@@ -90,7 +92,9 @@ public class PenaltyPointManager : MonoBehaviour
 
 
     void Update(){
-
+        if(!watchIntroEnded || scriptHub.ambienceSoundManager.currentArea == IdealArea.Outside){
+            return;
+        }
         if(eyePenaltyStepTimer >= eyeObjectRespawnTime){
             // 1. 패널티 오브젝트 생성 / 쿨이 돌았을 때만
             eyePenaltyObject = eyePenaltyManager.ActiveEyePenaltyObject();
