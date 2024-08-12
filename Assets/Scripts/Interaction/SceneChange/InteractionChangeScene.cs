@@ -59,6 +59,7 @@ public class InteractionChangeScene : AbstractInteraction
             // PenaltyPointManager.Instance.AddPenaltyPoint(1);
         }
         ProgressManager.Instance.UpdateCheckList(104, 1);
+        IdealSceneManager.Instance.metalDoorSound.Play();
         IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName, destPosition, destRotation);
         if (successInteractionStr != "")
         {

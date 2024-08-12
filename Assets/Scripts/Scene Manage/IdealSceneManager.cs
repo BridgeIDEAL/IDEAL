@@ -37,6 +37,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private ReformPointManager reformPointManager;
     [SerializeField] private ConversationPointManager conversationPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
+    public AudioSource metalDoorSound;
     private float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
     private float fadeEffectTime = 0.7f;
