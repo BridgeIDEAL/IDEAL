@@ -2601,7 +2601,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptHub: {fileID: 0}
   eyePenaltyStepTimer: 0
+  isSoundHearing: 0
   isChased: 0
+  watchIntroEnded: 0
 --- !u!114 &426624395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6605,8 +6607,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}
+      propertyPath: defaultLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
+        type: 3}
       propertyPath: dialougeList.Array.size
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
+        type: 3}
+      propertyPath: interactionLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6760057421549485391, guid: 6d41a3cebdac35040bcf58857dae37e3,
         type: 3}

@@ -6,6 +6,6 @@ public class EntityDataReset : MonoBehaviour
 {
     void Start()
     {
-        EntityDataManager.Instance.ResetData();       
+        EntityDataManager.Instance.ResetData();
     }
 }
