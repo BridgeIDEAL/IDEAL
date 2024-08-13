@@ -11,6 +11,10 @@ public class SafeZoneColliderManager : MonoBehaviour
         if (other.CompareTag("FreezeRoom")) {
             PenaltyPointManager.Instance.GoFreezeZone(true);
         }
+
+        if(other.CompareTag("Outside")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.Outside);
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -21,5 +25,8 @@ public class SafeZoneColliderManager : MonoBehaviour
             PenaltyPointManager.Instance.GoFreezeZone(false);
         }
 
+        if(other.CompareTag("Outside")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+        }
     }
 }

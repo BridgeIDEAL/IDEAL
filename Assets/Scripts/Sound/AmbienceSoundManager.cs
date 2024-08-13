@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum IdealArea{
     Outside,
-    Inside
+    Inside,
 }
 
 public class AmbienceSoundManager : MonoBehaviour
@@ -12,10 +12,10 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
+    [SerializeField] private GuardCCTVSound guardCCTVSound;
     [SerializeField] private AudioSource chaseAudioSource;
     [SerializeField] private AudioSource lastRunAudioSource_1;
     [SerializeField] private AudioSource lastRunAudioSource_2;
-    [SerializeField] private float triggerZ = 8.8f;
 
     private Coroutine audioCoroutine;
     public IdealArea currentArea = IdealArea.Outside;
@@ -24,6 +24,7 @@ public class AmbienceSoundManager : MonoBehaviour
 
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
+    [SerializeField] private float guardRoomAudioVolume;
     [SerializeField] private float chaseAudioVolume;
     [SerializeField] private float lastRunAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
@@ -50,24 +51,35 @@ public class AmbienceSoundManager : MonoBehaviour
     
     void Update()
     {
-        if(isLastRun) return;
 
-        bool isOutSide = (playerTransform.localPosition.z < triggerZ && playerTransform.localPosition.x > 7.0f && playerTransform.localPosition.x < 18.5f)
-                        || playerTransform.localPosition.z < -1.4f;
-        if(!isOutSide && currentArea == IdealArea.Outside){
-            if(audioCoroutine != null){
-                StopCoroutine(audioCoroutine);
-            }
-            audioCoroutine = StartCoroutine(InsideSoundCoroutine(soundFadeTime));
-            currentArea = IdealArea.Inside;
+    }
+
+    public void UpdateAreaCondition(bool isColliderEnter, IdealArea areaCondition){
+        if(isColliderEnter){
+            // 문 개념으로 ColliderExit 에 적용되도록 수정
         }
-        
-        if(isOutSide && currentArea == IdealArea.Inside){
-            if(audioCoroutine != null){
-                StopCoroutine(audioCoroutine);
+        else{
+            if(areaCondition == IdealArea.Outside){
+                if(currentArea == IdealArea.Outside){
+                    guardCCTVSound.TurnOnCCTV();
+                    currentArea = IdealArea.Inside;
+                    if(audioCoroutine != null){
+                        StopCoroutine(audioCoroutine);
+                    }
+                    audioCoroutine = StartCoroutine(InsideSoundCoroutine(soundFadeTime));
+                }
+                else if(currentArea == IdealArea.Inside){
+                    guardCCTVSound.TurnOffCCTV();
+                    currentArea = IdealArea.Outside;
+                    if(audioCoroutine != null){
+                        StopCoroutine(audioCoroutine);
+                    }
+                    audioCoroutine = StartCoroutine(OutsideSoundCoroutine(soundFadeTime));
+                }
+                else{
+                    Debug.Log(" Un expected 1");
+                }
             }
-            audioCoroutine = StartCoroutine(OutsideSoundCoroutine(soundFadeTime));
-            currentArea = IdealArea.Outside;
         }
     }
 
