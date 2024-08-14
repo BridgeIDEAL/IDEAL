@@ -10,6 +10,7 @@ public class InteractionGetItem : AbstractInteraction
     [SerializeField] private int activationLogNum = -1;
     [SerializeField] private float requiredTime = 1.0f;
     [SerializeField] private int availableCount = 1;
+    [SerializeField] private bool sizeUpBoxCollider = true;
     public override float RequiredTime { get => requiredTime;}
 
     protected override string GetDetectedString(){
@@ -19,6 +20,13 @@ public class InteractionGetItem : AbstractInteraction
     private void Awake(){
         if(ProgressManager.Instance.GetItemLogExist(interactionItemData.ID)){
             this.gameObject.SetActive(false);
+        }
+        
+        BoxCollider boxCollider = this.gameObject.GetComponent<BoxCollider>();
+        if(sizeUpBoxCollider && boxCollider != null){
+            Vector3 sizeV = boxCollider.size;
+            sizeV *= 2.0f;
+            boxCollider.size = sizeV;
         }
     }
 
