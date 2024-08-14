@@ -6,22 +6,12 @@ public class GuardCCTVSound : MonoBehaviour
     [SerializeField]private AudioSource guardCCTVAudioSource;
     [SerializeField]private Transform playerTransform;
     public bool isTurnOn = false;
-    private float floorYlimit = 7.5f;
     private float guardCCTVVolume = 0.2f;
     private Coroutine cctvCoroutine;
     private float fadeTime = 1.0f;
 
     void Update(){
-        if(!PenaltyPointManager.Instance.watchIntroEnded){
-            return;
-        }
-        if(isTurnOn && playerTransform.localPosition.y > floorYlimit){
-            TurnOffCCTV();
-        } 
 
-        if(!isTurnOn && playerTransform.localPosition.y <= floorYlimit && IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.currentArea == IdealArea.Inside){
-            TurnOnCCTV();
-        }
     }
 
     public void TurnOnCCTV(){

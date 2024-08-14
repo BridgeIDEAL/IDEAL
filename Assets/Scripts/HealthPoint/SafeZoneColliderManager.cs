@@ -15,6 +15,9 @@ public class SafeZoneColliderManager : MonoBehaviour
         if(other.CompareTag("Outside")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.Outside);
         }
+        if(other.CompareTag("GuardRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.GuardRoom);
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -27,6 +30,9 @@ public class SafeZoneColliderManager : MonoBehaviour
 
         if(other.CompareTag("Outside")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+        }
+        if(other.CompareTag("GuardRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.GuardRoom);
         }
     }
 }

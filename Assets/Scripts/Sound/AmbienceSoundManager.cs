@@ -5,6 +5,7 @@ using UnityEngine;
 public enum IdealArea{
     Outside,
     Inside,
+    GuardRoom,
 }
 
 public class AmbienceSoundManager : MonoBehaviour
@@ -24,7 +25,6 @@ public class AmbienceSoundManager : MonoBehaviour
 
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
-    [SerializeField] private float guardRoomAudioVolume;
     [SerializeField] private float chaseAudioVolume;
     [SerializeField] private float lastRunAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
@@ -61,7 +61,6 @@ public class AmbienceSoundManager : MonoBehaviour
         else{
             if(areaCondition == IdealArea.Outside){
                 if(currentArea == IdealArea.Outside){
-                    guardCCTVSound.TurnOnCCTV();
                     currentArea = IdealArea.Inside;
                     if(audioCoroutine != null){
                         StopCoroutine(audioCoroutine);
@@ -69,7 +68,6 @@ public class AmbienceSoundManager : MonoBehaviour
                     audioCoroutine = StartCoroutine(InsideSoundCoroutine(soundFadeTime));
                 }
                 else if(currentArea == IdealArea.Inside){
-                    guardCCTVSound.TurnOffCCTV();
                     currentArea = IdealArea.Outside;
                     if(audioCoroutine != null){
                         StopCoroutine(audioCoroutine);
@@ -78,6 +76,16 @@ public class AmbienceSoundManager : MonoBehaviour
                 }
                 else{
                     Debug.Log(" Un expected 1");
+                }
+            }
+            if(areaCondition == IdealArea.GuardRoom){
+                if(currentArea == IdealArea.Inside){
+                    currentArea = IdealArea.GuardRoom;
+                    guardCCTVSound.TurnOnCCTV();
+                }
+                else if(currentArea == IdealArea.GuardRoom){
+                    currentArea = IdealArea.Inside;
+                    guardCCTVSound.TurnOffCCTV();
                 }
             }
         }
