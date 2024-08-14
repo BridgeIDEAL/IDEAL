@@ -307,7 +307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 67424237}
-  volume: 0
   defaultAmbienceObject: {fileID: 1329552276}
 --- !u!1001 &158004584
 PrefabInstance:
@@ -5609,7 +5608,6 @@ MonoBehaviour:
   currentArea: 0
   insideAudioVolume: 0.5
   outsideAudioVolume: 1
-  guardRoomAudioVolume: 0
   chaseAudioVolume: 0.7
   lastRunAudioVolume: 0.64
   soundFadeTime: 1
@@ -10264,7 +10262,8 @@ AudioSource:
   m_GameObject: {fileID: 1563995763}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -10594,7 +10593,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1588225507}
-  volume: 0
 --- !u!135 &1588225509
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13521,7 +13519,8 @@ AudioSource:
   m_GameObject: {fileID: 2096556250}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

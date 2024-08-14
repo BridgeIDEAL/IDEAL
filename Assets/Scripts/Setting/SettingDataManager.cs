@@ -49,6 +49,11 @@ public class SettingDataManager : MonoBehaviour
         SavePlayerSettingData();        
     }
 
+    void Start(){
+        // Awake에서한 AudioMixer 적용이 잘 안되는 것으로 확인
+        LoadPlayerSettingData();
+    }
+
     private void LoadPlayerSettingData(){
         string loadJson = File.ReadAllText(playerSettingPath);
         playerSettingData = new PlayerSettingData();

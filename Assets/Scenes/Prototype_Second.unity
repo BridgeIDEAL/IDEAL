@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.14799765, g: 0.1128834, b: 0.10320426, a: 1}
+  m_IndirectSpecularColor: {r: 0.14799228, g: 0.11292406, b: 0.10322183, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2300,10 +2300,11 @@ MonoBehaviour:
   playerTransform: {fileID: 1535485699}
   outsideAudioSource: {fileID: 393304468}
   insideAudioSource: {fileID: 1480802226}
+  guardCCTVSound: {fileID: 0}
   chaseAudioSource: {fileID: 1941820209}
   lastRunAudioSource_1: {fileID: 1213586269}
   lastRunAudioSource_2: {fileID: 908233533}
-  triggerZ: 8.8
+  currentArea: 0
   insideAudioVolume: 0.5
   outsideAudioVolume: 1
   chaseAudioVolume: 0.7
@@ -5498,7 +5499,8 @@ AudioSource:
   m_GameObject: {fileID: 1563995763}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -6605,7 +6607,8 @@ AudioSource:
   m_GameObject: {fileID: 2096556250}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
