@@ -46,6 +46,7 @@ public class InteractionDoorRotation : AbstractInteraction
 
     private void OpenDoor(){
         isOpen = true;
+        if(isKeyBox) InActiveCollider();
         if(moveCoroutine != null){
             StopCoroutine(moveCoroutine);
         }
@@ -64,6 +65,7 @@ public class InteractionDoorRotation : AbstractInteraction
             if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name) == 1){
                 doorObject.transform.localRotation = Quaternion.Euler(destRotation);
                 isOpen = true;
+                InActiveCollider();
             }
         }
         else{
@@ -86,6 +88,13 @@ public class InteractionDoorRotation : AbstractInteraction
             doorObject.transform.localRotation = Quaternion.Euler(Rotation);
             stepTimer += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    private void InActiveCollider(){
+        Collider collider = this.gameObject.GetComponent<Collider>();
+        if(collider != null){
+            collider.enabled = false;
         }
     }
 }
