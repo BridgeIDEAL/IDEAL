@@ -256,14 +256,15 @@ namespace StarterAssets
         }
 
         IEnumerator CameraEnforceLookAtCoroutine(Transform destPosition){
+            cameraEnforced = true;
             float stepTimer = 0.0f;
             float startYaw = _cinemachineTargetYaw;
             float startPitch = _cinemachineTargetPitch;
             Vector3 targetDir = (destPosition.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(targetDir);
-            Vector3 startPos = transform.position;
-            Vector3 destPos = startPos - (lookRotation * Vector3.forward * 2.5f);
-            destPos.y = startPos.y;
+            // Vector3 startPos = transform.position;
+            // Vector3 destPos = startPos - (lookRotation * Vector3.forward * 2.5f);
+            // destPos.y = startPos.y;
 
             while(stepTimer <= cameraEnforceRotationTime){
                 _cinemachineTargetYaw = Mathf.Lerp(startYaw, lookRotation.eulerAngles.y, stepTimer / cameraEnforceRotationTime);
@@ -271,10 +272,11 @@ namespace StarterAssets
 
                 CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
-                transform.position = Vector3.Lerp(startPos, destPos, stepTimer / cameraEnforceRotationTime);
+                // transform.position = Vector3.Lerp(startPos, destPos, stepTimer / cameraEnforceRotationTime);
                 stepTimer += Time.deltaTime;
                 yield return null;
             }
+            cameraEnforced = false;
         }
 
         public void CameraEnforceLookAt(Transform destPosition){
