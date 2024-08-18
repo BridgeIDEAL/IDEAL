@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.14799765, g: 0.1128834, b: 0.10320426, a: 1}
+  m_IndirectSpecularColor: {r: 0.14791474, g: 0.11290253, b: 0.10322509, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -845,6 +845,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -10.15
       objectReference: {fileID: 0}
+    - target: {fileID: 8755574696715804942, guid: f7dfd63b4a6b0f643ac2035a73f49aab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9008453358325943978, guid: f7dfd63b4a6b0f643ac2035a73f49aab,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1141,7 +1146,12 @@ PrefabInstance:
     - target: {fileID: 5528828108414402412, guid: 924309a8f1fe7ea4e99a1ab28eb8c175,
         type: 3}
       propertyPath: runMotionSpeed
-      value: 1.2
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528828108414402412, guid: 924309a8f1fe7ea4e99a1ab28eb8c175,
+        type: 3}
+      propertyPath: patrolPoints.Array.data[4].x
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 5930068448056516784, guid: 924309a8f1fe7ea4e99a1ab28eb8c175,
         type: 3}
@@ -1207,6 +1217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025577998732432086, guid: 924309a8f1fe7ea4e99a1ab28eb8c175,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 924309a8f1fe7ea4e99a1ab28eb8c175, type: 3}
@@ -2300,12 +2315,14 @@ MonoBehaviour:
   playerTransform: {fileID: 1535485699}
   outsideAudioSource: {fileID: 393304468}
   insideAudioSource: {fileID: 1480802226}
+  guardCCTVSound: {fileID: 0}
   chaseAudioSource: {fileID: 1941820209}
   lastRunAudioSource_1: {fileID: 1213586269}
   lastRunAudioSource_2: {fileID: 908233533}
-  triggerZ: 8.8
+  currentArea: 0
   insideAudioVolume: 0.5
   outsideAudioVolume: 1
+  guardRoomAudioVolume: 0
   chaseAudioVolume: 0.7
   lastRunAudioVolume: 0.64
   soundFadeTime: 1

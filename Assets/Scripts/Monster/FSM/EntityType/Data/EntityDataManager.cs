@@ -17,6 +17,9 @@ public class EntityDataManager : MonoBehaviour
     private EntitiesController controller = null;
     public EntitiesController Controller { get { LinkEntitiesController(); return controller; } set { controller = value; } }
 
+    private EntityNoticeManager notice = new EntityNoticeManager();
+    public EntityNoticeManager Notice { get { return notice; } }
+
     private void Awake()
     {
         if (Instance == null)
