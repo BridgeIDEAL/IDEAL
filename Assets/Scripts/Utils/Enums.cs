@@ -84,3 +84,11 @@ public enum ClassCabinetSpawnItem
     BrokenKeyStudentRoom,
     BrokenKeyComputerRoom
 }
+
+public enum TeleportPoint
+{
+    None,
+    BuildingB_1F,
+    BuildingB_2F,
+    BuildingB_3F
+}

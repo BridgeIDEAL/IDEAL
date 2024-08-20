@@ -22,7 +22,7 @@ public class InteractionChangeScene : AbstractInteraction
     private bool onceActiveEvent = true;
     // ~~~End
     public override float RequiredTime { get => 1.0f; }
-
+    [SerializeField] TeleportPoint teleportPoint; // Jun
     protected override string GetDetectedString()
     {
         return $"<sprite=0> {detectedStr}";
@@ -65,5 +65,6 @@ public class InteractionChangeScene : AbstractInteraction
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
         }
+        EntityDataManager.Instance.Notice.CurrentTeleportPoint = teleportPoint; // Jun
     }
 }

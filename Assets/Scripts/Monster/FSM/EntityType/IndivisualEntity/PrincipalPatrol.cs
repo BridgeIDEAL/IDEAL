@@ -15,7 +15,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     [Header("Patrol")]
     [SerializeField, Tooltip("¼øÂû ÁöÁ¡µé")] Vector3[] patrolPoints;
     #endregion
-
+    
     #region In StudyRoom Val
     bool isRotate = false;
     [SerializeField] bool isInStudyRoom = false;
@@ -32,6 +32,33 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         detectPlayer = GetComponentInChildren<DetectPlayer>();
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
+
+        #region Set Patrol Point Height
+        float _height = 3.5f;
+        int _poinCnt = patrolPoints.Length;
+        switch (EntityDataManager.Instance.Notice.CurrentTeleportPoint)
+        {
+            case TeleportPoint.BuildingB_1F:
+                _height *= 0;
+                break;
+            case TeleportPoint.BuildingB_2F:
+                _height *= 1;
+                break;
+            case TeleportPoint.BuildingB_3F:
+                _height *= 2;
+                break;
+            default:
+                return;
+        }
+
+        agent.enabled = false;
+        for(int i=0; i<_poinCnt; i++)
+        {
+            patrolPoints[i].y = _height;
+        }
+        transform.position = patrolPoints[0];
+        agent.enabled = true;
+        #endregion
     }
 
     #region Patrol Interface
@@ -52,7 +79,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public void SeekNextRoute()
     {
         currentPoint += 1;
-        if (currentPoint >= maxPoint)
+        if (currentPoint > maxPoint)
             currentPoint = 0;
         agent.SetDestination(patrolPoints[currentPoint]);
     }
