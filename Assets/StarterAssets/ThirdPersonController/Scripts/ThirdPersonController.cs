@@ -262,22 +262,20 @@ namespace StarterAssets
             float startPitch = _cinemachineTargetPitch;
             Vector3 targetDir = (destPosition.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(targetDir);
-            // Vector3 startPos = transform.position;
-            // Vector3 destPos = startPos - (lookRotation * Vector3.forward * 2.5f);
-            // destPos.y = startPos.y;
 
             while(stepTimer <= cameraEnforceRotationTime){
-                _cinemachineTargetYaw = Mathf.Lerp(startYaw, lookRotation.eulerAngles.y, stepTimer / cameraEnforceRotationTime);
-                _cinemachineTargetPitch = Mathf.Lerp(startPitch, lookRotation.eulerAngles.z, stepTimer/ cameraEnforceRotationTime);
+                _cinemachineTargetYaw = Mathf.LerpAngle(startYaw, lookRotation.eulerAngles.y, stepTimer / cameraEnforceRotationTime);
+                _cinemachineTargetPitch = Mathf.LerpAngle(startPitch, lookRotation.eulerAngles.z, stepTimer / cameraEnforceRotationTime); // 여기서 Pitch는 x축 회전 각도를 사용해야 합니다
 
                 CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
-                // transform.position = Vector3.Lerp(startPos, destPos, stepTimer / cameraEnforceRotationTime);
+
                 stepTimer += Time.deltaTime;
                 yield return null;
             }
             cameraEnforced = false;
         }
+
 
         public void CameraEnforceLookAt(Transform destPosition){
             if(cameraEnforceCoroutine != null){
