@@ -62,7 +62,9 @@ public class Inventory : MonoBehaviour
 
     /// <summary > 체크리스트 충족하는 아이템 목록 </summary>
     private Dictionary<int, int> checkListItemDic = new Dictionary<int, int>{
+        {99001, 102},
         {401, 103},
+        {308, 105},
         {903, 106},
         {20101, 109},
         {20102, 110},
@@ -86,7 +88,6 @@ public class Inventory : MonoBehaviour
     };
 
     private int[] check3rdGradeRooms = {301, 303, 306};
-    private int[] checkBookPieceAnd308 = {99001, 308};
 
     /// <summary>  업데이트 할 인덱스 목록 </summary>
     private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();
@@ -286,15 +287,6 @@ public class Inventory : MonoBehaviour
         }
         if(Allitems){
             ProgressManager.Instance.UpdateCheckList(107, 1);
-        }
-        Allitems = true;
-        foreach (int itemC in checkBookPieceAnd308){
-            if(FindItemIndex(itemC) == -1){
-                Allitems = false;
-            }
-        }
-        if(Allitems){
-            ProgressManager.Instance.UpdateCheckList(105, 1);
         }
     }
 

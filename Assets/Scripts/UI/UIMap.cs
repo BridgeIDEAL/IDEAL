@@ -52,7 +52,6 @@ public class UIMap : MonoBehaviour
         }
         else if(Inventory.Instance.FindItemIndex(mapItemCode) != -1){
             // 전체 지도 아이템이 있는 경우
-            ProgressManager.Instance.UpdateCheckList(202, 1);
             int watchMapN = ProgressManager.Instance.watchMapNum;
             for(int i = 1; i < mapUIObjects.Length; i++){
                 mapUIObjects[i].SetActive(false);

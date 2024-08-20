@@ -30,7 +30,7 @@ public class GuardPatrol : MovableEntity, IPatrol
         entity_Data = EntityDataManager.Instance.GetEntityData(gameObject.name);
         if (entity_Data == null)
         {
-            Debug.LogError("ÇØ´ç ÀÌÇüÃ¼ÀÇ Á¤º¸¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+            Debug.LogError("ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
             return;
         }
         if (entity_Data.isSpawn && Entity_Data.speakIndex!=-1)
@@ -86,7 +86,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public void Talk()
     {
         string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
-        ProgressManager.Instance.UpdateCheckList(102, 1);
+        ProgressManager.Instance.UpdateCheckList(101, 1);
         DialogueManager.Instance.StartDialogue(talkID, this);
         StartCoroutine(MoveAndRotateTowardsPlayer());
         Entity_Data.isSpawn = false;

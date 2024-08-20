@@ -7,7 +7,7 @@ public class InteractionWatchGuidebook : AbstractInteraction
     [SerializeField] private string detectedStr;
     [SerializeField] private string afterInteractionStr = "";
     [SerializeField] private int activationLogNum = -1;
-    [SerializeField] private int checkListNum = -1;
+    // [SerializeField] private int checkListNum = -1;
     [SerializeField] private float requiredTime = 0.5f;
     public override float RequiredTime { get => requiredTime;}
 
@@ -21,9 +21,9 @@ public class InteractionWatchGuidebook : AbstractInteraction
         if (activationLogNum != -1) {
             //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
-        if(checkListNum != -1){
-            ProgressManager.Instance.UpdateCheckList(checkListNum, 1);
-        }
+        // if(checkListNum != -1){
+        //     ProgressManager.Instance.UpdateCheckList(checkListNum, 1);
+        // }
         if (afterInteractionStr != "") {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }   
