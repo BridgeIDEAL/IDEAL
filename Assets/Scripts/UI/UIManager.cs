@@ -126,16 +126,11 @@ public class UIManager : MonoBehaviour
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
         if(Input.GetKeyDown(KeyCode.M) && (Inventory.Instance.FindItemIndex(mapItemCode) != -1 || Inventory.Instance.FindItemIndex(mapPieceItemCode) != -1)){    // ` 누른 경우 Map 활성화 비활성화
-            UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
+            UIActives[(int)UIType.MapUI] = true;
         }
         SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
         if(UIActives[(int)UIType.MapUI]) uIMap.ActiveMap();
 
-        if(UIActives[(int)UIType.GuideBookUI] && Input.GetKeyDown(KeyCode.E)){    // 가이드북 보는 중에 E가 눌리는 경우
-            UIActives[(int)UIType.GuideBookUI] = false;
-            SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
-            thirdPersonController.MoveLock = false;
-        }
 
         if(Input.GetKeyDown(KeyCode.Escape)){
             UIActives[(int)UIType.SettingUI] = !UIActives[(int)UIType.SettingUI];
@@ -215,5 +210,11 @@ public class UIManager : MonoBehaviour
     public void InActiveMapUI(){
         UIActives[(int)UIType.MapUI] = false;
         SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
+    }
+
+    public void InActiveGuideBookUI(){
+        UIActives[(int)UIType.GuideBookUI] = false;
+        SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
+        thirdPersonController.MoveLock = false;
     }
 }
