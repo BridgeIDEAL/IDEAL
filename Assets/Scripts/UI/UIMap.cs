@@ -14,6 +14,7 @@ public class UIMap : MonoBehaviour
 
     public void ActiveMap(){
         // 테스트 코드
+        ActiveInteraction.Instance.Active_01F_MapGuide(false);
         if(cheatMapGet){
             int watchMapN = ProgressManager.Instance.watchMapNum;
             for(int i = 1; i < mapUIObjects.Length; i++){

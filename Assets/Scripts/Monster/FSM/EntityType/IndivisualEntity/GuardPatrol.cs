@@ -150,7 +150,9 @@ public class GuardPatrol : MovableEntity, IPatrol
     #region Talk
     public override void TalkEnter() { isTalk = true; anim.Play("IDLE"); }
     public override void TalkExecute() { }
-    public override void TalkExit() { }
+    public override void TalkExit() {
+        ActiveInteraction.Instance.Active_01F_MapBook();
+     }
     #endregion
 
     public void CheckPatrolState() 

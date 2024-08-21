@@ -450,6 +450,7 @@ public class Inventory : MonoBehaviour
             ProgressManager.Instance.SetItemLog(itemData.ID, amount_);
             CheckPieceItems();
             CheckCheckList(itemData.ID);
+            if(itemData.ID == 99001) ActiveInteraction.Instance.Active_01F_MapGuide(true);
         }
         return amount;
     }
