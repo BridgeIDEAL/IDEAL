@@ -26,13 +26,16 @@ public class LoadingImageManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private string[] introTexts = new string[]{
-        "<경고: 이 화면을 함부로 넘기지 마시오.>\n<해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다. 부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n\t-\t적은 출혈이나 상처를 동반한 경미한 부상\n\t-\t생명을 위협할만한 심각한 부상\n\t-\t사망\n\t-\t■■■■■■■■■■■ (■■■■■)",
-        "0. 이 경고문이 보인다면 당신은 자인고등학교에 있습니다. 당신이 누구와 어디에서 무엇을 하고 있었던 중요하지 않습니다. \n당신은 자인고등학교에 있습니다.",
-        "1. 자인고등학교는 20XX년 불의의 화재 사고로 인해 폐교되었지만, 최근 정상적인 모습으로 현실에 다시 나타나는 현상이 확인되었습니다. \n자인고등학교가 전소되어 사라졌다는 사실은 변하지 않으며, 자인고등학교는 더 이상 현실에 존재하는 공간이 아닙니다. \n다시 한번 반복합니다. 자인고등학교는 존재하지 않습니다.",
-        "2. 본격적으로 입장하기 전, 정문 야외 게시판을 꼭 확인한 후 입장하십시오.\n적합하게 행동한다면 학교 내부의 존재들은 당신에게 큰 관심을 갖지 않을 것입니다.",
-        "3. 지금까지 자인고등학교에서 확인된 유일한 생존 방법은 4층 방송실에서 하교 종을 울린 후, 정문으로 다시 내려와 탈출하는 방법입니다. \n그 이외의 방법들을 시도했을 때의 결과는 생존을 보장하지 못합니다.",
-        "4. 위 방법으로 탈출할 만한 가능성이 전혀 보이지 않는 순간이 온다면, 손 안에 알약 하나를 발견하실 수 있을 것입니다. \n정말로 더 이상 앞으로 나아가지 못할 때에만 신중하게 복용하십시오.",
-        "5. 다시 한 번 지침들을 모두 숙지했는지 확인한 후 입장하시기 바랍니다. \n저희 ■■■■■■■는 귀하의 무사귀환을 기원합니다.",
+        "<경고: 이 화면을 함부로 넘기지 마시오.>\n<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명",
+        "0. 당신은 자인고등학교에 있습니다. 반복합니다. 당신이 어디에 있었건, 당신은 <color=#ed2809>지금</color> 자인고등학교에 있습니다.",
+        "1. 자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.\n건물은 전소되었으며, 현실의 자인고등학교는 현재 존재하지 않습니다.\n반복합니다. 자인고등학교는 <color=#ed2809>존재하지 않습니다.</color>",
+        "2. 현재 알려진 <color=#ed2809>유일한 탈출 방법</color>은, 4층의 방송실에서 하교종을 재생한 뒤 정문으로 하교하는 것입니다.\n이외의 방법으로 탈출을 시도하실 경우, 저희는 결과를 책임져드리지 않습니다.",
+        "3. 만약 탈출이 <color=#ed2809>불가능</color>하다고 판단될 경우, 당신의 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며, 저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n훨씬 더 편안하게 생을 마감할 수 있을 것입니다.",
+        "탈출을 위해 아래의 내용을 반드시 숙지하십시오",
+        "1. 반드시 입장 전, 신체가 모두 정상이며 잘 움직여지는지 확인하십시오.\n<color=#ed2809>[WASD]</color>로 몸을 움직여보고, <color=#ed2809>[Mouse]</color>로 이곳저곳 둘러보십시오.",
+        "2. 학교 내부에 입장하기 전, 반드시 정문 옆의 <color=#ed2809>게시판</color>을 꼼꼼히 확인하십시오.\n저희는 학교 내부 진입이 불가능하며, 게시판을 통해서만 도움을 드릴 수 있습니다.\n반복합니다. 현실에는 자인고등학교는 존재하지 않습니다.",
+        "3. 당신이 확인하실 수 있는 정보는 세 가지입니다.\n<color=#ed2809>[TAB]</color>으로 다음 행동, 신체 상태, 그리고 획득하신 물건을 확인하십시오.",
+        "내용을 <color=#ed2809>충분히 숙지</color>하셨다면, 학교 내부로 진입하시면 됩니다.\n저희 ■■■■ ■■■■■■은 당신의 무사 귀환을 기원합니다."
     };
 
     private string stopText = "아무 키나 눌러 경고문 이어서 보기";
@@ -112,7 +115,7 @@ public class LoadingImageManager : MonoBehaviour
             if(!skipPage)yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
             introTextStep++;
 
-            if(introTextStep == 3){
+            if(introTextStep == 5){
                 // 다음 텍스트로 넘길지 대기
                 introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = stopText;
                 introTextLoadedTextObject.SetActive(true);
@@ -136,7 +139,19 @@ public class LoadingImageManager : MonoBehaviour
     IEnumerator TypeText(string text){
         string currentText = introTextTMP.text;
         int cnt = 0;
+        bool skipLetter = false;
         foreach (char letter in text.ToCharArray()){
+            if(letter == '<'){
+                skipLetter = true;
+            }
+            if(skipLetter){
+                introTextTMP.text += letter;
+                cnt++;
+                if(letter == '>'){
+                    skipLetter = false;
+                }
+                continue;
+            }
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
             // 처음에는 문단 단위 스킵 이후에는 페이지 단위 스킵
