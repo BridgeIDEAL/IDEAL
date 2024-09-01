@@ -26,7 +26,7 @@ public class LoadingImageManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private string[] introTexts = new string[]{
-        "<경고: 이 화면을 함부로 넘기지 마시오.>\n<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명",
+        "<<경고: 이 화면을 함부로 넘기지 마시오.>\n<<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\0\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명\0",
         "0. 당신은 자인고등학교에 있습니다. 반복합니다. 당신이 어디에 있었건, 당신은 <color=#ed2809>지금</color> 자인고등학교에 있습니다.",
         "1. 자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.\n건물은 전소되었으며, 현실의 자인고등학교는 현재 존재하지 않습니다.\n반복합니다. 자인고등학교는 <color=#ed2809>존재하지 않습니다.</color>",
         "2. 현재 알려진 <color=#ed2809>유일한 탈출 방법</color>은, 4층의 방송실에서 하교종을 재생한 뒤 정문으로 하교하는 것입니다.\n이외의 방법으로 탈출을 시도하실 경우, 저희는 결과를 책임져드리지 않습니다.",
@@ -140,17 +140,25 @@ public class LoadingImageManager : MonoBehaviour
         string currentText = introTextTMP.text;
         int cnt = 0;
         bool skipLetter = false;
+        char previousLetter = '\0';
+        bool artificialSkip = false;
         foreach (char letter in text.ToCharArray()){
+            if(letter == '\0'){
+                artificialSkip = !artificialSkip;
+                continue;
+            }
+
             if(letter == '<'){
                 skipLetter = true;
+                if(previousLetter == '<'){
+                    skipLetter = false;
+                    continue;
+                }
             }
             if(skipLetter){
-                introTextTMP.text += letter;
-                cnt++;
                 if(letter == '>'){
                     skipLetter = false;
                 }
-                continue;
             }
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
@@ -169,7 +177,10 @@ public class LoadingImageManager : MonoBehaviour
             }
             introTextTMP.text += letter;
             cnt++;
-            yield return new WaitForSeconds(0.1f); // 타이핑 속도 조절
+            previousLetter = letter;
+            if(!skipLetter && !artificialSkip){
+                yield return new WaitForSeconds(0.1f); // 타이핑 속도 조절
+            }
         }
         skipParagraph = false;
         introTextTMP.text += " \n\n";
