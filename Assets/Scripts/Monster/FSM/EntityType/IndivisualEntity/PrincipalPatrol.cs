@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class PrincipalPatrol : MovableEntity, IPatrol
 {
+    DissolveEffect dissolveEffect;
+    UnityAction dissolveAction = null;
+
     [SerializeField] float chaseCoolDownTimer;
     protected DetectPlayer detectPlayer;
     #region Patrol Val
@@ -32,6 +36,12 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         detectPlayer = GetComponentInChildren<DetectPlayer>();
         currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
+
+        if (dissolveEffect == null)
+            dissolveEffect = GetComponent<DissolveEffect>();
+        if (dissolveEffect != null)
+            dissolveEffect.Init();
+        dissolveAction += ReturnStartPoint;
 
         #region Set Patrol Point Height
         float _height = 3.5f;
@@ -64,11 +74,14 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     #region Patrol Interface
     public void StartPatrol()
     {
-        agent.SetDestination(patrolPoints[currentPoint]);
+        if (agent.enabled != false)
+            agent.SetDestination(patrolPoints[currentPoint]);
     }
 
     public void Patrol()
     {
+        if (agent.enabled == false)
+            return;
         if (agent.remainingDistance < stopDistance)
         {
             SeekNextRoute();
@@ -78,6 +91,9 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void SeekNextRoute()
     {
+        if (agent.enabled == false)
+            return;
+
         currentPoint += 1;
         if (currentPoint > maxPoint)
             currentPoint = 0;
@@ -128,6 +144,14 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     public void SolveChaseState()
     {
+        agent.enabled = false;
+        currentPoint = 0;
+        dissolveEffect.Dissolve(() => { transform.position = patrolPoints[0]; dissolveEffect.RestoreDissolve(dissolveAction); });
+    }
+
+    public void ReturnStartPoint()
+    {
+        agent.enabled = true;
         controller.SendMessage(EntityStateType.Idle);
     }
 
