@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.14798139, g: 0.11287529, b: 0.10315566, a: 1}
+  m_IndirectSpecularColor: {r: 0.14796157, g: 0.11289139, b: 0.1031987, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -124,78 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: c7160f9b563b9bb45a40c1be09c7c6d9, type: 2}
---- !u!1 &15237460 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6805190589324669911, guid: f7dfd63b4a6b0f643ac2035a73f49aab,
-    type: 3}
-  m_PrefabInstance: {fileID: 469772031}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &15237461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15237460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017f172cb95817e4c896e026a92295f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  detectedStr: "\uC790\uC2B5\uC2E4 \uCC45\uC0C1\uC774\uB2E4."
-  afterInteractionStr: "\uACF5\uBD80\uD558\uB294 \uCC99 \uD588\uB2E4."
-  activationLogNum: -1
-  requiredTime: 1
-  availableCount: 1
---- !u!114 &15237462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15237460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
-  outlineScaleFactor: -1.05
-  outlineColor: {r: 1, g: 1, b: 1, a: 0}
-  reverseY: 0
-  hasChild: 0
-  planeObject: 0
-  planeValue: -0.0005
-  outlineMask: 
---- !u!114 &15237463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15237460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 15237461}
-  interactionOutline: {fileID: 15237462}
-  outlineActive: 0
---- !u!65 &15237464
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15237460}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7665079, y: 1.125, z: 0.46587425}
-  m_Center: {x: 0, y: 0, z: -0.000003837049}
 --- !u!1 &298122714
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +773,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -10.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591321705082340164, guid: f7dfd63b4a6b0f643ac2035a73f49aab,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8755574696715804942, guid: f7dfd63b4a6b0f643ac2035a73f49aab,
         type: 3}
