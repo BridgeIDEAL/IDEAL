@@ -26,7 +26,7 @@ public class LoadingImageManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private string[] introTexts = new string[]{
-        "<<경고: 이 화면을 함부로 넘기지 마시오.>\n<<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\0\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명\0",
+        "<<경고: 이 화면을 함부로 넘기지 마시오.>\n<<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>똝\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명똝",
         "0. 당신은 자인고등학교에 있습니다. 반복합니다. 당신이 어디에 있었건, 당신은 <color=#ed2809>지금</color> 자인고등학교에 있습니다.",
         "1. 자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.\n건물은 전소되었으며, 현실의 자인고등학교는 현재 존재하지 않습니다.\n반복합니다. 자인고등학교는 <color=#ed2809>존재하지 않습니다.</color>",
         "2. 현재 알려진 <color=#ed2809>유일한 탈출 방법</color>은, 4층의 방송실에서 하교종을 재생한 뒤 정문으로 하교하는 것입니다.\n이외의 방법으로 탈출을 시도하실 경우, 저희는 결과를 책임져드리지 않습니다.",
@@ -36,6 +36,10 @@ public class LoadingImageManager : MonoBehaviour
         "2. 학교 내부에 입장하기 전, 반드시 정문 옆의 <color=#ed2809>게시판</color>을 꼼꼼히 확인하십시오.\n저희는 학교 내부 진입이 불가능하며, 게시판을 통해서만 도움을 드릴 수 있습니다.\n반복합니다. 현실에는 자인고등학교는 존재하지 않습니다.",
         "3. 당신이 확인하실 수 있는 정보는 세 가지입니다.\n<color=#ed2809>[TAB]</color>으로 다음 행동, 신체 상태, 그리고 획득하신 물건을 확인하십시오.",
         "내용을 <color=#ed2809>충분히 숙지</color>하셨다면, 학교 내부로 진입하시면 됩니다.\n저희 ■■■■ ■■■■■■은 당신의 무사 귀환을 기원합니다."
+    };
+
+    private string[] introTextsTemp = new string[]{
+        "<경고: 이 화면을 함부로 넘기지 마시오.>\n<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명",
     };
 
     private string stopText = "아무 키나 눌러 경고문 이어서 보기";
@@ -109,7 +113,7 @@ public class LoadingImageManager : MonoBehaviour
                 StopCoroutine(typingSoundCoroutine);
             }
             typingSoundCoroutine = StartCoroutine(PlayTypingSounds());
-            yield return StartCoroutine(TypeText(introTexts[introTextStep]));
+            yield return StartCoroutine(TypeText(introTexts[introTextStep], introTextStep));
             StopCoroutine(typingSoundCoroutine);
 
             if(!skipPage)yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
@@ -136,14 +140,14 @@ public class LoadingImageManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator TypeText(string text){
+    IEnumerator TypeText(string text, int index){
         string currentText = introTextTMP.text;
         int cnt = 0;
         bool skipLetter = false;
         char previousLetter = '\0';
         bool artificialSkip = false;
         foreach (char letter in text.ToCharArray()){
-            if(letter == '\0'){
+            if(letter == '똝'){
                 artificialSkip = !artificialSkip;
                 continue;
             }
@@ -173,6 +177,9 @@ public class LoadingImageManager : MonoBehaviour
             if(skipPage || skipParagraph){ 
                 audioSource.Stop();
                 introTextTMP.text = currentText + text;
+                if(index == 0){
+                    introTextTMP.text = currentText + introTextsTemp[0];
+                }
                 break;
             }
             introTextTMP.text += letter;
