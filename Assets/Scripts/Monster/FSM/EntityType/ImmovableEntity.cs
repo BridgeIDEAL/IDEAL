@@ -28,7 +28,11 @@ public class ImmovableEntity : BaseEntity
 
         if(lookPlayer==null)
             lookPlayer = GetComponent<LookPlayer>();
+
+        AdditionalInit();
     }
+
+    public virtual void AdditionalInit() { }
 
     public override void Setup()
     {
