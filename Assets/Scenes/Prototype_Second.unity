@@ -16,8 +16,8 @@ RenderSettings:
   serializedVersion: 9
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
-  m_FogMode: 2
-  m_FogDensity: 0.1
+  m_FogMode: 3
+  m_FogDensity: 0.15
   m_LinearFogStart: 25
   m_LinearFogEnd: 50
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.7539753, g: 0.7539753, b: 0.8018868, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 3a253cab252a165478338fba0f03e63a, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a931855ea866e5d46afc88f9aa01306d, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1133569578}
-  m_IndirectSpecularColor: {r: 0.14796302, g: 0.11294138, b: 0.10319869, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1389,7 +1389,7 @@ PrefabInstance:
     - target: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
       propertyPath: far clip plane
-      value: 100
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74,
         type: 3}
@@ -6196,7 +6196,7 @@ PrefabInstance:
     - target: {fileID: 8762286023885395323, guid: 9c489a8547f4d9e4387da15a4ff82c81,
         type: 3}
       propertyPath: m_Lens.FarClipPlane
-      value: 100
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c489a8547f4d9e4387da15a4ff82c81, type: 3}
