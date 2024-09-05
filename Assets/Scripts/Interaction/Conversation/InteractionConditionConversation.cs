@@ -78,4 +78,9 @@ public class InteractionConditionConversation : AbstractInteraction
             isSameIndex = true;
     }
     #endregion
+
+    public virtual void ForceInteraction()
+    {
+        ActInteraction();
+    }
 }

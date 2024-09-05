@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
+    protected LayerMask defaultLayer = 0;
+    
+    [SerializeField] protected Transform headTransfrom;
+    public Transform HeadTransform { get { return headTransfrom; } }
+
     protected Transform playerTransform;
     [SerializeField] protected EntityStateType currentType;
     public EntityStateType CurrentType { get { return currentType; } }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OnGuardEntity : ImmovableEntity
 {
+    [SerializeField] GameObject deathTriggerObject;
     [SerializeField] float thresholdAngle= 90f;
     [SerializeField] DetectPlayer detectPlayer;
     [SerializeField] bool isOnGuard = true;
@@ -20,7 +21,10 @@ public class OnGuardEntity : ImmovableEntity
     {
         base.Setup();
         if (Entity_Data.speakIndex == -1)
+        {
             isOnGuard = false;
+            this.gameObject.layer = defaultLayer;
+        }
         else
             isOnGuard = true;
     }

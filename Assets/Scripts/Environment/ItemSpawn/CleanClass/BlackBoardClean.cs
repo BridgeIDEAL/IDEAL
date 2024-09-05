@@ -8,8 +8,10 @@ public class BlackBoardClean : CleanSystem
     [SerializeField] GameObject suddenDeathTrigger;
     [SerializeField] GameObject blackBoardCleanTrigger;
 
+    public bool IsTriggerExist { get; set; } = true;
     void Start()
     {
+        suddenDeathTrigger.SetActive(false);
         string _name = gameObject.name;
         if (EntityDataManager.Instance.HaveEventData(_name))
         {
@@ -29,7 +31,12 @@ public class BlackBoardClean : CleanSystem
         {
             Destroy(suddenDeathTrigger);
             Destroy(blackBoardCleanTrigger);
-        }                
+        }
+
+        if (blackBoardCleanTrigger == null)
+            IsTriggerExist = false;
+        else
+            IsTriggerExist = true;
     }
 
     public void Setting()
@@ -42,12 +49,14 @@ public class BlackBoardClean : CleanSystem
 
     public void SetCleanEvent(bool _isActive)
     {
-        suddenDeathTrigger.SetActive(_isActive);
+        if(suddenDeathTrigger!=null)
+            suddenDeathTrigger.SetActive(_isActive);
     }
 
     public override void DoneEvent()
     {
         eventData.isDoneEvent = true;
-        SetCleanEvent(false);
+        Destroy(suddenDeathTrigger);
+        //SetCleanEvent(false);
     }
 }

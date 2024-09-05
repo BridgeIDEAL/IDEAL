@@ -7,6 +7,11 @@ public class BlackBoardTrigger : MonoBehaviour
     bool once = true;
     [SerializeField] BlackBoardClean blackBoardClean;
 
+    private void Start()
+    {
+        StartCoroutine(Set());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player") && once)
@@ -14,5 +19,12 @@ public class BlackBoardTrigger : MonoBehaviour
             once = false;
             blackBoardClean.SetCleanEvent(true);
         }
+    }
+
+    IEnumerator Set()
+    {
+        yield return new WaitForEndOfFrame();
+        if (!blackBoardClean.IsTriggerExist)
+            Destroy(this);
     }
 }
