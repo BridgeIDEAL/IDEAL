@@ -134,16 +134,16 @@ public class AmbienceSoundManager : MonoBehaviour
     private IEnumerator ChaseEndCoroutine(){
         float insideVol = insideAudioSource.volume;
         float outsideVol = outsideAudioSource.volume;
+        float chaseVol = chaseAudioSource.volume;
         float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
         float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
-        chaseAudioSource.volume = 0.0f;
-        chaseAudioSource.Play();
+        
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
-            chaseAudioSource.volume = Mathf.Lerp(chaseAudioVolume, 0.0f, stepTimer/ fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(chaseVol, 0.0f, stepTimer/ fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
@@ -230,19 +230,18 @@ public class AmbienceSoundManager : MonoBehaviour
     private IEnumerator LookOutEndCoroutine(){
         float insideVol = insideAudioSource.volume;
         float outsideVol = outsideAudioSource.volume;
+        float lookOutVol = lookOutAudioSource.volume;
         float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
         float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
-        lookOutAudioSource.volume = 0.0f;
-        lookOutAudioSource.Play();
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
-            lookOutAudioSource.volume = Mathf.Lerp(lookOutAudioVolume, 0.0f, stepTimer/ fadeTime);
+            lookOutAudioSource.volume = Mathf.Lerp(lookOutVol, 0.0f, stepTimer/ fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
-        chaseAudioSource.Stop();
+        lookOutAudioSource.Stop();
     }
 }
