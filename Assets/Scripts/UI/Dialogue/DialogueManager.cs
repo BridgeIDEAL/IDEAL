@@ -135,7 +135,7 @@ public class DialogueManager : MonoBehaviour
         CurrentTalkEntity = _entity;
         // Lock Player Move & Rotate : Later Delete Annotation
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.CameraEnforceLookAt(_entity.transform);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.CameraEnforceLookAt(_entity.HeadTransform);
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
         // To Do ~~~ : Prevent Active Another UI
         // Prevent Interaction 

@@ -47,7 +47,11 @@ public class ImmovableEntity : BaseEntity
             controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
+
+        AdditionalSetup();
     }
+
+    public virtual void AdditionalSetup() { }
 
     public override void ReceiveMessage(EntityStateType _messageType)
     {

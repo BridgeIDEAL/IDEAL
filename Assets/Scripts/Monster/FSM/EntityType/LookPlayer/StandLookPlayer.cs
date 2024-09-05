@@ -8,6 +8,7 @@ public class StandLookPlayer : LookPlayer
 {
     UnityAction<Transform> lookAction = null;
 
+
     Transform playerTransform;
     Quaternion initRotation;
     LookPlayerDirection lookDir = LookPlayerDirection.None;
@@ -32,8 +33,8 @@ public class StandLookPlayer : LookPlayer
 
     public override void GazePlayer(Transform _lookTransform)
     {
-        if (lookTransform == null)
-            lookTransform = _lookTransform;
+        lookTransform = _lookTransform;
+        
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
 
@@ -43,12 +44,13 @@ public class StandLookPlayer : LookPlayer
             Vector3 directionToPlayer = playerTransform.position - transform.position;
             directionToPlayer.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            StartCoroutine(RotateCor(targetRotation));
+            rigBuilder.layers[0].rig.weight = 0;
+            StartCoroutine(RotateCor(targetRotation, lookAction));
         }
         else
         {
             lookDir = LookPlayerDirection.HeadRotate;
-            SetRigWeight(1);
+            SetRigWeight(0,1);
             var sourceObjects = multiAim.data.sourceObjects;
             sourceObjects.Clear();
             multiAim.data.sourceObjects = sourceObjects;
@@ -62,7 +64,7 @@ public class StandLookPlayer : LookPlayer
     {
         if (lookDir == LookPlayerDirection.HeadRotate)
         {
-            SetRigWeight(0);
+            SetRigWeight(1,0);
             //var sourceObjects = multiAim.data.sourceObjects;
             //sourceObjects.Clear();
             //multiAim.data.sourceObjects = sourceObjects;
@@ -78,6 +80,7 @@ public class StandLookPlayer : LookPlayer
 
     public IEnumerator RotateCor(Quaternion _target, UnityAction<Transform> _action= null)
     {
+        rigBuilder.layers[0].rig.weight = 0f;
         float timer = 0f;
         while (timer < rotateTime)
         {
@@ -97,13 +100,13 @@ public class StandLookPlayer : LookPlayer
     {
         lookTransform = _target;
         lookDir = LookPlayerDirection.HeadRotate;
-        SetRigWeight(1);
         var sourceObjects = multiAim.data.sourceObjects;
         sourceObjects.Clear();
         multiAim.data.sourceObjects = sourceObjects;
         sourceObjects.Add(new WeightedTransform(lookTransform, weightValue));
         multiAim.data.sourceObjects = sourceObjects;
         rigBuilder.Build();
+        SetRigWeight(0,1);
     }
 
     public void GazeDefaultTarget(Quaternion _targetRotate, Transform _target)

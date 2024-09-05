@@ -8,6 +8,7 @@ public class ImmovableEntityGroup : ImmovableEntity
     Quaternion[] groupRotateValues;
     [SerializeField] Transform lookTarget;
     [SerializeField] StandLookPlayer[] lookPlayers;
+    [SerializeField] ForceTalk forceTalk;
     public override void AdditionalInit() 
     {
         lookPlayerCnt = lookPlayers.Length;
@@ -22,6 +23,13 @@ public class ImmovableEntityGroup : ImmovableEntity
         {
             lookPlayers[i].GazeTarget(lookTarget);
         }
+    }
+
+    public override void AdditionalSetup()
+    {
+        InteractionConditionConversation _interaction = GetComponentInChildren<InteractionConditionConversation>();
+        if (_interaction != null)
+            forceTalk.Setup(_interaction, entity_Data);
     }
 
     public override void TalkEnter()

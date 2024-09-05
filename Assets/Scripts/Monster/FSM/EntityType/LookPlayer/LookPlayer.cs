@@ -59,6 +59,7 @@ public class LookPlayer : MonoBehaviour
         return false;
     }
 
+    #region SetWeight
     public void SetRigWeight(float _toWeight) { StartCoroutine(RigWeightCor(_toWeight)); }
 
     public IEnumerator RigWeightCor(float _toWeight)
@@ -73,6 +74,23 @@ public class LookPlayer : MonoBehaviour
         }
         rigBuilder.layers[0].rig.weight = _toWeight;
     }
+
+    public void SetRigWeight(float _from,float _to) { StartCoroutine(RigWeightCor(_from,_to)); }
+
+    public IEnumerator RigWeightCor(float _from, float _to)
+    {
+        float timer = 0f;
+        float currentWeight = _from;
+        rigBuilder.layers[0].rig.weight = _from;
+        while (timer < 2f)
+        {
+            timer += Time.deltaTime;
+            rigBuilder.layers[0].rig.weight = Mathf.Lerp(currentWeight, _to, timer / 2f);
+            yield return null;
+        }
+        rigBuilder.layers[0].rig.weight = _to;
+    }
+    #endregion
 }
 
 //bool isRotate = false;
