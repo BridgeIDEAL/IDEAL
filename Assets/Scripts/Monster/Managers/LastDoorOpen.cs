@@ -14,10 +14,10 @@ public class LastDoorOpen : MonoBehaviour
     public PlaceTriggerType PlayerInPlace { get; set; } = PlaceTriggerType.None;
     #endregion
 
-    private void Awake()
+    private void Start()
     {
-        //if (EntityDataManager.Instance.IsLastEvent)
-        //    OpenFrontDoors();
+        if (EntityDataManager.Instance.IsLastEvent)
+            OpenFrontDoors();
     }
 
     public void PlayerInRestPlaceEvent()

@@ -6119,6 +6119,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1405607347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1405607349}
+  - component: {fileID: 1405607348}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1405607348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405607347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06863cb9411d5645a89cee2ece7dd0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionItemData_StudentRoomKey: {fileID: 11400000, guid: dc05aef87d553934ebcfa5a91ee74f7d,
+    type: 2}
+--- !u!4 &1405607349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405607347}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1406381554 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5402395639364842871, guid: 58e27b6797b626a4087ae497de5bd92b,
@@ -7190,7 +7236,7 @@ PrefabInstance:
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: MoveSpeed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -7200,7 +7246,7 @@ PrefabInstance:
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: SprintSpeed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -7215,12 +7261,12 @@ PrefabInstance:
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: DefaultMoveSpeed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: DefaultSprintSpeed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918491, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
@@ -10114,6 +10160,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
       value: 5e-44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790795607465279527, guid: 154f30412c0ce7f47a2b31083159b401,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 3249.2832
       objectReference: {fileID: 0}
     - target: {fileID: 7942401898840229760, guid: 154f30412c0ce7f47a2b31083159b401,
         type: 3}
@@ -13509,11 +13560,6 @@ PrefabInstance:
       objectReference: {fileID: 1802722279}
     - target: {fileID: 2185186999123171495, guid: c2bbc2d264675fa44b1e06ec9f1bfc62,
         type: 3}
-      propertyPath: lastBoxMat
-      value: 
-      objectReference: {fileID: 2100000, guid: de1d750fefeeac642bf9b11a3978ccf5, type: 2}
-    - target: {fileID: 2185186999123171495, guid: c2bbc2d264675fa44b1e06ec9f1bfc62,
-        type: 3}
       propertyPath: lastDoorOpen
       value: 
       objectReference: {fileID: 1747462772}
@@ -13655,11 +13701,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4058024447058890983, guid: 26aa07fc52d89e245a80ae89480b6ee5,
-        type: 3}
-      propertyPath: weightValue
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9168811592130530954, guid: 26aa07fc52d89e245a80ae89480b6ee5,
         type: 3}
       propertyPath: m_Name

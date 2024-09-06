@@ -145,9 +145,12 @@ public class DialogueManager : MonoBehaviour
     // Call By DialogueUI
     public void EndDialogue()
     {
-        InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
-        if (conversation.canTalk)
-            CurrentTalkEntity.gameObject.layer = interactionLayer;
+        if (CurrentTalkEntity != null)
+        {
+            InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
+            //if (conversation.canTalk)
+            //    CurrentTalkEntity.gameObject.layer = interactionLayer;
+        }
         isTalking = false;
         CurrentTalkEntity = null;
         // Unlock Player Move & Rotate : Later Delete Annotation

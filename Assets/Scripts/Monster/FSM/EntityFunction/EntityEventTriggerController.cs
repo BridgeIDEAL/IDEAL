@@ -15,7 +15,7 @@ public class EntityEventTriggerController : MonoBehaviour
 
         if (EntityDataManager.Instance.IsLastEvent)
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
+            //IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
             lastTriggerObject.SetActive(true);
             RenderSettings.skybox = lastBoxMat;
         }

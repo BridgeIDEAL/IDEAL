@@ -8,13 +8,18 @@ public class StudyRoom1F : MonoBehaviour
 
     private void Start()
     {
-        principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+        if (!EntityDataManager.Instance.IsLastEvent)
+            principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+        else
+            Destroy(this);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (principal == null)
+                return;
             principal.IsInStudyRoom = true;
         }
     }
@@ -23,6 +28,8 @@ public class StudyRoom1F : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (principal == null)
+                return;
             principal.IsInStudyRoom = false;
         }
     }
