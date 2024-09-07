@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIMap : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class UIMap : MonoBehaviour
 
     public void ActiveMap(){
         // 테스트 코드
-        ActiveInteraction.Instance.Active_01F_MapGuide(false);
+        if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
+            ActiveInteraction.Instance.Active_01F_MapGuide(false);
+        }
         if(cheatMapGet){
             int watchMapN = ProgressManager.Instance.watchMapNum;
             for(int i = 1; i < mapUIObjects.Length; i++){

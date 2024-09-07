@@ -68,10 +68,14 @@ public class IdealSceneManager : MonoBehaviour
         soundInitVolume = lobbyBGMBox.volume;
     }
 
+    public string GetSceneName(){
+        return SceneManager.GetActiveScene().name;
+    }
     private void Start(){
         SceneManager.sceneLoaded += AfterSceneLoaded;
         AfterSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
+
 
 
     private void AfterSceneLoaded(Scene scene, LoadSceneMode mode){
