@@ -2435,7 +2435,7 @@ MonoBehaviour:
   scriptHub: {fileID: 0}
   secondFloorKeyItem: {fileID: 11400000, guid: e6a68bcb94445b745889144a3f7c43f4, type: 2}
   studentRoomKeyItem: {fileID: 11400000, guid: dc05aef87d553934ebcfa5a91ee74f7d, type: 2}
-  serverRoomKeyItem: {fileID: 11400000, guid: 1e8d6c44734ba274581c5bca80a23d49, type: 2}
+  serverRoomKeyItem: {fileID: 11400000, guid: 7d98a02f0ffe86f40b85d8c2569d8322, type: 2}
   mapItem: {fileID: 11400000, guid: d96fb5b4ad85c664ca94078a7d718acf, type: 2}
 --- !u!114 &426624387
 MonoBehaviour:
@@ -3829,6 +3829,7 @@ GameObject:
   - component: {fileID: 858754066}
   - component: {fileID: 858754061}
   - component: {fileID: 858754060}
+  - component: {fileID: 858754067}
   - component: {fileID: 858754065}
   - component: {fileID: 858754064}
   m_Layer: 5
@@ -3903,9 +3904,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 426624384}
-        m_TargetAssemblyTypeName: IdealSceneManager, Assembly-CSharp
-        m_MethodName: ExitGame
+      - m_Target: {fileID: 858754067}
+        m_TargetAssemblyTypeName: GameExitButton, Assembly-CSharp
+        m_MethodName: GameExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4019,6 +4020,18 @@ MonoBehaviour:
   graphicRaycaster: {fileID: 858754064}
   eventSystem: {fileID: 177719816}
   BookArea: {fileID: 1536180551}
+--- !u!114 &858754067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858754058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8403a83276da36341b2cf236e9faf536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &870542446
 GameObject:
   m_ObjectHideFlags: 0

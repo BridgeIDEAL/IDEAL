@@ -229,6 +229,8 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            // Ambience Sound -> Inside
+            currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
             
         }
         else if(currentSceneName == "Prototype_Second"){

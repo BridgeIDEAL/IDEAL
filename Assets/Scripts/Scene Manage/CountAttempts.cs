@@ -16,7 +16,7 @@ public class CountAttempts : MonoBehaviour
     }
 
     private int attemptCount = 1;
-    private string playerDataPath = "Assets/Resources/Data/PlayerGuideLogData.json";
+    private string playerDataPath;
 
     private void Awake(){
         if(Instance == null){
@@ -29,6 +29,7 @@ public class CountAttempts : MonoBehaviour
 
         // 플레이어 데이터가 이미 저장되어 있다면 불러오고
         // 없다면 따로 attempt를 1로하고 따로 저장하지는 않음
+        playerDataPath = Path.Combine(Application.persistentDataPath, "PlayerGuideLogData.json");
         if (File.Exists(playerDataPath))
         {
             LoadAttempt();
