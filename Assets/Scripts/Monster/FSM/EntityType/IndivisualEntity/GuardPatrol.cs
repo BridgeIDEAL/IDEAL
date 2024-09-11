@@ -30,7 +30,7 @@ public class GuardPatrol : MovableEntity, IPatrol
         entity_Data = EntityDataManager.Instance.GetEntityData(gameObject.name);
         if (entity_Data == null)
         {
-            Debug.LogError("�ش� ����ü�� ������ ã�� �� �����ϴ�!");
+            Debug.LogError("해당 이형체 정보 없음!");
             return;
         }
         if (entity_Data.isSpawn && Entity_Data.speakIndex!=-1)
