@@ -244,6 +244,8 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager.Init();
             ImplementScriptHub(currentGameManager);
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
+            // Ambience Sound -> Inside
+            currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
         }
 
         // 화면 fade In 효과 넣기
