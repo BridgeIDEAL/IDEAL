@@ -65,6 +65,7 @@ public class InteractionDoorRotation : AbstractInteraction
             if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name) == 1){
                 doorObject.transform.localRotation = Quaternion.Euler(destRotation);
                 isOpen = true;
+                this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
                 InActiveCollider();
             }
         }
@@ -72,6 +73,7 @@ public class InteractionDoorRotation : AbstractInteraction
             if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + this.transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name) == 1){
                 doorObject.transform.localRotation = Quaternion.Euler(destRotation);
                 isOpen = true;
+                this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
             }
         }
         

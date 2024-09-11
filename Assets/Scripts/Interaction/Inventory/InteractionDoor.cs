@@ -52,6 +52,7 @@ public class InteractionDoor : AbstractInteraction
 
     private void OpenDoor(){
         isOpen = true;
+        this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
         if(moveCoroutine != null){
             StopCoroutine(moveCoroutine);
         }
@@ -63,6 +64,7 @@ public class InteractionDoor : AbstractInteraction
         if(ProgressManager.Instance.GetDoorLog(this.transform.parent.parent.name + this.transform.name) == 1){
             doorObject.transform.localPosition = destPosition;
             isOpen = true;
+            this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
         }
     }
 
