@@ -29,6 +29,9 @@ public class InteractionGetKeyBundle : AbstractInteraction
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
+        if(audioSource != null){
+            audioSource.Play();
+        }
         availableCount--; 
         if (KeyBox_Spawn != null)
             KeyBox_Spawn.GetKeyBundle(this);
