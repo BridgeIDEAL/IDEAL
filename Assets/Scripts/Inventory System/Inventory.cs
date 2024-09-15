@@ -256,7 +256,7 @@ public class Inventory : MonoBehaviour
         CheckPieceItem(secondFloorKeyItem, keyPieces_SecondFloor);
         CheckPieceItem(studentRoomKeyItem, keyPieces_StudentRoom);
         CheckPieceItem(serverRoomKeyItem, keyPieces_ServerRoom);
-        CheckPieceItem(mapItem, mapPieces);
+        CheckMapItem();
     }
 
     private void CheckPieceItem(ItemData completeItemData, int[] itemPieces){
@@ -272,6 +272,22 @@ public class Inventory : MonoBehaviour
                 UseItemWithItemCode(piece);
             }
             Add(completeItemData, 1);
+        }
+    }
+
+    private void CheckMapItem(){
+        bool allPieces = true;
+        for (int i = 1; i < mapPieces.Length; i++){
+            if(FindItemIndex(mapPieces[i]) == -1){
+                allPieces = false;
+                break;
+            }
+        }
+        if(allPieces){
+            foreach(var piece in mapPieces){
+                UseItemWithItemCode(piece);
+            }
+            Add(mapItem, 1);
         }
     }
 

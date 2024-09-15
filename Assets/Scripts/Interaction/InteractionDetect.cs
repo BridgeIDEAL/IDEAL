@@ -8,7 +8,7 @@ public class InteractionDetect : MonoBehaviour
     private ScriptHub scriptHub;
     private Camera playerCamera;
 
-    private float maxDistance = 1.5f;
+    private float maxDistance = 1.75f;
 
     private float sphereRadius = 0.3f;
 
