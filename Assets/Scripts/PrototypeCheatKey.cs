@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class PrototypeCheatKey : MonoBehaviour
 {
-    bool studentGetKey = true;
-    public InteractionItemData interactionItemData_StudentRoomKey;
+    bool canGetMasterKey = true;
+    public InteractionItemData masterKeyData;
     // Update is called once per frame
+
+    private void Start()
+    {
+        if (Inventory.Instance.FindItemIndex(Inventory.MasterMey) != -1)
+            canGetMasterKey = false;
+        else
+            canGetMasterKey = true;
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && studentGetKey)
+        if(Input.GetKeyDown(KeyCode.Z) && canGetMasterKey)
         {
-            studentGetKey = false;
-            Inventory.Instance.Add(interactionItemData_StudentRoomKey, 1);
-            ProgressManager.Instance.SetItemLog(interactionItemData_StudentRoomKey.ID, 1);
+            canGetMasterKey = false;
+            Inventory.Instance.Add(masterKeyData, 1);
+            ProgressManager.Instance.SetItemLog(masterKeyData.ID, 1);
         }
     }
 }

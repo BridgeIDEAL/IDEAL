@@ -25,7 +25,7 @@ public class InteractionDoorRotation : AbstractInteraction
     }
 
     protected override void ActInteraction(){
-        if(needItem == -1 || Inventory.Instance.FindItemIndex(needItem) != -1){
+        if(needItem == -1 || Inventory.Instance.FindItemIndex(needItem) != -1 || Inventory.Instance.FindItemIndex(Inventory.MasterMey)!=-1){
             if(audioSource != null){
                 audioSource.Play();
             }

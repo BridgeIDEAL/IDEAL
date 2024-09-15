@@ -31,14 +31,18 @@ public class InteractionChangeScene : AbstractInteraction
     protected override void ActInteraction()
     {
         // Add By Jun Start~~~
-        if (Inventory.Instance.FindItemIndex(needItem) == -1 && needItem!=0)
+        if(Inventory.Instance.FindItemIndex(Inventory.MasterMey) == -1)
         {
-            if (failInteractionStr != "")
+            if (Inventory.Instance.FindItemIndex(needItem) == -1 && needItem != 0)
             {
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
+                if (failInteractionStr != "")
+                {
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
+                }
+                return;
             }
-            return;
         }
+   
         if (onceActiveEvent && needItem!=0)
         {
             onceActiveEvent = false;

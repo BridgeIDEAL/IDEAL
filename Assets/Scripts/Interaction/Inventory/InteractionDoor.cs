@@ -31,8 +31,8 @@ public class InteractionDoor : AbstractInteraction
         return $"<sprite=0> {detectedStr}";
     }
 
-    protected override void ActInteraction(){
-        if(Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0 || ProgressManager.Instance.GetItemLogExist(needItem)){
+    protected override void ActInteraction() {
+        if (Inventory.Instance.FindItemIndex(Inventory.MasterMey) != -1 || Inventory.Instance.UseItemWithItemCode(needItem) || needItem == 0 || ProgressManager.Instance.GetItemLogExist(needItem)){
             OpenDoor();
             if(activationLogNum != -1){
                 //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
