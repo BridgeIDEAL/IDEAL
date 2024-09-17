@@ -59,6 +59,64 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 12, y: 1, z: 14}
   m_Center: {x: 3, y: 0, z: 5}
+--- !u!1 &1501588479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1501588480}
+  - component: {fileID: 1501588482}
+  - component: {fileID: 1501588481}
+  m_Layer: 6
+  m_Name: SuddenDeathTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1501588480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501588479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.5, y: 0.5, z: 8.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3594312046616485974}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1501588482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501588479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0ddd5767c7a66488682b53d194258f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1501588481
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501588479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 24, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3659006657220092154
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,6 +176,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDetectPlayer: 0
+--- !u!1 &7316861659019392508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2271897894061307460}
+  - component: {fileID: 5617865588265377771}
+  - component: {fileID: 4965741247538289877}
+  m_Layer: 6
+  m_Name: SuddenDeathTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2271897894061307460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316861659019392508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.5, y: 0.5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6405398829688456196}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5617865588265377771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316861659019392508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0ddd5767c7a66488682b53d194258f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &4965741247538289877
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316861659019392508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 15}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7975966632807225584
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,10 +847,10 @@ MonoBehaviour:
   headTransfrom: {fileID: 5924716917790608094}
   currentType: 0
   lookPlayer: {fileID: 4058024447058890983}
-  deathTriggerObject: {fileID: 0}
   thresholdAngle: 90
   detectPlayer: {fileID: 219474505}
   isOnGuard: 1
+  suddenDeath: {fileID: 5617865588265377771}
   immediatelyDeathObject: {fileID: 4052624109300272132, guid: 2a8b3c220edebbb47a6b47ba981911d7,
     type: 3}
   spawnPosition: {x: 32.8, y: 7, z: 14.5}
@@ -1500,6 +1616,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 175.39948
       objectReference: {fileID: 0}
+    - target: {fileID: 1764089896637051277, guid: 3407052f484fa0144b0bf760dbe668af,
+        type: 3}
+      propertyPath: suddenDeath
+      value: 
+      objectReference: {fileID: 1501588482}
     - target: {fileID: 1764089896637051277, guid: 3407052f484fa0144b0bf760dbe668af,
         type: 3}
       propertyPath: headTransfrom

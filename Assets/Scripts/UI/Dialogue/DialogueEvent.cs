@@ -43,6 +43,7 @@ public class DialogueEvent : MonoBehaviour
     public void DialogueIndexChange(List<string> _parameterList)
     {
         int nextIndex = int.Parse(_parameterList[0]);
+        Debug.Log(nextIndex);
         InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
         conversation.ChangeIndex(nextIndex);
     }

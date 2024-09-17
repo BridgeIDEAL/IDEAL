@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionItemConditionConversation : InteractionConditionConversation
 {
     [SerializeField] int checkItemID;
+    [SerializeField] int haveItemTalkIndex;
 
     /****************************************************************************
                                        Chan Method
@@ -20,6 +21,13 @@ public class InteractionItemConditionConversation : InteractionConditionConversa
         if (isSameIndex && !CheckCondition())
         {
             dialogueName = "Block1";
+            Debug.Log(dialogueName);
+            DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
+            return;
+        }
+        else if (CheckCondition() && !isSameIndex)
+        {
+            dialogueName = TalkData.speakerName + haveItemTalkIndex;
             DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
             return;
         }

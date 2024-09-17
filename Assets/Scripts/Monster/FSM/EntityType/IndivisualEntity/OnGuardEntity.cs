@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class OnGuardEntity : ImmovableEntity
 {
-    [SerializeField] GameObject deathTriggerObject;
     [SerializeField] float thresholdAngle= 90f;
     [SerializeField] DetectPlayer detectPlayer;
     [SerializeField] bool isOnGuard = true;
     public bool IsOnGuard { get { return isOnGuard; } set { isOnGuard = value; } }
 
-
+    [SerializeField] SuddenDeathTrigger suddenDeath;
     public override void Init(Transform _playerTransfrom)
     {
         base.Init(_playerTransfrom);
@@ -37,9 +36,9 @@ public class OnGuardEntity : ImmovableEntity
     public override void QuietEnter() { SetAnimation(currentType, true); }
     public override void QuietExecute() { }
     public override void QuietExit() { SetAnimation(currentType, false); }
-    public override void PenaltyEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart();}
-    public override void PenaltyExecute() { if (!detectPlayer.DetectExecute() && onceSpawn) { SpawnFrontPlayer();} }
-    public override void PenaltyExit() { SetAnimation(currentType, false); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd();}
+    public override void PenaltyEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); suddenDeath.ActiveThis(true, this); }
+    public override void PenaltyExecute() {  }
+    public override void PenaltyExit() { SetAnimation(currentType, false); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd(); suddenDeath.ActiveThis(false); }
 
     [Header("Immediately Info")]
     public GameObject immediatelyDeathObject;

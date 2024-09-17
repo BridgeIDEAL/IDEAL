@@ -38,8 +38,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] bool isTalking = false;
     public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
 
-    [SerializeField] LayerMask interactionLayer;
-    [SerializeField] LayerMask defaultLayer;
+    int interactionLayer = 6;
+    int defaultLayer = 0;
     #region Awake Method
     private void Awake()
     {
@@ -148,8 +148,10 @@ public class DialogueManager : MonoBehaviour
         if (CurrentTalkEntity != null)
         {
             InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
-            //if (conversation.canTalk)
-            //    CurrentTalkEntity.gameObject.layer = interactionLayer;
+            if (conversation.canTalk)
+                CurrentTalkEntity.gameObject.layer = interactionLayer;
+            else
+                CurrentTalkEntity.gameObject.layer = defaultLayer;
         }
         isTalking = false;
         CurrentTalkEntity = null;
