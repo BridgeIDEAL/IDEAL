@@ -2,16 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIMap : MonoBehaviour
 {
     [SerializeField] private GameObject[] mapUIObjects;
     [SerializeField] private GameObject changeMapButtonObjectLeft;
     [SerializeField] private GameObject changeMapButtonObjectRight;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private RectTransform pointRectTransform;
+    [SerializeField] private Image pointImage;
+    private int playerFloorNum = 1;
+    private float[] playerFloorDivide = {6.18f, 9.67f, 13.18f, 16.68f};
+    private float[] boundX_Prototype = {-4.73304f, 62.39957f};
+    private float[] boundZ_Prototype = {-0.181922f, 36.48202f};
+    private float[] boundX_Prototype_Second = {-17.76274f, -56.733f};
+    private float[] boundZ_Prototype_Second = {7.521711f, 76.69599f};
+
+    private float[] mapBoundX_Prototype = {-91.2f, 391.5f};
+    private float[] mapBoundY_Prototype = {-288.8f, 30.5f};
+    private float[] mapBoundX_Prototype_Second = {-127.3f, -395.6f};
+    private float[] mapBoundY_Prototype_Second = {-217f, 377.9f};
+
     private int mapItemCode = 990;
     private int pieceMapItemCode =  99001;
 
     [SerializeField] private bool cheatMapGet = false;
+
+    void Update(){
+        UpdatePlayerFloor();
+        
+        if(ProgressManager.Instance.watchMapNum == playerFloorNum -1){
+            Color color = pointImage.color;
+            color.a = 1.0f;
+            pointImage.color = color;
+        }
+        else{
+            Color color = pointImage.color;
+            color.a = 0.5f;
+            pointImage.color = color;
+        }
+        UpdatePlayerPoint();
+    }
+
+    private void UpdatePlayerFloor(){
+        for(int i = 0 ; i < playerFloorDivide.Length; i++){
+            playerFloorNum = i + 1;
+            if(playerTransform.localPosition.y < playerFloorDivide[i]){
+                break;
+            }
+        }
+    }
+
+    private void UpdatePlayerPoint(){
+        float playerXTransformNomalized = -1;
+        float playerZTransformNomalized = -1;
+        if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
+            playerXTransformNomalized = (playerTransform.localPosition.x - boundX_Prototype[0]) / (boundX_Prototype[1] - boundX_Prototype[0]);
+            playerZTransformNomalized = (playerTransform.localPosition.z - boundZ_Prototype[0]) / (boundZ_Prototype[1] - boundZ_Prototype[0]);
+        }
+        else if(IdealSceneManager.Instance.GetSceneName() == "Prototype_Second"){
+            playerXTransformNomalized = (playerTransform.localPosition.x - boundX_Prototype_Second[0]) / (boundX_Prototype_Second[1] - boundX_Prototype_Second[0]);
+            playerZTransformNomalized = (playerTransform.localPosition.z - boundZ_Prototype_Second[0]) / (boundZ_Prototype_Second[1] - boundZ_Prototype_Second[0]);
+        }
+        float mapPointX = -1, mapPointY = -1;
+        if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
+            mapPointX = mapBoundX_Prototype[0] + playerXTransformNomalized * (mapBoundX_Prototype[1] - mapBoundX_Prototype[0]);
+            mapPointY = mapBoundY_Prototype[0] + playerZTransformNomalized * (mapBoundY_Prototype[1] - mapBoundY_Prototype[0]);
+        }
+        else if(IdealSceneManager.Instance.GetSceneName() == "Prototype_Second"){
+            mapPointX = mapBoundX_Prototype_Second[0] + playerXTransformNomalized * (mapBoundX_Prototype_Second[1] - mapBoundX_Prototype_Second[0]);
+            mapPointY = mapBoundY_Prototype_Second[0] + playerZTransformNomalized * (mapBoundY_Prototype_Second[1] - mapBoundY_Prototype_Second[0]);
+        }
+        
+        pointRectTransform.localPosition = new Vector3(mapPointX, mapPointY, 0);
+    }
 
     public void ActiveMap(){
         // 테스트 코드
