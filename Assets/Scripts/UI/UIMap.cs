@@ -11,7 +11,6 @@ public class UIMap : MonoBehaviour
     [SerializeField] private GameObject changeMapButtonObjectRight;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private RectTransform pointRectTransform;
-    [SerializeField] private Image pointImage;
     private int playerFloorNum = 1;
     private float[] playerFloorDivide = {6.18f, 9.67f, 13.18f, 16.68f};
     private float[] boundX_Prototype = {-4.73304f, 62.39957f};
@@ -33,16 +32,13 @@ public class UIMap : MonoBehaviour
         UpdatePlayerFloor();
         
         if(ProgressManager.Instance.watchMapNum == playerFloorNum -1){
-            Color color = pointImage.color;
-            color.a = 1.0f;
-            pointImage.color = color;
+            pointRectTransform.gameObject.SetActive(true);
+            UpdatePlayerPoint();
         }
         else{
-            Color color = pointImage.color;
-            color.a = 0.5f;
-            pointImage.color = color;
+            pointRectTransform.gameObject.SetActive(false);
         }
-        UpdatePlayerPoint();
+        
     }
 
     private void UpdatePlayerFloor(){
