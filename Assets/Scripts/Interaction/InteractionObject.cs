@@ -10,11 +10,17 @@ public class InteractionObject : MonoBehaviour
 
     public void DetectedRay(){
         abstractInteraction.DetectedRay();
-        if(outlineActive) interactionOutline.SetOutlineObject(true);
     }
 
     public void OutOfRay(){
         abstractInteraction.OutOfRay();
+    }
+
+    public void DetectedCollider(){
+        if(outlineActive) interactionOutline.SetOutlineObject(true);
+    }
+
+    public void OutOfCollider(){
         if(outlineActive) interactionOutline.SetOutlineObject(false);
     }
 
