@@ -22,24 +22,37 @@ public class LoadingImageManager : MonoBehaviour
     private Coroutine typingSoundCoroutine;
     private int introTextStep = 0;
 
+    [SerializeField] private GameObject[] IntroImageObjects;
     [SerializeField] private AudioClip[] typingSounds;
     [SerializeField] private AudioSource audioSource;
 
     private string[] introTexts = new string[]{
-        "<<경고: 이 화면을 함부로 넘기지 마시오.>\n<<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>똝\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명똝",
-        "0. 당신은 자인고등학교에 있습니다. 반복합니다. 당신이 어디에 있었건, 당신은 <color=#ed2809>지금</color> 자인고등학교에 있습니다.",
-        "1. 자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.\n건물은 전소되었으며, 현실의 자인고등학교는 현재 존재하지 않습니다.\n반복합니다. 자인고등학교는 <color=#ed2809>존재하지 않습니다.</color>",
-        "2. 현재 알려진 <color=#ed2809>유일한 탈출 방법</color>은, 4층의 방송실에서 하교종을 재생한 뒤 정문으로 하교하는 것입니다.\n이외의 방법으로 탈출을 시도하실 경우, 저희는 결과를 책임져드리지 않습니다.",
-        "3. 만약 탈출이 <color=#ed2809>불가능</color>하다고 판단될 경우, 당신의 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며, 저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n훨씬 더 편안하게 생을 마감할 수 있을 것입니다.",
-        "탈출을 위해 아래의 내용을 반드시 숙지하십시오",
-        "1. 반드시 입장 전, 신체가 모두 정상이며 잘 움직여지는지 확인하십시오.\n<color=#ed2809>[WASD]</color>로 몸을 움직여보고, <color=#ed2809>[Mouse]</color>로 이곳저곳 둘러보십시오.",
-        "2. 학교 내부에 입장하기 전, 반드시 정문 옆의 <color=#ed2809>게시판</color>을 꼼꼼히 확인하십시오.\n저희는 학교 내부 진입이 불가능하며, 게시판을 통해서만 도움을 드릴 수 있습니다.\n반복합니다. 현실에는 자인고등학교는 존재하지 않습니다.",
-        "3. 당신이 확인하실 수 있는 정보는 세 가지입니다.\n<color=#ed2809>[TAB]</color>으로 다음 행동, 신체 상태, 그리고 획득하신 물건을 확인하십시오.",
-        "내용을 <color=#ed2809>충분히 숙지</color>하셨다면, 학교 내부로 진입하시면 됩니다.\n저희 ■■■■ ■■■■■■은 당신의 무사 귀환을 기원합니다."
+        "\n<color=#ed2809><<경고: 해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다.>\n</color>\n<<부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n똝\n• 적은 출혈이나 상처를 동반한 경미한 부상\n• 생명을 위협할만한 심각한 부상\n• 사망\n• ■■■■■■■■■■■ (■■■■■)똝",
+        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.",
+        "똝\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.\n<color=#ed2809>(<u>자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.</u>)</color>똝",
+        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.",
+        "똝1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.\n<color=#ed2809><u>하교 시간 전에 하교를 시도할 경우,\n 자인고등학교는 철저하게 학생들을 관리한다는 것을 기억하십시오.</u></color>똝",
+        "\n2. 하교를 위해서는 방송실에서 직접 하교 종을 울려야 합니다.\n자세한 방법은 똝[tab]똝키를 눌러 체크리스트에서 살펴보십시오.",
+        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.",
+        "\n똝3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.\n<color=#ed2809><u>이를 무시할 경우,\n 자인고등학교는 ■■하게 학생들을 관■?한다는 것을 ■억하십시오.</u></color>똝",
+        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.",
+        "똝4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n<color=#ed2809><u>훨씬 더 편안하게 ■■ ■■ 할 수 있을 것입니다.</u></color>똝",
+        "\n\n다시 한번 지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
     };
 
-    private string[] introTextsTemp = new string[]{
-        "<경고: 이 화면을 함부로 넘기지 마시오.>\n<해당 경고문을 무시할 경우, 다음의 결과들을 불러올 수 있음.>\n\t-\t경미한 부상과 출혈\n\t-\t가벼운 환각 및 판단력 저하\n\t-\t신체 일부 소실\n\t-\t■■■ ■■■ ■■ ■■■■ (■■■■ ■■■■■)\n\t-\t사망 혹은 행방불명",
+    // 특수 기능 기호들이 그대로 출력되면 안되므로
+    private string[] introSkipTexts = new string[]{
+        "\n<color=#ed2809><경고: 해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다.>\n</color>\n<부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n\n• 적은 출혈이나 상처를 동반한 경미한 부상\n• 생명을 위협할만한 심각한 부상\n• 사망\n• ■■■■■■■■■■■ (■■■■■)",
+        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.",
+        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.\n<color=#ed2809>(<u>자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.</u>)</color>",
+        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.",
+        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.\n<color=#ed2809><u>하교 시간 전에 하교를 시도할 경우,\n 자인고등학교는 철저하게 학생들을 관리한다는 것을 기억하십시오.</u></color>",
+        "\n2. 하교를 위해서는 방송실에서 직접 하교 종을 울려야 합니다.\n자세한 방법은 [tab]키를 눌러 체크리스트에서 살펴보십시오.",
+        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.",
+        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.\n<color=#ed2809><u>이를 무시할 경우,\n 자인고등학교는 ■■하게 학생들을 관■?한다는 것을 ■억하십시오.</u></color>",
+        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.",
+        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n<color=#ed2809><u>훨씬 더 편안하게 ■■ ■■ 할 수 있을 것입니다.</u></color>",
+        "\n\n다시 한번 지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
     };
 
     private string stopText = "아무 키나 눌러 경고문 이어서 보기";
@@ -50,7 +63,6 @@ public class LoadingImageManager : MonoBehaviour
     private bool loadEnded = false;
     public bool goNext = false;
 
-    private bool skipPage = false;
     private bool skipParagraph = false;
     private void Awake(){
         if(Instance == null){
@@ -106,35 +118,49 @@ public class LoadingImageManager : MonoBehaviour
         }
         introTextLoadedTextObject.SetActive(false);
         
-        skipPage = false;
         skipParagraph = false;
         while (introTextStep < introTexts.Length){
             if(typingSoundCoroutine != null){
                 StopCoroutine(typingSoundCoroutine);
             }
             typingSoundCoroutine = StartCoroutine(PlayTypingSounds());
+            
+            foreach(GameObject imageObject in IntroImageObjects){
+                if(imageObject != null){
+                    imageObject.SetActive(false);
+                }
+            }
+
             yield return StartCoroutine(TypeText(introTexts[introTextStep], introTextStep));
             StopCoroutine(typingSoundCoroutine);
 
-            if(!skipPage)yield return new WaitForSeconds(1f); // 다음 텍스트로 넘어가기 전 대기 시간
+            
+            if(IntroImageObjects[introTextStep] != null){
+                IntroImageObjects[introTextStep].SetActive(true);
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
             introTextStep++;
 
-            if(introTextStep == 5){
+            if(introTextStep == introTexts.Length){
+                introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = loadedText;
+                introTextLoadedTextObject.SetActive(true);
+            }
+            else{
                 // 다음 텍스트로 넘길지 대기
                 introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = stopText;
                 introTextLoadedTextObject.SetActive(true);
                 while(true){
-                    if(Input.anyKeyDown) break;
+                    if(Input.anyKeyDown){
+                        Input.ResetInputAxes();
+                        break;
+                    }
                     yield return null;
                 }
-                skipPage = false;
                 skipParagraph = false;
                 introTextTMP.text = "";
                 introTextLoadedTextObject.SetActive(false);
-            }
-            else if(introTextStep == introTexts.Length){
-                introTextLoadedTextObject.GetComponent<TextMeshProUGUI>().text = loadedText;
-                introTextLoadedTextObject.SetActive(true);
             }
         }
         yield return null;
@@ -167,19 +193,13 @@ public class LoadingImageManager : MonoBehaviour
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
             // 처음에는 문단 단위 스킵 이후에는 페이지 단위 스킵
-            if(Input.anyKey && cnt > 10 && CountAttempts.Instance.GetAttemptCount() > 1){
-                skipPage = true;
-            }
-            else if(Input.anyKey && cnt > 10){
+            if(Input.anyKey){
                 skipParagraph = true;
             }
             
-            if(skipPage || skipParagraph){ 
+            if(skipParagraph){ 
                 audioSource.Stop();
-                introTextTMP.text = currentText + text;
-                if(index == 0){
-                    introTextTMP.text = currentText + introTextsTemp[0];
-                }
+                introTextTMP.text = currentText + introSkipTexts[index];
                 break;
             }
             introTextTMP.text += letter;

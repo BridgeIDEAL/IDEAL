@@ -135,6 +135,7 @@ public class IdealSceneManager : MonoBehaviour
 
         // 인트로 텍스트가 나오는 동안 이동 및 UI 조정 불가능하도록 
         currentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        currentGameManager.scriptHub.thirdPersonController.CameraRotationLock = true;
         currentGameManager.scriptHub.uIManager.uIInputLock = true;
 
         yield return null;
@@ -148,6 +149,7 @@ public class IdealSceneManager : MonoBehaviour
         }
         
         currentGameManager.scriptHub.thirdPersonController.MoveLock = false;
+        currentGameManager.scriptHub.thirdPersonController.CameraRotationLock = false;
         currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
         PenaltyPointManager.Instance.watchIntroEnded = true;

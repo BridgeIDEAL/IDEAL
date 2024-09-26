@@ -164,7 +164,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.5, z: 0.05}
+  m_Size: {x: 0.5, y: 0.6, z: 0.07}
   m_Center: {x: -0.2, y: 0, z: 0.025}
 --- !u!114 &8836449092887698813
 MonoBehaviour:
@@ -197,6 +197,9 @@ MonoBehaviour:
   outlineScaleFactor: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 0}
   reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
   outlineMask: 
 --- !u!114 &5677902500888122328
 MonoBehaviour:
@@ -212,16 +215,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   doorObject: {fileID: 8428317750170348043}
-  startRotation: {x: 0, y: 0, z: 0}
   destRotation: {x: 0, y: 120, z: 0}
-  doorCollider: {fileID: 2039807224123380962}
-  afterInteractionOffCollider: 1
   openRequiredTime: 0.5
   detectedStr: "\uC5F4\uC1E0\uD568\uC774\uB2E4."
   successInteractionStr: "\uC5F4\uC1E0\uD568\uC744 \uC5F4\uC5C8\uB2E4."
   failInteractionStr: "\uC5F4\uC1E0\uD568\uC744 \uC5F4\uC9C0 \uBABB\uD55C\uB2E4."
   needItem: -1
   activationLogNum: -1
+  isKeyBox: 0
 --- !u!1 &8600409464897262080
 GameObject:
   m_ObjectHideFlags: 0
