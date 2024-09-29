@@ -48,6 +48,9 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Item[] items;
 
+    /// <summary> 획득했었던 아이템 목록 </summary>
+    public SortedDictionary<int, int> gotItems;
+
     /// <summary> 합성되는 조각 아이템 목록 </summary>
     private int[] keyPieces_SecondFloor = { 20101, 20102, 20103 };
     private int[] keyPieces_StudentRoom = { 99101, 99102, 99103 };
@@ -125,11 +128,14 @@ public class Inventory : MonoBehaviour
 
         items = new Item[maxCapacity];
         Capacity = initalCapacity;
+
+        gotItems = new SortedDictionary<int, int> {};
     }
 
     public void EnterAnotherSceneInit(bool isLobby) {
         if (isLobby) {
             items = new Item[maxCapacity];
+            gotItems = new SortedDictionary<int, int> {};
         }
         else {
             uIInventory = scriptHub.uIInventory;
@@ -467,6 +473,9 @@ public class Inventory : MonoBehaviour
             CheckPieceItems();
             CheckCheckList(itemData.ID);
             if (itemData.ID == 990) ActiveInteraction.Instance.Active_01F_MapGuide(true);
+            UpdateGotItems(itemData.ID);
+
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIMap.UpdateMapFloor();
         }
         return amount;
     }
@@ -478,6 +487,15 @@ public class Inventory : MonoBehaviour
             playerTempEffectSound.PlayEffectSound(TempEffectSounds.KeyGet);
         else {
             playerTempEffectSound.PlayEffectSound(TempEffectSounds.ItemGet);
+        }
+    }
+
+    private void UpdateGotItems(int itemID){
+        if(gotItems.ContainsKey(itemID)){
+            gotItems[itemID] += 1;
+        }
+        else{
+            gotItems[itemID] = 1;
         }
     }
 
