@@ -11,6 +11,8 @@ public class UIMap : MonoBehaviour
     [SerializeField] private GameObject changeMapButtonObjectRight;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private RectTransform pointRectTransform;
+
+    [SerializeField] private UIMapFloor[] uIMapFloors;
     private int playerFloorNum = 1;
     private float[] playerFloorDivide = {6.18f, 9.67f, 13.18f, 16.68f};
     private float[] boundX_Prototype = {-4.73304f, 62.39957f};
@@ -39,6 +41,10 @@ public class UIMap : MonoBehaviour
             pointRectTransform.gameObject.SetActive(false);
         }
         
+    }
+
+    void Start(){
+        UpdateMapFloors();
     }
 
     private void UpdatePlayerFloor(){
@@ -154,5 +160,29 @@ public class UIMap : MonoBehaviour
             changeMapButtonObjectRight.SetActive(false);
         }
         ProgressManager.Instance.watchMapNum = watchMapN;
+    }
+
+    public void UpdateMapFloor(){
+        foreach(UIMapObject uIMapObject in uIMapFloors[playerFloorNum -1].uIMapObjects){
+            if(Inventory.Instance.gotItems.ContainsKey(uIMapObject.itemData.ID)){
+                uIMapObject.gameObject.SetActive(false);
+            }
+            else{
+                uIMapObject.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void UpdateMapFloors(){
+        for(int i = 0 ; i < uIMapFloors.Length; i++){
+            foreach(UIMapObject uIMapObject in uIMapFloors[i].uIMapObjects){
+                if(Inventory.Instance.gotItems.ContainsKey(uIMapObject.itemData.ID)){
+                    uIMapObject.gameObject.SetActive(false);
+                }
+                else{
+                    uIMapObject.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 }
