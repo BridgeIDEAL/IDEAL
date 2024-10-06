@@ -17,11 +17,11 @@ public class InteractionObject : MonoBehaviour
     }
 
     public void DetectedCollider(){
-        if(outlineActive) interactionOutline.SetOutlineObject(true);
+        if(outlineActive) interactionOutline.SetBlinkOutline(true);
     }
 
     public void OutOfCollider(){
-        if(outlineActive) interactionOutline.SetOutlineObject(false);
+        if(outlineActive) interactionOutline.SetBlinkOutline(false);
     }
 
     public void DetectedInteraction(){
