@@ -32,6 +32,7 @@ namespace StarterAssets
 		public bool CameraRotationLock = false;
         [Tooltip("Move Lock")]
 		public bool MoveLock = false;
+        public bool MannequinRotationLock = true;
 
         private bool cameraEnforced = false;
 
@@ -338,7 +339,7 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if(!MannequinRotationLock)transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
