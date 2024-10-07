@@ -16,6 +16,12 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private float planeValue = -0.0005f;
     [SerializeField] private bool[] outlineMask;
 
+    private bool blinkActive = false;
+    private Coroutine blinkCoroutine = null;
+    private float blinkTime = 0.679f;
+    private float blinkFade = 0.714f;
+    private float blinkOffTime = 0.59f;
+
     private GameObject outlineObject;
     private Renderer outlineRenderer = null;   // Renderer가 하나인 오브젝트의 경우
     private List<Renderer> outlineRenderers = new List<Renderer>();    // Renderer가 자식 오브젝트에 있어 여러 개인 경우
@@ -90,5 +96,55 @@ public class InteractionOutline : MonoBehaviour
     public void SetOutlineObject(bool active)
     {
         outlineObject.SetActive(active);
+    }
+
+    public void SetBlinkOutline(bool active){
+        SetOutlineObject(active);
+        if(active){
+            blinkActive= active;
+            if(blinkCoroutine != null){
+                StopCoroutine(blinkCoroutine);
+            }
+            blinkCoroutine = StartCoroutine(BlinkOutlineCoroutine());
+        }
+        else{
+            blinkActive = active;
+        }
+    }
+
+    IEnumerator BlinkOutlineCoroutine(){
+        float alpha = 0.0f;
+        float stepTimer = 0.0f;
+        while(blinkActive){
+            stepTimer = 0.0f;
+            while(stepTimer <= blinkTime){
+                alpha = Mathf.Lerp(0.0f, blinkFade, stepTimer / blinkTime);
+                SetRendererAlpha(alpha);
+                stepTimer += Time.deltaTime;
+                yield return null;
+            }
+            stepTimer = 0.0f;
+            while(stepTimer <= blinkTime){
+                alpha = Mathf.Lerp(blinkFade, 0.0f, stepTimer / blinkTime);
+                SetRendererAlpha(alpha);
+                stepTimer += Time.deltaTime;
+                yield return null;
+            }
+            yield return new WaitForSeconds(blinkOffTime);
+        }
+        
+    }
+
+    private void SetRendererAlpha(float alpha_){
+        if(outlineRenderer != null){
+            outlineRenderer.material.SetFloat("_OutlineAlpha", alpha_);
+        }
+        if(outlineRenderers.Count > 0){
+            foreach(Renderer renderer in outlineRenderers){
+                if(renderer != null){
+                    renderer.material.SetFloat("_OutlineAlpha", alpha_);
+                }
+            }
+        }
     }
 }
