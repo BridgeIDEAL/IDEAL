@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class UIIngame : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class UIIngame : MonoBehaviour
     [SerializeField] private Image visualFilter_Red;
     [SerializeField] private Image visualFilter_Green;
     [SerializeField] private Image fadeFilter;
+
+    [SerializeField] private RawImage vhsTexture;
+    [SerializeField] private VideoClip vhsVideoClip;
+    [SerializeField] private VideoPlayer vhsVideoPlayer;
     private float hurtEffectTime = 1.0f;
     private float hurtEffectAlpha = 0.27058f;
     private float fadeEffectTime = 0.7f;
     private Coroutine hurtCoroutine;
     private Coroutine fadeCoroutine;
+    private Coroutine vhsCoroutine;
 
     
     public void SetVisualFilter(float ratio){
@@ -110,5 +116,35 @@ public class UIIngame : MonoBehaviour
             callback_();
         }
         StartCoroutine(FadeInEffectCoroutine());
+    }
+
+    public void VHSEffectPlay(){
+        if(vhsCoroutine != null){
+            StopCoroutine(vhsCoroutine);
+        }
+        vhsCoroutine = StartCoroutine(VHSEffectCoroutine());
+    }
+
+    IEnumerator VHSEffectCoroutine(Action callback_ = null){
+        vhsVideoPlayer.isLooping = false;
+        vhsVideoPlayer.audioOutputMode = VideoAudioOutputMode.None;
+        vhsVideoPlayer.Play();
+        
+        float videoTime = (float)vhsVideoClip.length;
+        float stepTimer = 0.0f;
+        Color vhsColor = vhsTexture.color;
+        while(stepTimer <= videoTime / 2.0f) {
+            vhsColor.a = Mathf.Lerp(0.0f, 1.0f, stepTimer / (videoTime / 2.0f));
+            vhsTexture.color = vhsColor;
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        stepTimer = 0.0f;
+        while(stepTimer <= videoTime / 2.0f) {
+            vhsColor.a = Mathf.Lerp(1.0f, 0.0f, stepTimer / (videoTime / 2.0f));
+            vhsTexture.color = vhsColor;
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 }

@@ -18,6 +18,11 @@ public class SafeZoneColliderManager : MonoBehaviour
         if(other.CompareTag("GuardRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.GuardRoom);
         }
+
+        if(other.CompareTag("VHSEffectRoom")){
+            // IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay();
+            IdealSceneManager.Instance.RadialBlurActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -33,6 +38,9 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
         if(other.CompareTag("GuardRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.GuardRoom);
+        }
+        if(other.CompareTag("VHSEffectRoom")){
+            IdealSceneManager.Instance.RadialBlurActive(true);
         }
     }
 }

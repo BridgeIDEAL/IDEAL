@@ -37,12 +37,15 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private ReformPointManager reformPointManager;
     [SerializeField] private ConversationPointManager conversationPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
+    [SerializeField] private Material radialBlurMaterial;
     public AudioSource metalDoorSound;
     private float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
     private float fadeEffectTime = 0.7f;
-    private Coroutine loadCoroutine;
-    private Coroutine soundCoroutine;
+    private float radialBlurStrength = 1.0f;
+    private Coroutine loadCoroutine = null;
+    private Coroutine soundCoroutine = null;
+    private Coroutine radialBlurCoroutine = null;
 
     private void Awake() {
         if(instance == null){
@@ -82,6 +85,8 @@ public class IdealSceneManager : MonoBehaviour
         if(scene.name == "Prototype" || scene.name == "Prototype_Second"){
             Cursor.lockState = CursorLockMode.Locked;
             GuideLogManager.Instance.guideLogUpdated = false;
+
+            radialBlurMaterial.SetFloat("fSampleStrength", 0.0f);
 
         }
         else if(scene.name == "Lobby"){
@@ -288,6 +293,26 @@ public class IdealSceneManager : MonoBehaviour
         lobbyBGMBox.volume = destVolume;
         if(!isFadeIn){
             lobbyBGMBox.Stop();
+        }
+    }
+
+    public void RadialBlurActive(bool active){
+        if(radialBlurCoroutine != null){
+            StopCoroutine(radialBlurCoroutine);
+        }
+        radialBlurCoroutine = StartCoroutine(RadialBlurActiveCoroutine(active));
+    }
+
+    IEnumerator RadialBlurActiveCoroutine(bool active_){
+        float stepTimer = 0.0f;
+        float startEffect = active_ ? 0.0f : radialBlurStrength;
+        float destEffect = active_ ? radialBlurStrength : 0.0f;
+        float curEffect = 0.0f;
+        while(stepTimer <= fadeEffectTime){
+            curEffect = Mathf.Lerp(startEffect, destEffect, stepTimer / fadeEffectTime);
+            radialBlurMaterial.SetFloat("fSampleStrength", curEffect);
+            stepTimer += Time.deltaTime;
+            yield return null;
         }
     }
 
