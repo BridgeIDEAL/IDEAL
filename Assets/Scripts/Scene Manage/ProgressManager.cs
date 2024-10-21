@@ -98,6 +98,8 @@ public class ProgressManager : MonoBehaviour
     public int watchMapNum = 0;
     private int mapCheckListStateNum = 0;
 
+    public bool needShowChecklistIcon = false;
+
     private UICheckListManager uICheckListManager;
     void Awake(){
         if(instance == null){
@@ -119,6 +121,16 @@ public class ProgressManager : MonoBehaviour
         UpdateCheckListObject();
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uICheckListManager.UpdateCheckListUI();
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIMap.UpdateMapFloor();
+
+        if(state != -1){
+            needShowChecklistIcon = true;
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.TurnOnCheckListIcon();
+        }
+    }
+
+    public void TurnOffCheckListIcon(){
+        needShowChecklistIcon = false;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.TurnOffCheckListIcon();
     }
 
     private void UpdateCheckListObject(){
