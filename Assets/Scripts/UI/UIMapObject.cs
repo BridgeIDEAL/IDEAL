@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class UIMapObject : MonoBehaviour
 {
-    public ItemData itemData;
+    public int checkListNum;
 }
