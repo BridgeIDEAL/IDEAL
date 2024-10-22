@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractionNoConditionConversation : InteractionConditionConversation
 {
+    [SerializeField] bool onceTalkNDespawn = false;
     /****************************************************************************
                                          Chan Method
      ****************************************************************************/
@@ -17,6 +18,13 @@ public class InteractionNoConditionConversation : InteractionConditionConversati
 
         dialogueName = TalkData.speakerName + TalkData.speakIndex;
         DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
+
+        if (onceTalkNDespawn)
+        {
+            Entity _entityData = GetComponent<BaseEntity>().Entity_Data;
+            if(_entityData!=null)
+                _entityData.isSpawn = false;
+        }
     }
     #endregion
 }
