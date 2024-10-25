@@ -23,6 +23,7 @@ public class ScriptHub : MonoBehaviour
     public ThirdPersonController thirdPersonController;
     public TempEffectSound playerEffectSound;
     public AmbienceSoundManager ambienceSoundManager;
+    public PlayerHandLight playerHandLight;
     
     [Space(5)]
     [Header("UI Scripts")]
