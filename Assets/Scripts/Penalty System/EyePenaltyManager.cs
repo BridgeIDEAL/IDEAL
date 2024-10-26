@@ -25,7 +25,7 @@ public class EyePenaltyManager : MonoBehaviour
 
             
             float distance = Vector3.Distance(playerTransform.position, eyePenaltyGroups[i].transform.position);
-            if(distance < closestDistance && angle > 90.0f){
+            if(angle > 90.0f && distance < closestDistance){
                 
                 closestEyePenaltyGroup = eyePenaltyGroups[i];
                 closestDistance = distance;
