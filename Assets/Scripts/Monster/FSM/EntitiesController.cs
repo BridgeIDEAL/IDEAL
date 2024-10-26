@@ -15,6 +15,8 @@ public class EntitiesController : MonoBehaviour
 
     public Transform lookTransform;
 
+   
+
     #region Awake
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class EntitiesController : MonoBehaviour
     #endregion
 
     #region Update
+
     private void Update()
     {
         ExecuteActiveEntities();

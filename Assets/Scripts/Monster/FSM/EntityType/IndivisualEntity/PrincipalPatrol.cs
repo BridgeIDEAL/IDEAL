@@ -8,7 +8,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 {
     DissolveEffect dissolveEffect;
     UnityAction dissolveAction = null;
-
+    
     [SerializeField] float chaseCoolDownTimer;
     protected DetectPlayer detectPlayer;
     #region Patrol Val
@@ -283,13 +283,35 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     }
     #endregion
 
+
+    [SerializeField, Header("JumpScare")] JumpScarePrincipal jsPrincipal;
+    [SerializeField] Transform colliderHeightTF;
+    [SerializeField] GameObject principalBody;
+    int structLayer = 1 << 10;
+    Vector3 wallCheckBoxSize = new Vector3(1f, 1f, 1.5f);
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.collider.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
+            //IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
+            jsPrincipal.gameObject.SetActive(true);
         }
     }
+
+    public void ColliderCheck()
+    {
+        if(DistanceCheck())
+        {
+            if (WallCheck())
+                return;
+            jsPrincipal.gameObject.SetActive(true);
+            Controller.SendMessage(EntityStateType.Quiet);
+            principalBody.SetActive(false);
+        }
+    }
+    public bool DistanceCheck() { return Vector3.Distance(colliderHeightTF.position, playerTransform.position) < 3.5f ? true : false;}
+    public bool WallCheck() { return Physics.CheckBox(transform.position + transform.forward * 1.5f, wallCheckBoxSize, Quaternion.identity, structLayer);  }
+
     [SerializeField] float walkSpeed;
     [SerializeField] float walkMotionSpeed;
     [SerializeField] float runSpeed;
