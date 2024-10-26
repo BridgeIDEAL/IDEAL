@@ -140,6 +140,7 @@ public class PenaltyPointManager : MonoBehaviour
             soundPenaltyStepTimer = 0.0f;
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren);
             isSoundHearing = true;
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOnLight();
         }
         if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
 
@@ -152,6 +153,7 @@ public class PenaltyPointManager : MonoBehaviour
                 soundHearingTimer = 0.0f;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
                 isSoundHearing = false;
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
             }
         }
         

@@ -10,9 +10,10 @@ public class UIMap : MonoBehaviour
     [SerializeField] private GameObject changeMapButtonObjectLeft;
     [SerializeField] private GameObject changeMapButtonObjectRight;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private RectTransform pointRectTransform;
 
-    [SerializeField] private UIMapFloor[] uIMapFloors;
+    [SerializeField] private UIMapCheckListGroup[] uIMapCheckListGroups;
     private int playerFloorNum = 1;
     private float[] playerFloorDivide = {6.18f, 9.67f, 13.18f, 16.68f};
     private float[] boundX_Prototype = {-4.73304f, 62.39957f};
@@ -44,7 +45,8 @@ public class UIMap : MonoBehaviour
     }
 
     void Start(){
-        UpdateMapFloors();
+        UpdateAllObjects();
+        UpdateMapFloor();
     }
 
     private void UpdatePlayerFloor(){
@@ -59,6 +61,11 @@ public class UIMap : MonoBehaviour
     private void UpdatePlayerPoint(){
         float playerXTransformNomalized = -1;
         float playerZTransformNomalized = -1;
+
+        float cameraYRotation = 0.0f;
+
+        cameraYRotation = cameraTransform.localEulerAngles.y;
+
         if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
             playerXTransformNomalized = (playerTransform.localPosition.x - boundX_Prototype[0]) / (boundX_Prototype[1] - boundX_Prototype[0]);
             playerZTransformNomalized = (playerTransform.localPosition.z - boundZ_Prototype[0]) / (boundZ_Prototype[1] - boundZ_Prototype[0]);
@@ -78,6 +85,7 @@ public class UIMap : MonoBehaviour
         }
         
         pointRectTransform.localPosition = new Vector3(mapPointX, mapPointY, 0);
+        pointRectTransform.localRotation = Quaternion.Euler(0, 0, -1.0f * cameraYRotation);
     }
 
     public void ActiveMap(){
@@ -163,25 +171,38 @@ public class UIMap : MonoBehaviour
     }
 
     public void UpdateMapFloor(){
-        foreach(UIMapObject uIMapObject in uIMapFloors[playerFloorNum -1].uIMapObjects){
-            if(Inventory.Instance.gotItems.ContainsKey(uIMapObject.itemData.ID)){
-                uIMapObject.gameObject.SetActive(false);
-            }
-            else{
-                uIMapObject.gameObject.SetActive(true);
-            }
+        while(UpdateCheckListGroup(ProgressManager.Instance.GetMapCheckListStateNum())){
+            ProgressManager.Instance.AddMapCheckListStateNum();
         }
     }
 
-    public void UpdateMapFloors(){
-        for(int i = 0 ; i < uIMapFloors.Length; i++){
-            foreach(UIMapObject uIMapObject in uIMapFloors[i].uIMapObjects){
-                if(Inventory.Instance.gotItems.ContainsKey(uIMapObject.itemData.ID)){
+    private bool UpdateCheckListGroup(int stateNum){
+        if(stateNum >= uIMapCheckListGroups.Length){
+            return false;
+        }
+        
+        bool checkListDone = true;
+        foreach(UIMapObject uIMapObject in uIMapCheckListGroups[stateNum].uIMapObjects){
+            if(ProgressManager.Instance.checkListDic.ContainsKey(uIMapObject.checkListNum)){
+                if(ProgressManager.Instance.checkListDic[uIMapObject.checkListNum] == 1){
                     uIMapObject.gameObject.SetActive(false);
                 }
                 else{
                     uIMapObject.gameObject.SetActive(true);
+                    checkListDone = false;
                 }
+            }
+            else{
+                Debug.LogError("Contains Key Error!");
+            }
+        }
+        return checkListDone;
+    }
+
+    private void UpdateAllObjects(){
+        for(int i = 0; i < uIMapCheckListGroups.Length; i++){
+            foreach(UIMapObject uIMapObject in uIMapCheckListGroups[i].uIMapObjects){
+                uIMapObject.gameObject.SetActive(false);
             }
         }
     }

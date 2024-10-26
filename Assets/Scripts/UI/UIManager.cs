@@ -114,6 +114,7 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = true;
             isInventoryActive = true;
+            ProgressManager.Instance.TurnOffCheckListIcon();
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = false;

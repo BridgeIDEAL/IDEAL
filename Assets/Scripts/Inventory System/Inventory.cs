@@ -475,7 +475,6 @@ public class Inventory : MonoBehaviour
             if (itemData.ID == 990) ActiveInteraction.Instance.Active_01F_MapGuide(true);
             UpdateGotItems(itemData.ID);
 
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIMap.UpdateMapFloor();
         }
         return amount;
     }

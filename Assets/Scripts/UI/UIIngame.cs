@@ -11,6 +11,8 @@ public class UIIngame : MonoBehaviour
     [SerializeField] private Image visualFilter_Red;
     [SerializeField] private Image visualFilter_Green;
     [SerializeField] private Image fadeFilter;
+    [SerializeField] private GameObject checkListOn;
+    [SerializeField] private GameObject checkListOff;
 
     [SerializeField] private RawImage vhsTexture;
     [SerializeField] private VideoClip vhsVideoClip;
@@ -22,6 +24,15 @@ public class UIIngame : MonoBehaviour
     private Coroutine fadeCoroutine;
     private Coroutine vhsCoroutine;
 
+
+    private void Start(){
+        if(ProgressManager.Instance.needShowChecklistIcon){
+            TurnOnCheckListIcon();
+        }
+        else{
+            TurnOffCheckListIcon();
+        }
+    }
     
     public void SetVisualFilter(float ratio){
         Color color = visualFilter.color;
@@ -146,5 +157,15 @@ public class UIIngame : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void TurnOnCheckListIcon(){
+        checkListOn.SetActive(true);
+        checkListOff.SetActive(false);
+    }
+
+    public void TurnOffCheckListIcon(){
+        checkListOn.SetActive(false);
+        checkListOff.SetActive(true);
     }
 }
