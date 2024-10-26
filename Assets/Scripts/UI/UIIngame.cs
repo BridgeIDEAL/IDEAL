@@ -33,7 +33,7 @@ public class UIIngame : MonoBehaviour
             TurnOffCheckListIcon();
         }
     }
-    
+
     public void SetVisualFilter(float ratio){
         Color color = visualFilter.color;
         color.a = ratio;
@@ -129,11 +129,11 @@ public class UIIngame : MonoBehaviour
         StartCoroutine(FadeInEffectCoroutine());
     }
 
-    public void VHSEffectPlay(){
+    public void VHSEffectPlay(Action callback = null){
         if(vhsCoroutine != null){
             StopCoroutine(vhsCoroutine);
         }
-        vhsCoroutine = StartCoroutine(VHSEffectCoroutine());
+        vhsCoroutine = StartCoroutine(VHSEffectCoroutine(callback));
     }
 
     IEnumerator VHSEffectCoroutine(Action callback_ = null){
@@ -144,19 +144,14 @@ public class UIIngame : MonoBehaviour
         float videoTime = (float)vhsVideoClip.length;
         float stepTimer = 0.0f;
         Color vhsColor = vhsTexture.color;
-        while(stepTimer <= videoTime / 2.0f) {
-            vhsColor.a = Mathf.Lerp(0.0f, 1.0f, stepTimer / (videoTime / 2.0f));
+        while(stepTimer <= videoTime ) {
+            vhsColor.a = Mathf.Lerp(0.0f, 1.0f, stepTimer / videoTime);
             vhsTexture.color = vhsColor;
             stepTimer += Time.deltaTime;
             yield return null;
         }
-        stepTimer = 0.0f;
-        while(stepTimer <= videoTime / 2.0f) {
-            vhsColor.a = Mathf.Lerp(1.0f, 0.0f, stepTimer / (videoTime / 2.0f));
-            vhsTexture.color = vhsColor;
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
+
+        callback_?.Invoke();
     }
 
     public void TurnOnCheckListIcon(){
