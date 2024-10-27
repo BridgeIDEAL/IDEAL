@@ -10,7 +10,7 @@ public class EntitiesController : MonoBehaviour
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
-    Transform playerTransform;
+    [SerializeField] Transform playerTransform;
     public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
 
     public Transform lookTransform;

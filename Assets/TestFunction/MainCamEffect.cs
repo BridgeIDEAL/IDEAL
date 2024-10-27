@@ -17,47 +17,59 @@ public class MainCamEffect : MonoBehaviour
     [SerializeField] float fieldOfViewTime;
 
     Camera mainCam = null;
-    private void Awake()
+
+    private void Start()
     {
         mainCam = Camera.main;
+        if (followCamera == null)
+        {
+            CinemachineBrain brain = mainCam.GetComponent<CinemachineBrain>();
+
+            if (brain.ActiveVirtualCamera as CinemachineVirtualCamera != null)
+            {
+                followCamera = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+            }
+        }
     }
 
     #region Fall Down Effect
-    public void FallDownVision(UnityAction fallAction)
+    public void FallDownVision(UnityAction fallAction, float waitTime=0f)
     {
         StartCoroutine(DescentFallDown());
-        StartCoroutine(RotateFallDown(fallAction));
+        StartCoroutine(RotateFallDown(fallAction, waitTime));
     }
 
     IEnumerator DescentFallDown()
     {
         float timer = 0f;
-        Vector3 stPos = mainCam.transform.position;
-        Vector3 edPos = new Vector3(mainCam.transform.position.x, yPos, mainCam.transform.position.z);
+        Vector3 stPos = followCamera.transform.position;
+        Vector3 edPos = new Vector3(followCamera.transform.position.x, yPos, followCamera.transform.position.z);
 
         while (timer < fallDownDescentTime)
         {
             timer += Time.deltaTime;
-            mainCam.transform.position = Vector3.Lerp(stPos, edPos, timer / fallDownDescentTime);
+            followCamera.transform.position = Vector3.Lerp(stPos, edPos, timer / fallDownDescentTime);
             yield return null;
         }
 
-        mainCam.transform.position = edPos;
+        followCamera.transform.position = edPos;
     }
 
-    IEnumerator RotateFallDown(UnityAction fallAction)
+    IEnumerator RotateFallDown(UnityAction fallAction, float waitTime = 0f)
     {
         float timer = 0f;
-        Quaternion stCamRot = mainCam.transform.rotation;
-        Quaternion edCamRot = Quaternion.Euler(60f, mainCam.transform.eulerAngles.y, mainCam.transform.eulerAngles.z);
+        Quaternion stCamRot = followCamera.transform.rotation;
+        Quaternion edCamRot = Quaternion.Euler(60f, followCamera.transform.eulerAngles.y, followCamera.transform.eulerAngles.z);
         while (timer < fallDownRotateTime)
         {
             timer += Time.deltaTime;
-            mainCam.transform.rotation = Quaternion.Slerp(stCamRot, edCamRot, timer / fallDownRotateTime);
+            followCamera.transform.rotation = Quaternion.Slerp(stCamRot, edCamRot, timer / fallDownRotateTime);
             yield return null;
         }
 
-        mainCam.transform.rotation = edCamRot;
+        followCamera.transform.rotation = edCamRot;
+
+        yield return new WaitForSeconds(waitTime);
 
         if (fallAction != null)
             fallAction.Invoke();
@@ -65,6 +77,7 @@ public class MainCamEffect : MonoBehaviour
     #endregion
 
     #region Find Of View Effect
+    public void CallSetFieldOfView(float setView) => followCamera.m_Lens.FieldOfView = setView;
     public void CallGraduallySetFieldOfView(float end=-2, float time=-2)
     {
         if (time <= -1)
