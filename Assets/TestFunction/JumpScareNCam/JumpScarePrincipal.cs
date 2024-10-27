@@ -12,7 +12,7 @@ public class JumpScarePrincipal : JumpScare
     {
        MainCamEffect mainCamEffect = Camera.main.GetComponent<MainCamEffect>();
        mainCamEffect.FallDownVision(CallPrincipalJumpScare, waitTime);
-       mainCamEffect.CallGraduallySetFieldOfView(16);
+       mainCamEffect.CallGraduallySetFieldOfView(18.9f);
     }
 
     public void CallPrincipalJumpScare()

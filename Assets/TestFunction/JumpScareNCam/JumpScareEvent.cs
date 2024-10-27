@@ -5,10 +5,13 @@ using UnityEngine;
 public class JumpScareEvent : MonoBehaviour
 {
     JumpScare jumpScare = null;
+    MainCamEffect mainCamEffect = null;
     private void Awake()
     {
         if (jumpScare == null)
             jumpScare = GetComponentInParent<JumpScare>();
+        if (mainCamEffect == null)
+            mainCamEffect = Camera.main.GetComponent<MainCamEffect>();
     }
 
     public void GameOver()
@@ -19,5 +22,13 @@ public class JumpScareEvent : MonoBehaviour
             return;
         }
         jumpScare.GameOver();
+    }
+
+    /// <summary>
+    /// JumpScare : Reverse Girl
+    /// </summary>
+    public void SetFieldOfView()
+    {
+        mainCamEffect.CallGraduallySetFieldOfView(14f,0.1f);
     }
 }

@@ -8,7 +8,7 @@ public abstract class JumpScare : MonoBehaviour
     [SerializeField, Header("Death Scene Last Camera Position")] protected Transform jumpscareCamTransform;
     [SerializeField] protected GameObject jumpscareCharacter;
     protected CinemachineVirtualCamera virtualCam = null;
-
+    
     public virtual void GameOver() 
     {
         /************* Chan hee ***********************/
