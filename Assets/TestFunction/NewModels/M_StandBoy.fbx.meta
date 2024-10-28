@@ -1,36 +1,43 @@
 fileFormatVersion: 2
-guid: 58a881132b519fd4897e82ee2a86e2bf
+guid: 8956456f99947ba40a43ced280439003
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Idle
+    second: IDLE
   - first:
-      74: -6369380417102052498
-    second: RightTurn
+      74: 864546719200000708
+    second: WALK
   - first:
-      74: 4688956621815657913
-    second: 119
-  - first:
-      74: 4688956621815657913
-    second: TurnIdle
+      74: 548773079426801600
+    second: ACTION
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material #2
-    second: {fileID: 2100000, guid: 8771eb91b42348744b5942151d356a5a, type: 2}
+      name: Material #43
+    second: {fileID: 2100000, guid: 84e0c8fd060ac7949b4f28c751766d81, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material #5
-    second: {fileID: 2100000, guid: 8771eb91b42348744b5942151d356a5a, type: 2}
+      name: Material #44
+    second: {fileID: 2100000, guid: ffa6c912d7342594181edd6bcd0e4d09, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert3
-    second: {fileID: 2100000, guid: 8771eb91b42348744b5942151d356a5a, type: 2}
+      name: Material #46
+    second: {fileID: 2100000, guid: 827b30780d1598d4082aa5028849409a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VRayMtl11SG
+    second: {fileID: 2100000, guid: 86ef50ed66a591d40afd8700a89bac5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _lambert7SG
+    second: {fileID: 2100000, guid: 78ee121ff1056e145a25282867ca61fb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -60,19 +67,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: IDLE
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -89,19 +96,19 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RightTurn
+      name: WALK
       takeName: Take 001
       internalID: 0
-      firstFrame: 100
-      lastFrame: 120
+      firstFrame: 151
+      lastFrame: 205
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -118,11 +125,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: TurnIdle
+      name: ACTION
       takeName: Take 001
       internalID: 0
-      firstFrame: 119
-      lastFrame: 120
+      firstFrame: 230
+      lastFrame: 400
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -149,7 +156,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.35
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -202,7 +209,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.00889
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
