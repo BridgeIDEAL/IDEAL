@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class TestJumpScare : MonoBehaviour
 {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            TurnSt();
+        }
+    }
+
     private void OnGUI()
     {
         if (GUI.Button(new Rect(0, 0, 100, 100), "교장구현"))
@@ -38,5 +46,28 @@ public class TestJumpScare : MonoBehaviour
     public void reverse_death()
     {
         reverse.ActiveJumpScare();
+    }
+
+    [SerializeField] Transform student;
+    [SerializeField] float time;
+    public void TurnSt()
+    {
+        StartCoroutine(TurnSTB());
+    }
+
+    IEnumerator TurnSTB()
+    {
+        float timer = 0f;
+        Quaternion st = student.rotation;
+        Quaternion ed = Quaternion.LookRotation(transform.position-student.position);
+        
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            student.rotation = Quaternion.Slerp(st,ed,timer/time);   
+            yield return null;
+        }
+
+        student.rotation = ed;
     }
 }
