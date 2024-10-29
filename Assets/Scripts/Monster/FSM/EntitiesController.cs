@@ -10,11 +10,11 @@ public class EntitiesController : MonoBehaviour
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
-    [SerializeField] Transform playerTransform;
+    [SerializeField] Transform playerTransform; // Foot Pos
     public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
 
-    public Transform lookTransform;
-
+    [SerializeField] Transform playerHeightTransform; // Eye Pos
+    public Transform PlayerHeightTransform { get { return playerHeightTransform; } }
    
 
     #region Awake
@@ -32,7 +32,7 @@ public class EntitiesController : MonoBehaviour
             if (allEntityDictionary.ContainsKey(entities[idx].name))
                 continue;
             allEntityDictionary.Add(entities[idx].name, entities[idx]);
-            entities[idx].Init(PlayerTransform);
+            entities[idx].Init(playerTransform,playerHeightTransform);
             entities[idx].Controller = this;
         }
     }

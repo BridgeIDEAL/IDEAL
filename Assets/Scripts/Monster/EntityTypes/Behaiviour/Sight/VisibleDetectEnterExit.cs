@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectEnterExit : DetectPlayer
+public class VisibleDetectEnterExit : VisibleDetectPlayer
 {
+    public VisibleDetectEnterExit()
+    {
+        this.isDetectPlayer = false;
+    }
+
     public override bool DetectExecute()
     {
         return isDetectPlayer;

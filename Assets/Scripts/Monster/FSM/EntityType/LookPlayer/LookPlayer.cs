@@ -92,32 +92,3 @@ public class LookPlayer : MonoBehaviour
     }
     #endregion
 }
-
-//bool isRotate = false;
-//public void MaintainAngle()
-//{
-//    Vector3 directionToPlayer = playerTransform.position - transform.position;
-//    directionToPlayer.y = 0; 
-//    Vector3 monsterForward = transform.forward;
-//    monsterForward.y = 0; 
-
-//    float angle = Vector3.Angle(monsterForward, directionToPlayer);
-//    if (angle > thresholdAngle && !isRotate)
-//    {
-//        isRotate = true;
-//        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-//        StartCoroutine(RotateCor(targetRotation));
-//    }
-//}
-
-//public IEnumerator RotateCor(Quaternion _target)
-//{
-//    float timer = 0f;
-//    while (timer < 1f)
-//    {
-//        timer += Time.deltaTime;
-//        transform.rotation = Quaternion.Slerp(transform.rotation, _target, timer/1f);
-//        yield return null;
-//    }
-//    isRotate = false;
-//}

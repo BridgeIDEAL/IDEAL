@@ -5,15 +5,15 @@ using UnityEngine;
 public class OnGuardEntity : ImmovableEntity
 {
     [SerializeField] float thresholdAngle= 90f;
-    [SerializeField] DetectPlayer detectPlayer;
+    [SerializeField] VisibleDetectPlayer detectPlayer;
     [SerializeField] bool isOnGuard = true;
     public bool IsOnGuard { get { return isOnGuard; } set { isOnGuard = value; } }
 
     [SerializeField] SuddenDeathTrigger suddenDeath;
-    public override void Init(Transform _playerTransfrom)
+    public override void Init(Transform _playerTransfrom, Transform _playerHeightTransform)
     {
-        base.Init(_playerTransfrom);
-        detectPlayer = GetComponentInChildren<DetectPlayer>();
+        base.Init(_playerTransfrom, _playerHeightTransform);
+        detectPlayer = GetComponentInChildren<VisibleDetectPlayer>();
     }
 
     public override void Setup()
@@ -32,11 +32,11 @@ public class OnGuardEntity : ImmovableEntity
     public override void IdleExit() { SetAnimation(currentType, false); }
     public override void TalkEnter() { SetAnimation(currentType, true); isOnGuard = false; }
     public override void TalkExecute() { }
-    public override void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); }
+    public override void TalkExit() { SetAnimation(currentType, false); }
     public override void QuietEnter() { SetAnimation(currentType, true); }
     public override void QuietExecute() { }
     public override void QuietExit() { SetAnimation(currentType, false); }
-    public override void PenaltyEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); suddenDeath.ActiveThis(true, this); }
+    public override void PenaltyEnter() { SetAnimation(currentType, true); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); suddenDeath.ActiveThis(true, this); }
     public override void PenaltyExecute() {  }
     public override void PenaltyExit() { SetAnimation(currentType, false); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd(); suddenDeath.ActiveThis(false); }
 

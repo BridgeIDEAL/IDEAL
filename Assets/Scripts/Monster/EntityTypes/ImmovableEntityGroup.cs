@@ -37,7 +37,7 @@ public class ImmovableEntityGroup : ImmovableEntity
         SetAnimation(currentType, true);
         for (int i = 0; i < lookPlayerCnt; i++)
         {
-            lookPlayers[i].GazePlayer(controller.lookTransform);
+            lookPlayers[i].GazePlayer(playerHeightTransform);
         }
     }
     public override void TalkExit() 

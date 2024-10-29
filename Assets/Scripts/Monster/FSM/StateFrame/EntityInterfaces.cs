@@ -10,3 +10,10 @@ public interface IPatrol{
     public void EndPatrol();
     public void SeekNextRoute();
 }
+
+public interface IOnGuard
+{
+    public bool IsNearPlayer();
+    public void EnterOnGuard();
+    public void ExitOnGuard();
+}

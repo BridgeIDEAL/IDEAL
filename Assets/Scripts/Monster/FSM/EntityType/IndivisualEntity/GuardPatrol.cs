@@ -13,31 +13,19 @@ public class GuardPatrol : MovableEntity, IPatrol
     int maxPoint;
 
     [Header("Dialogue")]
-    [SerializeField] DetectPlayer detectPlayer;
+    [SerializeField] VisibleDetectPlayer detectPlayer;
     bool onceTalk = true;
 
     #endregion
 
-    public override void Init(Transform _playerTransfrom)
+    public override void AdditionalInit()
     {
-        base.Init(_playerTransfrom);
         currentPoint = 1;
         maxPoint = patrolPoints.Length;
     }
 
-    public override void Setup()
+    public override void AdditionalSetup()
     {
-        entity_Data = EntityDataManager.Instance.GetEntityData(gameObject.name);
-        if (entity_Data == null)
-        {
-            Debug.LogError("해당 이형체 정보 없음!");
-            return;
-        }
-        if (entity_Data.isSpawn && Entity_Data.speakIndex!=-1)
-            controller.ActiveEntity(entity_Data.speakerName);
-        else
-            SetActiveState(false);
-
         if (Entity_Data.speakIndex == -1)
             onceTalk = false;
     }
@@ -119,39 +107,19 @@ public class GuardPatrol : MovableEntity, IPatrol
     // To Do ~~~ Look Player
     #endregion
 
-    #region Animation
-    public override void SetAnimation(EntityStateType _currentType, bool _isStart)
-    {
-        switch (_currentType)
-        {
-            case EntityStateType.Idle:
-                anim.SetBool("Walk", _isStart);
-                break;
-            case EntityStateType.Talk:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("Idle", _isStart);
-                break;
-            default:
-                break;
-        }
-    }
-    #endregion
-
     bool isTalk = false;
 
     #region Idle
-    public override void IdleEnter() { if(isTalk) anim.Play("WALK");  else anim.Play("IDLE"); }
-    public override void IdleExecute() { if(isTalk)Patrol(); DetectPlayer(); }
+    public override void IdleEnter() { if (isTalk) anim.SetBool("IsWalk", true); else anim.SetBool("IsWalk", false); }
+    public override void IdleExecute() { if (isTalk) Patrol(); else DetectPlayer(); }
     public override void IdleExit() {EndPatrol(); }
     #endregion
 
     #region Talk
-    public override void TalkEnter() { isTalk = true; anim.Play("IDLE"); }
+    public override void TalkEnter() { isTalk = true; anim.SetBool("IsWalk", false); }
     public override void TalkExecute() { }
     public override void TalkExit() {
-        ActiveInteraction.Instance.Active_01F_MapBook();
+        //ActiveInteraction.Instance.Active_01F_MapBook();
      }
     #endregion
 
@@ -162,9 +130,9 @@ public class GuardPatrol : MovableEntity, IPatrol
     }
 
     #region Quiet
-    public override void QuietEnter() { SetAnimation(EntityStateType.Quiet, true); }
+    public override void QuietEnter() { anim.SetBool("IsWalk", false); }
     public override void QuietExecute() { }
-    public override void QuietExit() { SetAnimation(EntityStateType.Quiet, false); }
+    public override void QuietExit() {  }
     #endregion
 
     #region Penalty : Not Use

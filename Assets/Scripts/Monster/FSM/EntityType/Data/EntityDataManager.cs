@@ -37,8 +37,10 @@ public class EntityDataManager : MonoBehaviour
         int cnt = data.entities.Count;
         for(int idx=0; idx<cnt; idx++)
         {
-            if(!entityDataDic.ContainsKey(data.entities[idx].speakerName))
-                entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
+            if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
+            {
+                entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]); 
+            }
         }
     }
 

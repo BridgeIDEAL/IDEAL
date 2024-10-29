@@ -21,7 +21,6 @@ public class InteractionItemConditionConversation : InteractionConditionConversa
         if (isSameIndex && !CheckCondition())
         {
             dialogueName = "Block1";
-            Debug.Log(dialogueName);
             DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
             return;
         }

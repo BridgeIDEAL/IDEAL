@@ -15,9 +15,11 @@ public class MovableEntity : BaseEntity
     #region Unity Life Cycle
    
     // Awake
-    public override void Init(Transform _playerTransfrom)
+    public override void Init(Transform _playerTransfrom, Transform _playerHeightTransform)
     {
         playerTransform = _playerTransfrom;
+        playerHeightTransform = _playerHeightTransform;
+
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -31,7 +33,10 @@ public class MovableEntity : BaseEntity
         // StateMachine
         stateMachine = new EntityStateMachine<MovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
+        AdditionalInit();
     }
+
+    public virtual void AdditionalInit() { }
 
     // Start
     public override void Setup()
@@ -46,8 +51,11 @@ public class MovableEntity : BaseEntity
             controller.ActiveEntity(entity_Data.speakerName);
         else
             SetActiveState(false);
+
+        AdditionalSetup();
     }
 
+    public virtual void AdditionalSetup() { }
     // Update
     public override void Execute()
     {

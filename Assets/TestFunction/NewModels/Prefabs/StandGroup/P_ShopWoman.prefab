@@ -1767,8 +1767,6 @@ GameObject:
   - component: {fileID: 3860466034255410740}
   - component: {fileID: 7388511987044712630}
   - component: {fileID: 4229041784556548844}
-  - component: {fileID: 82670653}
-  - component: {fileID: 8523606015366875661}
   - component: {fileID: 8728539492873079802}
   m_Layer: 6
   m_Name: P_ShopWoman
@@ -1880,38 +1878,7 @@ MonoBehaviour:
   conditionIndex: -1
   canTalk: 1
   detectedStr: "\uB9E4\uC810\uC544\uC8FC\uBA38\uB2C8\uC640 \uB300\uD654\uD55C\uB2E4."
-  onceTalkNDespawn: 0
---- !u!114 &82670653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3433390793466605735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89caaeecb09949a41b86711cb9e59e1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headTransfrom: {fileID: 0}
-  currentType: 0
-  lookPlayer: {fileID: 8523606015366875661}
---- !u!114 &8523606015366875661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3433390793466605735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d6a1fa67b69704a94de1ad9f455d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiAim: {fileID: 372686880569779237}
-  rigBuilder: {fileID: 8728539492873079802}
-  weightValue: 1
-  thresholdAngle: 90
+  dialogueType: 0
 --- !u!114 &8728539492873079802
 MonoBehaviour:
   m_ObjectHideFlags: 0

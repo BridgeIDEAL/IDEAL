@@ -92,3 +92,9 @@ public enum TeleportPoint
     BuildingB_2F,
     BuildingB_3F
 }
+
+public enum EntityDialogueType
+{
+    CanOnlySayOnce=0,
+    CanSayMayTimes=1
+}

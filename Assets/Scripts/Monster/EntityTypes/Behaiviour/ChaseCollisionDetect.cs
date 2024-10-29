@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseCollision 
+public class ChaseCollisionDetect 
 {
     Transform playerTransform = null; // Chased
     Transform entityTransform = null; // Chasing
@@ -12,7 +12,7 @@ public class ChaseCollision
     int structLayer = 1 << 10;
     float forwardDelta = 1.75f;
     Vector3 structCollisionBox = new Vector3(2f, 1f, 3.5f);
-    public ChaseCollision(float collisionDistance, Transform playerTransform, Transform entityTransform)
+    public ChaseCollisionDetect(float collisionDistance, Transform playerTransform, Transform entityTransform)
     {
         this.collisionDistance = collisionDistance;
         this.playerTransform = playerTransform;

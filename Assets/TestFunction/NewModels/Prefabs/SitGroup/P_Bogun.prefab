@@ -2623,8 +2623,6 @@ GameObject:
   - component: {fileID: 3501133701239315068}
   - component: {fileID: 3501133701239315056}
   - component: {fileID: 3501133701239315071}
-  - component: {fileID: 3501133701239315070}
-  - component: {fileID: -1011294404338312490}
   - component: {fileID: 4836203219276381885}
   m_Layer: 6
   m_Name: P_Bogun
@@ -2707,7 +2705,7 @@ MonoBehaviour:
   conditionIndex: -1
   canTalk: 1
   detectedStr: "\uBCF4\uAC74\uC120\uC0DD\uB2D8\uACFC \uB300\uD654\uD55C\uB2E4."
-  onceTalkNDespawn: 0
+  dialogueType: 0
 --- !u!114 &3501133701239315056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2743,37 +2741,6 @@ MonoBehaviour:
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
---- !u!114 &3501133701239315070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7871582917242723003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89caaeecb09949a41b86711cb9e59e1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headTransfrom: {fileID: 0}
-  currentType: 0
-  lookPlayer: {fileID: 0}
---- !u!114 &-1011294404338312490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7871582917242723003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d6a1fa67b69704a94de1ad9f455d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiAim: {fileID: 2371236939007665986}
-  rigBuilder: {fileID: 4836203219276381885}
-  weightValue: 1
-  thresholdAngle: 90
 --- !u!114 &4836203219276381885
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class InteractionNoConditionConversation : InteractionConditionConversation
 {
-    [SerializeField] bool onceTalkNDespawn = false;
+    [SerializeField] EntityDialogueType dialogueType = EntityDialogueType.CanOnlySayOnce;
+
+    int defaultLayer = 0;
     /****************************************************************************
                                          Chan Method
      ****************************************************************************/
@@ -19,11 +21,23 @@ public class InteractionNoConditionConversation : InteractionConditionConversati
         dialogueName = TalkData.speakerName + TalkData.speakIndex;
         DialogueManager.Instance.StartDialogue(dialogueName, baseEntity);
 
-        if (onceTalkNDespawn)
+        Entity _entityData = GetComponent<BaseEntity>().Entity_Data;
+        if (_entityData != null)
         {
-            Entity _entityData = GetComponent<BaseEntity>().Entity_Data;
-            if(_entityData!=null)
+            SetTalkType(_entityData);
+        }
+    }
+
+    public void SetTalkType(Entity _entityData)
+    {
+        switch (dialogueType)
+        {
+            case EntityDialogueType.CanOnlySayOnce:
                 _entityData.isSpawn = false;
+                gameObject.layer = defaultLayer;
+                break;
+            case EntityDialogueType.CanSayMayTimes:
+                break;
         }
     }
     #endregion

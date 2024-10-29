@@ -5,31 +5,38 @@ using System.Collections.Generic;
 
 public abstract class BaseEntity : MonoBehaviour
 {
+    #region Common Value 
+    // Later Change Layer : Prevent Talk Overlap
     protected LayerMask defaultLayer = 0;
-    
+
+    // Transform : EntitiyHead N Player  
     [SerializeField] protected Transform headTransfrom;
     public Transform HeadTransform { get { return headTransfrom; } }
-
     protected Transform playerTransform;
-    [SerializeField] protected EntityStateType currentType;
+    protected Transform playerHeightTransform;
+    
+    // Entity State 
+    protected EntityStateType currentType;
     public EntityStateType CurrentType { get { return currentType; } }
-    // Entity Data
+
+    // Entity Data : Relate Spawn, Dialogue Index
     protected Entity entity_Data =null;
     public Entity Entity_Data { get { if (entity_Data == null) EntityDataManager.Instance.GetEntityData(gameObject.name);  return entity_Data;  }  set  {  entity_Data = value;  } }
     
-    // Entity Controller
+    // Entity Controller 
     protected EntitiesController controller;
     public EntitiesController Controller { get { return controller; } set { controller = value; } }
 
     // Entity Dialogue
     protected Dialogue entity_Dialogue =null;
     public Dialogue Entity_Dialogue { get { if (entity_Dialogue == null) entity_Dialogue = DialogueManager.Instance.GetDialogue(Entity_Data.speakerName+Entity_Data.speakIndex); return entity_Dialogue; } set { entity_Dialogue = value; } }
+    #endregion
 
     #region Unity Life Cycle : Call By Entities Controller
     /// <summary>
     /// Awake
     /// </summary>
-    public abstract void Init(Transform _playerTransfrom);
+    public abstract void Init(Transform _playerTransfrom, Transform _playerHeightTransform);
     
     /// <summary>
     /// Start
@@ -42,6 +49,7 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void Execute();
     #endregion
 
+    #region Set State Anim, Spawn
     /// <summary>
     /// Set State
     /// </summary>
@@ -49,7 +57,7 @@ public abstract class BaseEntity : MonoBehaviour
     public abstract void ReceiveMessage(EntityStateType _messageType);
     
     /// <summary>
-    /// True => Call Entity Script , False => Call Controller Script
+    /// Decide Spawn State
     /// </summary>
     /// <param name="_isSpawn"></param>
     public virtual void SetActiveState(bool _isSpawn)
@@ -63,5 +71,10 @@ public abstract class BaseEntity : MonoBehaviour
         gameObject.SetActive(_isSpawn);
     }
 
-    public virtual void EntityAnimationTrigger(string _triggerName) {  }
+    /// <summary>
+    /// Call When you talk with Player : Animation
+    /// </summary>
+    /// <param name="_triggerName"></param>
+    public virtual void AnimationTriggerCallByDialogue(string _triggerName) {  }
+    #endregion
 }

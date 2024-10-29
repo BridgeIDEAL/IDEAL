@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class ImmovableEntity : BaseEntity
 {
-    //[SerializeField] protected EntityStateType currentType;
-    [SerializeField] protected LookPlayer lookPlayer;
-
     protected Animator anim;
     protected EntityState<ImmovableEntity>[] states;
     protected EntityStateMachine<ImmovableEntity> stateMachine;
 
-    public override void Init(Transform _playerTransfrom)
+    public override void Init(Transform _playerTransfrom, Transform _playerHeightTransform)
     {
         playerTransform = _playerTransfrom;
+        playerHeightTransform = _playerHeightTransform; ;
+
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         // States
@@ -26,12 +25,8 @@ public class ImmovableEntity : BaseEntity
         stateMachine = new EntityStateMachine<ImmovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
 
-        if(lookPlayer==null)
-            lookPlayer = GetComponent<LookPlayer>();
-
         AdditionalInit();
     }
-
     public virtual void AdditionalInit() { }
 
     public override void Setup()
@@ -42,7 +37,7 @@ public class ImmovableEntity : BaseEntity
             Debug.LogError("해당 이형체의 정보를 찾을 수 없습니다!");
             return;
         }
-        //controller.ActiveEntity(gameObject.name);
+        
         if (entity_Data.isSpawn)
             controller.ActiveEntity(entity_Data.speakerName);
         else
@@ -50,42 +45,25 @@ public class ImmovableEntity : BaseEntity
 
         AdditionalSetup();
     }
-
     public virtual void AdditionalSetup() { }
-
-    public override void ReceiveMessage(EntityStateType _messageType)
+    public override void Execute()
     {
-        ChangeState(_messageType);
+        stateMachine.Execute();
     }
 
+    public override void ReceiveMessage(EntityStateType _messageType) { ChangeState(_messageType); }
     public void ChangeState(EntityStateType _changeType)
     {
         currentType = _changeType;
         stateMachine.ChangeState(states[(int)currentType]);
     }
 
-    public override void Execute()
-    {
-        stateMachine.Execute();
-    }
-
     #region Animation
-    public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
-    {
-        switch (_currentType)
-        {
-            //case EntityStateType.Idle:
-            //    anim.SetBool("Idle", _isStart);
-            //    break;
-            //default:
-            //    anim.SetBool("Idle", _isStart);
-            //    break;
-        }
-    }
+    public virtual void SetAnimation(EntityStateType _currentType, bool _isStart) { }
 
-    public override void EntityAnimationTrigger(string _triggerName)
+    public override void AnimationTriggerCallByDialogue(string _triggerName)
     {
-        base.EntityAnimationTrigger(_triggerName);
+        base.AnimationTriggerCallByDialogue(_triggerName);
         anim.SetTrigger(_triggerName);
     }
     #endregion
@@ -94,9 +72,9 @@ public class ImmovableEntity : BaseEntity
     public virtual void IdleEnter() { SetAnimation(currentType,true); }
     public virtual void IdleExecute() { }
     public virtual void IdleExit() { SetAnimation(currentType, false); }
-    public virtual void TalkEnter() { SetAnimation(currentType, true); lookPlayer.GazePlayer(controller.lookTransform); }
+    public virtual void TalkEnter() { SetAnimation(currentType, true); }
     public virtual void TalkExecute() { }
-    public virtual void TalkExit() { SetAnimation(currentType, false); lookPlayer.GazeFront(); }
+    public virtual void TalkExit() { SetAnimation(currentType, false); }
     public virtual void QuietEnter() { SetAnimation(currentType, true); }
     public virtual void QuietExecute() { }
     public virtual void QuietExit() { SetAnimation(currentType, false); }
@@ -105,3 +83,14 @@ public class ImmovableEntity : BaseEntity
     public virtual void PenaltyExit() { SetAnimation(currentType, false); }
     #endregion
 }
+
+
+//switch (_currentType)
+//{
+//    case EntityStateType.Idle:
+//        anim.SetBool("Idle", _isStart);
+//        break;
+//    default:
+//        anim.SetBool("Idle", _isStart);
+//        break;
+//}
