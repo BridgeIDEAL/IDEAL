@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,57 @@ public class Test_HeadOfTeacherDeath : MonoBehaviour
     [SerializeField] Animator fallAnim;
     [SerializeField] Transform enemyHead;
 
+    [SerializeField] CinemachineVirtualCamera followCam;
     private void OnGUI()
     {
-        if(GUI.Button(new Rect(0, 0, 100, 100), "µ•Ω∫æ¿"))
-        {
-            DeathScene();
-        }
+        //if(GUI.Button(new Rect(0, 0, 100, 100), "µ•Ω∫æ¿"))
+        //{
+        //    DeathScene();
+        //}
 
-        if (GUI.Button(new Rect(100, 0, 100, 100), "√Îº“"))
+        //if (GUI.Button(new Rect(100, 0, 100, 100), "√Îº“"))
+        //{
+        //    IdleScene();
+        //}
+
+        if (GUI.Button(new Rect(0, 0, 100, 100), "µ•Ω∫æ¿"))
         {
-            IdleScene();
+            Moving();
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Moving();
+        }
+    }
+
+    public void Moving()
+    {
+        StartCoroutine(mo());
+    }
+    IEnumerator mo()
+    {
+        float time = 0f;
+        while (time < 1f)
+        {
+            time += Time.deltaTime;
+            followCam.m_Lens.FieldOfView = Mathf.Lerp(40, 20, time / 1f);
+            yield return null;
+        }
+
+        time = 0f;
+        Vector3 pp = followCam.transform.position;
+        followCam.Follow = null;
+        while (time < 3f)
+        {
+            time += Time.deltaTime;
+            followCam.transform.position = Vector3.Lerp(pp, Vector3.zero, time/3f);
+            yield return null;
+        }
+    }
     public void DeathScene()
     {
         attackAnim.Play("Attack");

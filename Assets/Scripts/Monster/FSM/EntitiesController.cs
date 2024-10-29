@@ -10,10 +10,12 @@ public class EntitiesController : MonoBehaviour
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
-    Transform playerTransform;
+    [SerializeField] Transform playerTransform;
     public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
 
     public Transform lookTransform;
+
+   
 
     #region Awake
     private void Awake()
@@ -57,6 +59,7 @@ public class EntitiesController : MonoBehaviour
     #endregion
 
     #region Update
+
     private void Update()
     {
         ExecuteActiveEntities();
