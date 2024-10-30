@@ -6,44 +6,39 @@ using UnityEngine.Events;
 
 public class PrincipalPatrol : MovableEntity, IPatrol
 {
-    DissolveEffect dissolveEffect;
+    [SerializeField, Header("Disappear Effect")] DissolveEffect dissolveEffect;
     UnityAction dissolveAction = null;
-    
-    [SerializeField] float chaseCoolDownTimer;
-    protected VisibleDetectPlayer detectPlayer;
-    #region Patrol Val
-    [SerializeField] int currentPoint;
-    [SerializeField] int maxPoint;
-    float stopDistance = 0.8f;
 
-    [Header("Patrol")]
-    [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
+    #region Chase/Detect Val
+    [Header("Chase/Detect")]
+    [SerializeField] VisibleDetectPlayer detectPlayer;
+    [SerializeField] JumpScarePrincipal jumpscare;
+    [SerializeField] ChaseCollisionDetect collisionDetect;
     #endregion
-    
-    #region In StudyRoom Val
-    bool isRotate = false;
-    [SerializeField] bool isInStudyRoom = false;
-    public bool IsInStudyRoom { set { isInStudyRoom = value; if (value) agent.SetDestination(studyRoomFrontPoint); else isRotate = false; } }
-    [Header("StudyRoom")]
-    [SerializeField, Tooltip("자습실 앞 위치")] Vector3 studyRoomFrontPoint;
-    [SerializeField, Tooltip("자습실 앞 위치를 바라보는 각도")] Vector3 studyRoomFrontRotation;
+
+    #region Patrol Val
+    [Header("Move")]
+    [SerializeField, Tooltip("순찰 지점들")] Vector3[] patrolPoints;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float runSpeed;
+    [SerializeField, Range(0.1f, 5f)] float walkMotionSpeed;
+    [SerializeField, Range(0.1f,5f)] float runMotionSpeed;
+
+    int currentPoint = 1;
+    int maxPoint;
+    float stopPatrolDistance = 0.8f;
     #endregion
     
     public override void Init(Transform _playerTransfrom, Transform _playerHeightTransform)
     {
         base.Init(_playerTransfrom, _playerHeightTransform);
-
-        detectPlayer = GetComponentInChildren<VisibleDetectPlayer>();
-        currentPoint = 0;
         maxPoint = patrolPoints.Length - 1;
-
-        if (dissolveEffect == null)
-            dissolveEffect = GetComponent<DissolveEffect>();
-        if (dissolveEffect != null)
-            dissolveEffect.Init();
+        dissolveEffect.Init();
         dissolveAction += ReturnStartPoint;
 
-        #region Set Patrol Point Height
+        collisionDetect.Init(_playerTransfrom, this.transform);
+
+        #region Init Patrol Point Height
         float _height = 3.5f;
         int _poinCnt = patrolPoints.Length;
         switch (EntityDataManager.Instance.Notice.CurrentTeleportPoint)
@@ -82,7 +77,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         if (agent.enabled == false)
             return;
-        if (agent.remainingDistance < stopDistance)
+        if (agent.remainingDistance < stopPatrolDistance)
         {
             SeekNextRoute();
             return;
@@ -108,40 +103,49 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     #region In StudyRoom
 
-    public void PlayerInStudyRoom()
+    bool isInStudyRoom = false;
+    
+    public void PlayerInStudyRoom(Transform keepAnEyeTransform)
     {
-        onceInStudyroom = true;
-        if (!isRotate && agent.remainingDistance < 0.1f)
-        {
-            StartCoroutine(RotateCor());
-        }
+        StopAllCoroutines();
+        isInStudyRoom= true;
+        if (EntityDataManager.Instance.Controller.IsChase)
+            StartCoroutine(MoveToKeepAnEyePosition(keepAnEyeTransform));
     }
 
-    public IEnumerator RotateCor()
+    public void PlayerOutStudyRoom()
     {
-        isRotate = true;
+        StopAllCoroutines();
+        isInStudyRoom= false;
+        anim.SetBool("IsMove", true);
+    }
+
+    public IEnumerator MoveToKeepAnEyePosition(Transform keepAnEyeTransform)
+    {
+        agent.SetDestination(keepAnEyeTransform.position);
+        while (agent.remainingDistance > 0.1f) 
+        {
+            yield return null;
+        }
+        agent.enabled = false;
+        this.transform.position = keepAnEyeTransform.position;
+        agent.enabled = true;
+
         float timer = 0f;
-        anim.SetBool("Run",false);
-        anim.SetBool("Idle",true);
-        Quaternion lookQuaternion = Quaternion.Euler(studyRoomFrontRotation);
+        anim.SetBool("IsMove", false);
+        Quaternion keepAnEyeRotation = keepAnEyeTransform.rotation;
+
         while (timer <= 1f)
         {
             timer += Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookQuaternion, timer / 1f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, keepAnEyeRotation, timer / 1f);
             yield return null;
         }
+        transform.rotation = keepAnEyeRotation;
     }
     #endregion
 
-    #region Act Method
-    public void ChasePlayer()
-    {
-        if (playerTransform == null)
-            return;
-        agent.SetDestination(playerTransform.position);
-    }
-    #endregion
-
+    #region Solve Chase
     public void SolveChaseState()
     {
         agent.enabled = false;
@@ -154,41 +158,15 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         agent.enabled = true;
         controller.SendMessage(EntityStateType.Idle);
     }
-
-    #region Animation
-    public override void SetAnimation(EntityStateType _currentType, bool _isStart)
-    {
-        switch (_currentType)
-        {
-            case EntityStateType.Idle:
-                anim.SetBool("Walk", _isStart);
-                break;
-            case EntityStateType.Talk:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Quiet:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Penalty:
-                anim.SetBool("Idle", _isStart);
-                break;
-            case EntityStateType.Chase:
-                anim.SetBool("Run", _isStart);
-                break;
-            default:
-                break;
-        }
-    }
-
     #endregion
 
     #region Idle State
     public override void IdleEnter()
     {
-        base.IdleEnter();
         StartPatrol();
         agent.speed = walkSpeed;
-        anim.SetFloat("WalkValue", walkMotionSpeed);
+        anim.SetFloat("MoveValue", walkMotionSpeed);
+        anim.SetBool("IsMove", true);
     }
 
     public override void IdleExecute()
@@ -200,59 +178,34 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         }
     }
 
-    public override void IdleExit()
-    {
-        base.IdleExit();
-        EndPatrol();
-    }
-    #endregion
-
-    #region Talk State : When you catch by Principal
-    public override void TalkEnter()
-    {
-        base.TalkEnter();
-    }
-    public override void TalkExecute() { }
-    public override void TalkExit()
-    {
-        base.TalkExit();
-    }
+    public override void IdleExit()  { EndPatrol(); }
     #endregion
 
     #region Quiet State
     public override void QuietEnter()
     {
-        base.QuietEnter();
+        anim.SetBool("IsMove", false);
+        agent.enabled = false;
+        dissolveEffect.Dissolve();
     }
 
     public override void QuietExecute() { }
     
     public override void QuietExit()
     {
-        base.QuietExit();
+        anim.SetBool("IsMove", true);
+        agent.enabled = true;
+        dissolveEffect.RestoreDissolve();
     }
     #endregion
-
-    #region Penalty State : Not Use
-    public override void PenaltyEnter()
-    {
-        base.PenaltyEnter();
-    }
-    public override void PenaltyExecute() { }
-    public override void PenaltyExit()
-    {
-        base.PenaltyExit();
-    }
-    #endregion
-
-    bool onceInStudyroom = false;
 
     #region Chase State
+    
     public override void ChaseEnter()
     {
-        base.ChaseEnter();
+        anim.SetBool("IsMove", true);
         agent.speed = runSpeed;
-        anim.SetFloat("RunValue", runMotionSpeed);
+        anim.SetFloat("MoveValue", runMotionSpeed);
         EntityDataManager.Instance.Controller.IsChase = true;
     }
 
@@ -260,61 +213,31 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         if (!isInStudyRoom)
         {
-            if (onceInStudyroom)
-            {
-                anim.SetBool("Idle", false);
-                anim.SetBool("Run", true);
-                onceInStudyroom = false;
-            }
             agent.SetDestination(playerTransform.position);
+            
+            if(collisionDetect.IsCollidePlayer())
+            {
+                jumpscare.ActiveJumpScare();
+            }
         }
-        else
-            PlayerInStudyRoom();
     }
 
     public override void ChaseExit()
     {
-        base.ChaseExit();
-        isRotate = false;
         detectPlayer.IsDetectPlayer = false;
         EntityDataManager.Instance.Controller.IsChase = false;
-        onceInStudyroom = false;
-        anim.SetBool("Idle", false);
     }
     #endregion
 
+    #region Talk State : Not Use Now
+    public override void TalkEnter() { }
+    public override void TalkExecute() { }
+    public override void TalkExit() { }
+    #endregion
 
-    [SerializeField, Header("JumpScare")] JumpScarePrincipal jsPrincipal;
-    [SerializeField] Transform colliderHeightTF;
-    [SerializeField] GameObject principalBody;
-    int structLayer = 1 << 10;
-    Vector3 wallCheckBoxSize = new Vector3(1f, 1f, 1.5f);
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.collider.CompareTag("Player"))
-        {
-            //IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
-            jsPrincipal.gameObject.SetActive(true);
-        }
-    }
-
-    public void ColliderCheck()
-    {
-        if(DistanceCheck())
-        {
-            if (WallCheck())
-                return;
-            jsPrincipal.gameObject.SetActive(true);
-            Controller.SendMessage(EntityStateType.Quiet);
-            principalBody.SetActive(false);
-        }
-    }
-    public bool DistanceCheck() { return Vector3.Distance(colliderHeightTF.position, playerTransform.position) < 3.5f ? true : false;}
-    public bool WallCheck() { return Physics.CheckBox(transform.position + transform.forward * 1.5f, wallCheckBoxSize, Quaternion.identity, structLayer);  }
-
-    [SerializeField] float walkSpeed;
-    [SerializeField] float walkMotionSpeed;
-    [SerializeField] float runSpeed;
-    [SerializeField] float runMotionSpeed;
-    [SerializeField] int deathIndex;
+    #region Penalty State : Not Use Now
+    public override void PenaltyEnter() { }
+    public override void PenaltyExecute() { }
+    public override void PenaltyExit() { }
+    #endregion
 }

@@ -19,9 +19,7 @@ public enum SoundType
 
 public enum PlaceTriggerType
 {
-    RestPlace,
-    GuardRoom_1F,
-    StudyRoom_1F,
+    InStudyRoom,
     None
 }
 
@@ -70,7 +68,8 @@ public enum RootMotionType
 
 public enum ChaseEventType
 {
-    Last1F_Principal,
+    Last1F_APrincipal, 
+    Last1F_BPrincipal,
     Last1F_Guard,
     Last3F_GirlStudent,
     Last3F_StudentOfHeadTeacher,

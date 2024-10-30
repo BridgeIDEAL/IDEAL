@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StudyRoom1F : MonoBehaviour
+public class InStudyRoom : MonoBehaviour
 {
     [SerializeField] PrincipalPatrol principal;
-
+    [SerializeField] Transform keepAnEyeTransform;
     private void Start()
     {
         if (!EntityDataManager.Instance.IsLastEvent)
-            principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+        {
+            if(principal == null)
+                principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+        }
         else
-            Destroy(this);
+            this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +23,7 @@ public class StudyRoom1F : MonoBehaviour
         {
             if (principal == null)
                 return;
-            principal.IsInStudyRoom = true;
+            principal.PlayerInStudyRoom(keepAnEyeTransform);
         }
     }
 
@@ -30,7 +33,7 @@ public class StudyRoom1F : MonoBehaviour
         {
             if (principal == null)
                 return;
-            principal.IsInStudyRoom = false;
+            principal.PlayerOutStudyRoom();
         }
     }
 }

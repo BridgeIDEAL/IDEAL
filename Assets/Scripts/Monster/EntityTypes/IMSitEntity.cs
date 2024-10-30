@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IMSitEntity : ImmovableEntity
+public class IMSitEntity : IMovableEntity
 {
     [SerializeField] SitSight sight;
 

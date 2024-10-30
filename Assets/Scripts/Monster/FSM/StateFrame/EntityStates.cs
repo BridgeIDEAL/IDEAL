@@ -2,29 +2,29 @@ public class EntityStates { }
 
 namespace ImmovableEntityStates
 {
-    public class IdleState : EntityState<ImmovableEntity>
+    public class IdleState : EntityState<IMovableEntity>
     {
-        public override void Enter(ImmovableEntity _entity) { _entity.IdleEnter(); }
-        public override void Execute(ImmovableEntity _entity) { _entity.IdleExecute(); }
-        public override void Exit(ImmovableEntity _entity) { _entity.IdleExit(); }
+        public override void Enter(IMovableEntity _entity) { _entity.IdleEnter(); }
+        public override void Execute(IMovableEntity _entity) { _entity.IdleExecute(); }
+        public override void Exit(IMovableEntity _entity) { _entity.IdleExit(); }
     }
-    public class TalkState : EntityState<ImmovableEntity>
+    public class TalkState : EntityState<IMovableEntity>
     {
-        public override void Enter(ImmovableEntity _entity) { _entity.TalkEnter(); }
-        public override void Execute(ImmovableEntity _entity) { _entity.TalkExecute(); }
-        public override void Exit(ImmovableEntity _entity) { _entity.TalkExit(); }
+        public override void Enter(IMovableEntity _entity) { _entity.TalkEnter(); }
+        public override void Execute(IMovableEntity _entity) { _entity.TalkExecute(); }
+        public override void Exit(IMovableEntity _entity) { _entity.TalkExit(); }
     }
-    public class QuietState : EntityState<ImmovableEntity>
+    public class QuietState : EntityState<IMovableEntity>
     {
-        public override void Enter(ImmovableEntity _entity) { _entity.QuietEnter(); }
-        public override void Execute(ImmovableEntity _entity) { _entity.QuietExecute(); }
-        public override void Exit(ImmovableEntity _entity) { _entity.QuietExit(); }
+        public override void Enter(IMovableEntity _entity) { _entity.QuietEnter(); }
+        public override void Execute(IMovableEntity _entity) { _entity.QuietExecute(); }
+        public override void Exit(IMovableEntity _entity) { _entity.QuietExit(); }
     }
-    public class PenaltyState : EntityState<ImmovableEntity>
+    public class PenaltyState : EntityState<IMovableEntity>
     {
-        public override void Enter(ImmovableEntity _entity) { _entity.PenaltyEnter(); }
-        public override void Execute(ImmovableEntity _entity) { _entity.PenaltyExecute(); }
-        public override void Exit(ImmovableEntity _entity) { _entity.PenaltyExit(); }
+        public override void Enter(IMovableEntity _entity) { _entity.PenaltyEnter(); }
+        public override void Execute(IMovableEntity _entity) { _entity.PenaltyExecute(); }
+        public override void Exit(IMovableEntity _entity) { _entity.PenaltyExit(); }
     }
 }
 

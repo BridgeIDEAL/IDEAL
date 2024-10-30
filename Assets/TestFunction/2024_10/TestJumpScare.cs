@@ -32,7 +32,7 @@ public class TestJumpScare : MonoBehaviour
     [SerializeField] Transform player;
     public void pri_death()
     {
-        js.playerTransform = player;
+        //js.PlayerTransform = player;
         js.ActiveJumpScare();
     }
 

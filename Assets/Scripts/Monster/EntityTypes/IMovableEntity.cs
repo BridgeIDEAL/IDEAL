@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImmovableEntity : BaseEntity
+public class IMovableEntity : BaseEntity
 {
     protected Animator anim;
-    protected EntityState<ImmovableEntity>[] states;
-    protected EntityStateMachine<ImmovableEntity> stateMachine;
+    protected EntityState<IMovableEntity>[] states;
+    protected EntityStateMachine<IMovableEntity> stateMachine;
 
     public override void Init(Transform _playerTransfrom, Transform _playerHeightTransform)
     {
@@ -16,13 +16,13 @@ public class ImmovableEntity : BaseEntity
         currentType = EntityStateType.Idle;
         anim = GetComponent<Animator>();
         // States
-        states = new EntityState<ImmovableEntity>[(int)EntityStateType.None-1];
+        states = new EntityState<IMovableEntity>[(int)EntityStateType.None-1];
         states[(int)EntityStateType.Idle] = new ImmovableEntityStates.IdleState();
         states[(int)EntityStateType.Talk] = new ImmovableEntityStates.TalkState();
         states[(int)EntityStateType.Quiet] = new ImmovableEntityStates.QuietState();
         states[(int)EntityStateType.Penalty] = new ImmovableEntityStates.PenaltyState();
         // StateMachine
-        stateMachine = new EntityStateMachine<ImmovableEntity>();
+        stateMachine = new EntityStateMachine<IMovableEntity>();
         stateMachine.Init(this, states[(int)currentType]);
 
         AdditionalInit();
@@ -45,6 +45,7 @@ public class ImmovableEntity : BaseEntity
 
         AdditionalSetup();
     }
+
     public virtual void AdditionalSetup() { }
     public override void Execute()
     {

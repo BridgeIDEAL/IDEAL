@@ -5,7 +5,18 @@ using UnityEngine;
 
 public class JumpScarePrincipal : JumpScare
 {
-    public Transform playerTransform { get; set; } = null;
+    Transform playerTransform = null;
+    public Transform PlayerTransform
+    {
+        get
+        {
+            if (playerTransform == null) 
+            {
+                playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
+            }
+            return playerTransform;
+        }
+    }
     [SerializeField] float waitTime;
     [SerializeField] float lookPrincipalTime;
     public override void SetCameraSetting()
@@ -17,7 +28,7 @@ public class JumpScarePrincipal : JumpScare
 
     public void CallPrincipalJumpScare()
     {
-        if(playerTransform == null)
+        if(PlayerTransform == null)
         {
             Debug.LogError("플레이어 정보를 주지 않았다!");
             return;
@@ -28,20 +39,22 @@ public class JumpScarePrincipal : JumpScare
         //float distance = Vector3.Distance(transform.position, jumpscareCamTransform.position);
         float distance = 3.5f;
 
-        Vector3 direction = transform.position - playerTransform.position;
-        direction.y = 0;
-        direction = direction.normalized;
+        Vector3 jumpscareDir = PlayerTransform.position - transform.position;
+        jumpscareDir.y = 0;
+        jumpscareDir = jumpscareDir.normalized;
 
-        Vector3 tempPlayer = playerTransform.position;
-        tempPlayer.y = 0;
-
-        Vector3 rotateDirection = playerTransform.position - transform.position;
+        Vector3 rotateDirection = transform.position - PlayerTransform.position;
         rotateDirection.y = 0;
         rotateDirection = rotateDirection.normalized;
-        Quaternion lookRot = Quaternion.LookRotation(rotateDirection, Vector3.up);
+
+        Vector3 tempPlayer = PlayerTransform.position;
+        tempPlayer.y = 0;
+
+        Quaternion lookRot = Quaternion.LookRotation(rotateDirection);
+        jumpscareCharacter.transform.position = tempPlayer + distance * rotateDirection;
         
-        jumpscareCharacter.transform.position = tempPlayer + distance * direction;
-        jumpscareCharacter.transform.rotation = lookRot;
+        Quaternion jumpScareRot = Quaternion.LookRotation(jumpscareDir);
+        jumpscareCharacter.transform.rotation = jumpScareRot;
 
         if (jumpscareCharacter.activeSelf==false)
             jumpscareCharacter.SetActive(true);
@@ -54,13 +67,17 @@ public class JumpScarePrincipal : JumpScare
         float timer = 0f;
         Quaternion stRot = virtualCam.transform.rotation;
         Quaternion edRot = jumpscareCamTransform.rotation;
+        Vector3 stPos = virtualCam.transform.position;
+        Vector3 edPos = jumpscareCamTransform.transform.position;
 
         while (timer< lookPrincipalTime) 
         {
             timer+= Time.deltaTime;
             virtualCam.transform.rotation = Quaternion.Slerp(stRot, edRot, timer / lookPrincipalTime);
+            virtualCam.transform.position = Vector3.Lerp(stPos, edPos, timer / lookPrincipalTime);
             yield return null;
         }
         virtualCam.transform.rotation = edRot;
+        virtualCam.transform.position = edPos;
     }
 }

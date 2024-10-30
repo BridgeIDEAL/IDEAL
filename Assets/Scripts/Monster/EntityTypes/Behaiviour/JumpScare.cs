@@ -8,7 +8,7 @@ public abstract class JumpScare : MonoBehaviour
     [SerializeField, Header("Death Scene Last Camera Position")] protected Transform jumpscareCamTransform;
     [SerializeField] protected GameObject jumpscareCharacter;
     protected CinemachineVirtualCamera virtualCam = null;
-    
+    [SerializeField, Header("Disable Mesh")] GameObject[] entityMeshObjests;
     public virtual void GameOver() 
     {
         /************* Chan hee ***********************/
@@ -21,6 +21,7 @@ public abstract class JumpScare : MonoBehaviour
     public virtual void ActiveJumpScare()
     {
         FindFollowCameraNRelease();
+        InActiveMeshObjects();
         SetCameraSetting();
     }
 
@@ -43,4 +44,12 @@ public abstract class JumpScare : MonoBehaviour
     }
 
     public abstract void SetCameraSetting();
+    public virtual void InActiveMeshObjects()
+    {
+        int cnt = entityMeshObjests.Length;
+        for(int i=0; i<cnt; i++)
+        {
+            entityMeshObjests[i].SetActive(false);
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class ForceTalk : MonoBehaviour
     {
         if (_entity.speakIndex == -1)
         {
-            Destroy(this);
+            this.gameObject.SetActive(false);
             return;
         }
         interaction = _interaction;

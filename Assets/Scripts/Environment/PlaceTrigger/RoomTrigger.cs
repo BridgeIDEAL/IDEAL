@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     [SerializeField] BaseEntity baseEntity;
-    public PlaceTriggerType currentPlace = PlaceTriggerType.StudyRoom_1F;
+    public PlaceTriggerType currentPlace = PlaceTriggerType.InStudyRoom;
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

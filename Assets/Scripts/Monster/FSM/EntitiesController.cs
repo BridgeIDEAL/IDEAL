@@ -5,19 +5,20 @@ using UnityEngine;
 public class EntitiesController : MonoBehaviour
 {
     int listCnt = 0;
-    public GameObject interactionEntitiesParent;
+    [Header("Interaction Group Parent : Use for inactive all interaction entities")]public GameObject interactionEntitiesParent;
 
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
-    [SerializeField] Transform playerTransform; // Foot Pos
+    [SerializeField, Header("Foot Pos")] Transform playerTransform; // Foot Pos
     public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
 
-    [SerializeField] Transform playerHeightTransform; // Eye Pos
+    [SerializeField, Header("Eye Pos")] Transform playerHeightTransform; // Eye Pos
     public Transform PlayerHeightTransform { get { return playerHeightTransform; } }
-   
 
-    #region Awake
+    List<OnlyChase> chaseGroup = new List<OnlyChase>();
+
+    #region Awake : Link Entity & Call Init Entity Information
     private void Awake()
     {
         LinkAllEntity();
@@ -38,7 +39,7 @@ public class EntitiesController : MonoBehaviour
     }
     #endregion
 
-    #region Start
+    #region Start : Call Entity Information Setup
     private void Start()
     {
         SetupAllEntity();
@@ -58,7 +59,7 @@ public class EntitiesController : MonoBehaviour
     }
     #endregion
 
-    #region Update
+    #region Update : Call Entity Behaviour State
 
     private void Update()
     {
@@ -74,7 +75,7 @@ public class EntitiesController : MonoBehaviour
     }
     #endregion
 
-    #region FindEntityMethod
+    #region FindEntityMethod : Get Entity Information & Control
     public void ActiveEntity(string _name)
     {
         if (!allEntityDictionary.ContainsKey(_name))
@@ -116,7 +117,7 @@ public class EntitiesController : MonoBehaviour
     }
     #endregion
 
-    #region Message Method
+    #region Message Method : Change Entity State Methods
     // All Entity Same Action
     public void SendMessage(EntityStateType _all)
     {
@@ -143,14 +144,32 @@ public class EntitiesController : MonoBehaviour
     }
     #endregion
 
-
     #region Chase Event
-
-    [SerializeField, Tooltip("  Last1F_Principal, Last1F_Guard, Last3F_GirlStudent, Last3F_StudentOfHeadTeacher, Jump3F_StudentOfHeadTeacher,Jump2F_GirlStudent")] 
+    [Header("Last & Jump : Only Chase")]
+    [Tooltip("Last1F_APrincipal, Last1F_BPrincipal, Last1F_Guard, Last3F_GirlStudent, Last3F_StudentOfHeadTeacher, Jump3F_StudentOfHeadTeacher,Jump2F_GirlStudent")]
+    [SerializeField] 
     GameObject[] ChaseEntityGroup;
 
     private bool isChase = false;
-    public bool IsChase{ get { return isChase; } set { isChase = value; ChaseSound(value); } } 
+    public bool IsChase
+    { 
+        get
+        { 
+            return isChase; 
+        } 
+        set
+        { 
+            if(isChase && value)
+            {
+                isChase = value;
+            }
+            else
+            {
+                isChase = value;
+                ChaseSound(value);
+            }
+        } 
+    } 
 
     public void ActiveChaseEntity(ChaseEventType _type)
     {
@@ -161,6 +180,14 @@ public class EntitiesController : MonoBehaviour
     {
         listCnt = 0;
         activeEntityList.Clear();
+        interactionEntitiesParent.SetActive(false);
+    }
+
+    public void InActiveExceptOne(GameObject go)
+    {
+        listCnt = 0;
+        activeEntityList.Clear();
+        go.transform.SetParent(null);
         interactionEntitiesParent.SetActive(false);
     }
 
@@ -184,6 +211,31 @@ public class EntitiesController : MonoBehaviour
             HealthPointManager.Instance.chased = false;
             PenaltyPointManager.Instance.isChased = false;
             // To Do ~~ Speed Down
+        }
+    }
+    #endregion
+
+    #region Manage OnlyChase
+    public void AddChaseGroup(OnlyChase onlyChase)
+    {
+        int cnt = chaseGroup.Count;
+        for(int i = 0; i < cnt; i++)
+        {
+            if(chaseGroup[i]== onlyChase)
+                return;
+        }
+
+        chaseGroup.Add(onlyChase);
+    }
+
+    public void DisableChaseGroupExceptOne(OnlyChase exceptOne)
+    {
+        int cnt = chaseGroup.Count;
+        for (int i = 0; i < cnt; i++)
+        {
+            if (chaseGroup[i] == exceptOne)
+                continue;
+            chaseGroup[i].gameObject.SetActive(false);
         }
     }
     #endregion

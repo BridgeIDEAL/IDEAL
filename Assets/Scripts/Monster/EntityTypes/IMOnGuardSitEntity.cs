@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IMOnGuardSitEntity : ImmovableEntity
+public class IMOnGuardSitEntity : IMovableEntity
 {
     bool onceEvent = true;
     [SerializeField] SitSight sight;

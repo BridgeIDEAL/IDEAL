@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadOfStudentTeacher : ImmovableEntity
+public class HeadOfStudentTeacher : IMovableEntity
 {
     [SerializeField] VisibleDetectPlayer detectPlayer;
     bool once = true;

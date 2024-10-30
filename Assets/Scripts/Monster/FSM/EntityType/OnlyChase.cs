@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class OnlyChase : MonoBehaviour
 {
+    [SerializeField] ChaseCollisionDetect collisionDetect;
+    [SerializeField] JumpScare jumpScare;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Animator anim;
     [SerializeField, Tooltip("애니메이션 속도")] protected float multiValue;
@@ -11,13 +13,16 @@ public class OnlyChase : MonoBehaviour
 
     [SerializeField] protected Transform playerTransform;
 
+    bool isCatch = false;
     protected virtual void Awake()
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
         if (anim == null)
-            anim = GetComponent<Animator>();
+            anim = GetComponentInChildren<Animator>();
         anim.SetFloat("MultiValue", multiValue);
+
+        collisionDetect.Init(EntityDataManager.Instance.Controller.PlayerTransform, this.transform);
     }
 
     protected virtual void Start()
@@ -25,29 +30,26 @@ public class OnlyChase : MonoBehaviour
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
         EntityDataManager.Instance.Controller.IsChase = true;
+        EntityDataManager.Instance.Controller.AddChaseGroup(this);
     }
 
     private void Update()
     {
+        if (isCatch)
+            return;
+
         Chase();
-    }
-
-    public void Chase()
-    {
-        agent.SetDestination(playerTransform.position);
-    }
-
-    protected void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Player"))
+        if (collisionDetect.IsCollidePlayer())
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
-            Destroy(EntityDataManager.Instance.Controller.gameObject);
+            agent.speed = 0;
+            agent.enabled = false;
+            isCatch = true;
+            anim.enabled = false;
+            jumpScare.ActiveJumpScare();
+            EntityDataManager.Instance.Controller.InActiveInteractionEntities();
+            EntityDataManager.Instance.Controller.AddChaseGroup(this);
         }
     }
 
-    private void OnDisable()
-    {
-        EntityDataManager.Instance.Controller.IsChase = false;
-    }
+    public void Chase() { agent.SetDestination(playerTransform.position); }
 }

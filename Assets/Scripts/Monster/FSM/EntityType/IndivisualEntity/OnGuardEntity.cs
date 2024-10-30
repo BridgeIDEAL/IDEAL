@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnGuardEntity : ImmovableEntity
+public class OnGuardEntity : IMovableEntity
 {
-    [SerializeField] float thresholdAngle= 90f;
     [SerializeField] VisibleDetectPlayer detectPlayer;
     [SerializeField] bool isOnGuard = true;
     public bool IsOnGuard { get { return isOnGuard; } set { isOnGuard = value; } }
