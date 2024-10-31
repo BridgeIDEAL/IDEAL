@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractionPassword : AbstractInteraction
 {
-    EntityEventData eventData;
+    EventData eventData;
     #region Struct Data
 
     [Header("Check Dialogue State")]
@@ -45,7 +45,7 @@ public class InteractionPassword : AbstractInteraction
         }
         else
         {
-            EntityEventData _eventData = new EntityEventData(false, "PasswordInteraction");
+            EventData _eventData = new EventData(false, "PasswordInteraction");
             EntityDataManager.Instance.AddData(_eventData);
             eventData = _eventData;
         }

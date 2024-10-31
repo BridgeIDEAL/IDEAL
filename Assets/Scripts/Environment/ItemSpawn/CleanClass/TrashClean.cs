@@ -17,7 +17,7 @@ public class TrashClean : CleanSystem
         }
         else
         {
-            eventData = new EntityEventData(false, _name);
+            eventData = new EventData(false, _name);
             EntityDataManager.Instance.AddData(eventData);
         }
 

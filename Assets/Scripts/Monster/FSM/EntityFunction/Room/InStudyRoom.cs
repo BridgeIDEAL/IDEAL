@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class InStudyRoom : MonoBehaviour
 {
-    [SerializeField] PrincipalPatrol principal;
+    PrincipalPatrol principal = null;
+    PrincipalPatrol Principal
+    {
+        get
+        {
+            if (principal == null)
+                principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
+            return principal;
+        }
+    }
     [SerializeField] Transform keepAnEyeTransform;
     private void Start()
     {
-        if (!EntityDataManager.Instance.IsLastEvent)
-        {
-            if(principal == null)
-                principal = EntityDataManager.Instance.Controller.GetEntity("PatrolPrincipal").gameObject.GetComponent<PrincipalPatrol>();
-        }
-        else
+        if (EntityDataManager.Instance.IsLastEvent)
             this.gameObject.SetActive(false);
     }
 
@@ -21,9 +25,9 @@ public class InStudyRoom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (principal == null)
+            if (Principal == null)
                 return;
-            principal.PlayerInStudyRoom(keepAnEyeTransform);
+            Principal.PlayerInStudyRoom(keepAnEyeTransform);
         }
     }
 
@@ -31,9 +35,9 @@ public class InStudyRoom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (principal == null)
+            if (Principal == null)
                 return;
-            principal.PlayerOutStudyRoom();
+            Principal.PlayerOutStudyRoom();
         }
     }
 }

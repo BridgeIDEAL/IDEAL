@@ -16,17 +16,3 @@ public class EntityData
 {
     public List<Entity> entities;
 }
-
-public class EntityEventData
-{
-    public bool isDoneEvent = false;
-    public string eventName;
-
-    public EntityEventData(bool _done, string _name)
-    {
-        isDoneEvent = _done;
-        eventName = _name;
-    }
-
-    public void ResetData() { isDoneEvent = false; }
-}

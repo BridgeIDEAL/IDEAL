@@ -5,7 +5,7 @@ using UnityEngine;
 public class CleanSystem : MonoBehaviour
 {
     [SerializeField] protected InteractionClean interactionClean;
-    protected EntityEventData eventData;
+    protected EventData eventData;
     public virtual void DoneEvent()
     {
         eventData.isDoneEvent = true;

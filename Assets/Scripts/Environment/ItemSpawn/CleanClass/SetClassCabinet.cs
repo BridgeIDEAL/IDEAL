@@ -6,7 +6,7 @@ public class SetClassCabinet : MonoBehaviour
 {
     [SerializeField] List<ClassroomCabinet> cabinetList = new List<ClassroomCabinet>();
     [SerializeField] ClassCabinetSpawnItem cabinetItemType;
-    EntityEventData eventData;
+    EventData eventData;
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class SetClassCabinet : MonoBehaviour
         }
         else
         {
-            eventData = new EntityEventData(false, _name);
+            eventData = new EventData(false, _name);
             EntityDataManager.Instance.AddData(eventData);
         }
 

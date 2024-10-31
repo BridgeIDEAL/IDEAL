@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class JumpSpace : MonoBehaviour
 {
-    protected EntityEventData entityEventData;
-    public EntityEventData EventData { get { LinkData(); return entityEventData; } set { entityEventData = value; } }
+    protected EventData entityEventData;
+    public EventData EventData { get { LinkData(); return entityEventData; } set { entityEventData = value; } }
 
     public void LinkData()
     {
@@ -17,7 +17,7 @@ public class JumpSpace : MonoBehaviour
         }
         else
         {
-            EntityEventData _eventData = new EntityEventData(false, this.gameObject.name);
+            EventData _eventData = new EventData(false, this.gameObject.name);
             EntityDataManager.Instance.AddData(_eventData);
             entityEventData = _eventData;
         }

@@ -59,9 +59,9 @@ public class EntityDataManager : MonoBehaviour
     #region Entity EventData
     public EntityEventTriggerController EventTriggerController { get; set; } = null;
     public bool IsLastEvent { get; set; } = false;
-    Dictionary<string, EntityEventData> eventDic = new Dictionary<string, EntityEventData>();
+    Dictionary<string, EventData> eventDic = new Dictionary<string, EventData>();
 
-    public EntityEventData GetEventData(string _name)
+    public EventData GetEventData(string _name)
     {
         if (eventDic.ContainsKey(_name))
             return eventDic[_name];
@@ -69,7 +69,7 @@ public class EntityDataManager : MonoBehaviour
             return null;
     }
 
-    public void AddData(EntityEventData _eventData)
+    public void AddData(EventData _eventData)
     {
         if (eventDic.ContainsKey(_eventData.eventName))
             return;

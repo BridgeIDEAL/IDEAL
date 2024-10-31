@@ -19,7 +19,7 @@ public class BlackBoardClean : CleanSystem
         }
         else
         {
-            eventData = new EntityEventData(false, _name);
+            eventData = new EventData(false, _name);
             EntityDataManager.Instance.AddData(eventData);
         }
 
