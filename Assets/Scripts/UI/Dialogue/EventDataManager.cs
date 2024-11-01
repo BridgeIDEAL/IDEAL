@@ -5,9 +5,20 @@ using UnityEngine;
 public class EventDataManager : MonoBehaviour
 {
     public static EventDataManager Instance;
+
+    public bool RingAfterSchoolBell { get; set; } = false;
     Dictionary<string, EventData> eventGroup = new Dictionary<string, EventData>();
 
+
+    #region Relate Controller
     public ItemSpawnController ItemController { get; set; } = null;
+    public EventTriggerController TriggerController { get; set; } = null;
+    #endregion
+
+    #region Use For Principal Teleport
+    private EntityNoticeManager notice = new EntityNoticeManager();
+    public EntityNoticeManager Notice { get { return notice; } }
+    #endregion
 
     private void Awake()
     {
@@ -28,6 +39,8 @@ public class EventDataManager : MonoBehaviour
     {
         if (eventGroup.ContainsKey(_eventName))
             return;
+        eventGroup.Add(_eventName,_data);
+        //Debug.Log(_eventName + "데이터 추가 완료~~");
     }
 
     public void ClearEventDatas() { eventGroup.Clear(); }

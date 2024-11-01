@@ -69,6 +69,6 @@ public class InteractionChangeScene : AbstractInteraction
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(successInteractionStr);
         }
-        EntityDataManager.Instance.Notice.CurrentTeleportPoint = teleportPoint; // Jun
+        EventDataManager.Instance.Notice.CurrentTeleportPoint = teleportPoint; // Jun
     }
 }

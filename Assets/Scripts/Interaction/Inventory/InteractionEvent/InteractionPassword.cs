@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InteractionPassword : AbstractInteraction
 {
-    EventData eventData;
+    EventNames eventName = EventNames.Password_4F;
+    EventData eventData = null;
     #region Struct Data
 
     [Header("Check Dialogue State")]
@@ -28,6 +29,7 @@ public class InteractionPassword : AbstractInteraction
     {
         if (!canTalk) return;
 
+        DialogueManager.Instance.Password_UI.PasswordInteraction = this;
         DialogueManager.Instance.Password_UI.ActivePassword();
     }
     #endregion
@@ -39,24 +41,31 @@ public class InteractionPassword : AbstractInteraction
 
     private void Start()
     {
-        if (EntityDataManager.Instance.HaveEventData(this.gameObject.name))
+        string _name = Enums.GetString(eventName);
+        EventData _data = EventDataManager.Instance.GetEventData(_name);
+        if (_data!=null)
         {
-            eventData = EntityDataManager.Instance.GetEventData("PasswordInteraction");
+            eventData = _data;
         }
         else
         {
-            EventData _eventData = new EventData(false, "PasswordInteraction");
-            EntityDataManager.Instance.AddData(_eventData);
+            EventData _eventData = new EventData(_name, false, true);
+            EventDataManager.Instance.AddEventData(_name,_eventData);
             eventData = _eventData;
         }
 
         if (eventData.isDoneEvent)
+        {
+            this.gameObject.layer = 0;
             canTalk = false;
+        }
     }
 
-    public void ClearObject()
+    public void DisablePassword()
     {
         eventData.isDoneEvent = true;
+        canTalk = false;
+        this.gameObject.layer = 0;
     }
 
     #endregion

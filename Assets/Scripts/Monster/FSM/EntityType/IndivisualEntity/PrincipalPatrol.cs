@@ -41,7 +41,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         #region Init Patrol Point Height
         float _height = 3.5f;
         int _poinCnt = patrolPoints.Length;
-        switch (EntityDataManager.Instance.Notice.CurrentTeleportPoint)
+        switch (EventDataManager.Instance.Notice.CurrentTeleportPoint)
         {
             case TeleportPoint.BuildingB_1F:
                 _height *= 0;

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractionPickupItem : AbstractInteraction
 {
     public InteractionItemData interactionItemData;
+    [SerializeField] SceneNames activeSceneName;
     [SerializeField] private string detectedStr;
     [SerializeField] private string afterInteractionStr = "";
     [SerializeField] private int activationLogNum = -1;
@@ -19,6 +21,12 @@ public class InteractionPickupItem : AbstractInteraction
     /// </summary>
     public void Init()
     {
+        if((int)activeSceneName == SceneManager.GetActiveScene().buildIndex)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+
         EventData eventData = EventDataManager.Instance.GetEventData(Enums.GetString(pickupEventName));
         if (eventData != null)
         {
@@ -28,10 +36,11 @@ public class InteractionPickupItem : AbstractInteraction
             {
                 transform.position = eventData.position;
                 if (eventData.isOccurEvent)
-                    this.gameObject.SetActive(false);
-                else
                     this.gameObject.SetActive(true);
+                else
+                    this.gameObject.SetActive(false);
             }
+            return;
         }
         this.gameObject.SetActive(false);
     }
@@ -75,10 +84,6 @@ public class InteractionPickupItem : AbstractInteraction
 
     public void BruiseItemGetEvent()
     {
-        Jump2FGirl jump2FGirl = null;
-        jump2FGirl = EntityDataManager.Instance.EventTriggerController.GetJumpSpace(0).gameObject.GetComponent<Jump2FGirl>();
-        if (jump2FGirl == null)
-            return;
-        jump2FGirl.CanActive = true;
+        EventDataManager.Instance.TriggerController.EnableTrigger(ChaseEventType.Jump2F_GirlStudent);
     }
 }

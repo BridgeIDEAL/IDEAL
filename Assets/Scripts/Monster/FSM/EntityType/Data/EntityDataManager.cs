@@ -17,9 +17,6 @@ public class EntityDataManager : MonoBehaviour
     private EntitiesController controller = null;
     public EntitiesController Controller { get { LinkEntitiesController(); return controller; } set { controller = value; } }
 
-    private EntityNoticeManager notice = new EntityNoticeManager();
-    public EntityNoticeManager Notice { get { return notice; } }
-
     private void Awake()
     {
         if (Instance == null)
@@ -56,35 +53,6 @@ public class EntityDataManager : MonoBehaviour
     }
     #endregion
 
-    #region Entity EventData
-    public EntityEventTriggerController EventTriggerController { get; set; } = null;
-    public bool IsLastEvent { get; set; } = false;
-    Dictionary<string, EventData> eventDic = new Dictionary<string, EventData>();
-
-    public EventData GetEventData(string _name)
-    {
-        if (eventDic.ContainsKey(_name))
-            return eventDic[_name];
-        else
-            return null;
-    }
-
-    public void AddData(EventData _eventData)
-    {
-        if (eventDic.ContainsKey(_eventData.eventName))
-            return;
-        eventDic.Add(_eventData.eventName, _eventData);
-    }
-
-    public bool HaveEventData(string _name)
-    {
-        if (eventDic.ContainsKey(_name))
-            return true;
-        return false;
-    }
-
-    #endregion
-
     /// <summary>
     /// 죽을 때 한번 호출
     /// </summary>
@@ -98,15 +66,6 @@ public class EntityDataManager : MonoBehaviour
             if (!entityDataDic.ContainsKey(data.entities[idx].speakerName))
                 entityDataDic.Add(data.entities[idx].speakerName, data.entities[idx]);
         }
-
-        string[] keys = eventDic.Keys.ToArray();
-        int keyCnt = keys.Length;
-        for (int idx = 0; idx < keyCnt; idx++)
-        {
-            eventDic[keys[idx]].ResetData();
-        }
-
-        IsLastEvent = false;
     }
     public void LinkEntitiesController() { if (controller == null) { GameObject go = GameObject.FindWithTag("EntitiesController"); controller = go.GetComponent<EntitiesController>(); } }
 }

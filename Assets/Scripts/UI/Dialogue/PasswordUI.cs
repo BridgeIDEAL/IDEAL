@@ -6,6 +6,8 @@ using TMPro;
 
 public class PasswordUI : MonoBehaviour
 {
+    public InteractionPassword PasswordInteraction { get; set; } = null;
+
     [Header("Refer Password Component")]
     [SerializeField] GameObject passwordObject;
     [SerializeField] TextMeshProUGUI indicateText;
@@ -118,10 +120,9 @@ public class PasswordUI : MonoBehaviour
         //decideButtons[0].gameObject.SetActive(false);
         //decideButtons[1].gameObject.SetActive(false);
         InActivePassword();
-        EntityDataManager.Instance.EventTriggerController.TriggerLastEvent();
-        // To Do ~~~
-
-        // To Do ~~ Inactive Computer
+        EventDataManager.Instance.TriggerController.TriggerLastEvent();
+        if (PasswordInteraction != null)
+            PasswordInteraction.DisablePassword();
     }
 
     public void ClickRingBellNoBtn()

@@ -461,7 +461,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497526327612027654}
-  - component: {fileID: 842048542384441738}
   m_Layer: 10
   m_Name: Wall_Collider
   m_TagString: Untagged
@@ -488,19 +487,6 @@ Transform:
   m_Father: {fileID: 6983657110158429283}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &842048542384441738
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6047469500018178900}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000002, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0.05}
 --- !u!1001 &13967746374495675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1352,6 +1338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_ToiletFrame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025692687985984246, guid: d8a549d72e01db7439c2515f42fee14c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3025692687985984246, guid: d8a549d72e01db7439c2515f42fee14c,
         type: 3}

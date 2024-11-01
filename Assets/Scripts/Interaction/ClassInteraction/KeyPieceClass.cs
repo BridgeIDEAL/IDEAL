@@ -5,12 +5,12 @@ using UnityEngine;
 public class KeyPieceClass : MonoBehaviour
 {
     [SerializeField] EventItemNames pickupEventName;
-    [SerializeField] Vector3[] spawnPositions;
+    [SerializeField] Transform[] spawnPositions;
     EventData eventData = null;
 
     private void Start()
     {
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
         {
             this.gameObject.SetActive(false);
             return;
@@ -20,9 +20,9 @@ public class KeyPieceClass : MonoBehaviour
         if (eventData == null)
         {
             int randomIndex = Random.Range(0,spawnPositions.Length);
-            EventData _eventData = new EventData(Enums.GetString(pickupEventName), false, true, spawnPositions[randomIndex] + transform.position);
+            EventData _eventData = new EventData(Enums.GetString(pickupEventName), false, true, spawnPositions[randomIndex].position);
             EventDataManager.Instance.AddEventData(_eventData.eventName, _eventData);
-            EventDataManager.Instance.ItemController.DecideActiveItemState(pickupEventName,true,spawnPositions[randomIndex] + transform.position);
+            EventDataManager.Instance.ItemController.DecideActiveItemState(pickupEventName,true,spawnPositions[randomIndex].position);
             eventData = _eventData;
         }
     }

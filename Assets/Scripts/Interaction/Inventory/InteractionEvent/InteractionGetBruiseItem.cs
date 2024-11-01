@@ -10,7 +10,6 @@ public class InteractionGetBruiseItem : AbstractInteraction
     [SerializeField] private int activationLogNum = -1;
     [SerializeField] private float requiredTime = 1.0f;
     [SerializeField] private int availableCount = 1;
-    [SerializeField] Jump2FGirl jump2FGirl;
     public override float RequiredTime { get => requiredTime; }
     protected override string GetDetectedString()
     {
@@ -29,9 +28,6 @@ public class InteractionGetBruiseItem : AbstractInteraction
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
         availableCount--;
-        if (jump2FGirl == null)
-            jump2FGirl = EntityDataManager.Instance.EventTriggerController.GetJumpSpace(0).gameObject.GetComponent<Jump2FGirl>();
-        jump2FGirl.CanActive = true;
 
         if (availableCount < 1)
         {

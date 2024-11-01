@@ -10,11 +10,11 @@ public class MainCamEffect : MonoBehaviour
     [Header("FallDown Value"), SerializeField] float fallDownDescentTime = 0.1f;
     [SerializeField] float fallDownRotateTime = 0.1f;
     [SerializeField] float yPos = 1.1f;
-    [SerializeField] float xAngle = 60f;
+    //[SerializeField] float xAngle = 60f;
 
     [Header("FieldOfView"), SerializeField] CinemachineVirtualCamera followCamera;
-    [SerializeField] float endFieldOfView;
-    [SerializeField] float fieldOfViewTime;
+    float endFieldOfView = 0f;
+    float fieldOfViewTime = 0f;
 
     Camera mainCam = null;
 

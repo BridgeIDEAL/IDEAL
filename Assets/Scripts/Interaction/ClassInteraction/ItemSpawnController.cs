@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ItemSpawnController : MonoBehaviour
 {
     [SerializeField] InteractionPickupItem[] items;
@@ -9,7 +8,6 @@ public class ItemSpawnController : MonoBehaviour
     private void Awake()
     {
         EventDataManager.Instance.ItemController = this;
-
         int cnt = items.Length;
         for (int i = 0; i < cnt; i++)
         {
@@ -24,7 +22,7 @@ public class ItemSpawnController : MonoBehaviour
     {
         #region Except LastEvent
         int cnt = items.Length;
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
         {
            
             for (int i = 0; i < cnt; i++)

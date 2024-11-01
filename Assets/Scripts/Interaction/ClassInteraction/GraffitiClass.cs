@@ -10,7 +10,7 @@ public class GraffitiClass : MonoBehaviour
 
     private void Start()
     {
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
         {
             this.gameObject.SetActive(false);
             return;

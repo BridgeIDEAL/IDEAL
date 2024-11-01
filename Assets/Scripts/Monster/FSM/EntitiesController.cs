@@ -44,7 +44,7 @@ public class EntitiesController : MonoBehaviour
     {
         SetupAllEntity();
         EntityDataManager.Instance.Controller = this;
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
             InActiveInteractionEntities();
     }
 
@@ -195,7 +195,7 @@ public class EntitiesController : MonoBehaviour
     public void ChaseSound(bool _value)
     {
         //EntityDataManager.Instance.IsLastEvent
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
             return;
 
         if (_value)

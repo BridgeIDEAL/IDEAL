@@ -13,6 +13,13 @@ public class Enums
     }
 }
 
+public enum SceneNames
+{
+    Lobby=0,
+    Prototype=1,
+    Prototype_Second=2
+}
+
 public enum EntityStateType
 {
     Idle=0,
@@ -41,6 +48,7 @@ public enum EventNames
     CleanGraffiti_1F,
     CleanGraffiti_2F,
     CleanGraffiti_3F,
+    Password_4F
 }
 
 public enum EventItemNames
@@ -52,10 +60,6 @@ public enum EventItemNames
     CabientKeyPiece_1F,
     CabientKeyPiece_2F,
     CabientKeyPiece_3F,
-    SteelDoor,
-    KeyBundle_1F,
-    KeyBundle_2F,
-    KeyBundle_3F,
 }
 
 public enum ClassroomCleanType

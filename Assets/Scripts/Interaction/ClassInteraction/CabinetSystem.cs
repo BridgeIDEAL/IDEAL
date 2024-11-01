@@ -5,14 +5,14 @@ using UnityEngine;
 public class CabinetSystem : MonoBehaviour
 {
     //Vector3 spawnPosition = new Vector3(0, -0.2f, -0.2f);
-    [SerializeField] Vector3 spawnPosition;
+    [SerializeField] Transform spawnTransform;
     [SerializeField] Transform rotateInteraction;
     [SerializeField] EventItemNames pickupEventName;
     EventData eventData = null;
 
     private void Start()
     {
-        if (EntityDataManager.Instance.IsLastEvent)
+        if (EventDataManager.Instance.RingAfterSchoolBell)
         {
             this.gameObject.SetActive(false);
             return;
@@ -22,10 +22,15 @@ public class CabinetSystem : MonoBehaviour
         if (eventData == null)
         {
             rotateInteraction.gameObject.SetActive(true);
-            EventData _eventData = new EventData(Enums.GetString(pickupEventName), false, true, spawnPosition + rotateInteraction.position);
+            EventData _eventData = new EventData(Enums.GetString(pickupEventName), false, true, spawnTransform.position);
             EventDataManager.Instance.AddEventData(_eventData.eventName, _eventData);
-            EventDataManager.Instance.ItemController.DecideActiveItemState(pickupEventName, true, spawnPosition + rotateInteraction.position);
+            EventDataManager.Instance.ItemController.DecideActiveItemState(pickupEventName, true, spawnTransform.position);
             eventData = _eventData;
+        }
+        else
+        {
+            if (eventData.isDoneEvent)
+                rotateInteraction.gameObject.SetActive(false);
         }
     }
 }

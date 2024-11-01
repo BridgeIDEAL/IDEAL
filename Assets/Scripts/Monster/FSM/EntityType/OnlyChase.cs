@@ -47,7 +47,7 @@ public class OnlyChase : MonoBehaviour
             anim.enabled = false;
             jumpScare.ActiveJumpScare();
             EntityDataManager.Instance.Controller.InActiveInteractionEntities();
-            EntityDataManager.Instance.Controller.AddChaseGroup(this);
+            EntityDataManager.Instance.Controller.DisableChaseGroupExceptOne(this);
         }
     }
 

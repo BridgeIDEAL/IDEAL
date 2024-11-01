@@ -31,16 +31,11 @@ public class DialogueEvent : MonoBehaviour
         //GameObject _spawnItem = FabManager.Instance.LoadPrefab(_parameterList[0]);
         //Instantiate(_spawnItem);
         Vector3 position = Vector3.zero;
-        if (_parameterList.Count>2)
-        {
-            float x = float.Parse(_parameterList[1]);
-            float y = float.Parse( _parameterList[2]);
-            float z = float.Parse( _parameterList[3]);
-            position = new Vector3(x, y, z);
-        }
+        
+        position = EventDataManager.Instance.ItemController.GetItemInteraction(Enums.GetEnum<EventItemNames>(_parameterList[0])).transform.position;
         EventData eventData = new EventData(_parameterList[0], false, true, position);
         EventDataManager.Instance.AddEventData(eventData.eventName, eventData);
-        EventDataManager.Instance.ItemController.DecideActiveItemState(Enums.GetEnum<EventItemNames>(eventData.eventName), true, position);
+        EventDataManager.Instance.ItemController.DecideActiveItemState(Enums.GetEnum<EventItemNames>(_parameterList[0]), true, position);
     }
     #endregion
 
