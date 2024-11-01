@@ -1,4 +1,17 @@
-public class Enums { }
+using System;
+
+public class Enums 
+{
+    public static string GetString<T>(T _enumType) where T : Enum
+    {
+        return Enum.GetName(typeof(T), _enumType);
+    }
+
+    public static T GetEnum<T>(string enumString) where T : Enum
+    {
+        return (T)Enum.Parse(typeof(T), enumString);
+    }
+}
 
 public enum EntityStateType
 {
@@ -23,32 +36,26 @@ public enum PlaceTriggerType
     None
 }
 
-public enum ClassRoomNameType
+public enum EventNames
 {
-    Room1_1,
-    Room1_2,
-    Room1_3,
-    Room1_4,
-    Room1_5,
-    Room1_6,
-    Room1_7,
-    Room1_8,
-    Room2_1,
-    Room2_2,
-    Room2_3,
-    Room2_4,
-    Room2_5,
-    Room2_6,
-    Room2_7,
-    Room2_8,
-    Room3_1,
-    Room3_2,
-    Room3_3,
-    Room3_4,
-    Room3_5,
-    Room3_6,
-    Room3_7,
-    Room3_8
+    CleanGraffiti_1F,
+    CleanGraffiti_2F,
+    CleanGraffiti_3F,
+}
+
+public enum EventItemNames
+{
+    GetMedicine,
+    DropKeyPiece_1F,
+    DropKeyPiece_2F,
+    DropKeyPiece_3F,
+    CabientKeyPiece_1F,
+    CabientKeyPiece_2F,
+    CabientKeyPiece_3F,
+    SteelDoor,
+    KeyBundle_1F,
+    KeyBundle_2F,
+    KeyBundle_3F,
 }
 
 public enum ClassroomCleanType

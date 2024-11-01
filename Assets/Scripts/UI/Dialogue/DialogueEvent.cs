@@ -27,8 +27,20 @@ public class DialogueEvent : MonoBehaviour
 
     public void SpawnItem(List<string> _parameterList)
     {
-        GameObject _spawnItem = FabManager.Instance.LoadPrefab(_parameterList[0]);
-        Instantiate(_spawnItem);
+        // Later FabManager Delete
+        //GameObject _spawnItem = FabManager.Instance.LoadPrefab(_parameterList[0]);
+        //Instantiate(_spawnItem);
+        Vector3 position = Vector3.zero;
+        if (_parameterList.Count>2)
+        {
+            float x = float.Parse(_parameterList[1]);
+            float y = float.Parse( _parameterList[2]);
+            float z = float.Parse( _parameterList[3]);
+            position = new Vector3(x, y, z);
+        }
+        EventData eventData = new EventData(_parameterList[0], false, true, position);
+        EventDataManager.Instance.AddEventData(eventData.eventName, eventData);
+        EventDataManager.Instance.ItemController.DecideActiveItemState(Enums.GetEnum<EventItemNames>(eventData.eventName), true, position);
     }
     #endregion
 
@@ -100,8 +112,8 @@ public class DialogueEvent : MonoBehaviour
 
     public void EntityAnimationTrigger(List<string> _parameterList)
     {
-        BaseEntity _baseEntity = EntityDataManager.Instance.Controller.GetEntity(_parameterList[0]);
-        _baseEntity.AnimationTriggerCallByDialogue(_parameterList[1]);
+        //BaseEntity _baseEntity = EntityDataManager.Instance.Controller.GetEntity(_parameterList[0]);
+        //_baseEntity.AnimationTriggerCallByDialogue(_parameterList[1]);
     }
     #endregion
 }

@@ -229,6 +229,9 @@ MonoBehaviour:
   outlineScaleFactor: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 0}
   reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
   outlineMask: 
 --- !u!114 &9111274600637365409
 MonoBehaviour:
@@ -244,16 +247,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   doorObject: {fileID: 4921642274409907570}
-  startRotation: {x: 0, y: 0, z: 0}
   destRotation: {x: 0, y: 120, z: 0}
-  doorCollider: {fileID: 3239372468105526171}
-  afterInteractionOffCollider: 1
   openRequiredTime: 0.5
   detectedStr: "\uC5F4\uC1E0\uD568\uC774\uB2E4."
   successInteractionStr: "\uC5F4\uC1E0\uD568\uC744 \uC5F4\uC5C8\uB2E4."
   failInteractionStr: "\uC5F4\uC1E0\uD568\uC744 \uC5F4\uC9C0 \uBABB\uD55C\uB2E4."
   needItem: -1
   activationLogNum: -1
+  isKeyBox: 0
 --- !u!1 &5179283690221583737
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +266,6 @@ GameObject:
   - component: {fileID: 31870406134190439}
   - component: {fileID: 2194403727411246852}
   - component: {fileID: 4938209610575787581}
-  - component: {fileID: 2024693298382050455}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -346,20 +346,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2024693298382050455
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5179283690221583737}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4675298744444864886, guid: 842de8efa42bd564b94b024b322276dc, type: 3}
 --- !u!1 &5262330530255723664
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1031048233}
   - component: {fileID: 1031048234}
-  - component: {fileID: 1031048235}
+  - component: {fileID: 7477456842180122556}
   m_Layer: 0
   m_Name: P_ShelfHalfOpen01
   m_TagString: Untagged
@@ -69,8 +69,8 @@ LODGroup:
     - renderer: {fileID: 1031048250}
     - renderer: {fileID: 0}
   m_Enabled: 1
---- !u!64 &1031048235
-MeshCollider:
+--- !u!65 &7477456842180122556
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,10 +79,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: abc00000000000319228453013027102, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1031048236
 GameObject:
   m_ObjectHideFlags: 0
