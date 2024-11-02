@@ -6,6 +6,7 @@ public class InteractionConditionConversation : AbstractInteraction
 {
     #region Class Data
     //public ConversationManager conversationManager;
+    protected int defaultLayer = 0;
     protected BaseEntity baseEntity = null;
     protected Entity talkData = null;
     public Entity TalkData { get { InitTalkData(); return talkData; } set { talkData = value; } }
@@ -49,6 +50,7 @@ public class InteractionConditionConversation : AbstractInteraction
             if (talkData.speakIndex == -1)
             {
                 canTalk = false;
+                this.gameObject.layer = defaultLayer;
                 return;
             }
             CheckIndex();
@@ -64,6 +66,7 @@ public class InteractionConditionConversation : AbstractInteraction
         TalkData.speakIndex = _idx;
         if (_idx == -1)
         {
+            this.gameObject.layer = defaultLayer;
             canTalk = false;
             return;
         }

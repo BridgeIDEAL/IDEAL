@@ -215,6 +215,9 @@ public class DialogueUI : MonoBehaviour
     {
         switch (_eventName)
         {
+            case "UnableSpawnState":
+                Event.UnableSpawnState(_parameterList);
+                break;
             case "SpawnEntity":
                 Event.SpawnEntity(_parameterList);
                 break;

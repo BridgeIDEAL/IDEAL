@@ -28,6 +28,18 @@ public class GuardPatrol : MovableEntity, IPatrol
     {
         if (Entity_Data.speakIndex == -1)
             onceTalk = false;
+
+        if (Entity_Data == null)
+            return;
+        if(CountAttempts.Instance.GetAttemptCount() <= 2)
+        {
+            //Entity_Data.speakIndex = CountAttempts.Instance.GetAttemptCount();
+        }
+        else if(CountAttempts.Instance.GetAttemptCount() > 2)
+        {
+            // talkData.speakIndex = N회차에 맞게 수정
+            //Entity_Data.speakIndex = 3;
+        }
     }
 
     #region Patrol Interface
@@ -103,8 +115,6 @@ public class GuardPatrol : MovableEntity, IPatrol
         currentType = _changeType;
         stateMachine.ChangeState(states[(int)currentType]);
     }
-
-    // To Do ~~~ Look Player
     #endregion
 
     bool isTalk = false;

@@ -42,7 +42,6 @@ public class DialogueEvent : MonoBehaviour
     #region Dialogue Index
     public void UnableCommunicate(List<string> _parameterList)
     {
-        // DialogueManager.Instance.CurrentTalkEntity�� ���� Interaction ��ũ��Ʈ ���� ��, �� �̻� ��ȭ���� ���ϵ��� ���� 
         InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
         conversation.ChangeIndex(-1);
     }
@@ -53,6 +52,15 @@ public class DialogueEvent : MonoBehaviour
         Debug.Log(nextIndex);
         InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
         conversation.ChangeIndex(nextIndex);
+    }
+
+    public void UnableSpawnState(List<string> _parameterList)
+    {
+        InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
+        if (conversation == null) return;
+        Entity data = conversation.TalkData;
+        if (data == null) return;
+        data.isSpawn = false;
     }
     #endregion
 

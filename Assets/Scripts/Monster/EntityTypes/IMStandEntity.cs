@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IMStandEntity : IMovableEntity
 {
-    [SerializeField] EntitySight sight;
+    [SerializeField] protected EntitySight sight;
 
     /// <summary>
     /// Init : Rig, Anim, PlayerTF Component
