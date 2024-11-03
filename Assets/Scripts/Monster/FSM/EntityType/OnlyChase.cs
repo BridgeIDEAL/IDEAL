@@ -22,7 +22,7 @@ public class OnlyChase : MonoBehaviour
             anim = GetComponentInChildren<Animator>();
         anim.SetFloat("MultiValue", multiValue);
 
-        collisionDetect.Init(EntityDataManager.Instance.Controller.PlayerTransform, this.transform);
+        collisionDetect.Init(EntityDataManager.Instance.Controller.PlayerTransform);
     }
 
     protected virtual void Start()

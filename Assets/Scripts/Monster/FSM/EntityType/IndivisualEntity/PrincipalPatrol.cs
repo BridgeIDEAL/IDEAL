@@ -36,7 +36,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         dissolveEffect.Init();
         dissolveAction += ReturnStartPoint;
 
-        collisionDetect.Init(_playerTransfrom, this.transform);
+        collisionDetect.Init(_playerTransfrom);
 
         #region Init Patrol Point Height
         float _height = 3.5f;
