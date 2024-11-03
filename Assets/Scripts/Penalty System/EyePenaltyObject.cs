@@ -5,7 +5,7 @@ using UnityEngine;
 public class EyePenaltyObject : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-    private float activeTime = 5.0f;
+    private float activeTime = 7.0f;
     private float stepTimer = 0.0f;
 
     private Transform playerTransform = null;
