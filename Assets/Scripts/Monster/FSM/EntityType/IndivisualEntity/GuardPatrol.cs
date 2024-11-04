@@ -31,14 +31,17 @@ public class GuardPatrol : MovableEntity, IPatrol
 
         if (Entity_Data == null)
             return;
-        if(CountAttempts.Instance.GetAttemptCount() <= 2)
+        if(CountAttempts.Instance.GetAttemptCount() == 1)
         {
-            //Entity_Data.speakIndex = CountAttempts.Instance.GetAttemptCount();
+            Entity_Data.speakIndex = 1;
         }
-        else if(CountAttempts.Instance.GetAttemptCount() > 2)
+        else if(CountAttempts.Instance.GetAttemptCount() == 2)
         {
-            // talkData.speakIndex = N회차에 맞게 수정
-            //Entity_Data.speakIndex = 3;
+            Entity_Data.speakIndex = 2;
+        }
+        else
+        {
+            Entity_Data.speakIndex = 1;
         }
     }
 

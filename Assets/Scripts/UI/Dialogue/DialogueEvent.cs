@@ -49,7 +49,6 @@ public class DialogueEvent : MonoBehaviour
     public void DialogueIndexChange(List<string> _parameterList)
     {
         int nextIndex = int.Parse(_parameterList[0]);
-        Debug.Log(nextIndex);
         InteractionConditionConversation conversation = DialogueManager.Instance.CurrentTalkEntity.GetComponent<InteractionConditionConversation>();
         conversation.ChangeIndex(nextIndex);
     }
@@ -110,6 +109,7 @@ public class DialogueEvent : MonoBehaviour
     public void SpawnEntity(List<string> _parameterList)
     {
         string _name = _parameterList[0];
+        EntityDataManager.Instance.GetEntityData(_parameterList[0]).isSpawn = true;
         EntityDataManager.Instance.Controller.ActiveEntity(_name);
     }
 

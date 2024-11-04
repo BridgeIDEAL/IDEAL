@@ -261,12 +261,12 @@ namespace StarterAssets
             float stepTimer = 0.0f;
             float startYaw = _cinemachineTargetYaw;
             float startPitch = _cinemachineTargetPitch;
-            Vector3 targetDir = (destPosition.position - transform.position).normalized;
+            Vector3 targetDir = (destPosition.position - CinemachineCameraTarget.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(targetDir);
 
             while(stepTimer <= cameraEnforceRotationTime){
                 _cinemachineTargetYaw = Mathf.LerpAngle(startYaw, lookRotation.eulerAngles.y, stepTimer / cameraEnforceRotationTime);
-                _cinemachineTargetPitch = Mathf.LerpAngle(startPitch, lookRotation.eulerAngles.z, stepTimer / cameraEnforceRotationTime); // 여기서 Pitch는 x축 회전 각도를 사용해야 합니다
+                _cinemachineTargetPitch = Mathf.LerpAngle(startPitch, lookRotation.eulerAngles.x, stepTimer / cameraEnforceRotationTime); // 여기서 Pitch는 x축 회전 각도를 사용해야 합니다
 
                 CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
