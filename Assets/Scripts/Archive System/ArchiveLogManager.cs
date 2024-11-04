@@ -78,11 +78,11 @@ public class ArchiveLogManager : MonoBehaviour
     // 테스트 코드
     private int cnt = 1;
     private void Update(){
-        if(Input.GetKeyDown(KeyCode.P)){
-            ArchiveLog arc = new ArchiveLog(cnt, archiveStates[cnt-1], archiveTexts[cnt-1]);
-            AddArchiveLog(arc);
-            cnt++;
-        }
+        // if(Input.GetKeyDown(KeyCode.P)){
+        //     ArchiveLog arc = new ArchiveLog(cnt, archiveStates[cnt-1], archiveTexts[cnt-1]);
+        //     AddArchiveLog(arc);
+        //     cnt++;
+        // }
     }
 
 
