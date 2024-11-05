@@ -201,6 +201,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             monsterArchiveData.monsterArchiveChangeList.Add(new MonsterArchiveLog(archiveID, _attempt));
         }
+
+        SaveArchiveData();
     }
 
     public void UpdateArchiveImageData(int _monsterID){
@@ -222,6 +224,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             monsterArchiveData.monsterImageActiveList.Add(_monsterID);
         }
+
+        SaveArchiveData();
     }
 
     public MonsterArchiveLogs GetMonsterArchiveLogs(int _monsterID){

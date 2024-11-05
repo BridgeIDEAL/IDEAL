@@ -55,6 +55,8 @@ public class EventTriggerController : MonoBehaviour
         RenderSettings.skybox = lastBoxMat;
         // To Do ~~ Audio
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
+        MonsterArchiveLogManager.Instance.UpdateArchiveImageData(8);
+        RoomArchiveLogManager.Instance.UpdateArchiveLogData(1102, CountAttempts.Instance.GetAttemptCount());
     }
 
     /// <summary>

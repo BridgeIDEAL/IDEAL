@@ -18,7 +18,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     #region Patrol Val
     [Header("Move")]
-    [SerializeField, Tooltip("¼øÂû ÁöÁ¡µé")] Vector3[] patrolPoints;
+    [SerializeField, Tooltip("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")] Vector3[] patrolPoints;
     [SerializeField] float walkSpeed;
     [SerializeField] float runSpeed;
     [SerializeField, Range(0.1f, 5f)] float walkMotionSpeed;
@@ -114,7 +114,10 @@ public class PrincipalPatrol : MovableEntity, IPatrol
             StartCoroutine(MoveToKeepAnEyePosition(keepAnEyeTransform));
             if (isSelfStudyroom)
             {
-                // To Do ~~ 
+                if(MonsterArchiveLogManager.Instance.GetMonsterArchiveLogs(8).isImageActive){
+                    MonsterArchiveLogManager.Instance.UpdateArchiveLogData(0802, CountAttempts.Instance.GetAttemptCount());
+                }
+                RoomArchiveLogManager.Instance.UpdateArchiveLogData(0402, CountAttempts.Instance.GetAttemptCount());
             }
         }
     }

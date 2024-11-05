@@ -23,6 +23,24 @@ public class SafeZoneColliderManager : MonoBehaviour
             // IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay();
             IdealSceneManager.Instance.RadialBlurActive(true);
         }
+
+        if(other.CompareTag("MedicalRoom")){
+            if(CountAttempts.Instance.GetAttemptCount() > 1){
+                RoomArchiveLogManager.Instance.UpdateArchiveLogData(0702, CountAttempts.Instance.GetAttemptCount());
+            }
+        }
+
+        if(other.CompareTag("TeacherRoom1F")){
+            RoomArchiveLogManager.Instance.UpdateArchiveLogData(1302, CountAttempts.Instance.GetAttemptCount());
+        }
+
+        if(other.CompareTag("TeacherRoom2F")){
+            RoomArchiveLogManager.Instance.UpdateArchiveLogData(1303, CountAttempts.Instance.GetAttemptCount());
+        }
+
+        if(other.CompareTag("ServerRoom")){
+            RoomArchiveLogManager.Instance.UpdateArchiveLogData(1602, CountAttempts.Instance.GetAttemptCount());
+        }
     }
 
     private void OnTriggerExit(Collider other) {

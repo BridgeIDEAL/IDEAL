@@ -96,6 +96,7 @@ public class RoomArchiveLogManager : MonoBehaviour
 
         roomArchiveList.Add(new RoomArchiveLogs(04, "자습실", new RoomArchiveLog[] {
         new RoomArchiveLog(0401, -1),
+        new RoomArchiveLog(0402, 0),
         },
         true
         ));
@@ -108,6 +109,7 @@ public class RoomArchiveLogManager : MonoBehaviour
 
         roomArchiveList.Add(new RoomArchiveLogs(06, "학생회실", new RoomArchiveLog[] {
         new RoomArchiveLog(0601, -1),
+        new RoomArchiveLog(0602, 0),
         },
         true
         ));
@@ -135,7 +137,6 @@ public class RoomArchiveLogManager : MonoBehaviour
         roomArchiveList.Add(new RoomArchiveLogs(10, "진로진학부",  new RoomArchiveLog[] {
         new RoomArchiveLog(1001, -1),
         new RoomArchiveLog(1002, 0),
-        new RoomArchiveLog(1003, 0),
         },
         true
         ));
@@ -157,7 +158,6 @@ public class RoomArchiveLogManager : MonoBehaviour
         new RoomArchiveLog(1301, -1),
         new RoomArchiveLog(1302, 0),
         new RoomArchiveLog(1303, 0),
-        new RoomArchiveLog(1304, 0),
         },
         true
         ));
@@ -241,6 +241,8 @@ public class RoomArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             roomArchiveData.roomArchiveChangeList.Add(new RoomArchiveLog(archiveID, _attempt));
         }
+
+        SaveArchiveData();
     }
 
     public void UpdateArchiveImageData(int _roomID){
@@ -262,6 +264,8 @@ public class RoomArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             roomArchiveData.roomImageActiveList.Add(_roomID);
         }
+
+        SaveArchiveData();
     }
 
     public RoomArchiveLogs GetRoomArchiveLogs(int _roomID){
