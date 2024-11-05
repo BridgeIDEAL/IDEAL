@@ -199,7 +199,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
                         // 새로운 데이터가 있다는 것 표시
                         monsterList.hasNewData = true;
                         monsterArchiveData.monsterHasNewDataList.Add(monsterList.monsterID);
-                        SaveArchiveData();
+                        // 아래에서 해당 내용 저장
                     }
                 }
             }
@@ -279,6 +279,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
                 monsterArchiveData.monsterHasNewDataList.RemoveAt(i);
             }
         }
+        SaveArchiveData();
     }
 
     public bool HasNewData(){

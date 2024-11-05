@@ -239,7 +239,7 @@ public class RoomArchiveLogManager : MonoBehaviour
                         // 새로운 데이터가 있다는 것 표시
                         roomList.hasNewData = true;
                         roomArchiveData.roomHasNewDataList.Add(roomList.roomID);
-                        SaveArchiveData();
+                        // 아래에서 해당 내용 같이 저장
                     }
                 }
             }
@@ -317,6 +317,7 @@ public class RoomArchiveLogManager : MonoBehaviour
         for(int i = 0; i < roomArchiveData.roomHasNewDataList.Count; i++){
             roomArchiveData.roomHasNewDataList.RemoveAt(i);
         }
+        SaveArchiveData();
     }
 
     public bool HasNewData(){
