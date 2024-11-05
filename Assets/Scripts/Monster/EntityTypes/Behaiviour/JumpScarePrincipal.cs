@@ -23,7 +23,7 @@ public class JumpScarePrincipal : JumpScare
     {
        MainCamEffect mainCamEffect = Camera.main.GetComponent<MainCamEffect>();
        mainCamEffect.FallDownVision(CallPrincipalJumpScare, waitTime);
-       mainCamEffect.CallGraduallySetFieldOfView(18.9f);
+       //mainCamEffect.CallGraduallySetFieldOfView(18.9f);
     }
 
     public void CallPrincipalJumpScare()
@@ -37,7 +37,7 @@ public class JumpScarePrincipal : JumpScare
         //Vector3 jumpscarePosition = jumpscareCamTransform.position;
         //jumpscarePosition.y = 0;
         //float distance = Vector3.Distance(transform.position, jumpscareCamTransform.position);
-        float distance = 3.5f;
+        float distance = 3f;
 
         Vector3 jumpscareDir = PlayerTransform.position - transform.position;
         jumpscareDir.y = 0;

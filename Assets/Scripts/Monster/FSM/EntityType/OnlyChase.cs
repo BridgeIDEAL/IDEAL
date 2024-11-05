@@ -45,6 +45,7 @@ public class OnlyChase : MonoBehaviour
             agent.enabled = false;
             isCatch = true;
             anim.enabled = false;
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
             jumpScare.ActiveJumpScare();
             EntityDataManager.Instance.Controller.InActiveInteractionEntities();
             EntityDataManager.Instance.Controller.DisableChaseGroupExceptOne(this);

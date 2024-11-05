@@ -59,7 +59,7 @@ public class MainCamEffect : MonoBehaviour
     {
         float timer = 0f;
         Quaternion stCamRot = followCamera.transform.rotation;
-        Quaternion edCamRot = Quaternion.Euler(60f, followCamera.transform.eulerAngles.y, followCamera.transform.eulerAngles.z);
+        Quaternion edCamRot = Quaternion.Euler(90f, followCamera.transform.eulerAngles.y, followCamera.transform.eulerAngles.z);
         while (timer < fallDownRotateTime)
         {
             timer += Time.deltaTime;

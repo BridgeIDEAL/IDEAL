@@ -226,6 +226,10 @@ public class PrincipalPatrol : MovableEntity, IPatrol
             
             if(collisionDetect.IsCollidePlayer())
             {
+                anim.SetBool("IsMove", false);
+                ChangeState(EntityStateType.Quiet);
+                Controller.InActiveExceptOne(this.gameObject);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
                 jumpscare.ActiveJumpScare();
             }
         }

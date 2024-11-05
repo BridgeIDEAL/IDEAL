@@ -5,13 +5,13 @@ using static UnityEngine.UI.Image;
 
 public class ChaseCollisionDetect : MonoBehaviour 
 {
-    bool isNearPlayer = false;
     Transform playerTransform = null; // Chased
     
     int structLayer = 1 << 10;
+    int playerLayer = 1 <<3;
     [Header("Collision Detect Value")]
-    [SerializeField] float forwardDelta = 3.5f;
-
+    [SerializeField] float catchDistance = 3f;
+    [SerializeField] Transform bodyTransform;
     public void Init(Transform playerTransform)
     {
         this.playerTransform = playerTransform;
@@ -19,7 +19,7 @@ public class ChaseCollisionDetect : MonoBehaviour
 
     public bool IsCollidePlayer()
     {
-        if (!isNearPlayer)
+        if (!CheckNearPlayer())
             return false;
 
         return IsBetweenStruct();
@@ -27,32 +27,16 @@ public class ChaseCollisionDetect : MonoBehaviour
     
     public bool IsBetweenStruct()
     {
-        Vector3 direction = (playerTransform.position+Vector3.up) - transform.position;
-        direction = direction.normalized;
-
-        Ray ray = new Ray(transform.position, direction);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, forwardDelta, structLayer))
+        Vector3 direction = (playerTransform.position+Vector3.up*1.5f) - bodyTransform.position;
+        if (Physics.Raycast(bodyTransform.position, direction.normalized, catchDistance, structLayer))
             return false;
         return true;
     }
 
-    #region Trigger Detect
-    private void OnTriggerEnter(Collider other)
+    public bool CheckNearPlayer()
     {
-        if (other.CompareTag("Player"))
-        {
-            isNearPlayer = true;
-        }
+        if (Physics.OverlapSphere(bodyTransform.position, 3f, playerLayer).Length == 0)
+            return false;
+        return true;
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isNearPlayer = false;
-        }
-    }
-    #endregion
 }
