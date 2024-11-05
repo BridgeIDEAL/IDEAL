@@ -105,10 +105,13 @@ public class UIManager : MonoBehaviour
             return;
         }
         
+        // 아래 F1으로 속도 조절하는 코드는 전처리기를 통해 유니티 에디터 에서만 실행가능
+        #if UNITY_EDITOR
         if(Input.GetKeyDown(KeyCode.F1)){
             UIActives[(int)UIType.MoveSettingUI] = !UIActives[(int)UIType.MoveSettingUI];
             SetUIActive(UIType.MoveSettingUI, UIActives[(int)UIType.MoveSettingUI]);
         }
+        #endif
 
         // Inventory UI 관련 코드
         if(Input.GetKeyDown(KeyCode.Tab)){
