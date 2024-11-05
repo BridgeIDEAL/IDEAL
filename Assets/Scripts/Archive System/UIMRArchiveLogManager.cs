@@ -124,6 +124,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
                         str = str.Replace("$attempts", roomLog.GetAttempt().ToString());
                     }
                     descTMP.text += str;
+                    descTMP.text += "\n";
                 }
             }
         }

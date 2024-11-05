@@ -98,6 +98,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
         monsterArchiveList.Add(new MonsterArchiveLogs(04, "멍이 든 학생", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0401, -1),
+        new MonsterArchiveLog(0402, 0),
         },
         false
         ));
@@ -133,8 +134,6 @@ public class MonsterArchiveLogManager : MonoBehaviour
         monsterArchiveList.Add(new MonsterArchiveLogs(09, "학생회장", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0901, -1),
         new MonsterArchiveLog(0902, 0),
-        new MonsterArchiveLog(0903, 0),
-        new MonsterArchiveLog(0904, 0),
         },
         false
         ));

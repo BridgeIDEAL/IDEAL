@@ -238,6 +238,12 @@ public class DialogueUI : MonoBehaviour
             case "Use":
                 Event.UseItem(_parameterList);
                 break;
+            case "ArchiveLogImage":
+                Event.UpdateArchiveImage(_parameterList);
+                break;
+            case "ArchiveLog":
+                Event.UpdateArchiveLog(_parameterList);
+                break;
             case "Unable":
                 Event.UnableCommunicate(_parameterList);
                 break;

@@ -39,6 +39,35 @@ public class DialogueEvent : MonoBehaviour
     }
     #endregion
 
+    #region Archive UI
+    public void UpdateArchiveImage(List<string> _parameterList){
+        int isMonster = int.Parse(_parameterList[0]);
+        if(isMonster == 0){
+            MonsterArchiveLogManager.Instance.UpdateArchiveImageData(int.Parse(_parameterList[1]));
+        }
+        else if(isMonster == 1){
+            RoomArchiveLogManager.Instance.UpdateArchiveImageData(int.Parse(_parameterList[1]));
+        }
+        else{
+            Debug.Log("isMonster is Invalid");
+        }
+    }
+
+    public void UpdateArchiveLog(List<string> _parameterList){
+        int isMonster = int.Parse(_parameterList[0]);
+        if(isMonster == 0){
+            MonsterArchiveLogManager.Instance.UpdateArchiveLogData(int.Parse(_parameterList[1]), CountAttempts.Instance.GetAttemptCount());
+        }
+        else if(isMonster == 1){
+            RoomArchiveLogManager.Instance.UpdateArchiveLogData(int.Parse(_parameterList[1]), CountAttempts.Instance.GetAttemptCount());
+        }
+        else{
+            Debug.Log("isMonster is Invalid");
+        }
+    }
+
+    #endregion
+
     #region Dialogue Index
     public void UnableCommunicate(List<string> _parameterList)
     {

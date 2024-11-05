@@ -91,6 +91,19 @@ public class ProgressManager : MonoBehaviour
         {901, -1}
     };
 
+    private Dictionary<int, int> monsterArchiveImageDic = new Dictionary<int, int>{
+        {101, 1},
+        {301, 2},
+        {211, 4},
+        {203, 5},
+        {201, 9},
+    };
+
+    private Dictionary<int, int> monsterArchiveLogDic = new Dictionary<int, int>{
+        {205, 0602},
+        {303, 0603},
+    };
+
     public Dictionary<int, int> itemState = new Dictionary<int, int>();
 
     public Dictionary<string, int> doorState = new Dictionary<string, int>();     // 상호작용 없을 시 코드 없음 문 열림 1
@@ -125,6 +138,33 @@ public class ProgressManager : MonoBehaviour
         if(state != -1){
             needShowChecklistIcon = true;
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.TurnOnCheckListIcon();
+        }
+
+        if(state != -1){
+            UpdateMonsterArchiveImage(checkListNum);
+            UpdateMonsterArchiveLog(checkListNum);
+            // UpdateRoomArchiveImage(checkListNum);
+            // UpdateRoomArchieLog(checkListNum);
+        }
+        
+
+    }
+
+    private void UpdateMonsterArchiveImage(int checkListNum){
+        if(monsterArchiveImageDic.ContainsKey(checkListNum)){
+            MonsterArchiveLogManager.Instance.UpdateArchiveImageData(monsterArchiveImageDic[checkListNum]);
+        }
+        else{
+            Debug.Log("Invalid checklistnum");
+        }
+    }
+
+    private void UpdateMonsterArchiveLog(int checkListNum){
+        if(monsterArchiveLogDic.ContainsKey(checkListNum)){
+            MonsterArchiveLogManager.Instance.UpdateArchiveImageData(monsterArchiveLogDic[checkListNum]);
+        }
+        else{
+            Debug.Log("Invalid checklistnum");
         }
     }
 
