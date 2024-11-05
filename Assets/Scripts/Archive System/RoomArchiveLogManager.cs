@@ -176,6 +176,13 @@ public class RoomArchiveLogManager : MonoBehaviour
         true
         ));
 
+        roomArchiveList.Add(new RoomArchiveLogs(16, "컴퓨터실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1601, -1),
+        new RoomArchiveLog(1602, 0),
+        },
+        true
+        ));
+
     }
 
     private void LoadArchiveData(){

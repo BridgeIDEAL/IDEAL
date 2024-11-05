@@ -33,5 +33,7 @@ public class MonsterArchiveLogData
         monsterArchiveDictionary.Add(0902, "<b>$attempts차 추가. 학생회는 자인고 홍보 책자를 제작하고 배포한다.</b>");
         monsterArchiveDictionary.Add(0903, "<b>$attempts차 추가. 학생회는 ■든 학■■의 ■적사■을 ■ 수 ■■.</b>");
         monsterArchiveDictionary.Add(0904, "<b>$attempts차 추가. 학생■■ 아■■ 하■■지 못■■ ■는■.</b>");
+
+        monsterArchiveDictionary.Add(1001, "컴퓨터실에서 발견 가능.\n일반적으로 실종자에게 관심이 없는 것으로 보임.\n무슨 얘기를 하든 조용히 듣고 지나가는 것을 추천.");
     }
 }
