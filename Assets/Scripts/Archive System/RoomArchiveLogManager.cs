@@ -38,6 +38,8 @@ public class RoomArchiveLogManager : MonoBehaviour
     private RoomArchiveData roomArchiveData;
     private List<RoomArchiveLogs> roomArchiveList = new List<RoomArchiveLogs>();
 
+    private RoomArchiveLogData roomLogData = new RoomArchiveLogData();
+
 
     private void Awake(){
         if(Instance == null){
@@ -49,6 +51,8 @@ public class RoomArchiveLogManager : MonoBehaviour
         }
 
         roomArchiveDataPath = Path.Combine(Application.persistentDataPath, "RoomArchiveLogData.json");
+
+        roomLogData.GenerateDictionary();
     }
 
     private void Start(){
@@ -172,6 +176,13 @@ public class RoomArchiveLogManager : MonoBehaviour
         true
         ));
 
+        roomArchiveList.Add(new RoomArchiveLogs(16, "컴퓨터실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1601, -1),
+        new RoomArchiveLog(1602, 0),
+        },
+        true
+        ));
+
     }
 
     private void LoadArchiveData(){
@@ -251,5 +262,27 @@ public class RoomArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             roomArchiveData.roomImageActiveList.Add(_roomID);
         }
+    }
+
+    public RoomArchiveLogs GetRoomArchiveLogs(int _roomID){
+        foreach (RoomArchiveLogs logs in roomArchiveList){
+            if(logs.roomID == _roomID){
+                return logs;
+            }
+        }
+        return null;
+    }
+
+    public string GetRoomArchiveText(int logID){
+        if(roomLogData.roomArchiveDictionary.ContainsKey(logID)){
+            return roomLogData.roomArchiveDictionary[logID];
+        }
+        else{
+            return "데이터가 존재하지 않습니다.";
+        }
+    }
+
+    public List<RoomArchiveLogs> GetRoomArchiveList(){
+        return roomArchiveList;
     }
 }

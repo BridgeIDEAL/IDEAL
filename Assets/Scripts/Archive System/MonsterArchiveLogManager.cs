@@ -38,6 +38,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
     private MonsterArchiveData monsterArchiveData;
     private List<MonsterArchiveLogs> monsterArchiveList = new List<MonsterArchiveLogs>();
 
+    private MonsterArchiveLogData monsterLogData = new MonsterArchiveLogData();
+
 
     private void Awake(){
         if(Instance == null){
@@ -49,6 +51,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
         }
 
         monsterArchiveDataPath = Path.Combine(Application.persistentDataPath, "MonsterArchiveLogData.json");
+
+        monsterLogData.GenerateDictionary();
     }
 
     private void Start(){
@@ -94,6 +98,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
         monsterArchiveList.Add(new MonsterArchiveLogs(04, "멍이 든 학생", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0401, -1),
+        new MonsterArchiveLog(0402, 0),
         },
         false
         ));
@@ -129,12 +134,15 @@ public class MonsterArchiveLogManager : MonoBehaviour
         monsterArchiveList.Add(new MonsterArchiveLogs(09, "학생회장", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0901, -1),
         new MonsterArchiveLog(0902, 0),
-        new MonsterArchiveLog(0903, 0),
-        new MonsterArchiveLog(0904, 0),
         },
         false
         ));
 
+        monsterArchiveList.Add(new MonsterArchiveLogs(10, "컴퓨터실 학생", new MonsterArchiveLog[] {
+        new MonsterArchiveLog(1001, -1),
+        },
+        false
+        ));
     }
 
     private void LoadArchiveData(){
@@ -214,5 +222,27 @@ public class MonsterArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             monsterArchiveData.monsterImageActiveList.Add(_monsterID);
         }
+    }
+
+    public MonsterArchiveLogs GetMonsterArchiveLogs(int _monsterID){
+        foreach (MonsterArchiveLogs logs in monsterArchiveList){
+            if(logs.monsterID == _monsterID){
+                return logs;
+            }
+        }
+        return null;
+    }
+
+    public string GetMonsterArchiveText(int logID){
+        if(monsterLogData.monsterArchiveDictionary.ContainsKey(logID)){
+            return monsterLogData.monsterArchiveDictionary[logID];
+        }
+        else{
+            return "데이터가 존재하지 않습니다.";
+        }
+    }
+
+    public List<MonsterArchiveLogs> GetMonsterArchiveList(){
+        return monsterArchiveList;
     }
 }

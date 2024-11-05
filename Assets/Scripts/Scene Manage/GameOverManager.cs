@@ -46,6 +46,7 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOver(int stateNum=0){
+        CheckUpdateLog(stateNum);
         backgroundObject.SetActive(true);
         vhsRawImage.SetActive(true);
         vhsVideoPlayer.SetActive(true);
@@ -75,6 +76,15 @@ public class GameOverManager : MonoBehaviour
                 }
             }
             stepTimer += Time.deltaTime;
+        }
+    }
+
+    private void CheckUpdateLog(int stateNum){
+        switch(stateNum){
+            case 3:
+                MonsterArchiveLogManager.Instance.UpdateArchiveLogData(0702, CountAttempts.Instance.GetAttemptCount());
+                break;
+            
         }
     }
 }
