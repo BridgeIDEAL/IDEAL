@@ -38,6 +38,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
     private MonsterArchiveData monsterArchiveData;
     private List<MonsterArchiveLogs> monsterArchiveList = new List<MonsterArchiveLogs>();
 
+    private MonsterArchiveLogData monsterLogData = new MonsterArchiveLogData();
+
 
     private void Awake(){
         if(Instance == null){
@@ -49,6 +51,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
         }
 
         monsterArchiveDataPath = Path.Combine(Application.persistentDataPath, "MonsterArchiveLogData.json");
+
+        monsterLogData.GenerateDictionary();
     }
 
     private void Start(){
@@ -214,5 +218,27 @@ public class MonsterArchiveLogManager : MonoBehaviour
         if(noDataInSavedData){
             monsterArchiveData.monsterImageActiveList.Add(_monsterID);
         }
+    }
+
+    public MonsterArchiveLogs GetMonsterArchiveLogs(int _monsterID){
+        foreach (MonsterArchiveLogs logs in monsterArchiveList){
+            if(logs.monsterID == _monsterID){
+                return logs;
+            }
+        }
+        return null;
+    }
+
+    public string GetMonsterArchiveText(int logID){
+        if(monsterLogData.monsterArchiveDictionary.ContainsKey(logID)){
+            return monsterLogData.monsterArchiveDictionary[logID];
+        }
+        else{
+            return "데이터가 존재하지 않습니다.";
+        }
+    }
+
+    public List<MonsterArchiveLogs> GetMonsterArchiveList(){
+        return monsterArchiveList;
     }
 }

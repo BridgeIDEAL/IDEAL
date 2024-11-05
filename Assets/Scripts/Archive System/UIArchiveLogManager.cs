@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Now Don't use this script, use UIMRArchiveLogManager.cs
 public class UIArchiveLogManager : MonoBehaviour
 {
     [SerializeField] private GameObject archivePrefab;

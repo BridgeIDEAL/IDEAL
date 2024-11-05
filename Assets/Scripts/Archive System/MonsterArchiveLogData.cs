@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 public class MonsterArchiveLogData
 {
-    public Dictionary <int, string> monsterArchiveDictionary;
+    public Dictionary <int, string> monsterArchiveDictionary = new Dictionary<int, string>();
 
     public void GenerateDictionary(){
         // 앞에 2글자는 이형체 번호 뒤에 2개는 문장번호

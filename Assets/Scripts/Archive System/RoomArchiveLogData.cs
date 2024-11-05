@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class RoomArchiveLogData
 {
-    public Dictionary <int, string> roomArchiveDictionary;
+    public Dictionary <int, string> roomArchiveDictionary = new Dictionary<int, string>();
 
     public void GenerateDictionary(){
         // 앞에 2글자는 이형체 번호 뒤에 2개는 문장번호
