@@ -1651,6 +1651,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4491606137683542190}
     m_Modifications:
+    - target: {fileID: 7554312070406954596, guid: f9ceb2b61294efd4a9d0c0bb58797b32,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8250353865724114242, guid: f9ceb2b61294efd4a9d0c0bb58797b32,
         type: 3}
       propertyPath: m_Name
@@ -2475,6 +2480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InStudyroom_Self
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869381500911686961, guid: 413da5fe12055c34986b940a46dad897,
+        type: 3}
+      propertyPath: studyroomType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 413da5fe12055c34986b940a46dad897, type: 3}
@@ -4067,6 +4077,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_StudyDeskVictim
       objectReference: {fileID: 0}
+    - target: {fileID: 4877569882198508793, guid: 956ac093df4488147951c55a3c4643fd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5258879847205592643, guid: 956ac093df4488147951c55a3c4643fd,
         type: 3}
       propertyPath: m_RootOrder
@@ -4122,8 +4137,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8575331954138209685, guid: 956ac093df4488147951c55a3c4643fd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 956ac093df4488147951c55a3c4643fd, type: 3}
+--- !u!1 &1292890654659547670 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4877569882198508793, guid: 956ac093df4488147951c55a3c4643fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 5927263519869343471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &701729324568149418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292890654659547670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: -1.05
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
+  outlineMask: 
+--- !u!114 &5318731612889414662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292890654659547670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017f172cb95817e4c896e026a92295f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  detectedStr: "\uC790\uC2B5\uC2E4 \uCC45\uC0C1\uC774\uB2E4."
+  afterInteractionStr: "\uACF5\uBD80\uD558\uB294 \uCC99 \uD588\uB2E4."
+  activationLogNum: -1
+  requiredTime: 1
+  availableCount: 1
+--- !u!114 &6982606733563385328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292890654659547670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 5318731612889414662}
+  interactionOutline: {fileID: 701729324568149418}
+  outlineActive: 1
+--- !u!65 &4488789408535517885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292890654659547670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1497619, y: 1.6875, z: 0.69881135}
+  m_Center: {x: 0, y: 0.8, z: -0.000000029802322}
 --- !u!4 &1926016304391112876 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5258879847205592643, guid: 956ac093df4488147951c55a3c4643fd,

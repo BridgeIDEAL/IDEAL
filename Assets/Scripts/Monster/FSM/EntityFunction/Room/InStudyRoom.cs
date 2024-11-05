@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class InStudyRoom : MonoBehaviour
 {
+    [SerializeField]
+    InStudyroomType studyroomType = InStudyroomType.Classroom;
+
+    bool isSelfStudyroom = false;
+
     PrincipalPatrol principal = null;
     PrincipalPatrol Principal
     {
@@ -19,6 +24,9 @@ public class InStudyRoom : MonoBehaviour
     {
         if (EventDataManager.Instance.RingAfterSchoolBell)
             this.gameObject.SetActive(false);
+
+        if (studyroomType == InStudyroomType.SelfStudyroom)
+            isSelfStudyroom = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +35,7 @@ public class InStudyRoom : MonoBehaviour
         {
             if (Principal == null)
                 return;
-            Principal.PlayerInStudyRoom(keepAnEyeTransform);
+            Principal.PlayerInStudyRoom(keepAnEyeTransform, isSelfStudyroom);
         }
     }
 

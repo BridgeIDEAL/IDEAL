@@ -105,12 +105,18 @@ public class PrincipalPatrol : MovableEntity, IPatrol
 
     bool isInStudyRoom = false;
     
-    public void PlayerInStudyRoom(Transform keepAnEyeTransform)
+    public void PlayerInStudyRoom(Transform keepAnEyeTransform, bool isSelfStudyroom=false)
     {
         StopAllCoroutines();
         isInStudyRoom= true;
         if (EntityDataManager.Instance.Controller.IsChase)
+        {
             StartCoroutine(MoveToKeepAnEyePosition(keepAnEyeTransform));
+            if (isSelfStudyroom)
+            {
+                // To Do ~~ 
+            }
+        }
     }
 
     public void PlayerOutStudyRoom()

@@ -37,10 +37,10 @@ public enum SoundType
     MaxSoundCnt
 }
 
-public enum PlaceTriggerType
+public enum InStudyroomType
 {
-    InStudyRoom,
-    None
+    Classroom,
+    SelfStudyroom
 }
 
 public enum EventNames

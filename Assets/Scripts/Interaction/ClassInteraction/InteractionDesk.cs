@@ -11,7 +11,7 @@ public class InteractionDesk : AbstractInteraction
     [SerializeField] private int availableCount = 1;
     public override float RequiredTime { get => requiredTime; }
 
-    PrincipalPatrol principal;
+    PrincipalPatrol principal = null;
 
     private void Start()
     {
@@ -44,13 +44,7 @@ public class InteractionDesk : AbstractInteraction
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         }
-        availableCount--;
-
-        if (availableCount < 1)
-        {
-            //Destroy(this.gameObject);
-        }
-
+        
         if (audioSource != null)
         {
             // Inventory.GetItemSound에서 아이템 획득 소리들 처리
