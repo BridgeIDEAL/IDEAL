@@ -9,12 +9,14 @@ public class RoomArchiveLogs{
     public string roomName;
     public RoomArchiveLog[] roomArchiveLogs;
     public bool isImageActive;
+    public bool hasNewData;
 
-    public RoomArchiveLogs(int _roomID, string _roomName, RoomArchiveLog[] _roomArchiveLogs, bool _isImageActive){
+    public RoomArchiveLogs(int _roomID, string _roomName, RoomArchiveLog[] _roomArchiveLogs, bool _isImageActive, bool _hasNewData = false){
         this.roomID = _roomID;
         this.roomName = _roomName;
         this.roomArchiveLogs = _roomArchiveLogs;
         this.isImageActive = _isImageActive;
+        this.hasNewData = _hasNewData;
     }
 }
 
@@ -22,6 +24,7 @@ public class RoomArchiveLogs{
 public class RoomArchiveData{
     public List<RoomArchiveLog> roomArchiveChangeList = new List<RoomArchiveLog>();
     public List<int> roomImageActiveList = new List<int>();
+    public List<int> roomHasNewDataList = new List<int>();
 }
 
 public class RoomArchiveLogManager : MonoBehaviour
@@ -216,6 +219,14 @@ public class RoomArchiveLogManager : MonoBehaviour
                 }
             }
         }
+
+        foreach(int hasNewDataNum in roomArchiveData.roomHasNewDataList){
+            foreach(RoomArchiveLogs roomList in roomArchiveList){
+                if(roomList.roomID == hasNewDataNum){
+                    roomList.hasNewData = true;
+                }
+            }
+        }
     }
 
     public void UpdateArchiveLogData(int archiveID, int _attempt){
@@ -225,6 +236,10 @@ public class RoomArchiveLogManager : MonoBehaviour
                 foreach(RoomArchiveLog log in roomList.roomArchiveLogs){
                     if(log.GetAttempt() == 0){
                         log.SetAttempt(_attempt);
+                        // 새로운 데이터가 있다는 것 표시
+                        roomList.hasNewData = true;
+                        roomArchiveData.roomHasNewDataList.Add(roomList.roomID);
+                        SaveArchiveData();
                     }
                 }
             }
@@ -288,5 +303,23 @@ public class RoomArchiveLogManager : MonoBehaviour
 
     public List<RoomArchiveLogs> GetRoomArchiveList(){
         return roomArchiveList;
+    }
+
+    public void WatchRoomLog(int _roomID){
+        // RoomArchiveList (인게임용)에 대한 적용
+        foreach(RoomArchiveLogs logs in roomArchiveList){
+            if(logs.roomID == _roomID){
+                logs.hasNewData = false;
+            }
+        }
+
+        // RoomArchiveData (저장용) 에 대한 적용
+        for(int i = 0; i < roomArchiveData.roomHasNewDataList.Count; i++){
+            roomArchiveData.roomHasNewDataList.RemoveAt(i);
+        }
+    }
+
+    public bool HasNewData(){
+        return roomArchiveData.roomHasNewDataList.Count > 0;
     }
 }
