@@ -7,5 +7,8 @@ public class EntityDataReset : MonoBehaviour
     void Start()
     {
         EntityDataManager.Instance.ResetData();
+
+        // To Do~~ 
+        
     }
 }

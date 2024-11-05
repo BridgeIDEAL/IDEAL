@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JumpScareEvent : MonoBehaviour
 {
+    [SerializeField, Header("Death Scene Index")] int deathIndex;
     JumpScare jumpScare = null;
     MainCamEffect mainCamEffect = null;
     private void Awake()
@@ -21,7 +22,7 @@ public class JumpScareEvent : MonoBehaviour
             Debug.LogError("찾을 수 없다!");
             return;
         }
-        jumpScare.GameOver();
+        jumpScare.GameOver(deathIndex);
     }
 
     /// <summary>

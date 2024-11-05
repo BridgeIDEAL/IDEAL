@@ -9,10 +9,12 @@ public abstract class JumpScare : MonoBehaviour
     [SerializeField] protected GameObject jumpscareCharacter;
     protected CinemachineVirtualCamera virtualCam = null;
     [SerializeField, Header("Disable Mesh")] GameObject[] entityMeshObjests;
-    public virtual void GameOver() 
+
+    public virtual void GameOver(int deathIndex) 
     {
         /************* Chan hee ***********************/
         /***** Put GameOver Camera Effect ********/
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
     }
 
     /// <summary>
