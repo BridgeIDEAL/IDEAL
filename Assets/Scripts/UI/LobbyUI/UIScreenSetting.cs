@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIScreenSetting : MonoBehaviour
 {
     public TMP_Dropdown screenModeDropdown;
+    [SerializeField] private Button closeBookBtn;
 
     void Start()
     {
@@ -41,5 +42,11 @@ public class UIScreenSetting : MonoBehaviour
     public void OnScreenModeChange(int mode)
     {
         SettingDataManager.Instance.SetScreenMode(mode);
+    }
+
+    private void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            closeBookBtn.onClick.Invoke();
+        }
     }
 }

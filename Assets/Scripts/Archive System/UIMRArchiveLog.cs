@@ -6,6 +6,7 @@ using UnityEngine;
 public class UIMRArchiveLog : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI NameTMP;
+    [SerializeField] private GameObject redDotObject;
 
     private UIMRArchiveLogManager uIMRArchiveLogManager;
     public int logNum = -1;
@@ -35,5 +36,9 @@ public class UIMRArchiveLog : MonoBehaviour
 
     public void DestoryThisObject(){
         Destroy(this.gameObject);
+    }
+
+    public void ShowRedDot(bool isActive){
+        redDotObject.SetActive(isActive);
     }
 }

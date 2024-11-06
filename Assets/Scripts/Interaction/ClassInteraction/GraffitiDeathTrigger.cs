@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Autodesk.Fbx.FbxAnimCurveDef;
 
 public class GraffitiDeathTrigger : MonoBehaviour
 {

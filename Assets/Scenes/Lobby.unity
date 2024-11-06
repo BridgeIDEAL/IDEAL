@@ -184,8 +184,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cd2506f7243f6494597b13c4dd4137a1, type: 2}
-  m_sharedMaterial: {fileID: -3572863044631207465, guid: cd2506f7243f6494597b13c4dd4137a1,
+  m_fontAsset: {fileID: 11400000, guid: 818e5884af32dea4b9566a0807076605, type: 2}
+  m_sharedMaterial: {fileID: 4778799111255879457, guid: 818e5884af32dea4b9566a0807076605,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1658,6 +1658,7 @@ GameObject:
   - component: {fileID: 217240342}
   - component: {fileID: 217240348}
   - component: {fileID: 217240347}
+  - component: {fileID: 217240349}
   - component: {fileID: 217240346}
   - component: {fileID: 217240345}
   - component: {fileID: 217240344}
@@ -1683,6 +1684,7 @@ RectTransform:
   m_Children:
   - {fileID: 987021027}
   - {fileID: 66441638}
+  - {fileID: 244792039}
   m_Father: {fileID: 2107757740}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1863,6 +1865,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217240341}
   m_CullTransparentMesh: 1
+--- !u!114 &217240349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217240341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb024c938abff5144a86b592863e4bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redDotObject: {fileID: 244792038}
 --- !u!1 &229893253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +1953,82 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229893253}
+  m_CullTransparentMesh: 1
+--- !u!1 &244792038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244792039}
+  - component: {fileID: 244792041}
+  - component: {fileID: 244792040}
+  m_Layer: 5
+  m_Name: redDotImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &244792039
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244792038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 217240342}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 896, y: 222}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &244792040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244792038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8773585, g: 0.23589355, b: 0.23589355, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b74c31d447d2f5d41a61081bdf5e7126, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &244792041
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244792038}
   m_CullTransparentMesh: 1
 --- !u!1 &264121243
 GameObject:
@@ -3251,8 +3342,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Desc Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cd2506f7243f6494597b13c4dd4137a1, type: 2}
-  m_sharedMaterial: {fileID: -3572863044631207465, guid: cd2506f7243f6494597b13c4dd4137a1,
+  m_fontAsset: {fileID: 11400000, guid: 818e5884af32dea4b9566a0807076605, type: 2}
+  m_sharedMaterial: {fileID: 4778799111255879457, guid: 818e5884af32dea4b9566a0807076605,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5823,6 +5914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMonsterView: 1
   backGround: {fileID: 1037108904}
+  closeBookBtn: {fileID: 74861588}
   monsterBGSprite: {fileID: 21300000, guid: aeda8f1b56a48ed4ba2b30d4b2d52bc8, type: 3}
   roomBGSprite: {fileID: 21300000, guid: d70b2ecd8b3f31948942590417b086ef, type: 3}
   viewIndex: 0
@@ -5844,10 +5936,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 60a249fa833589149a3eacf683e8bc78, type: 3}
   - {fileID: 21300000, guid: 0ac05f53342a0d644859e8cf9baab7fa, type: 3}
   - {fileID: 21300000, guid: 4c2a99d8da800984394e6375ad12328b, type: 3}
+  - {fileID: 21300000, guid: 5449a40cca3ef5548bde9e1f1ac97bbb, type: 3}
   roomSprites:
   - {fileID: 21300000, guid: 99067d842ccbeb2459582ab325b61d6d, type: 3}
   - {fileID: 21300000, guid: c781ac5acc6fa834581c435e5536d373, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: d3ea3c7dfd9d83c4784132cb9724f07a, type: 3}
   - {fileID: 21300000, guid: 4c5422932e10d3d46889b7337a48d48d, type: 3}
   - {fileID: 21300000, guid: 3247c7005eb54704eacd2374042563a2, type: 3}
   - {fileID: 21300000, guid: 6aa74062c1eab6849b05063334acebbb, type: 3}
@@ -5861,6 +5954,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e4f490e5fc592214097f87bf6b68376d, type: 3}
   - {fileID: 21300000, guid: 650e10632faf1964893422519c360866, type: 3}
   - {fileID: 21300000, guid: 0f3e38187ee37094cb7df09a0ccbb326, type: 3}
+  - {fileID: 21300000, guid: f38c682b8a56e2846b75f1e4aabe8377, type: 3}
 --- !u!1 &1061962424
 GameObject:
   m_ObjectHideFlags: 0
@@ -10731,6 +10825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenModeDropdown: {fileID: 975075795}
+  closeBookBtn: {fileID: 74861588}
 --- !u!114 &2050704561
 MonoBehaviour:
   m_ObjectHideFlags: 0

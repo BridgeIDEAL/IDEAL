@@ -8,6 +8,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
 {
     [SerializeField] private bool isMonsterView = true;
     [SerializeField] private Image backGround;
+    [SerializeField] private Button closeBookBtn;
     [SerializeField] private Sprite monsterBGSprite;
     [SerializeField] private Sprite roomBGSprite;
     [SerializeField] private int viewIndex = 0;
@@ -32,6 +33,12 @@ public class UIMRArchiveLogManager : MonoBehaviour
         ShowArchiveLog(0);
     }
 
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            closeBookBtn.onClick.Invoke();
+        }
+    }
+
     private void DestroyMRArchiveLogList(){
         foreach(UIMRArchiveLog mrlog in mrArchiveLogList){
             mrlog.DestoryThisObject();
@@ -53,6 +60,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
                 uIMRArchiveLog.SetManager(this, logs.monsterID);
                 uIMRArchiveLog.SetNameString(logs.monsterName);
                 uIMRArchiveLog.SetFontNormal();
+                uIMRArchiveLog.ShowRedDot(logs.hasNewData);
             }
         }
         else{
@@ -66,6 +74,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
                 uIMRArchiveLog.SetManager(this, logs.roomID);
                 uIMRArchiveLog.SetNameString(logs.roomName);
                 uIMRArchiveLog.SetFontNormal();
+                uIMRArchiveLog.ShowRedDot(logs.hasNewData);
             }
         }
     }
@@ -75,6 +84,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
         foreach(UIMRArchiveLog uimrLog in mrArchiveLogList){
             if(uimrLog.logNum == id){
                 uimrLog.SetFontBig();
+                uimrLog.ShowRedDot(false);
             }
             else{
                 uimrLog.SetFontNormal();
@@ -103,6 +113,9 @@ public class UIMRArchiveLogManager : MonoBehaviour
                     descTMP.text += str;
                 }
             }
+
+            // 해당 몬스터에 대한 정보를 보여줬기에 빨간점 회수
+            MonsterArchiveLogManager.Instance.WatchMonsterLog(id);
         }
         else{
             RoomArchiveLogs roomArchiveLogs = RoomArchiveLogManager.Instance.GetRoomArchiveLogs(id);
@@ -127,6 +140,9 @@ public class UIMRArchiveLogManager : MonoBehaviour
                     descTMP.text += "\n";
                 }
             }
+
+            // 해당 방에 대한 정볼르 보여줬기에 빨간점 회수
+            RoomArchiveLogManager.Instance.WatchRoomLog(id);
         }
     }
 

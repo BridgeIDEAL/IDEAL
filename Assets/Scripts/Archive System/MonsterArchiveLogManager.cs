@@ -9,12 +9,14 @@ public class MonsterArchiveLogs{
     public string monsterName;
     public MonsterArchiveLog[] monsterArchiveLogs;
     public bool isImageActive;
+    public bool hasNewData;
 
-    public MonsterArchiveLogs(int _monsterID, string _monsterName, MonsterArchiveLog[] _monsterArchiveLogs, bool _isImageActive){
+    public MonsterArchiveLogs(int _monsterID, string _monsterName, MonsterArchiveLog[] _monsterArchiveLogs, bool _isImageActive, bool _hasNewData = false){
         this.monsterID = _monsterID;
         this.monsterName = _monsterName;
         this.monsterArchiveLogs = _monsterArchiveLogs;
         this.isImageActive = _isImageActive;
+        this.hasNewData = _hasNewData;
     }
 }
 
@@ -22,6 +24,7 @@ public class MonsterArchiveLogs{
 public class MonsterArchiveData{
     public List<MonsterArchiveLog> monsterArchiveChangeList = new List<MonsterArchiveLog>();
     public List<int> monsterImageActiveList = new List<int>();
+    public List<int> monsterHasNewDataList = new List<int>();
 }
 
 public class MonsterArchiveLogManager : MonoBehaviour
@@ -176,6 +179,14 @@ public class MonsterArchiveLogManager : MonoBehaviour
                 }
             }
         }
+
+        foreach(int hasNewDataNum in monsterArchiveData.monsterHasNewDataList){
+            foreach(MonsterArchiveLogs monsterList in monsterArchiveList){
+                if(monsterList.monsterID == hasNewDataNum){
+                    monsterList.hasNewData = true;
+                }
+            }
+        }
     }
 
     public void UpdateArchiveLogData(int archiveID, int _attempt){
@@ -185,6 +196,10 @@ public class MonsterArchiveLogManager : MonoBehaviour
                 foreach(MonsterArchiveLog log in monsterList.monsterArchiveLogs){
                     if(log.GetAttempt() == 0){
                         log.SetAttempt(_attempt);
+                        // 새로운 데이터가 있다는 것 표시
+                        monsterList.hasNewData = true;
+                        monsterArchiveData.monsterHasNewDataList.Add(monsterList.monsterID);
+                        // 아래에서 해당 내용 저장
                     }
                 }
             }
@@ -248,5 +263,26 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
     public List<MonsterArchiveLogs> GetMonsterArchiveList(){
         return monsterArchiveList;
+    }
+
+    public void WatchMonsterLog(int _monsterID){
+        // MonsterArchiveList (인게임용)에 대한 적용
+        foreach(MonsterArchiveLogs logs in monsterArchiveList){
+            if(logs.monsterID == _monsterID){
+                logs.hasNewData = false;
+            }
+        }
+
+        // MonsterArchivedata (저장용)에 대한 적용
+        for(int i = 0 ; i < monsterArchiveData.monsterHasNewDataList.Count; i++){
+            if(monsterArchiveData.monsterHasNewDataList[i] == _monsterID){
+                monsterArchiveData.monsterHasNewDataList.RemoveAt(i);
+            }
+        }
+        SaveArchiveData();
+    }
+
+    public bool HasNewData(){
+        return monsterArchiveData.monsterHasNewDataList.Count > 0;
     }
 }

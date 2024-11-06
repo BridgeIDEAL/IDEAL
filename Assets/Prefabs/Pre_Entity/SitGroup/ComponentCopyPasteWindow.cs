@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class ComponentCopyPasteWindow : EditorWindow
 {
     private GameObject sourceObject;
@@ -68,3 +69,5 @@ public class ComponentCopyPasteWindow : EditorWindow
         }
     }
 }
+
+#endif
