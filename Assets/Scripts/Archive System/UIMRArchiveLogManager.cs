@@ -8,6 +8,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
 {
     [SerializeField] private bool isMonsterView = true;
     [SerializeField] private Image backGround;
+    [SerializeField] private Button closeBookBtn;
     [SerializeField] private Sprite monsterBGSprite;
     [SerializeField] private Sprite roomBGSprite;
     [SerializeField] private int viewIndex = 0;
@@ -30,6 +31,12 @@ public class UIMRArchiveLogManager : MonoBehaviour
         UpdateScrollLogs();
         // Monster index 0에 대한 정보 보여주기
         ShowArchiveLog(0);
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            closeBookBtn.onClick.Invoke();
+        }
     }
 
     private void DestroyMRArchiveLogList(){
