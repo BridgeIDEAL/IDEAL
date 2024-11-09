@@ -285,4 +285,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
     public bool HasNewData(){
         return monsterArchiveData.monsterHasNewDataList.Count > 0;
     }
+
+    public bool GetChairManArchiveLogUpdated(){
+        return monsterArchiveList[0].isImageActive;
+    }
 }
