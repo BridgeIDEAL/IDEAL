@@ -58,6 +58,8 @@ public class EntityDataManager : MonoBehaviour
     /// </summary>
     public void ResetData()
     {
+        if (entityDataDic.Count == 0)
+            return;
         entityDataDic.Clear();
         EntityData data = JsonUtility.FromJson<EntityData>(entityDatas.text);
         int cnt = data.entities.Count;

@@ -33,6 +33,7 @@ public class DialogueUI : MonoBehaviour
     #endregion
 
     #region Dialogue System Method
+    bool preventNextDialogue = false;
     public bool CanSkip 
     {   
         get { return canSkip; } 
@@ -105,7 +106,8 @@ public class DialogueUI : MonoBehaviour
             CallDialogueEvent(eventName, parameterList);
             isTyping = false;
             isPressDialogueSkipBtn = false;
-            NextDialogue();
+            if(!preventNextDialogue)
+                NextDialogue();
             yield break;
         }
         else // Check Dialogue
@@ -262,8 +264,18 @@ public class DialogueUI : MonoBehaviour
             case "CheckList":
                 CheckList(_parameterList);
                 break;
+            case "PreventTalk":
+                PreventTalk();
+                break;
+            case "ResumeTalk":
+                ResumeTalk();
+                break;
+            case "PlaySFX":
+                break;
         }
     }
+    public void PreventTalk() { preventNextDialogue = true; Invoke("ResumeTalk", 3f); }
+    public void ResumeTalk() { preventNextDialogue = false; NextDialogue(); }
 
     public void ChangeSpeakerName(List<string> _parameterList)
     {
@@ -323,4 +335,6 @@ public class DialogueUI : MonoBehaviour
         }
     }
     #endregion
+
+    
 }

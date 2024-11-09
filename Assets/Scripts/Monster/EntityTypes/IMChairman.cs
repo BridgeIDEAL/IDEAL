@@ -13,11 +13,11 @@ public class IMChairman : IMStandEntity
             return;
         }
         
-        if (CountAttempts.Instance.GetAttemptCount() == 1 && entity_Data.isSpawn)
-            controller.ActiveEntity(entity_Data.speakerName);
-        else
+        if (MonsterArchiveLogManager.Instance.GetChairManArchiveLogUpdated())
             SetActiveState(false);
-
+        else
+            controller.ActiveEntity(entity_Data.speakerName);
+      
         AdditionalSetup();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionStudentroomBoard : AbstractInteraction
 {
     #region Class Data
+    [SerializeField] bool isChangeTalkData = false;
     protected Entity talkData = null;
     public Entity TalkData { get { InitTalkData(); return talkData; } set { talkData = value; } }
     #endregion
@@ -31,6 +32,7 @@ public class InteractionStudentroomBoard : AbstractInteraction
     {    
         dialogueName = TalkData.speakerName + TalkData.speakIndex;
         DialogueManager.Instance.StartDialogue(dialogueName);
+        if (isChangeTalkData && talkData.speakIndex == 1) talkData.speakIndex = 2;
     }
     #endregion
 
