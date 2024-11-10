@@ -15,6 +15,7 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
     [SerializeField] private GuardCCTVSound guardCCTVSound;
+    [SerializeField] private CareerDevelopSound careerDevelopSound;
     [SerializeField] private AudioSource chaseAudioSource;
     [SerializeField] private AudioSource lastRunAudioSource_1;
     [SerializeField] private AudioSource lastRunAudioSource_2;
@@ -288,5 +289,9 @@ public class AmbienceSoundManager : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void CareerDevelopSoundPlay(){
+        careerDevelopSound.PlayAudio();
     }
 }
