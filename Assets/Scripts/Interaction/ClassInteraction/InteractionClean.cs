@@ -38,6 +38,8 @@ public class InteractionClean : AbstractInteraction
         if (availableCount < 1)
         {
             graffitiClass.EraseGraffiti();
+            AudioSFXPlayer sfxPlayer = Camera.main.GetComponentInChildren<AudioSFXPlayer>();
+            sfxPlayer.SFXPlayOneShot(2);
         }
         if (audioSource != null)
         {

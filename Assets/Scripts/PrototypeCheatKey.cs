@@ -8,6 +8,8 @@ public class PrototypeCheatKey : MonoBehaviour
     public InteractionItemData masterKeyData;
     // Update is called once per frame
 
+
+    bool onceLast = true;
     private void Start()
     {
         if (Inventory.Instance.FindItemIndex(Inventory.MasterMey) != -1)
@@ -23,6 +25,12 @@ public class PrototypeCheatKey : MonoBehaviour
             canGetMasterKey = false;
             Inventory.Instance.Add(masterKeyData, 1);
             ProgressManager.Instance.SetItemLog(masterKeyData.ID, 1);
+        }
+
+        if(Input.GetKeyDown(KeyCode.V) && onceLast)
+        {
+            onceLast = false;
+            EventDataManager.Instance.TriggerController.TriggerLastEvent();
         }
     }
 }

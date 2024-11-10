@@ -148,4 +148,16 @@ public class DialogueEvent : MonoBehaviour
         //_baseEntity.AnimationTriggerCallByDialogue(_parameterList[1]);
     }
     #endregion
+
+    public void PlaySFX(List<string> _parameters)
+    {
+        int _index = int.Parse(_parameters[0]);
+        if (_index < 0)
+        {
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.CareerDevelopSoundPlay();
+            return;
+        }
+        AudioSFXPlayer audio = Camera.main.GetComponentInChildren<AudioSFXPlayer>();
+        audio.SFXPlayOneShot(int.Parse(_parameters[0]));    
+    }
 }

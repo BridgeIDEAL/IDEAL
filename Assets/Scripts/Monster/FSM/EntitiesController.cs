@@ -169,7 +169,8 @@ public class EntitiesController : MonoBehaviour
                 ChaseSound(value);
             }
         } 
-    } 
+    }
+    public bool PrincipalChase { get; set; } = false;
 
     public void ActiveChaseEntity(ChaseEventType _type)
     {

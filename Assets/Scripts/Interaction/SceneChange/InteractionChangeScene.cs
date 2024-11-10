@@ -42,6 +42,12 @@ public class InteractionChangeScene : AbstractInteraction
                 return;
             }
         }
+
+        if (EntityDataManager.Instance.Controller.PrincipalChase)
+        {
+            string principalFailMessage = "추격에서 벗어나야 한다.";
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(principalFailMessage);
+        }
    
         if (onceActiveEvent && needItem!=0)
         {

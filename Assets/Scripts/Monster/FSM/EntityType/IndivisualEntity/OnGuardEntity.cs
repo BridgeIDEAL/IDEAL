@@ -35,9 +35,9 @@ public class OnGuardEntity : IMovableEntity
     public override void QuietEnter() { SetAnimation(currentType, true); }
     public override void QuietExecute() { }
     public override void QuietExit() { SetAnimation(currentType, false); }
-    public override void PenaltyEnter() { SetAnimation(currentType, true); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); suddenDeath.ActiveThis(true, this); }
+    public override void PenaltyEnter() { SetAnimation(currentType, true); suddenDeath.ActiveThis(true, this); }
     public override void PenaltyExecute() {  }
-    public override void PenaltyExit() { SetAnimation(currentType, false); IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd(); suddenDeath.ActiveThis(false); }
+    public override void PenaltyExit() { SetAnimation(currentType, false);  suddenDeath.ActiveThis(false); }
 
     [Header("Immediately Info")]
     public GameObject immediatelyDeathObject;

@@ -30,6 +30,8 @@ public class DialogueUI : MonoBehaviour
     bool isChooseState = false;
     bool isTyping = false;
     bool isPressDialogueSkipBtn = false;
+
+    AudioSFXPlayer sfxPlayer =null;
     #endregion
 
     #region Dialogue System Method
@@ -50,6 +52,9 @@ public class DialogueUI : MonoBehaviour
         dialogue = DialogueManager.Instance.GetDialogue(_key);
         if (dialogue == null)
             return;
+
+        if (sfxPlayer == null)
+            sfxPlayer = Camera.main.GetComponentInChildren<AudioSFXPlayer>();
         dialogueBox.SetActive(true);
         curTypeSpeed = _typeSpeed;
         curDialogueLineIdx = 0;
@@ -159,6 +164,7 @@ public class DialogueUI : MonoBehaviour
         }
         curDialogueLineIdx += 1;
         isPressDialogueSkipBtn = false;
+        sfxPlayer.SFXPlay(3);
         CanSkip = true;
         isTyping = false;
     }
@@ -271,6 +277,7 @@ public class DialogueUI : MonoBehaviour
                 ResumeTalk();
                 break;
             case "PlaySFX":
+                Event.PlaySFX(_parameterList);
                 break;
         }
     }

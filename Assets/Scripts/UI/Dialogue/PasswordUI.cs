@@ -70,6 +70,8 @@ public class PasswordUI : MonoBehaviour
         decideButtons[1].onClick.RemoveAllListeners();
         decideButtons[0].onClick.AddListener(() => { ClickRingBellYesBtn(); });
         decideButtons[1].onClick.AddListener(() => { ClickRingBellNoBtn(); });
+
+     
     }
 
     public void FailPassword()
@@ -121,8 +123,13 @@ public class PasswordUI : MonoBehaviour
         //decideButtons[1].gameObject.SetActive(false);
         InActivePassword();
         EventDataManager.Instance.TriggerController.TriggerLastEvent();
+        PasswordInteraction.gameObject.GetComponent<AudioSFXPlayer>().SFXPlayOneShot(0);
+
+
         if (PasswordInteraction != null)
             PasswordInteraction.DisablePassword();
+
+
     }
 
     public void ClickRingBellNoBtn()
