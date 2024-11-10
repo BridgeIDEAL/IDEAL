@@ -41,6 +41,10 @@ public class SafeZoneColliderManager : MonoBehaviour
         if(other.CompareTag("ServerRoom")){
             RoomArchiveLogManager.Instance.UpdateArchiveLogData(1602, CountAttempts.Instance.GetAttemptCount());
         }
+
+        if(other.CompareTag("MusicRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.MusicRoomStart();
+        }
     }
 
     private void OnTriggerExit(Collider other) {
@@ -59,6 +63,10 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
         if(other.CompareTag("VHSEffectRoom")){
             IdealSceneManager.Instance.RadialBlurActive(true);
+        }
+
+        if(other.CompareTag("MusicRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.MusicRoomEnd();
         }
     }
 }

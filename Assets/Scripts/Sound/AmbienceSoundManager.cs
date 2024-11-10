@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum IdealArea{
@@ -19,18 +20,21 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource lastRunAudioSource_2;
 
     [SerializeField] private AudioSource lookOutAudioSource;
+    [SerializeField] private AudioSource musicRoomAudioSource;
 
     private Coroutine audioCoroutine;
     public IdealArea currentArea = IdealArea.Outside;
 
     private Coroutine chaseAudioCoroutine;
     private Coroutine lookoutAudioCoroutine;
+    private Coroutine musicRoomAudioCoroutine;
 
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
     [SerializeField] private float chaseAudioVolume;
     [SerializeField] private float lastRunAudioVolume;
     [SerializeField] private float lookOutAudioVolume;
+    [SerializeField] private float musicRoomAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
 
     private bool isLastRun = false;
@@ -243,5 +247,46 @@ public class AmbienceSoundManager : MonoBehaviour
             yield return null;
         }
         lookOutAudioSource.Stop();
+    }
+
+    public void MusicRoomStart(){
+        Debug.Log("MusicrRoom start");
+        if(musicRoomAudioCoroutine != null){
+            StopCoroutine(musicRoomAudioCoroutine);
+        }
+        musicRoomAudioCoroutine = StartCoroutine(MusicRoomStartCoroutine());
+    }
+
+    private IEnumerator MusicRoomStartCoroutine(){
+        Debug.Log("Coroutine!!Start");
+        float stepTimer = 0.0f;
+        float fadeTime = soundFadeTime;
+        musicRoomAudioSource.volume = 0.0f;
+        // musicRoomAudioSource.Play();
+        // Playonwake로 재생되도록 함
+        while(stepTimer <= fadeTime){
+            musicRoomAudioSource.volume = Mathf.Lerp(0.0f, musicRoomAudioVolume, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public void MusicRoomEnd(){
+        if(musicRoomAudioCoroutine != null){
+            StopCoroutine(musicRoomAudioCoroutine);
+        }
+        musicRoomAudioCoroutine = StartCoroutine(MusicRoomEndCoroutine());
+    }
+
+    private IEnumerator MusicRoomEndCoroutine(){
+        float stepTimer = 0.0f;
+        float fadeTime = soundFadeTime;
+
+        float musicRoomVol = musicRoomAudioSource.volume;
+        while(stepTimer <= fadeTime){
+            musicRoomAudioSource.volume = Mathf.Lerp(musicRoomVol, 0.0f, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 }
