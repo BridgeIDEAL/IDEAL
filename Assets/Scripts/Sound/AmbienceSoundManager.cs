@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum IdealArea{
@@ -21,6 +20,7 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource lastRunAudioSource_2;
 
     [SerializeField] private AudioSource lookOutAudioSource;
+    [SerializeField] private AudioClip[] lookOutAudioClip = new AudioClip[2];
     [SerializeField] private AudioSource musicRoomAudioSource;
 
     private Coroutine audioCoroutine;
@@ -215,7 +215,9 @@ public class AmbienceSoundManager : MonoBehaviour
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
         lookOutAudioSource.volume = 0.0f;
+        lookOutAudioSource.clip = lookOutAudioClip[0];
         lookOutAudioSource.Play();
+        Invoke("LookOutSecondAudioClipPlay", lookOutAudioClip[0].length);
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
@@ -223,6 +225,11 @@ public class AmbienceSoundManager : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    void LookOutSecondAudioClipPlay(){
+        lookOutAudioSource.clip = lookOutAudioClip[1];
+        lookOutAudioSource.Play();
     }
 
     public void LookOutEnd(){
