@@ -9,7 +9,7 @@ public class GraffitiDeathTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
         }
     }
 }

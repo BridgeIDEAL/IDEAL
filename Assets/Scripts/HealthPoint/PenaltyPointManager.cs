@@ -120,7 +120,7 @@ public class PenaltyPointManager : MonoBehaviour
             // 제한 시간 보다 더 보는 경우 게임 오버
             if(eyeWatchingTimer >= eyeWatchingGameOverTime){
                 eyeWatchingTimer = 0.0f;
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(7);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(7);
             }
 
         }
@@ -148,7 +148,7 @@ public class PenaltyPointManager : MonoBehaviour
             soundHearingTimer += Time.deltaTime;
             if(soundHearingTimer >= soundHearingGameOverTime){
                 if(!insideSafeZone){
-                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(6);
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(6);
                 }
                 soundHearingTimer = 0.0f;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();

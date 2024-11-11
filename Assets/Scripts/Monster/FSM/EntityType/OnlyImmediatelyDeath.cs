@@ -9,7 +9,7 @@ public class OnlyImmediatelyDeath : MonoBehaviour
 
     private void Awake()
     {
-        // Ä«¸Þ¶ó ºí·£µå ¹æ½ÄÀ» ÄÆÀ¸·Î º¯°æ
+        // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Camera mainCam = Camera.main;
         CinemachineBrain cb = mainCam.GetComponent<CinemachineBrain>();
         cb.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
@@ -19,6 +19,6 @@ public class OnlyImmediatelyDeath : MonoBehaviour
 
     public void Death()
     {
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(deathIndex);
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
     }
 }

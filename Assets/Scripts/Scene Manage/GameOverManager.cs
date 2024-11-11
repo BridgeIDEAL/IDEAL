@@ -14,6 +14,7 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private GameObject pressKeyTextObject;
     [SerializeField] private GameObject vhsRawImage;
     [SerializeField] private GameObject vhsVideoPlayer;
+    [SerializeField] private AudioSource gameOverAudio;
     private float pressKeyTime = 1.0f;
     private TextMeshProUGUI endingMentText;
     private bool isEnd = false;
@@ -63,6 +64,7 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOverWithVHSEffect(int stateNum = 0){
+        gameOverAudio.Play();
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay(() =>GameOver(stateNum));
     }
 
@@ -72,6 +74,7 @@ public class GameOverManager : MonoBehaviour
             if(stepTimer >= pressKeyTime){
                 pressKeyTextObject.SetActive(true);
                 if(Input.anyKeyDown){
+                    gameOverAudio.Stop();
                     IdealSceneManager.Instance.LoadLobbyScene();
                 }
             }

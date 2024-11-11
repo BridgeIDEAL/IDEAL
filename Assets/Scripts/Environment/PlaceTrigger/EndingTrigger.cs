@@ -8,7 +8,7 @@ public class EndingTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOver(9);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(9);
         }
     }
 }
