@@ -17,6 +17,7 @@ public class MainCamEffect : MonoBehaviour
     float fieldOfViewTime = 0f;
 
     Camera mainCam = null;
+    AudioListener listener = null;
 
     private void Start()
     {
@@ -30,10 +31,13 @@ public class MainCamEffect : MonoBehaviour
                 followCamera = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
             }
         }
+
+        if (listener == null)
+            this.gameObject.GetComponent<AudioListener>();
     }
 
     #region Fall Down Effect
-    public void FallDownVision(UnityAction fallAction, float waitTime=0f)
+    public void FallDownVision(UnityAction fallAction, float waitTime = 0f)
     {
         StartCoroutine(DescentFallDown());
         StartCoroutine(RotateFallDown(fallAction, waitTime));
@@ -78,7 +82,7 @@ public class MainCamEffect : MonoBehaviour
 
     #region Find Of View Effect
     public void CallSetFieldOfView(float setView) => followCamera.m_Lens.FieldOfView = setView;
-    public void CallGraduallySetFieldOfView(float end=-2, float time=-2)
+    public void CallGraduallySetFieldOfView(float end = -2, float time = -2)
     {
         if (time <= -1)
             time = fieldOfViewTime;
@@ -95,13 +99,25 @@ public class MainCamEffect : MonoBehaviour
             followCamera.Follow = null;
 
         float start = followCamera.m_Lens.FieldOfView;
-        while (timer < time) 
+        while (timer < time)
         {
             timer += Time.deltaTime;
-            followCamera.m_Lens.FieldOfView = Mathf.Lerp(start, end, timer / time); 
+            followCamera.m_Lens.FieldOfView = Mathf.Lerp(start, end, timer / time);
             yield return null;
         }
         followCamera.m_Lens.FieldOfView = end;
     }
     #endregion
+
+    public void TurnOffPlayerCamera()
+    {
+        followCamera.enabled = false;
+        if (listener == null)
+        {
+            Debug.Log("리스너가 없다");
+        }
+        else
+            listener.enabled = false;
+        this.gameObject.GetComponent<Camera>().enabled = false;
+    }
 }

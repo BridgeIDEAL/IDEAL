@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -180,7 +181,8 @@ public class EntitiesController : MonoBehaviour
     public void InActiveInteractionEntities()
     {
         listCnt = 0;
-        activeEntityList.Clear();
+        if(activeEntityList.Count!=0)
+            activeEntityList.Clear();
         interactionEntitiesParent.SetActive(false);
     }
 
@@ -237,6 +239,15 @@ public class EntitiesController : MonoBehaviour
         {
             if (chaseGroup[i] == exceptOne)
                 continue;
+            chaseGroup[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void DisableChaseGroup()
+    {
+        int cnt = chaseGroup.Count;
+        for (int i = 0; i < cnt; i++)
+        {
             chaseGroup[i].gameObject.SetActive(false);
         }
     }

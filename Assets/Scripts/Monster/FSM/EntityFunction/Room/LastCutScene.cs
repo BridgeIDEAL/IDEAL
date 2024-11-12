@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LastCutScene : LastObjects
 {
+    [SerializeField] GameObject timelineParent;
+    [SerializeField] Camera cam;
+    [SerializeField] CinemachineVirtualCamera virtualCam;
+    [SerializeField] AudioListener listener;
     private void Start()
     {
         if (isSameScene && EventDataManager.Instance.RingAfterSchoolBell)
@@ -21,7 +26,16 @@ public class LastCutScene : LastObjects
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(3);
+            // To Do ~~ Turn Off All Audio
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+            EntityDataManager.Instance.Controller.InActiveInteractionEntities();
+            EntityDataManager.Instance.Controller.DisableChaseGroup();
+
+            cam.enabled = false;
+            listener.enabled = false;
+            virtualCam.enabled = false;
+
+            timelineParent.SetActive(true);
         }
     }
 }

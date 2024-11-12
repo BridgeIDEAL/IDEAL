@@ -57,5 +57,7 @@ public class LastTimeline : MonoBehaviour
         }
         fadeImage.color = stColor;
     }
+
+    public void GameEnd() { IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(9); }
 }
 
