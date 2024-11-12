@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     
     [SerializeField]
     private GameObject[] Canvases;
+    [SerializeField]
+    private AudioSource inventoryUISound;
 
     private bool[] UIActives = new bool[System.Enum.GetValues(typeof(UIType)).Length];
 
@@ -117,6 +119,7 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             UIActives[(int)UIType.InventoryUI] = true;
             isInventoryActive = true;
+            inventoryUISound.Play();
             ProgressManager.Instance.TurnOffCheckListIcon();
         }
         else if(Input.GetKeyUp(KeyCode.Tab)){
