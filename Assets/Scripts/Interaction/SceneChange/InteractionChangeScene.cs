@@ -30,8 +30,16 @@ public class InteractionChangeScene : AbstractInteraction
 
     protected override void ActInteraction()
     {
+        // Prevent Door Teleport : When Princiapl Chase
+        if (EntityDataManager.Instance.Controller.PrincipalChase)
+        {
+            string principalFailMessage = "추격에서 벗어나야 한다.";
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(principalFailMessage);
+            return;
+        }
+
         // Add By Jun Start~~~
-        if(Inventory.Instance.FindItemIndex(Inventory.MasterMey) == -1)
+        if (Inventory.Instance.FindItemIndex(Inventory.MasterMey) == -1)
         {
             if (Inventory.Instance.FindItemIndex(needItem) == -1 && needItem != 0)
             {
@@ -43,12 +51,7 @@ public class InteractionChangeScene : AbstractInteraction
             }
         }
 
-        if (EntityDataManager.Instance.Controller.PrincipalChase)
-        {
-            string principalFailMessage = "추격에서 벗어나야 한다.";
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(principalFailMessage);
-        }
-   
+       
         if (onceActiveEvent && needItem!=0)
         {
             onceActiveEvent = false;
