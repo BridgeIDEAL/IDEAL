@@ -39,9 +39,8 @@ public class InteractionGetItem : AbstractInteraction
         if (activationLogNum != -1) {
             //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
         }
-        if (afterInteractionStr != "") {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
-        }
+        // afterInteractionStr 이 비어 있더라도 보내주어야 InteractionText가 초기화
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
         availableCount--;
 
         if (availableCount < 1) {

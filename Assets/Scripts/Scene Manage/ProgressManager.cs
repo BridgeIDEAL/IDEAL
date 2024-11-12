@@ -156,7 +156,8 @@ public class ProgressManager : MonoBehaviour
             MonsterArchiveLogManager.Instance.UpdateArchiveImageData(monsterArchiveImageDic[checkListNum]);
         }
         else{
-            Debug.Log("Invalid checklistnum");
+            // 있으면 작동하는 거고 없어도 비정상은 아님
+            // Debug.Log("Invalid checklistnum");
         }
     }
 
@@ -165,7 +166,8 @@ public class ProgressManager : MonoBehaviour
             MonsterArchiveLogManager.Instance.UpdateArchiveImageData(monsterArchiveLogDic[checkListNum]);
         }
         else{
-            Debug.Log("Invalid checklistnum");
+            // 있으면 작동하는 거고 없어도 비정상은 아님
+            // Debug.Log("Invalid checklistnum");
         }
     }
 
