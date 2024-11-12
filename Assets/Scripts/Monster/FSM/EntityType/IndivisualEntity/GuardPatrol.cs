@@ -132,7 +132,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public override void TalkEnter() { isTalk = true; anim.SetBool("IsWalk", false); }
     public override void TalkExecute() { }
     public override void TalkExit() {
-        //ActiveInteraction.Instance.Active_01F_MapBook();
+        ActiveInteraction.Instance.Active_01F_MapBook();
      }
     #endregion
 

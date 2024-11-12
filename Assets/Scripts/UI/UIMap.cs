@@ -122,6 +122,8 @@ public class UIMap : MonoBehaviour
         }
         else if(Inventory.Instance.FindItemIndex(mapItemCode) == -1 && Inventory.Instance.FindItemIndex(pieceMapItemCode) != -1){
             // 조각 아이템만 있는 경우
+            ProgressManager.Instance.watchedMap = true;
+
             mapUIObjects[0].SetActive(true);
             for(int i = 1; i < mapUIObjects.Length; i++){
                 mapUIObjects[i].SetActive(false);
@@ -131,6 +133,8 @@ public class UIMap : MonoBehaviour
         }
         else if(Inventory.Instance.FindItemIndex(mapItemCode) != -1){
             // 전체 지도 아이템이 있는 경우
+            ProgressManager.Instance.watchedMap = true;
+            
             int watchMapN = ProgressManager.Instance.watchMapNum;
             for(int i = 1; i < mapUIObjects.Length; i++){
                 mapUIObjects[i].SetActive(false);

@@ -20,6 +20,7 @@ public class ActiveInteraction : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        CheckMapBookActive();
         CheckMapGuideActive();
     }
     [SerializeField] private GameObject medicine_01F;
@@ -38,9 +39,17 @@ public class ActiveInteraction : MonoBehaviour
         mapGuide_01F.SetActive(active);
     }
 
-    private void CheckMapGuideActive(){
+    private void CheckMapBookActive(){
         if( ProgressManager.Instance.checkListDic[101] == 1 &&  Inventory.Instance.FindItemIndex(99001) == -1){
             Active_01F_MapBook();
+        }
+    }
+
+    public void CheckMapGuideActive(){
+        if(!ProgressManager.Instance.watchedMap && (Inventory.Instance.FindItemIndex(99001) != -1 || Inventory.Instance.FindItemIndex(990) != -1) ){
+            if(mapGuide_01F != null){
+                Active_01F_MapGuide(true);
+            }
         }
     }
 }

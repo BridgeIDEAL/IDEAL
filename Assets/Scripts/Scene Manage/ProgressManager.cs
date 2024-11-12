@@ -108,6 +108,7 @@ public class ProgressManager : MonoBehaviour
 
     public Dictionary<string, int> doorState = new Dictionary<string, int>();     // 상호작용 없을 시 코드 없음 문 열림 1
 
+    public bool watchedMap = false;
     public int watchMapNum = 0;
     private int mapCheckListStateNum = 0;
 
@@ -196,6 +197,7 @@ public class ProgressManager : MonoBehaviour
             itemState = new Dictionary<int, int>();
             doorState = new Dictionary<string, int>();
             watchMapNum = 0;
+            watchedMap = false;
             mapCheckListStateNum = 0;
         }
         else{
