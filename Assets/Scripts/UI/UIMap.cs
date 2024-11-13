@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIMap : MonoBehaviour
 {
+    [SerializeField] private AudioSource mapOpenSound;
     [SerializeField] private GameObject[] mapUIObjects;
     [SerializeField] private GameObject changeMapButtonObjectLeft;
     [SerializeField] private GameObject changeMapButtonObjectRight;
@@ -123,6 +124,7 @@ public class UIMap : MonoBehaviour
         else if(Inventory.Instance.FindItemIndex(mapItemCode) == -1 && Inventory.Instance.FindItemIndex(pieceMapItemCode) != -1){
             // 조각 아이템만 있는 경우
             ProgressManager.Instance.watchedMap = true;
+            mapOpenSound.Play();
 
             mapUIObjects[0].SetActive(true);
             for(int i = 1; i < mapUIObjects.Length; i++){
@@ -134,6 +136,7 @@ public class UIMap : MonoBehaviour
         else if(Inventory.Instance.FindItemIndex(mapItemCode) != -1){
             // 전체 지도 아이템이 있는 경우
             ProgressManager.Instance.watchedMap = true;
+            mapOpenSound.Play();
             
             int watchMapN = ProgressManager.Instance.watchMapNum;
             for(int i = 1; i < mapUIObjects.Length; i++){
