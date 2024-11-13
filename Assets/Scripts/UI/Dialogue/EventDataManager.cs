@@ -43,5 +43,9 @@ public class EventDataManager : MonoBehaviour
         //Debug.Log(_eventName + "데이터 추가 완료~~");
     }
 
-    public void ClearEventDatas() { eventGroup.Clear(); }
+    public void ClearEventDatas() 
+    {
+        if(eventGroup.Count!=0) eventGroup.Clear();
+        RingAfterSchoolBell = false;
+    }
 }

@@ -1211,7 +1211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5678575625164361943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.022, y: 0.009, z: 7.48}
+  m_LocalPosition: {x: -30, y: 0.01, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,7 +1497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6887055425568642702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.891, y: 1.014, z: 16.061}
+  m_LocalPosition: {x: -29.3, y: 1.01, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5178,17 +5178,17 @@ PrefabInstance:
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.022
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.009
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.48
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
@@ -5233,7 +5233,7 @@ PrefabInstance:
     - target: {fileID: 1551086731074403905, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_Name
-      value: ClassRoomKey_3-8
+      value: ClassRoomKey_3-6
       objectReference: {fileID: 0}
     - target: {fileID: 1551086731074403905, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
@@ -5343,10 +5343,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4318324498562126048}
-  interactionItemData: {fileID: 11400000, guid: 92cba07c9e44c564db21080fbe43686f,
+  interactionItemData: {fileID: 11400000, guid: 7cb5ef7d8b1c85c45a83922cacb5ec28,
     type: 2}
-  detectedStr: "3-8 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD55C\uB2E4."
-  afterInteractionStr: "3-8 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."
+  detectedStr: "3\uD559\uB144 6\uBC18 \uC5F4\uC1E0\uB2E4."
+  afterInteractionStr: "3\uD559\uB144 6\uBC18 \uC5F4\uC1E0\uB97C \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
@@ -6416,28 +6416,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
+      propertyPath: destSceneName
+      value: Prototype
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
+      propertyPath: teleportPoint
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
       propertyPath: destPosition.x
-      value: -18.47227
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.y
-      value: 5.01
+      value: 11.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.z
-      value: 12.96062
+      value: 11.75
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destRotation.y
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: currentSceneName
-      value: Prototype
+      value: Prototype_Second
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
@@ -8915,28 +8925,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
+      propertyPath: destSceneName
+      value: Prototype
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
+      propertyPath: teleportPoint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
       propertyPath: destPosition.x
-      value: -18.47227
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.y
-      value: 5.01
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.z
-      value: 12.96062
+      value: 11.75
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destRotation.y
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: currentSceneName
-      value: Prototype
+      value: Prototype_Second
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
@@ -10535,17 +10555,17 @@ PrefabInstance:
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.891
+      value: -29.3
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.014
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.061
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
         type: 3}
@@ -11147,28 +11167,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
+      propertyPath: destSceneName
+      value: Prototype
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
+      propertyPath: teleportPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
+        type: 3}
       propertyPath: destPosition.x
-      value: -18.47227
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.y
-      value: 5.01
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destPosition.z
-      value: 12.96062
+      value: 11.75
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: destRotation.y
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}
       propertyPath: currentSceneName
-      value: Prototype
+      value: Prototype_Second
       objectReference: {fileID: 0}
     - target: {fileID: 2274446212890930969, guid: 693180c3c8bd8264082b83ea1ebc4c1a,
         type: 3}

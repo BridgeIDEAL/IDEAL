@@ -24,7 +24,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     [SerializeField, Range(0.1f, 5f)] float walkMotionSpeed;
     [SerializeField, Range(0.1f,5f)] float runMotionSpeed;
 
-    int currentPoint = 1;
+    int currentPoint = 0;
     int maxPoint;
     float stopPatrolDistance = 0.8f;
     #endregion
@@ -132,7 +132,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     public IEnumerator MoveToKeepAnEyePosition(Transform keepAnEyeTransform)
     {
         agent.SetDestination(keepAnEyeTransform.position);
-        while (agent.remainingDistance > 0.1f) 
+        while (agent.enabled!=false && agent.remainingDistance > 0.1f) 
         {
             yield return null;
         }
@@ -159,12 +159,14 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         agent.enabled = false;
         currentPoint = 0;
-        dissolveEffect.Dissolve(() => { transform.position = patrolPoints[0]; dissolveEffect.RestoreDissolve(dissolveAction); });
+        dissolveEffect.Dissolve(dissolveAction);
     }
 
     public void ReturnStartPoint()
     {
+        transform.position = patrolPoints[0];
         agent.enabled = true;
+        dissolveEffect.RestoreDissolve();
         controller.SendMessage(EntityStateType.Idle);
     }
     #endregion
@@ -223,7 +225,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         if (!isInStudyRoom)
         {
-            agent.SetDestination(playerTransform.position);
+            if(agent.enabled!=false)
+                agent.SetDestination(playerTransform.position);
             
             if(collisionDetect.IsCollidePlayer())
             {

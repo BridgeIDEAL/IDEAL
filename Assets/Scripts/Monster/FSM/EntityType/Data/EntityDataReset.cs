@@ -7,6 +7,6 @@ public class EntityDataReset : MonoBehaviour
     void Start()
     {
         EntityDataManager.Instance.ResetData();
-        EventDataManager.Instance.RingAfterSchoolBell = false;
+        EventDataManager.Instance.ClearEventDatas();
     }
 }
