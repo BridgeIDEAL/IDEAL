@@ -159,7 +159,8 @@ public class IdealSceneManager : MonoBehaviour
 
         PenaltyPointManager.Instance.watchIntroEnded = true;
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);
-        LobbyBGMFade(false);
+        // Intro 보일 때 LobbyBGMFadeOut 해주므로
+        // LobbyBGMFade(false);
 
         yield return null;
 
@@ -271,7 +272,7 @@ public class IdealSceneManager : MonoBehaviour
 
     }
 
-    private void LobbyBGMFade(bool isFadeIn){
+    public void LobbyBGMFade(bool isFadeIn){
         if(soundCoroutine != null){
             StopCoroutine(soundCoroutine);
         }

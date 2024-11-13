@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,12 +20,24 @@ public class LoadingImageManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI introTextTMP;
     [SerializeField] private GameObject introTextLoadedTextObject;
     private Coroutine introTextCoroutine;
-    private Coroutine typingSoundCoroutine;
+    // private Coroutine typingSoundCoroutine;
     private int introTextStep = 0;
 
     [SerializeField] private GameObject[] IntroImageObjects;
-    [SerializeField] private AudioClip[] typingSounds;
-    [SerializeField] private AudioSource audioSource;
+    // [SerializeField] private AudioClip[] typingSounds;
+    [SerializeField] private AudioSource bgmAudioSource;
+
+    [SerializeField] private AudioSource talkAudioSource;
+    [SerializeField] private AudioClip[] talkAudioClips;
+    private Dictionary<int, int> introTalkDic = new Dictionary<int, int>{   // intro Index와 talk sound 연결 Dictionary
+        {0, 0},
+        {1, 1},
+        {3, 2},
+        {5, 3},
+        {6, 4},
+        {8, 5},
+        {10, 6},
+    };
 
     private string[] introTexts = new string[]{
         "\n<color=#ed2809><<경고: 해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다.>\n</color>\n<<부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n똝\n• 적은 출혈이나 상처를 동반한 경미한 부상\n• 생명을 위협할만한 심각한 부상\n• 사망\n• ■■■■■■■■■■■ (■■■■■)똝",
@@ -78,6 +91,7 @@ public class LoadingImageManager : MonoBehaviour
     private void Update(){
         if(introTextStep >= introTexts.Length && Input.anyKeyDown){
             introTextStep = 0;
+            bgmAudioSource.Stop();
             goNext = true;
             loadingImageObject.SetActive(false);
         }
@@ -117,13 +131,16 @@ public class LoadingImageManager : MonoBehaviour
             yield return null;
         }
         introTextLoadedTextObject.SetActive(false);
+
+        IdealSceneManager.Instance.LobbyBGMFade(false);
+        bgmAudioSource.Play();
         
         skipParagraph = false;
         while (introTextStep < introTexts.Length){
-            if(typingSoundCoroutine != null){
-                StopCoroutine(typingSoundCoroutine);
-            }
-            typingSoundCoroutine = StartCoroutine(PlayTypingSounds());
+            // if(typingSoundCoroutine != null){
+            //     StopCoroutine(typingSoundCoroutine);
+            // }
+            // typingSoundCoroutine = StartCoroutine(PlayTypingSounds());
             
             foreach(GameObject imageObject in IntroImageObjects){
                 if(imageObject != null){
@@ -131,8 +148,13 @@ public class LoadingImageManager : MonoBehaviour
                 }
             }
 
+            if(introTalkDic.ContainsKey(introTextStep) == true){
+                talkAudioSource.clip = talkAudioClips[introTalkDic[introTextStep]];
+                talkAudioSource.Play();
+            }
+
             yield return StartCoroutine(TypeText(introTexts[introTextStep], introTextStep));
-            StopCoroutine(typingSoundCoroutine);
+            // StopCoroutine(typingSoundCoroutine);
 
             
             if(IntroImageObjects[introTextStep] != null){
@@ -197,8 +219,8 @@ public class LoadingImageManager : MonoBehaviour
                 skipParagraph = true;
             }
             
-            if(skipParagraph){ 
-                audioSource.Stop();
+            if(skipParagraph){
+                talkAudioSource.Stop();
                 introTextTMP.text = currentText + introSkipTexts[index];
                 break;
             }
@@ -213,15 +235,15 @@ public class LoadingImageManager : MonoBehaviour
         introTextTMP.text += " \n\n";
     }
 
-    IEnumerator PlayTypingSounds(){
-        while (true){
-            if (!audioSource.isPlaying){
-                int index = Random.Range(0, typingSounds.Length);
-                audioSource.PlayOneShot(typingSounds[index]);
-                yield return new WaitForSeconds(typingSounds[index].length); // 사운드가 재생되는 동안 대기
-            }
-            yield return null;
-        }
-    }
+    // IEnumerator PlayTypingSounds(){
+    //     while (true){
+    //         if (!audioSource.isPlaying){
+    //             int index = Random.Range(0, typingSounds.Length);
+    //             audioSource.PlayOneShot(typingSounds[index]);
+    //             yield return new WaitForSeconds(typingSounds[index].length); // 사운드가 재생되는 동안 대기
+    //         }
+    //         yield return null;
+    //     }
+    // }
 
 }
