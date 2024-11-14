@@ -96,7 +96,6 @@ public class AmbienceSoundManager : MonoBehaviour
     }
 
     private IEnumerator SoundFadeCoroutine(AudioSource fadeAudioSource, float fadeDestAudioVol, float fadeTime, bool needPlayOn){
-        Debug.Log("SoundFadeCoroutine!! " + fadeAudioSource.gameObject.name);
         float outsideAudioVol = outsideAudioSource.volume;
         float insideAudioVol = insideAudioSource.volume;
         float chaseAudioVol = chaseAudioSource.volume;

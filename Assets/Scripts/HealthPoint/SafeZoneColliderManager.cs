@@ -60,7 +60,6 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
 
         if(other.CompareTag("Outside")){
-            Debug.Log("trigger Outside!!");
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
         }
         if(other.CompareTag("GuardRoom")){
