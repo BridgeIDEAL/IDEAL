@@ -184,6 +184,8 @@ namespace StarterAssets
         private void SetTeleportationFalse()
         {
             needTeleportation = false;
+            _controller.SimpleMove(Vector3.zero);
+            _verticalVelocity = 0.0f;
         }
 
         private void LateUpdate()
