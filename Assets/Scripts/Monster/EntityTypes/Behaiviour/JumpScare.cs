@@ -43,6 +43,9 @@ public abstract class JumpScare : MonoBehaviour
         {
             virtualCam.Follow = null;
         }
+
+        // Inactive Entities
+        EntityDataManager.Instance.Controller.InActiveInteractionEntities();
     }
 
     public abstract void SetCameraSetting();
@@ -53,5 +56,5 @@ public abstract class JumpScare : MonoBehaviour
         {
             entityMeshObjests[i].SetActive(false);
         }
-    }
+    } 
 }

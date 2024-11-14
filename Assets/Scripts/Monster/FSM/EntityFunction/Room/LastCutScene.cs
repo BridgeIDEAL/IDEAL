@@ -10,6 +10,7 @@ public class LastCutScene : LastObjects
     [SerializeField] Camera cam;
     [SerializeField] CinemachineVirtualCamera virtualCam;
     [SerializeField] AudioListener listener;
+    [SerializeField] GameObject front_light;
     private void Start()
     {
         if (isSameScene && EventDataManager.Instance.RingAfterSchoolBell)
@@ -27,6 +28,8 @@ public class LastCutScene : LastObjects
         if (other.CompareTag("Player"))
         {
             // To Do ~~ Turn Off All Audio
+            front_light.SetActive(true);
+
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
             EntityDataManager.Instance.Controller.InActiveInteractionEntities();
             EntityDataManager.Instance.Controller.DisableChaseGroup();

@@ -34,7 +34,6 @@ Transform:
   - {fileID: 394624876037642157}
   - {fileID: 8216616123223064199}
   - {fileID: 4182464523381149679}
-  - {fileID: 6972243136668536704}
   - {fileID: 6103426058280719253}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -217,56 +216,6 @@ Transform:
   m_Father: {fileID: 8216616123223064199}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5149401695930866437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6972243136668536704}
-  - component: {fileID: 5550426192706990433}
-  m_Layer: 0
-  m_Name: Light Probe Group
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6972243136668536704
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5149401695930866437}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 1, z: -9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3134566272088034461}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!220 &5550426192706990433
-LightProbeGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5149401695930866437}
-  m_Enabled: 1
-  m_SourcePositions:
-  - {x: 2, y: 1, z: 1.5}
-  - {x: 2, y: 1, z: -1.5}
-  - {x: 2, y: -1, z: 1.5}
-  - {x: 2, y: -1, z: -1.5}
-  - {x: -1.5, y: 1, z: 1.5}
-  - {x: -1.5, y: 1, z: -1.5}
-  - {x: -1.5, y: -1, z: 1.5}
-  - {x: -0.5, y: -1, z: -1.5}
-  m_Dering: 1
 --- !u!1 &5501707269807104426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1595,7 @@ PrefabInstance:
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}

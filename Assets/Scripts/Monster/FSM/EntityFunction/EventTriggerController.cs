@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventTriggerController : MonoBehaviour
 {
     [SerializeField] ChaseEventTrigger[] chaseEventTriggerGroup;
+    [SerializeField] ControlSky controlSky;
     [SerializeField] LastObjects[] lastObjects;
     public void Start()
     {
@@ -15,6 +16,7 @@ public class EventTriggerController : MonoBehaviour
             // To Do ~~ Sound
             //IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
             RenderSettings.skybox = lastBoxMat;
+            controlSky?.SetLightColor();
         }
 
         int chaseTriggerCnt = chaseEventTriggerGroup.Length;
@@ -22,6 +24,11 @@ public class EventTriggerController : MonoBehaviour
         {
             chaseEventTriggerGroup[i].Init();
         }
+
+        if(controlSky==null)
+            controlSky = FindObjectOfType<ControlSky>();
+
+       
     }
 
     /// <summary>
@@ -53,6 +60,7 @@ public class EventTriggerController : MonoBehaviour
         EnableTrigger(ChaseEventType.Last3F_GirlStudent);
 
         RenderSettings.skybox = lastBoxMat;
+        controlSky?.SetLightColor();
         // To Do ~~ Audio
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LastRunStart();
         MonsterArchiveLogManager.Instance.UpdateArchiveImageData(8);
