@@ -32,6 +32,7 @@ public class PenaltyPointManager : MonoBehaviour
     
     private float soundPenaltyRespawnTime = 100.0f;
     public float soundPenaltyStepTimer = 0.0f;
+    private float soundPenaltyDelay = 20.0f;
     public bool isSoundHearing = false;
     private float soundHearingGameOverTime = 10.0f;
     private float soundHearingTimer = 0.0f;
@@ -88,6 +89,14 @@ public class PenaltyPointManager : MonoBehaviour
         insideSafeZone = false;
         inLobby = true;
         inPrototypeSecond = false;
+    }
+
+    public void OnChangeScene(){
+        // 유저가 씬을 바꿨을 때 바로 사이렌이 울리면 대처하기 어려우므로
+        if(isSoundHearing || soundPenaltyRespawnTime - soundPenaltyStepTimer < soundPenaltyDelay){
+            isSoundHearing = false;
+            soundPenaltyStepTimer = soundPenaltyRespawnTime - soundPenaltyDelay;
+        }
     }
 
 

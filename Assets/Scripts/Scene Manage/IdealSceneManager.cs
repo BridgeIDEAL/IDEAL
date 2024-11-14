@@ -239,6 +239,7 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             // Ambience Sound -> Inside
             currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+            PenaltyPointManager.Instance.OnChangeScene();
             
         }
         else if(currentSceneName == "Prototype_Second"){
@@ -254,6 +255,7 @@ public class IdealSceneManager : MonoBehaviour
             currentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
             // Ambience Sound -> Inside
             currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+            PenaltyPointManager.Instance.OnChangeScene();
         }
 
         // 화면 fade In 효과 넣기

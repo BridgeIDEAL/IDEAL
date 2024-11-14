@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 901036016}
   - component: {fileID: 901036018}
   - component: {fileID: 901036017}
+  - component: {fileID: 901036019}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -861,6 +862,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &901036019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901036015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f6490705b44c24a90670f622ed97bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handLight: {fileID: 901036018}
 --- !u!1 &1000934974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3929,6 +3943,11 @@ PrefabInstance:
       objectReference: {fileID: 1551190532}
     - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
+      propertyPath: playerHandLight
+      value: 
+      objectReference: {fileID: 901036019}
+    - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
+        type: 3}
       propertyPath: playerEffectSound
       value: 
       objectReference: {fileID: 1563995766}
@@ -3941,7 +3960,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ambienceSoundManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1920963111}
     - target: {fileID: 1202310563507045737, guid: 7800d4f75cd775145986739f75df50c9,
         type: 3}
       propertyPath: playerArmatureObject
@@ -4972,6 +4991,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1025f5ee2f112f42b40b24d92dca537, type: 3}
+--- !u!114 &1920963111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6936016028977692409, guid: f1025f5ee2f112f42b40b24d92dca537,
+    type: 3}
+  m_PrefabInstance: {fileID: 1920963110}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b5a49d4683744d87d2f80d8a35ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1954166887
 PrefabInstance:
   m_ObjectHideFlags: 0
