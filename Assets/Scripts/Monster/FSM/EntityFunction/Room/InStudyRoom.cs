@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InStudyRoom : MonoBehaviour
 {
+    
     [SerializeField]
     InStudyroomType studyroomType = InStudyroomType.Classroom;
 
@@ -32,7 +33,8 @@ public class InStudyRoom : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
+        { 
+
             if (Principal == null)
                 return;
             Principal.PlayerInStudyRoom(keepAnEyeTransform, isSelfStudyroom);
@@ -43,6 +45,7 @@ public class InStudyRoom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             if (Principal == null)
                 return;
             Principal.PlayerOutStudyRoom();
