@@ -729,10 +729,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5897750634065902268, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6495078706803125712, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
         type: 3}
       propertyPath: m_Name
       value: SinkPartition
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495078706803125712, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e9b0ec25f1c8c44b07a36f8118f974, type: 3}
@@ -1279,6 +1289,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2737798386347223783}
     m_Modifications:
+    - target: {fileID: 293247233210897207, guid: d8a549d72e01db7439c2515f42fee14c,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3025692687985984245, guid: d8a549d72e01db7439c2515f42fee14c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1347,12 +1362,12 @@ PrefabInstance:
     - target: {fileID: 3025692687985984246, guid: d8a549d72e01db7439c2515f42fee14c,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 3084767043204534436, guid: d8a549d72e01db7439c2515f42fee14c,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 126
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8a549d72e01db7439c2515f42fee14c, type: 3}
@@ -1989,63 +2004,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1, z: 0.025}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &3398560738048037539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6233230674573805454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abstractInteraction: {fileID: 3975429284586847990}
-  interactionOutline: {fileID: 4510952348308392889}
-  outlineActive: 0
---- !u!114 &3975429284586847990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6233230674573805454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e893c174581efb748b67d1b02ea8edae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 8008776009984840859}
-  doorObject: {fileID: 2057861392812825929}
-  destRotation: {x: 0, y: 0, z: 0}
-  openRequiredTime: 0.5
-  detectedStr: "\uD654\uC7A5\uC2E4 \uBB38\uC744 \uC5F0\uB2E4."
-  successInteractionStr: 
-  failInteractionStr: 
-  needItem: -1
-  activationLogNum: -1
-  isKeyBox: 0
---- !u!114 &4510952348308392889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6233230674573805454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
-  outlineScaleFactor: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  reverseY: 0
-  hasChild: 0
-  planeObject: 0
-  planeValue: -0.0005
-  outlineMask: 
 --- !u!82 &8008776009984840859
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2143,6 +2101,63 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3398560738048037539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6233230674573805454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874221d1e62df7e42aa74f9bf278076a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abstractInteraction: {fileID: 3975429284586847990}
+  interactionOutline: {fileID: 4510952348308392889}
+  outlineActive: 0
+--- !u!114 &3975429284586847990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6233230674573805454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e893c174581efb748b67d1b02ea8edae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 8008776009984840859}
+  doorObject: {fileID: 2057861392812825929}
+  destRotation: {x: 0, y: 0, z: 0}
+  openRequiredTime: 0.5
+  detectedStr: "\uD654\uC7A5\uC2E4 \uBB38\uC744 \uC5F0\uB2E4."
+  successInteractionStr: 
+  failInteractionStr: 
+  needItem: -1
+  activationLogNum: -1
+  isKeyBox: 0
+--- !u!114 &4510952348308392889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6233230674573805454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1558e3ac3f9c4614e9b305fa639c5f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
+  outlineScaleFactor: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  reverseY: 0
+  hasChild: 0
+  planeObject: 0
+  planeValue: -0.0005
+  outlineMask: 
 --- !u!4 &6758551649015962932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4355370433372235281, guid: 241496c5324c6594dbfbfb24046d8a74,
@@ -2226,10 +2241,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5897750634065902268, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
+        type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6495078706803125712, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
         type: 3}
       propertyPath: m_Name
       value: SinkPartition (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495078706803125712, guid: 97e9b0ec25f1c8c44b07a36f8118f974,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e9b0ec25f1c8c44b07a36f8118f974, type: 3}
