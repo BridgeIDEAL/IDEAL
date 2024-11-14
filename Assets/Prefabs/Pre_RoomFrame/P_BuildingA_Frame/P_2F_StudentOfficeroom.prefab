@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &103936761218962723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883155897394895091}
+  - component: {fileID: 213602216231007717}
+  m_Layer: 0
+  m_Name: FreezeRoomCollider
+  m_TagString: FreezeRoom
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &883155897394895091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103936761218962723}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.01, y: 1, z: -6.08}
+  m_LocalScale: {x: 9.5, y: 2, z: 11}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8380896046657272157}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &213602216231007717
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103936761218962723}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1273233594164136826
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8380896046657272157}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!220 &321096755903870530
 LightProbeGroup:
@@ -206,7 +251,7 @@ Transform:
   - {fileID: 4095042283568439559}
   - {fileID: 4464926477356076962}
   m_Father: {fileID: 8380896046657272157}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3852872646986765016
 GameObject:
@@ -239,7 +284,7 @@ Transform:
   - {fileID: 1104642087148173144}
   - {fileID: 8346222767719954043}
   m_Father: {fileID: 8380896046657272157}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3939884636837467989
 GameObject:
@@ -341,7 +386,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8380896046657272157}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7011700742699773855
 GameObject:
@@ -415,6 +460,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7188400524008488404}
+  - {fileID: 883155897394895091}
   - {fileID: 5741881424999572689}
   - {fileID: 3867384111995700656}
   - {fileID: 1755990261946739453}
@@ -1895,7 +1941,7 @@ PrefabInstance:
     - target: {fileID: 1481657945340076518, guid: dadbe3f5d42a81947815385fd2a1c238,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1481657945340076518, guid: dadbe3f5d42a81947815385fd2a1c238,
         type: 3}
@@ -2984,7 +3030,7 @@ PrefabInstance:
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}
@@ -4874,7 +4920,7 @@ PrefabInstance:
     - target: {fileID: 88472649154973386, guid: 9d218880f278a594699c6a1afe9e5643,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 88472649154973386, guid: 9d218880f278a594699c6a1afe9e5643,
         type: 3}
