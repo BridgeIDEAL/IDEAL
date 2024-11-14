@@ -112,6 +112,8 @@ public class ProgressManager : MonoBehaviour
     public int watchMapNum = 0;
     private int mapCheckListStateNum = 0;
 
+    public bool lastRunning = false;
+
     public bool needShowChecklistIcon = false;
 
     private UICheckListManager uICheckListManager;
@@ -201,6 +203,7 @@ public class ProgressManager : MonoBehaviour
             watchMapNum = 0;
             watchedMap = false;
             mapCheckListStateNum = 0;
+            lastRunning = false;
         }
         else{
             uICheckListManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uICheckListManager;

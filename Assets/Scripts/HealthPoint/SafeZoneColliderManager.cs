@@ -16,7 +16,7 @@ public class SafeZoneColliderManager : MonoBehaviour
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.Outside);
         }
         if(other.CompareTag("GuardRoom")){
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.GuardRoom);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.guardCCTVSound.TurnOnCCTV();
         }
 
         if(other.CompareTag("VHSEffectRoom")){
@@ -40,10 +40,14 @@ public class SafeZoneColliderManager : MonoBehaviour
 
         if(other.CompareTag("ServerRoom")){
             RoomArchiveLogManager.Instance.UpdateArchiveLogData(1602, CountAttempts.Instance.GetAttemptCount());
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ServerRoomStart();
         }
 
         if(other.CompareTag("MusicRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.MusicRoomStart();
+        }
+        if(other.CompareTag("BroadCastRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.BroadCastRoomStart();
         }
     }
 
@@ -56,10 +60,11 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
 
         if(other.CompareTag("Outside")){
+            Debug.Log("trigger Outside!!");
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
         }
         if(other.CompareTag("GuardRoom")){
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.GuardRoom);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.guardCCTVSound.TurnOffCCTV();
         }
         if(other.CompareTag("VHSEffectRoom")){
             IdealSceneManager.Instance.RadialBlurActive(true);
@@ -67,6 +72,12 @@ public class SafeZoneColliderManager : MonoBehaviour
 
         if(other.CompareTag("MusicRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.MusicRoomEnd();
+        }
+        if(other.CompareTag("ServerRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ServerRoomEnd();
+        }
+        if(other.CompareTag("BroadCastRoom")){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.BroadCastRoomEnd();
         }
     }
 }

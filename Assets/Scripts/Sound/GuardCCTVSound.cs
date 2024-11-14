@@ -4,7 +4,6 @@ using UnityEngine;
 public class GuardCCTVSound : MonoBehaviour
 {
     [SerializeField]private AudioSource guardCCTVAudioSource;
-    [SerializeField]private Transform playerTransform;
     public bool isTurnOn = false;
     private float guardCCTVVolume = 0.2f;
     private Coroutine cctvCoroutine;

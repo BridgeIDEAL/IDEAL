@@ -5,15 +5,13 @@ using UnityEngine;
 public enum IdealArea{
     Outside,
     Inside,
-    GuardRoom,
 }
 
 public class AmbienceSoundManager : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
-    [SerializeField] private GuardCCTVSound guardCCTVSound;
+    public GuardCCTVSound guardCCTVSound;
     [SerializeField] private CareerDevelopSound careerDevelopSound;
     [SerializeField] private AudioSource chaseAudioSource;
     [SerializeField] private AudioSource lastRunAudioSource_1;
@@ -22,13 +20,13 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource lookOutAudioSource;
     [SerializeField] private AudioClip[] lookOutAudioClip = new AudioClip[2];
     [SerializeField] private AudioSource musicRoomAudioSource;
+    [SerializeField] private AudioSource broadCastRoomAudioSource;
+    [SerializeField] private AudioSource serverRoomAudioSource;
 
     private Coroutine audioCoroutine;
     public IdealArea currentArea = IdealArea.Outside;
 
-    private Coroutine chaseAudioCoroutine;
     private Coroutine lookoutAudioCoroutine;
-    private Coroutine musicRoomAudioCoroutine;
 
     [SerializeField] private float insideAudioVolume;
     [SerializeField] private float outsideAudioVolume;
@@ -36,13 +34,20 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private float lastRunAudioVolume;
     [SerializeField] private float lookOutAudioVolume;
     [SerializeField] private float musicRoomAudioVolume;
+    [SerializeField] private float broadCastRoomAudioVolume;
+    [SerializeField] private float serverRoomAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
 
-    private bool isLastRun = false;
 
     void Awake(){
         outsideAudioSource.volume = outsideAudioVolume;
         insideAudioSource.volume = insideAudioVolume;
+    }
+
+    void Start(){
+        if(ProgressManager.Instance.lastRunning){
+            LastRunStart();
+        }
     }
 
     public void SoundFadeIn(bool isOutSide){
@@ -50,10 +55,10 @@ public class AmbienceSoundManager : MonoBehaviour
             StopCoroutine(audioCoroutine);
         }
         if(isOutSide){
-            audioCoroutine = StartCoroutine(OutsideSoundCoroutine(soundFadeTime*2));
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime*2, true));
         }
         else{
-            audioCoroutine = StartCoroutine(InsideSoundCoroutine(soundFadeTime*2));
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime*2 , true));
         }
     }
 
@@ -74,133 +79,139 @@ public class AmbienceSoundManager : MonoBehaviour
                     if(audioCoroutine != null){
                         StopCoroutine(audioCoroutine);
                     }
-                    audioCoroutine = StartCoroutine(InsideSoundCoroutine(soundFadeTime));
+                    audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime*2 , true));
                 }
                 else if(currentArea == IdealArea.Inside){
                     currentArea = IdealArea.Outside;
                     if(audioCoroutine != null){
                         StopCoroutine(audioCoroutine);
                     }
-                    audioCoroutine = StartCoroutine(OutsideSoundCoroutine(soundFadeTime));
+                    audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime*2, true));
                 }
                 else{
                     Debug.Log(" Un expected 1");
                 }
             }
-            if(areaCondition == IdealArea.GuardRoom){
-                if(currentArea == IdealArea.Inside){
-                    currentArea = IdealArea.GuardRoom;
-                    guardCCTVSound.TurnOnCCTV();
-                }
-                else if(currentArea == IdealArea.GuardRoom){
-                    currentArea = IdealArea.Inside;
-                    guardCCTVSound.TurnOffCCTV();
-                }
+        }
+    }
+
+    private IEnumerator SoundFadeCoroutine(AudioSource fadeAudioSource, float fadeDestAudioVol, float fadeTime, bool needPlayOn){
+        Debug.Log("SoundFadeCoroutine!! " + fadeAudioSource.gameObject.name);
+        float outsideAudioVol = outsideAudioSource.volume;
+        float insideAudioVol = insideAudioSource.volume;
+        float chaseAudioVol = chaseAudioSource.volume;
+        float lastRunAudioVol_1 = lastRunAudioSource_1.volume;
+        float lastRunAudioVol_2 = lastRunAudioSource_2.volume;
+        float lookOutAudioVol = lookOutAudioSource.volume;
+        float musicRoomAudioVol = musicRoomAudioSource.volume;
+        float broadCastRoomAudioVol = broadCastRoomAudioSource.volume;
+        float serverRoomAudioVol = serverRoomAudioSource.volume;
+
+        float fadeAudioVol = fadeAudioSource.volume;
+
+        if(needPlayOn) fadeAudioSource.Play();
+
+        float stepTimer = 0.0f;
+
+        while(stepTimer <= fadeTime){
+            // 모든 Audio 소리를 FadeOut
+            outsideAudioSource.volume = Mathf.Lerp(outsideAudioVol, 0.0f, stepTimer / fadeTime);
+            insideAudioSource.volume = Mathf.Lerp(insideAudioVol, 0.0f, stepTimer / fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(chaseAudioVol, 0.0f, stepTimer / fadeTime);
+            lastRunAudioSource_1.volume = Mathf.Lerp(lastRunAudioVol_1, 0.0f, stepTimer / fadeTime);
+            lastRunAudioSource_2.volume = Mathf.Lerp(lastRunAudioVol_2, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource.volume = Mathf.Lerp(lookOutAudioVol, 0.0f, stepTimer / fadeTime);
+            musicRoomAudioSource.volume = Mathf.Lerp(musicRoomAudioVol, 0.0f, stepTimer / fadeTime);
+            broadCastRoomAudioSource.volume = Mathf.Lerp(broadCastRoomAudioVol, 0.0f, stepTimer / fadeTime);
+            serverRoomAudioSource.volume = Mathf.Lerp(serverRoomAudioVol, 0.0f, stepTimer / fadeTime);
+
+            // 선택한 Audio의 소리를 FadeIn
+            fadeAudioSource.volume = Mathf.Lerp(fadeAudioVol, fadeDestAudioVol, stepTimer / fadeTime);
+
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator SoundFadeCoroutine(List<AudioSource> fadeAudioSourceList, List<float> fadeDestAudioVolList, float fadeTime, bool needPlayOn){
+        float outsideAudioVol = outsideAudioSource.volume;
+        float insideAudioVol = insideAudioSource.volume;
+        float chaseAudioVol = chaseAudioSource.volume;
+        float lastRunAudioVol_1 = lastRunAudioSource_1.volume;
+        float lastRunAudioVol_2 = lastRunAudioSource_2.volume;
+        float lookOutAudioVol = lookOutAudioSource.volume;
+        float musicRoomAudioVol = musicRoomAudioSource.volume;
+        float broadCastRoomAudioVol = broadCastRoomAudioSource.volume;
+        float serverRoomAudioVol = serverRoomAudioSource.volume;
+
+        List<float> fadeAudioVolList = new List<float>();
+        for(int i = 0; i < fadeAudioSourceList.Count; i++){
+            fadeAudioVolList.Add(fadeAudioSourceList[i].volume);
+        }
+
+        if(needPlayOn){
+            for(int i = 0; i < fadeAudioSourceList.Count; i++){
+                fadeAudioSourceList[i].Play();
             }
         }
-    }
 
-    private IEnumerator InsideSoundCoroutine(float fadeTime){
-        float outsideVol = outsideAudioSource.volume;
-        insideAudioSource.volume = 0.0f;
-        insideAudioSource.Play();
         float stepTimer = 0.0f;
+
         while(stepTimer <= fadeTime){
-            outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
-            insideAudioSource.volume = Mathf.Lerp(0.0f, insideAudioVolume, stepTimer / fadeTime);
+            // 모든 Audio 소리를 FadeOut
+            outsideAudioSource.volume = Mathf.Lerp(outsideAudioVol, 0.0f, stepTimer / fadeTime);
+            insideAudioSource.volume = Mathf.Lerp(insideAudioVol, 0.0f, stepTimer / fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(chaseAudioVol, 0.0f, stepTimer / fadeTime);
+            lastRunAudioSource_1.volume = Mathf.Lerp(lastRunAudioVol_1, 0.0f, stepTimer / fadeTime);
+            lastRunAudioSource_2.volume = Mathf.Lerp(lastRunAudioVol_2, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource.volume = Mathf.Lerp(lookOutAudioVol, 0.0f, stepTimer / fadeTime);
+            musicRoomAudioSource.volume = Mathf.Lerp(musicRoomAudioVol, 0.0f, stepTimer / fadeTime);
+            broadCastRoomAudioSource.volume = Mathf.Lerp(broadCastRoomAudioVol, 0.0f, stepTimer / fadeTime);
+            serverRoomAudioSource.volume = Mathf.Lerp(serverRoomAudioVol, 0.0f, stepTimer / fadeTime);
+
+            // 선택한 Audio들의 소리를 FadeIn
+            for(int i = 0; i < fadeAudioSourceList.Count; i++){
+                fadeAudioSourceList[i].volume = Mathf.Lerp(fadeAudioVolList[i], fadeDestAudioVolList[i], stepTimer / fadeTime);
+            }
+
             stepTimer += Time.deltaTime;
             yield return null;
         }
-        outsideAudioSource.Stop();
     }
 
-    private IEnumerator OutsideSoundCoroutine(float fadeTime){
-        float insideVol = insideAudioSource.volume;
-        outsideAudioSource.volume = 0.0f;
-        outsideAudioSource.Play();
-        float stepTimer = 0.0f;
-        while(stepTimer <= fadeTime){
-            insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
-            outsideAudioSource.volume = Mathf.Lerp(0.0f, outsideAudioVolume, stepTimer / fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-        insideAudioSource.Stop();
-    }
+
+    
 
 
     public void ChaseStart(){
-        if(chaseAudioCoroutine != null){
-            StopCoroutine(chaseAudioCoroutine);
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
         }
-        chaseAudioCoroutine = StartCoroutine(ChaseStartCoroutine());
-    }
-
-    private IEnumerator ChaseEndCoroutine(){
-        float insideVol = insideAudioSource.volume;
-        float outsideVol = outsideAudioSource.volume;
-        float chaseVol = chaseAudioSource.volume;
-        float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
-        float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
-        float stepTimer = 0.0f;
-        float fadeTime = soundFadeTime * 2.0f;
-        
-        while(stepTimer <=fadeTime){
-            insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
-            outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
-            chaseAudioSource.volume = Mathf.Lerp(chaseVol, 0.0f, stepTimer/ fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-        chaseAudioSource.Stop();
+        audioCoroutine = StartCoroutine(SoundFadeCoroutine(chaseAudioSource, chaseAudioVolume, soundFadeTime * 2.0f, true));
     }
 
     public void ChaseEnd(){
-        if(chaseAudioCoroutine != null){
-            StopCoroutine(chaseAudioCoroutine);
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
         }
-        chaseAudioCoroutine = StartCoroutine(ChaseEndCoroutine());
+        if(currentArea == IdealArea.Outside){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime * 2.0f, true));
+        }
+        else{
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime * 2.0f, true));
+        }
     }
 
-    private IEnumerator ChaseStartCoroutine(){
-        float insideVol = insideAudioSource.volume;
-        float outsideVol = outsideAudioSource.volume;
-        float stepTimer = 0.0f;
-        float fadeTime = soundFadeTime * 2.0f;
-        chaseAudioSource.volume = 0.0f;
-        chaseAudioSource.Play();
-        while(stepTimer <=fadeTime){
-            insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
-            outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
-            chaseAudioSource.volume = Mathf.Lerp(0.0f, chaseAudioVolume, stepTimer/ fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-    }
 
     public void LastRunStart(){
-        isLastRun = true;
-        StartCoroutine(LastRunStartCoroutine());
+        ProgressManager.Instance.lastRunning = true;
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
+        }
+        audioCoroutine = StartCoroutine(SoundFadeCoroutine(new List<AudioSource>{lastRunAudioSource_1, lastRunAudioSource_2}, 
+        new List<float>{lastRunAudioVolume, lastRunAudioVolume}, soundFadeTime * 2.0f, true));
     }
 
-    private IEnumerator LastRunStartCoroutine(){
-        float insideVol = insideAudioSource.volume;
-        float outsideVol = outsideAudioSource.volume;
-        float stepTimer = 0.0f;
-        float fadeTime = soundFadeTime * 2.0f;
-        lastRunAudioSource_1.volume = 0.0f;
-        lastRunAudioSource_1.Play();
-        lastRunAudioSource_2.volume = 0.0f;
-        lastRunAudioSource_2.Play();
-        while(stepTimer <=fadeTime){
-            insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
-            outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
-            lastRunAudioSource_1.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
-            lastRunAudioSource_2.volume = Mathf.Lerp(0.0f, lastRunAudioVolume, stepTimer/ fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-    }
 
     public void LookOutStart(){
         if(lookoutAudioCoroutine != null){
@@ -258,43 +269,63 @@ public class AmbienceSoundManager : MonoBehaviour
     }
 
     public void MusicRoomStart(){
-        Debug.Log("MusicrRoom start");
-        if(musicRoomAudioCoroutine != null){
-            StopCoroutine(musicRoomAudioCoroutine);
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
         }
-        musicRoomAudioCoroutine = StartCoroutine(MusicRoomStartCoroutine());
+        audioCoroutine = StartCoroutine(SoundFadeCoroutine(musicRoomAudioSource, musicRoomAudioVolume, soundFadeTime, false));
     }
 
-    private IEnumerator MusicRoomStartCoroutine(){
-        Debug.Log("Coroutine!!Start");
-        float stepTimer = 0.0f;
-        float fadeTime = soundFadeTime;
-        musicRoomAudioSource.volume = 0.0f;
-        // musicRoomAudioSource.Play();
-        // Playonwake로 재생되도록 함
-        while(stepTimer <= fadeTime){
-            musicRoomAudioSource.volume = Mathf.Lerp(0.0f, musicRoomAudioVolume, stepTimer / fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
-        }
-    }
 
     public void MusicRoomEnd(){
-        if(musicRoomAudioCoroutine != null){
-            StopCoroutine(musicRoomAudioCoroutine);
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
         }
-        musicRoomAudioCoroutine = StartCoroutine(MusicRoomEndCoroutine());
+
+        if(currentArea == IdealArea.Outside){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
+        }
+        else{
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
+        }
     }
 
-    private IEnumerator MusicRoomEndCoroutine(){
-        float stepTimer = 0.0f;
-        float fadeTime = soundFadeTime;
+    public void BroadCastRoomStart(){
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
+        }
+        audioCoroutine = StartCoroutine(SoundFadeCoroutine(broadCastRoomAudioSource, broadCastRoomAudioVolume, soundFadeTime, true));
+    }
 
-        float musicRoomVol = musicRoomAudioSource.volume;
-        while(stepTimer <= fadeTime){
-            musicRoomAudioSource.volume = Mathf.Lerp(musicRoomVol, 0.0f, stepTimer / fadeTime);
-            stepTimer += Time.deltaTime;
-            yield return null;
+    public void BroadCastRoomEnd(){
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
+        }
+
+        if(currentArea == IdealArea.Outside){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
+        }
+        else{
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
+        }
+    }
+
+    public void ServerRoomStart(){
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
+        }
+        audioCoroutine = StartCoroutine(SoundFadeCoroutine(serverRoomAudioSource, serverRoomAudioVolume, soundFadeTime, true));
+    }
+
+    public void ServerRoomEnd(){
+        if(audioCoroutine != null){
+            StopCoroutine(audioCoroutine);
+        }
+
+        if(currentArea == IdealArea.Outside){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
+        }
+        else{
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
         }
     }
 
