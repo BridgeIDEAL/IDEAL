@@ -262,6 +262,7 @@ Transform:
   m_Children:
   - {fileID: 8983192460275651009}
   - {fileID: 5331991938996273556}
+  - {fileID: 7164851597896378750}
   - {fileID: 2925437152226697952}
   - {fileID: 5682288432617060815}
   - {fileID: 2969130032078675244}
@@ -269,6 +270,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7608707192791538464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7164851597896378750}
+  - component: {fileID: 7797288110854150916}
+  m_Layer: 0
+  m_Name: FreezeRoomCollider
+  m_TagString: FreezeRoom
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7164851597896378750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608707192791538464}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5, y: 1, z: -5.9}
+  m_LocalScale: {x: 9.5, y: 2, z: 11}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6317516840333687920}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7797288110854150916
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7608707192791538464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8749429430418285454
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +350,7 @@ Transform:
   - {fileID: 8565781754618482849}
   - {fileID: 601926878101565398}
   m_Father: {fileID: 6317516840333687920}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &102886648993549278
 PrefabInstance:
@@ -750,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 6499931344830401834, guid: b146ea584db9cc84a940667b62c83660,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6499931344830401834, guid: b146ea584db9cc84a940667b62c83660,
         type: 3}
@@ -1266,7 +1312,7 @@ PrefabInstance:
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8494477893573268747, guid: 80f1855ba1602f549811b0bc594bb408,
         type: 3}
@@ -2232,7 +2278,7 @@ PrefabInstance:
     - target: {fileID: 5906733193915590850, guid: 3dd9a9791318fe4488d8e949d8b1f03d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5906733193915590850, guid: 3dd9a9791318fe4488d8e949d8b1f03d,
         type: 3}

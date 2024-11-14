@@ -339,7 +339,7 @@ Transform:
   - {fileID: 4283328818026325776}
   - {fileID: 5888705038833177254}
   m_Father: {fileID: 832285330144948680}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1821893351975326671
 GameObject:
@@ -379,7 +379,7 @@ Transform:
   - {fileID: 296371187968830300}
   - {fileID: 7797984597706124432}
   m_Father: {fileID: 832285330144948680}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2314740061389316359
 GameObject:
@@ -496,6 +496,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3155831877441888841}
   m_Mesh: {fileID: 4300002, guid: abc00000000005684042515954112462, type: 3}
+--- !u!1 &3508213775303683394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4547323734709970721}
+  - component: {fileID: 4871753649763006125}
+  m_Layer: 0
+  m_Name: FreezeRoomCollider
+  m_TagString: FreezeRoom
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4547323734709970721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508213775303683394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5, y: 1.157, z: -7.942}
+  m_LocalScale: {x: 9.5, y: 2, z: 15.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 832285330144948680}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4871753649763006125
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508213775303683394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3764204108612240499
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +750,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1831822312442839934}
+  - {fileID: 4547323734709970721}
   - {fileID: 8606556281176600579}
   - {fileID: 8137246547036224648}
   - {fileID: 1330536860958146887}
@@ -1903,7 +1949,7 @@ Transform:
   - {fileID: 5802303612375041575}
   - {fileID: 5802303612473510025}
   m_Father: {fileID: 832285330144948680}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8743548148023450465
 GameObject:
@@ -2654,7 +2700,7 @@ PrefabInstance:
     - target: {fileID: 5906733193915590850, guid: 3dd9a9791318fe4488d8e949d8b1f03d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5906733193915590850, guid: 3dd9a9791318fe4488d8e949d8b1f03d,
         type: 3}
@@ -3259,7 +3305,7 @@ PrefabInstance:
     - target: {fileID: 3644749342603143835, guid: 69320ea9bd5f7a648b8180aa24ab480e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3644749342603143835, guid: 69320ea9bd5f7a648b8180aa24ab480e,
         type: 3}
