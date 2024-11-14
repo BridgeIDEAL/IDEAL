@@ -26,6 +26,7 @@ public class LoadingImageManager : MonoBehaviour
     [SerializeField] private GameObject[] IntroImageObjects;
     // [SerializeField] private AudioClip[] typingSounds;
     [SerializeField] private AudioSource bgmAudioSource;
+    private float bgmAudioVolume;
 
     [SerializeField] private AudioSource talkAudioSource;
     [SerializeField] private AudioClip[] talkAudioClips;
@@ -86,6 +87,7 @@ public class LoadingImageManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         introTextLoadedTextObject.SetActive(false);
+        bgmAudioVolume = bgmAudioSource.volume;
     }
 
     private void Update(){
@@ -133,7 +135,17 @@ public class LoadingImageManager : MonoBehaviour
         introTextLoadedTextObject.SetActive(false);
 
         IdealSceneManager.Instance.LobbyBGMFade(false);
+        float stepTimer = 0.0f;
+        float fadeTime = IdealSceneManager.Instance.soundFadeTime;
+
+        bgmAudioSource.volume = 0.0f;
         bgmAudioSource.Play();
+        while(stepTimer < fadeTime){
+            bgmAudioSource.volume = Mathf.Lerp(0.0f, bgmAudioVolume, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        
         
         skipParagraph = false;
         while (introTextStep < introTexts.Length){

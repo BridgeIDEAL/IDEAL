@@ -39,7 +39,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private AudioSource lobbyBGMBox;
     [SerializeField] private Material radialBlurMaterial;
     public AudioSource metalDoorSound;
-    private float soundFadeTime = 1.4f;
+    public float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
     private float fadeEffectTime = 0.7f;
     private float radialBlurStrength = 1.0f;
