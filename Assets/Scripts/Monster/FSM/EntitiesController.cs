@@ -205,14 +205,14 @@ public class EntitiesController : MonoBehaviour
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
             HealthPointManager.Instance.chased = true;
-            PenaltyPointManager.Instance.isChased = true;
+            PenaltyPointManager.Instance.SetChase(true);
             // To Do ~~ Speed Up
         }
         else
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
             HealthPointManager.Instance.chased = false;
-            PenaltyPointManager.Instance.isChased = false;
+            PenaltyPointManager.Instance.SetChase(false);
             // To Do ~~ Speed Down
         }
     }

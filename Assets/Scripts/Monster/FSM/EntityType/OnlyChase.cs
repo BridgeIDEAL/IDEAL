@@ -8,7 +8,7 @@ public class OnlyChase : MonoBehaviour
     [SerializeField] JumpScare jumpScare;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Animator anim;
-    [SerializeField, Tooltip("¾Ö´Ï¸ÞÀÌ¼Ç ¼Óµµ")] protected float multiValue;
+    [SerializeField, Tooltip("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Óµï¿½")] protected float multiValue;
     [SerializeField] protected int deathIndex;
 
     [SerializeField] protected Transform playerTransform;
@@ -29,7 +29,8 @@ public class OnlyChase : MonoBehaviour
     {
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
-        // To Do ~~ »çÀÌ·» Á¤Áö
+        // To Do ~~ ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½
+        PenaltyPointManager.Instance.SetChase(true);
 
         EntityDataManager.Instance.Controller.IsChase = true;
         EntityDataManager.Instance.Controller.AddChaseGroup(this);
@@ -55,4 +56,9 @@ public class OnlyChase : MonoBehaviour
     }
 
     public void Chase() { agent.SetDestination(playerTransform.position); }
+
+    void OnDisable()
+    {
+        PenaltyPointManager.Instance.SetChase(false);
+    }
 }

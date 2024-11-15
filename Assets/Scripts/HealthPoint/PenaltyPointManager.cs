@@ -39,7 +39,7 @@ public class PenaltyPointManager : MonoBehaviour
     private bool insideSafeZone = false;
 
     private bool isTimerFreeze = false;
-    public bool isChased = false;
+    private bool isChased = false;
 
     private bool inLobby = true;
 
@@ -150,6 +150,8 @@ public class PenaltyPointManager : MonoBehaviour
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren);
             isSoundHearing = true;
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOnLight();
+
+            EntityDataManager.Instance.Controller.InActivePrincipal();
         }
         if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
 
@@ -163,6 +165,8 @@ public class PenaltyPointManager : MonoBehaviour
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
                 isSoundHearing = false;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
+                
+                EntityDataManager.Instance.Controller.InActivePrincipal();
             }
         }
         
@@ -174,5 +178,18 @@ public class PenaltyPointManager : MonoBehaviour
 
     public void GoFreezeZone(bool inside){
         isTimerFreeze = inside;
+    }
+
+    public void SetChase(bool chasing){
+        if(chasing){
+            isChased = true;
+            
+            // 추격 끝난 뒤 바로 사이렌 울리는 것도 좋지 않으므로
+            // 유격을 주기 위해 
+            OnChangeScene();
+        }
+        else{
+            isChased = false;
+        }
     }
 }
