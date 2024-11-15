@@ -30,6 +30,8 @@ public class OnlyChase : MonoBehaviour
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
         // To Do ~~ ���̷� ����
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
+        HealthPointManager.Instance.chased = true;
         PenaltyPointManager.Instance.SetChase(true);
 
         EntityDataManager.Instance.Controller.IsChase = true;
@@ -59,6 +61,8 @@ public class OnlyChase : MonoBehaviour
 
     void OnDisable()
     {
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
+            HealthPointManager.Instance.chased = false;
         PenaltyPointManager.Instance.SetChase(false);
     }
 }
