@@ -155,6 +155,7 @@ public class DialogueEvent : MonoBehaviour
         if (_index < 0)
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.CareerDevelopSoundPlay();
+            RoomArchiveLogManager.Instance.UpdateArchiveLogData(1002, CountAttempts.Instance.GetAttemptCount());
             return;
         }
         AudioSFXPlayer audio = Camera.main.GetComponentInChildren<AudioSFXPlayer>();
