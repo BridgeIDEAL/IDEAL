@@ -1,31 +1,143 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class PlayerHandLight : MonoBehaviour
 {
     [SerializeField] private Light handLight;
+    [SerializeField] private ThirdPersonController thirdPersonController;
     // max 값들은 현재 handLight에 들어가 있는 값으로 대체
-    private float maxSpotInnerAngle = 21.8f;   
+    private float maxSpotInnerAngle;   
     private float minSpotInnerAngle = 16.0f;
-    private float maxSpotOuterAngle = 30.0f;
+    private float maxSpotOuterAngle;
     private float minSpotOuterAngle = 25.5f;
-    private float maxIntensity = 1.0f;
+    private float maxIntensity;
     private float minIntensity = 0.0f;
+
 
     private float[] blinkTimes = { 0.2f, 0.1f, 0.1f}; // 현재 가장 긴 blinkTime이 처음에 와야 자연스러움
     private float[] blinkStopTimes = { 0.4f, 0.1f, 0.1f};
     private float firstBlinkTime;
     private float combackBlinkTime = 1.0f;
 
+    private bool isLightOn = true;
+    private Transform lightTransform; // 손전등 위치 및 방향
+    [SerializeField] private float fadeStartDistance = 7.0f; // 감쇠 시작 거리
+    [SerializeField] private float distanceMinIntensity;
+
     private Coroutine lightCoroutine;
 
+    private Coroutine turnCoroutine;
+
     private void Awake(){
+        lightTransform = handLight.transform;
         maxSpotInnerAngle = handLight.innerSpotAngle;
         maxSpotOuterAngle = handLight.spotAngle;
         maxIntensity = handLight.intensity;
 
         firstBlinkTime = blinkTimes[0];
+    }
+
+    private void Start(){
+        isLightOn = true;
+        if(turnCoroutine != null){
+            StopCoroutine(turnCoroutine);
+        }
+        turnCoroutine = StartCoroutine(TurnCoroutine(true));
+    }
+
+    private void Update()
+    {
+        // Camera 회전이 안되는 경우 대부분 UI 조작이므로 손전등 키고 끄는거 막기
+        if(thirdPersonController.CameraRotationLock) return;
+
+        // 좌클릭으로 손전등 On/Off
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isLightOn)
+            {
+                isLightOn = false;
+                if(turnCoroutine != null){
+                    StopCoroutine(turnCoroutine);
+                }
+                turnCoroutine = StartCoroutine(TurnCoroutine(false));
+            }
+            else
+            {
+                isLightOn = true;
+                if(turnCoroutine != null){
+                    StopCoroutine(turnCoroutine);
+                }
+                turnCoroutine = StartCoroutine(TurnCoroutine(true));
+            }
+        }
+
+        // 빛의 강도를 거리 기반으로 조정
+        AdjustLightIntensity();
+    }
+
+    private void AdjustLightIntensity()
+    {
+        if (!isLightOn) return;
+
+        // 플레이어 앞의 가장 가까운 오브젝트와 거리 계산
+        Ray ray = new Ray(lightTransform.position, lightTransform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, fadeStartDistance))
+        {
+            float distance = hit.distance;
+
+            // 거리 기반으로 강도 조정
+            float intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, distance / fadeStartDistance);
+            handLight.intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
+        }
+        else
+        {
+            // 아무것도 맞지 않았을 때 최대 강도 유지
+            handLight.intensity = maxIntensity;
+        }
+    }
+
+    private float GetLightIntensity(){
+        float intensity;
+        // 플레이어 앞의 가장 가까운 오브젝트와 거리 계산
+        Ray ray = new Ray(lightTransform.position, lightTransform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, fadeStartDistance))
+        {
+            float distance = hit.distance;
+
+            // 거리 기반으로 강도 조정
+            intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, distance / fadeStartDistance);
+            intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
+        }
+        else
+        {
+            // 아무것도 맞지 않았을 때 최대 강도 유지
+            intensity = maxIntensity;
+        }
+        return intensity;
+    }
+
+    IEnumerator TurnCoroutine(bool isLightOn){
+        float stepTimer = 0.0f;
+        float fadeTime = blinkTimes[0];
+
+        float curSpotInnerAngle = handLight.innerSpotAngle;
+        float curSpotOuterAngle = handLight.spotAngle;
+        float curIntensity = handLight.intensity;
+
+        float destSpotInnerAngle = isLightOn ? maxSpotInnerAngle : minSpotInnerAngle;
+        float destSpotOuterAngle = isLightOn ? maxSpotOuterAngle : minSpotOuterAngle;
+        float destIntensity = isLightOn ? GetLightIntensity() : minIntensity;
+
+        while(stepTimer <= fadeTime){
+            handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, destSpotInnerAngle, stepTimer / fadeTime);
+            handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, destSpotOuterAngle, stepTimer / fadeTime);
+            handLight.intensity = Mathf.Lerp(curIntensity, destIntensity, stepTimer/ fadeTime);
+
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 
 
