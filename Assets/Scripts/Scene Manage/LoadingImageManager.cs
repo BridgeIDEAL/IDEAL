@@ -93,10 +93,23 @@ public class LoadingImageManager : MonoBehaviour
     private void Update(){
         if(introTextStep >= introTexts.Length && Input.anyKeyDown){
             introTextStep = 0;
-            bgmAudioSource.Stop();
+            StartCoroutine(bgmAudioFadeOutCoroutine());
             goNext = true;
             loadingImageObject.SetActive(false);
         }
+    }
+
+    IEnumerator bgmAudioFadeOutCoroutine(){
+        float stepTimer = 0.0f;
+        float fadeTime = IdealSceneManager.Instance.soundFadeTime;
+        float bgmAudioVol = bgmAudioSource.volume;
+
+        while(stepTimer < fadeTime){
+            bgmAudioSource.volume = Mathf.Lerp(bgmAudioVol, 0.0f, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        bgmAudioSource.Stop();
     }
 
     public void SetActiveLoadingImage(bool active){
