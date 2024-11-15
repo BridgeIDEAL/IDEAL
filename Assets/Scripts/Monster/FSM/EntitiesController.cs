@@ -6,13 +6,13 @@ using UnityEngine;
 public class EntitiesController : MonoBehaviour
 {
     int listCnt = 0;
-    [Header("Interaction Group Parent : Use for inactive all interaction entities")]public GameObject interactionEntitiesParent;
+    [Header("Interaction Group Parent : Use for inactive all interaction entities")] public GameObject interactionEntitiesParent;
 
     Dictionary<string, BaseEntity> allEntityDictionary = new Dictionary<string, BaseEntity>();
     List<BaseEntity> activeEntityList = new List<BaseEntity>();
 
     [SerializeField, Header("Foot Pos")] Transform playerTransform; // Foot Pos
-    public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; }  }
+    public Transform PlayerTransform { get { if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform; return playerTransform; } }
 
     [SerializeField, Header("Eye Pos")] Transform playerHeightTransform; // Eye Pos
     public Transform PlayerHeightTransform { get { return playerHeightTransform; } }
@@ -34,7 +34,7 @@ public class EntitiesController : MonoBehaviour
             if (allEntityDictionary.ContainsKey(entities[idx].name))
                 continue;
             allEntityDictionary.Add(entities[idx].name, entities[idx]);
-            entities[idx].Init(playerTransform,playerHeightTransform);
+            entities[idx].Init(playerTransform, playerHeightTransform);
             entities[idx].Controller = this;
         }
     }
@@ -53,7 +53,7 @@ public class EntitiesController : MonoBehaviour
     {
         List<string> keyList = new List<string>(allEntityDictionary.Keys);
         int keyCnt = keyList.Count;
-        for(int idx=0; idx<keyCnt; idx++)
+        for (int idx = 0; idx < keyCnt; idx++)
         {
             allEntityDictionary[keyList[idx]].Setup();
         }
@@ -97,9 +97,9 @@ public class EntitiesController : MonoBehaviour
         if (!allEntityDictionary.ContainsKey(_name))
             return;
         listCnt = activeEntityList.Count;
-        for(int idx=0; idx<listCnt; idx++)
+        for (int idx = 0; idx < listCnt; idx++)
         {
-            if(activeEntityList[idx]== allEntityDictionary[_name])
+            if (activeEntityList[idx] == allEntityDictionary[_name])
             {
                 BaseEntity entity = activeEntityList[idx];
                 entity.SetActiveState(false);
@@ -123,7 +123,7 @@ public class EntitiesController : MonoBehaviour
     public void SendMessage(EntityStateType _all)
     {
         int listCnt = activeEntityList.Count;
-        for(int idx=0; idx< listCnt; idx++)
+        for (int idx = 0; idx < listCnt; idx++)
         {
             activeEntityList[idx].ReceiveMessage(_all);
         }
@@ -148,19 +148,19 @@ public class EntitiesController : MonoBehaviour
     #region Chase Event
     [Header("Last & Jump : Only Chase")]
     [Tooltip("Last1F_APrincipal, Last1F_BPrincipal, Last1F_Guard, Last3F_GirlStudent, Last3F_StudentOfHeadTeacher, Jump3F_StudentOfHeadTeacher,Jump2F_GirlStudent")]
-    [SerializeField] 
+    [SerializeField]
     GameObject[] ChaseEntityGroup;
 
     private bool isChase = false;
     public bool IsChase
-    { 
+    {
         get
-        { 
-            return isChase; 
-        } 
+        {
+            return isChase;
+        }
         set
-        { 
-            if(isChase && value)
+        {
+            if (isChase && value)
             {
                 isChase = value;
             }
@@ -169,7 +169,7 @@ public class EntitiesController : MonoBehaviour
                 isChase = value;
                 ChaseSound(value);
             }
-        } 
+        }
     }
     public bool PrincipalChase { get; set; } = false;
 
@@ -181,7 +181,7 @@ public class EntitiesController : MonoBehaviour
     public void InActiveInteractionEntities()
     {
         listCnt = 0;
-        if(activeEntityList.Count!=0)
+        if (activeEntityList.Count != 0)
             activeEntityList.Clear();
         interactionEntitiesParent.SetActive(false);
     }
@@ -222,9 +222,9 @@ public class EntitiesController : MonoBehaviour
     public void AddChaseGroup(OnlyChase onlyChase)
     {
         int cnt = chaseGroup.Count;
-        for(int i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
         {
-            if(chaseGroup[i]== onlyChase)
+            if (chaseGroup[i] == onlyChase)
                 return;
         }
 
@@ -251,4 +251,33 @@ public class EntitiesController : MonoBehaviour
         }
     }
     #endregion
+    public void InActivePrincipal()
+    {
+        if (!allEntityDictionary.ContainsKey("PatrolPrincipal"))
+            return;
+        listCnt = activeEntityList.Count;
+        for (int idx = 0; idx < listCnt; idx++)
+        {
+            if (activeEntityList[idx] == allEntityDictionary["PatrolPrincipal"])
+            {
+                PrincipalPatrol entity = activeEntityList[idx].gameObject.GetComponent<PrincipalPatrol>();
+                entity?.ChangeState(EntityStateType.Quiet);
+            }
+        }
+    }
+
+    public void ActivePrincipal()
+    {
+        if (!allEntityDictionary.ContainsKey("PatrolPrincipal"))
+            return;
+        listCnt = activeEntityList.Count;
+        for (int idx = 0; idx < listCnt; idx++)
+        {
+            if (activeEntityList[idx] == allEntityDictionary["PatrolPrincipal"])
+            {
+                PrincipalPatrol entity = activeEntityList[idx].gameObject.GetComponent<PrincipalPatrol>();
+                entity?.ChangeState(EntityStateType.Idle);
+            }
+        }
+    }
 }
