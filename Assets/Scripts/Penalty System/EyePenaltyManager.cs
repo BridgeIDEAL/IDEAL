@@ -8,7 +8,8 @@ public class EyePenaltyManager : MonoBehaviour
     public Transform playerTransform;
     public Transform cameraTransform;
 
-    [SerializeField] private EyePenaltyGroup[] eyePenaltyGroups;    // 이후 층별로 분리
+    [SerializeField] private EyePenaltyFloor[] eyePenaltyFloors;    // 이후 층별로 분리
+    private float floorInterval = 0.5f;
 
     void Awake(){
         playerTransform = scriptHub.playerArmatureObject.transform;
@@ -16,23 +17,22 @@ public class EyePenaltyManager : MonoBehaviour
     }
     
     public EyePenaltyObject ActiveEyePenaltyObject(){
-        Debug.Log("ActiveEye Penalty");
-        EyePenaltyGroup closestEyePenaltyGroup = null;
-        float closestDistance =  1234567890.3f;
-        for(int i = 0; i < eyePenaltyGroups.Length; i++){
-            Vector3 targetDir = (eyePenaltyGroups[i].transform.position - playerTransform.position).normalized;
-            float angle = Vector3.Angle(targetDir, cameraTransform.forward);
+        EyePenaltyFloor eyePenaltyFloor = null;
 
-            
-            float distance = Vector3.Distance(playerTransform.position, eyePenaltyGroups[i].transform.position);
-            if(angle > 90.0f && distance < closestDistance){
-                
-                closestEyePenaltyGroup = eyePenaltyGroups[i];
-                closestDistance = distance;
+        
+        foreach(EyePenaltyFloor eyeF in eyePenaltyFloors){
+            if(eyeF.transform.position.y >= playerTransform.position.y - floorInterval && 
+            eyeF.transform.position.y <= playerTransform.position.y + floorInterval){
+                eyePenaltyFloor = eyeF;
+                break;
             }
         }
 
-        if (closestEyePenaltyGroup == null) return null;
-        return closestEyePenaltyGroup.ActiveEyePenaltyObject();
+        if(eyePenaltyFloor == null){
+            return null;
+        }
+        else{
+            return eyePenaltyFloor.ActiveEyePenaltyObject(playerTransform, cameraTransform);
+        }
     }
 }
