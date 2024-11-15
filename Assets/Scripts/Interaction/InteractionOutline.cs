@@ -10,7 +10,9 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
+    [SerializeField] private Vector3 outlineObjectScale = new Vector3(1.0f, 1.0f, 1.0f);
     [SerializeField] private bool reverseY = false;
+    [SerializeField] private bool reverseX = false;
     [SerializeField] private bool hasChild = false;
     [SerializeField] private bool planeObject = false;
     [SerializeField] private float planeValue = -0.0005f;
@@ -53,6 +55,12 @@ public class InteractionOutline : MonoBehaviour
             currentRotation.y += 180f;
             outlineObject.transform.rotation = Quaternion.Euler(currentRotation);
         }
+        if(reverseX){
+            // 기존의 로컬 회전을 가져오고 X축 반전을 추가
+            Quaternion currentRotation = outlineObject.transform.localRotation;
+            outlineObject.transform.localRotation = currentRotation * Quaternion.Euler(180f, 0f, 0f);
+        }
+        outlineObject.transform.localScale = outlineObjectScale;
 
         Renderer rend = outlineObject.GetComponent<Renderer>();
 
