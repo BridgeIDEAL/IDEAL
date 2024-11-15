@@ -35,6 +35,6 @@ public class PrototypeCheatKey : MonoBehaviour
             onceLast = false;
             EventDataManager.Instance.TriggerController.TriggerLastEvent();
         }
-    }
 #endif
+    }
 }
