@@ -8,11 +8,11 @@ public class PlayerHandLight : MonoBehaviour
     [SerializeField] private Light handLight;
     [SerializeField] private ThirdPersonController thirdPersonController;
     // max 값들은 현재 handLight에 들어가 있는 값으로 대체
-    private float maxSpotInnerAngle;   
+    [SerializeField] private float maxSpotInnerAngle;   
     private float minSpotInnerAngle = 16.0f;
-    private float maxSpotOuterAngle;
+    [SerializeField] private float maxSpotOuterAngle;
     private float minSpotOuterAngle = 25.5f;
-    private float maxIntensity;
+    [SerializeField] private float maxIntensity;
     private float minIntensity = 0.0f;
 
 
@@ -23,7 +23,8 @@ public class PlayerHandLight : MonoBehaviour
 
     private bool isLightOn = true;
     private Transform lightTransform; // 손전등 위치 및 방향
-    [SerializeField] private float fadeStartDistance = 7.0f; // 감쇠 시작 거리
+    [SerializeField] private float fadeStartDistance = 3.0f; // 감쇠 최소 거리, 해당 거리 이하는 distanceMinIntensity
+    [SerializeField] private float fadeEndDistance = 7.0f;  // 감쇠 최대 거리, 해당 거리 이상은 maxIntensity
     [SerializeField] private float distanceMinIntensity;
 
     private Coroutine lightCoroutine;
@@ -77,18 +78,22 @@ public class PlayerHandLight : MonoBehaviour
         AdjustLightIntensity();
     }
 
+    public float SeeDistance;
+    public string SeeHitObject;
     private void AdjustLightIntensity()
     {
         if (!isLightOn) return;
 
-        // 플레이어 앞의 가장 가까운 오브젝트와 거리 계산
+        // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, fadeStartDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
+            SeeDistance = distance;
+            SeeHitObject = hit.transform.gameObject.name;
 
             // 거리 기반으로 강도 조정
-            float intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, distance / fadeStartDistance);
+            float intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, (distance - fadeStartDistance) / (fadeEndDistance - fadeStartDistance));
             handLight.intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
         }
         else
@@ -100,14 +105,14 @@ public class PlayerHandLight : MonoBehaviour
 
     private float GetLightIntensity(){
         float intensity;
-        // 플레이어 앞의 가장 가까운 오브젝트와 거리 계산
+        // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, fadeStartDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
 
             // 거리 기반으로 강도 조정
-            intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, distance / fadeStartDistance);
+            intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, (distance - fadeStartDistance) / (fadeEndDistance - fadeStartDistance));
             intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
         }
         else
@@ -157,41 +162,45 @@ public class PlayerHandLight : MonoBehaviour
 
     private IEnumerator EffectOnLightCorouine(){
         float stepTimer = 0.0f;
-        for( int i = 0; i < blinkTimes.Length; i++){
-            stepTimer = 0.0f;
 
-            float curSpotInnerAngle = handLight.innerSpotAngle;
-            float curSpotOuterAngle = handLight.spotAngle;
-            float curIntensity = handLight.intensity;
-            
-            // 손전등 꺼지는 효과
-            while(stepTimer <= blinkTimes[i]){
-                handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, minSpotInnerAngle, stepTimer / blinkTimes[i]);
-                handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, minSpotOuterAngle, stepTimer / blinkTimes[i]);
-                handLight.intensity = Mathf.Lerp(curIntensity, minIntensity, stepTimer / blinkTimes[i]);
+        // EffectOffLight에서 Coroutine Stop으로 나오게 해줄 것임
+        while(true){
+            for( int i = 0; i < blinkTimes.Length; i++){
+                stepTimer = 0.0f;
 
-                stepTimer += Time.deltaTime;
-                yield return null;
+                float curSpotInnerAngle = handLight.innerSpotAngle;
+                float curSpotOuterAngle = handLight.spotAngle;
+                float curIntensity = handLight.intensity;
+                
+                // 손전등 꺼지는 효과
+                while(stepTimer <= blinkTimes[i]){
+                    handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, minSpotInnerAngle, stepTimer / blinkTimes[i]);
+                    handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, minSpotOuterAngle, stepTimer / blinkTimes[i]);
+                    handLight.intensity = Mathf.Lerp(curIntensity, minIntensity, stepTimer / blinkTimes[i]);
+
+                    stepTimer += Time.deltaTime;
+                    yield return null;
+                }
+
+                stepTimer = 0.0f;
+
+                // 깜빡이는 기간이 짧을수록 범위나 밝기가 줄어들 것을 반영
+                float curMaxSpotInnerAngle = minSpotInnerAngle + (maxSpotInnerAngle - minSpotInnerAngle) * (blinkTimes[i] / firstBlinkTime);
+                float curMaxSpotOuterAngle = minSpotOuterAngle + (maxSpotOuterAngle - minSpotOuterAngle) * (blinkTimes[i] / firstBlinkTime);
+                float curMaxIntensity = minIntensity + (maxIntensity - minIntensity) * (blinkTimes[i] / firstBlinkTime);
+
+                // 손전등 다시 켜지는 효과
+                while(stepTimer <= blinkTimes[i]){
+                    handLight.innerSpotAngle = Mathf.Lerp(minSpotInnerAngle, curMaxSpotInnerAngle, stepTimer / blinkTimes[i]);
+                    handLight.spotAngle = Mathf.Lerp(minSpotOuterAngle, curMaxSpotOuterAngle, stepTimer / blinkTimes[i]);
+                    handLight.intensity = Mathf.Lerp(minIntensity, curMaxIntensity, stepTimer / blinkTimes[i]);
+
+                    stepTimer += Time.deltaTime;
+                    yield return null;
+                }
+                
+                yield return new WaitForSeconds(blinkStopTimes[i]);
             }
-
-            stepTimer = 0.0f;
-
-            // 깜빡이는 기간이 짧을수록 범위나 밝기가 줄어들 것을 반영
-            float curMaxSpotInnerAngle = minSpotInnerAngle + (maxSpotInnerAngle - minSpotInnerAngle) * (blinkTimes[i] / firstBlinkTime);
-            float curMaxSpotOuterAngle = minSpotOuterAngle + (maxSpotOuterAngle - minSpotOuterAngle) * (blinkTimes[i] / firstBlinkTime);
-            float curMaxIntensity = minIntensity + (maxIntensity - minIntensity) * (blinkTimes[i] / firstBlinkTime);
-
-            // 손전등 다시 켜지는 효과
-            while(stepTimer <= blinkTimes[i]){
-                handLight.innerSpotAngle = Mathf.Lerp(minSpotInnerAngle, curMaxSpotInnerAngle, stepTimer / blinkTimes[i]);
-                handLight.spotAngle = Mathf.Lerp(minSpotOuterAngle, curMaxSpotOuterAngle, stepTimer / blinkTimes[i]);
-                handLight.intensity = Mathf.Lerp(minIntensity, curMaxIntensity, stepTimer / blinkTimes[i]);
-
-                stepTimer += Time.deltaTime;
-                yield return null;
-            }
-            
-            yield return new WaitForSeconds(blinkStopTimes[i]);
         }
     }
 
