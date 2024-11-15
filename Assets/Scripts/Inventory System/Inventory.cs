@@ -472,7 +472,9 @@ public class Inventory : MonoBehaviour
             ProgressManager.Instance.SetItemLog(itemData.ID, amount_);
             CheckPieceItems();
             CheckCheckList(itemData.ID);
-            ActiveInteraction.Instance.CheckMapGuideActive();
+            if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
+                ActiveInteraction.Instance.CheckMapGuideActive();
+            }
             UpdateGotItems(itemData.ID);
 
         }
