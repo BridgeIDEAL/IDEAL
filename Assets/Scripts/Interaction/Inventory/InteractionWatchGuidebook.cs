@@ -24,8 +24,6 @@ public class InteractionWatchGuidebook : AbstractInteraction
         // if(checkListNum != -1){
         //     ProgressManager.Instance.UpdateCheckList(checkListNum, 1);
         // }
-        if (afterInteractionStr != "") {
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
-        }   
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(afterInteractionStr);
     }
 }
