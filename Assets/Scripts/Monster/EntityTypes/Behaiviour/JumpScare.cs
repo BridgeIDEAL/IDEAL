@@ -45,7 +45,7 @@ public abstract class JumpScare : MonoBehaviour
         }
 
         // Inactive Entities
-        EntityDataManager.Instance.Controller.InActiveInteractionEntities();
+        EntityDataManager.Instance.Controller.InActiveExceptOne(this.gameObject);
     }
 
     public abstract void SetCameraSetting();

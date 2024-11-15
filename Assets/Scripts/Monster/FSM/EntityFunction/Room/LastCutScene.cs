@@ -27,7 +27,13 @@ public class LastCutScene : LastObjects
     {
         if (other.CompareTag("Player"))
         {
-            // To Do ~~ Turn Off All Audio
+            AudioSource[] sources = FindObjectsOfType<AudioSource>();
+            int sourceCnt = sources.Length;
+            for(int i=0; i<sourceCnt; i++)
+            {
+                sources[i].mute = true;
+            }
+
             front_light.SetActive(true);
 
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
@@ -39,6 +45,7 @@ public class LastCutScene : LastObjects
             virtualCam.enabled = false;
 
             timelineParent.SetActive(true);
+            this.gameObject.SetActive(false);
         }
     }
 }
