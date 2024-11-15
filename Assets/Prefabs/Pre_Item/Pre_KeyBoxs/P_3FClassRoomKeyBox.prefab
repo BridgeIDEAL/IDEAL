@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 6609444132659904219}
   - component: {fileID: 6089130549877549300}
   - component: {fileID: 8058030412697596030}
+  - component: {fileID: 6625267010246995623}
   m_Layer: 6
   m_Name: Front
   m_TagString: Untagged
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e893c174581efb748b67d1b02ea8edae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 6625267010246995623}
   doorObject: {fileID: 6192255547339344301}
   destRotation: {x: 0, y: 120, z: 0}
   openRequiredTime: 0.5
@@ -255,6 +256,103 @@ MonoBehaviour:
   needItem: -1
   activationLogNum: -1
   isKeyBox: 0
+--- !u!82 &6625267010246995623
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192255547339344301}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 566a37213e06af24ca48a957c57e0126, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6215780149796057510
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +364,7 @@ GameObject:
   - component: {fileID: 1284469246731804088}
   - component: {fileID: 1141229977065683931}
   - component: {fileID: 6136835590167935714}
+  - component: {fileID: 4841016779925587627}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -346,6 +445,103 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!82 &4841016779925587627
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215780149796057510}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8108991647564845182, guid: f64dbaf674ba65749be0a6d425ba08bb,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 74e1039d2b0bb2e419bcc4a623691937, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6387772996038217807
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,14 +780,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 0}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
   afterInteractionStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC744 \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!1001 &1739263989701222057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -731,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 11400000, guid: 28d6a865f861c7c4295e87cb2ddd169d,
     type: 2}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
@@ -739,7 +934,6 @@ MonoBehaviour:
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!4 &1857789415919782222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
@@ -891,7 +1085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 11400000, guid: 1480ea1d9fffb0949aaca6d98b8dd5bd,
     type: 2}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
@@ -899,7 +1093,6 @@ MonoBehaviour:
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!1001 &4610978459579776058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1039,14 +1232,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 0}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
   afterInteractionStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC744 \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!4 &4473858635924958173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
@@ -1192,14 +1384,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 0}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
   afterInteractionStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC744 \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!4 &6381286332778769189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
@@ -1351,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 11400000, guid: 9d5a64f16325f7e4eb94fbb49c0a5968,
     type: 2}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
@@ -1359,7 +1550,6 @@ MonoBehaviour:
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!1001 &8042326953781769962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1505,14 +1695,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 0}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
   afterInteractionStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC744 \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!1001 &8354023949925383562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1652,14 +1841,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe58ee92d79c4b243aa50bb2399ca8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4841016779925587627}
   interactionItemData: {fileID: 0}
   detectedStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC774\uB2E4."
   afterInteractionStr: "\uBC18 \uC5F4\uC1E0\uB4E4\uC744 \uD68D\uB4DD\uD588\uB2E4."
   activationLogNum: -1
   requiredTime: 1
   availableCount: 1
-  jump3FTeacher: {fileID: 0}
 --- !u!4 &8215795275303512685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 138251231908075495, guid: 0b9898564127ea441a30e5193eaf73a9,
