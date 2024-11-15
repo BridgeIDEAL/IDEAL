@@ -219,6 +219,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         agent.speed = runSpeed;
         anim.SetFloat("MoveValue", runMotionSpeed);
         EntityDataManager.Instance.Controller.IsChase = true;
+        MonsterArchiveLogManager.Instance.UpdateArchiveImageData(8);
     }
 
     public override void ChaseExecute() 

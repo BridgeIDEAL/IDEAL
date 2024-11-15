@@ -204,7 +204,6 @@ public class EntitiesController : MonoBehaviour
         if (_value)
         {
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
-            MonsterArchiveLogManager.Instance.UpdateArchiveImageData(8);
             HealthPointManager.Instance.chased = true;
             PenaltyPointManager.Instance.isChased = true;
             // To Do ~~ Speed Up
