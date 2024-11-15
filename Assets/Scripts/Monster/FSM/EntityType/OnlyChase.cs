@@ -29,6 +29,8 @@ public class OnlyChase : MonoBehaviour
     {
         if (playerTransform == null)
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
+        // To Do ~~ 사이렌 정지
+
         EntityDataManager.Instance.Controller.IsChase = true;
         EntityDataManager.Instance.Controller.AddChaseGroup(this);
     }
