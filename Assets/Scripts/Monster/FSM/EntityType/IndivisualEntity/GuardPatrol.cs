@@ -89,7 +89,6 @@ public class GuardPatrol : MovableEntity, IPatrol
     public void Talk()
     {
         string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
-        ProgressManager.Instance.UpdateCheckList(101, 1);
         DialogueManager.Instance.StartDialogue(talkID, this);
         StartCoroutine(MoveAndRotateTowardsPlayer());
         Entity_Data.isSpawn = false;
@@ -132,6 +131,7 @@ public class GuardPatrol : MovableEntity, IPatrol
     public override void TalkEnter() { isTalk = true; anim.SetBool("IsWalk", false); }
     public override void TalkExecute() { }
     public override void TalkExit() {
+        ProgressManager.Instance.UpdateCheckList(101, 1);
         ActiveInteraction.Instance.Active_01F_MapBook();
      }
     #endregion
