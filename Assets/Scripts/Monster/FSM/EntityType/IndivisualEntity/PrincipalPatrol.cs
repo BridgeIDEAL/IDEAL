@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PrincipalPatrol : MovableEntity, IPatrol
 {
     [SerializeField, Header("Disappear Effect")] DissolveEffect dissolveEffect;
+    [SerializeField] GameObject redLight;
     UnityAction dissolveAction = null;
 
     #region Chase/Detect Val
@@ -197,6 +198,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         anim.SetBool("IsMove", false);
         agent.enabled = false;
+        redLight.SetActive(false);
         dissolveEffect.Dissolve();
     }
 
@@ -206,6 +208,7 @@ public class PrincipalPatrol : MovableEntity, IPatrol
     {
         anim.SetBool("IsMove", true);
         agent.enabled = true;
+        redLight.SetActive(true);
         dissolveEffect.RestoreDissolve();
     }
     #endregion

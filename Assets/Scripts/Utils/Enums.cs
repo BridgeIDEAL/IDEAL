@@ -53,7 +53,7 @@ public enum EventNames
 
 public enum EventItemNames
 {
-    GetMedicine,
+    BruiseMedicine,
     DropKeyPiece_1F,
     DropKeyPiece_2F,
     DropKeyPiece_3F,
