@@ -43,10 +43,13 @@ public class IMovableEntity : BaseEntity
         else
             SetActiveState(false);
 
+        if (Entity_Data.speakIndex == -1)
+            this.gameObject.layer = defaultLayer;
+
         AdditionalSetup();
     }
 
-    public virtual void AdditionalSetup() { }
+    public virtual void AdditionalSetup()  { }
     public override void Execute()
     {
         stateMachine.Execute();

@@ -166,7 +166,7 @@ public class PenaltyPointManager : MonoBehaviour
                 isSoundHearing = false;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
                 
-                EntityDataManager.Instance.Controller.InActivePrincipal();
+                EntityDataManager.Instance.Controller.ActivePrincipal();
             }
         }
         

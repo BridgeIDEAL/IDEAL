@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemSpawnController : MonoBehaviour
 {
     [SerializeField] InteractionPickupItem[] items;
-    //[SerializeField] EventItemNames test;
+    [SerializeField] SceneNames activeSceneName;
     private void Awake()
     {
         EventDataManager.Instance.ItemController = this;
@@ -13,7 +13,7 @@ public class ItemSpawnController : MonoBehaviour
         {
             if (items[i] != null)
             {
-                items[i].Init();
+                items[i].Init(activeSceneName);
             }
         }
     }

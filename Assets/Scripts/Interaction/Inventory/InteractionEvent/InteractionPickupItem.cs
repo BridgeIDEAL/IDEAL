@@ -19,14 +19,13 @@ public class InteractionPickupItem : AbstractInteraction
     /// <summary>
     /// Must Call By ItemController
     /// </summary>
-    public void Init()
+    public void Init(SceneNames activeSceneName)
     {
-        if((int)activeSceneName == SceneManager.GetActiveScene().buildIndex)
+        if(this.activeSceneName != activeSceneName)
         {
             this.gameObject.SetActive(false);
             return;
         }
-
         EventData eventData = EventDataManager.Instance.GetEventData(Enums.GetString(pickupEventName));
         if (eventData != null)
         {
@@ -69,7 +68,7 @@ public class InteractionPickupItem : AbstractInteraction
 
         if (availableCount < 1)
         {
-            if (pickupEventName == EventItemNames.GetMedicine)
+            if (pickupEventName == EventItemNames.BruiseMedicine)
                 BruiseItemGetEvent();
             EventDataManager.Instance.GetEventData(Enums.GetString(pickupEventName)).isDoneEvent = true;
             this.gameObject.SetActive(false);

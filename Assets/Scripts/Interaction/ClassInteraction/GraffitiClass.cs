@@ -30,9 +30,8 @@ public class GraffitiClass : MonoBehaviour
                 this.gameObject.SetActive(false);
                 return;
             }
-
-            deathTrigger.SetActive(true);
         }
+        deathTrigger.SetActive(false);
     }
 
     public void EraseGraffiti()

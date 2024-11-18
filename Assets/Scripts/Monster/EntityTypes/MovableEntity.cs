@@ -52,6 +52,10 @@ public class MovableEntity : BaseEntity
         else
             SetActiveState(false);
 
+
+        if (Entity_Data.speakIndex == -1)
+            this.gameObject.layer = defaultLayer;
+
         AdditionalSetup();
     }
 

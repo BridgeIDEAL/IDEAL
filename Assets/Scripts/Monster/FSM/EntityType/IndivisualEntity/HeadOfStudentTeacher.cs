@@ -33,7 +33,7 @@ public class HeadOfStudentTeacher : IMovableEntity
 
     private void Teleport2ndTeacherOffice(){
         Controller.InActiveEntity(Entity_Data.speakerName);
-        Vector3 destPosition = new Vector3(34.10423f, 7.93f, 31.81402f);
+        Vector3 destPosition = new Vector3(30f, 11.45f, 22f);
         Vector3 destRotation = new Vector3(0.0f, 90.0f, 0.0f);
         ProgressManager.Instance.SetItemLog(902, 1);
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.TelePortPositionRotation(destPosition, destRotation);
