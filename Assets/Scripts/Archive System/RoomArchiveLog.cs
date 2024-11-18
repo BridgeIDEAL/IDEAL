@@ -1,7 +1,8 @@
+[System.Serializable]
 public class RoomArchiveLog
 {
-    private int ID;
-    private int attempt;
+    public int ID;
+    public int attempt;
 
     public RoomArchiveLog(int _ID,  int _attempt){
         this.ID = _ID;

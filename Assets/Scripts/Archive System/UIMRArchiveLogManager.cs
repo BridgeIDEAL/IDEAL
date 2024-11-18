@@ -109,8 +109,10 @@ public class UIMRArchiveLogManager : MonoBehaviour
                     str = MonsterArchiveLogManager.Instance.GetMonsterArchiveText(monsterLog.GetID());
                     if(monsterLog.GetAttempt() != -1){
                         str = str.Replace("$attempts", monsterLog.GetAttempt().ToString());
+                        str = $"<color=#B22222>{str}</color>"; // 색상 감싸기
                     }
                     descTMP.text += str;
+                    descTMP.text += "\n";
                 }
             }
 
@@ -135,6 +137,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
                     str = RoomArchiveLogManager.Instance.GetRoomArchiveText(roomLog.GetID());
                     if(roomLog.GetAttempt() != -1){
                         str = str.Replace("$attempts", roomLog.GetAttempt().ToString());
+                        str = $"<color=#B22222>{str}</color>"; // 색상 감싸기
                     }
                     descTMP.text += str;
                     descTMP.text += "\n";

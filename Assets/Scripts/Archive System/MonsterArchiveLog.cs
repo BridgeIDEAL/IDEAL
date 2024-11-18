@@ -1,7 +1,8 @@
+[System.Serializable]
 public class MonsterArchiveLog
 {
-    private int ID;
-    private int attempt;
+    public int ID;
+    public int attempt;
 
     public MonsterArchiveLog(int _ID,  int _attempt){
         this.ID = _ID;
