@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class AmbienceSoundManager : MonoBehaviour
 
     private Coroutine audioCoroutine;
     public IdealArea currentArea = IdealArea.Outside;
+    private bool isChased = false;
 
     private Coroutine lookoutAudioCoroutine;
 
@@ -183,6 +185,7 @@ public class AmbienceSoundManager : MonoBehaviour
 
 
     public void ChaseStart(){
+        isChased = true;
         if(audioCoroutine != null){
             StopCoroutine(audioCoroutine);
         }
@@ -190,6 +193,7 @@ public class AmbienceSoundManager : MonoBehaviour
     }
 
     public void ChaseEnd(){
+        isChased = false;
         if(audioCoroutine != null){
             StopCoroutine(audioCoroutine);
         }
@@ -198,6 +202,22 @@ public class AmbienceSoundManager : MonoBehaviour
         }
         else{
             audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime * 2.0f, true));
+        }
+    }
+
+    private void CheckNextAudio(){
+        if(isChased){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(chaseAudioSource, chaseAudioVolume, soundFadeTime, true));
+            return;
+        }
+        
+        if(currentArea == IdealArea.Outside){
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
+            return;
+        }
+        else{
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
+            return;
         }
     }
 
@@ -255,12 +275,22 @@ public class AmbienceSoundManager : MonoBehaviour
         float lookOutVol = lookOutAudioSource.volume;
         float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
         float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
+
+        float chaseVol = chaseAudioSource.volume;
+        float chaseDestVol = 0.0f;
+        if(isChased){
+            outsideDestVol = 0.0f;
+            insideDestVol = 0.0f;
+            chaseDestVol = chaseAudioVolume;
+        }
+
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
             lookOutAudioSource.volume = Mathf.Lerp(lookOutVol, 0.0f, stepTimer/ fadeTime);
+            chaseAudioSource.volume = Mathf.Lerp(chaseVol, chaseDestVol, stepTimer / fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
@@ -280,12 +310,7 @@ public class AmbienceSoundManager : MonoBehaviour
             StopCoroutine(audioCoroutine);
         }
 
-        if(currentArea == IdealArea.Outside){
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
-        }
-        else{
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
-        }
+        CheckNextAudio();
     }
 
     public void BroadCastRoomStart(){
@@ -300,12 +325,7 @@ public class AmbienceSoundManager : MonoBehaviour
             StopCoroutine(audioCoroutine);
         }
 
-        if(currentArea == IdealArea.Outside){
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
-        }
-        else{
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
-        }
+        CheckNextAudio();
     }
 
     public void ServerRoomStart(){
@@ -320,12 +340,7 @@ public class AmbienceSoundManager : MonoBehaviour
             StopCoroutine(audioCoroutine);
         }
 
-        if(currentArea == IdealArea.Outside){
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime, true));
-        }
-        else{
-            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime, true));
-        }
+        CheckNextAudio();
     }
 
     public void CareerDevelopSoundPlay(){
