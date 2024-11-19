@@ -23,10 +23,10 @@ public class UIMap : MonoBehaviour
     private float[] boundX_Prototype_Second = {-17.773f, -54.73305f};
     private float[] boundZ_Prototype_Second = {7.515912f, 58.59842f};
 
-    private float[] mapBoundX_Prototype = {-37f, 407.4f};
-    private float[] mapBoundY_Prototype = {-244.1f, -22.9f};
-    private float[] mapBoundX_Prototype_Second = {-118.8f, -408f};
-    private float[] mapBoundY_Prototype_Second = {-154.7f, 284f};
+    private float[] mapBoundX_Prototype = {-70.6f, 487.6f};
+    private float[] mapBoundY_Prototype = {-279.3f, 27.2f};
+    private float[] mapBoundX_Prototype_Second = {-128.9f, -488f};
+    private float[] mapBoundY_Prototype_Second = {-175.3f, 330f};
 
     private int mapItemCode = 990;
     private int pieceMapItemCode =  99001;
