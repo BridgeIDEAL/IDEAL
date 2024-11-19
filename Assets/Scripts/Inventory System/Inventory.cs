@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
     private Dictionary<int, int> checkListItemDic = new Dictionary<int, int>{
         {99001, 102},
         {401, 103},
-        {308, 105},
+        {306, 105},
         {903, 106},
         {20101, 109},
         {20102, 110},
@@ -90,7 +90,7 @@ public class Inventory : MonoBehaviour
 
     };
 
-    private int[] check3rdGradeRooms = { 301, 303, 306 };
+    private int[] check3rdGradeRooms = { 301, 303, 305 };
 
     /// <summary>  업데이트 할 인덱스 목록 </summary>
     private readonly HashSet<int> indexSetForUpdate = new HashSet<int>();

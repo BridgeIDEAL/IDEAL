@@ -16,16 +16,17 @@ public class UIMap : MonoBehaviour
 
     [SerializeField] private UIMapCheckListGroup[] uIMapCheckListGroups;
     private int playerFloorNum = 1;
-    private float[] playerFloorDivide = {6.18f, 9.67f, 13.18f, 16.68f};
-    private float[] boundX_Prototype = {-4.73304f, 62.39957f};
-    private float[] boundZ_Prototype = {-0.181922f, 36.48202f};
-    private float[] boundX_Prototype_Second = {-17.76274f, -56.733f};
-    private float[] boundZ_Prototype_Second = {7.521711f, 76.69599f};
+    private float[] playerFloorDivide_1 = {6.18f, 9.68f, 13.18f}; // Prototype 층 사이 높이 값
+    private float[] playerFloorDivide_2 = {6.74f, 10.24f } ;// Prototype_Second 층 사이 높이 값
+    private float[] boundX_Prototype = {-4.469195f, 50.39434f};
+    private float[] boundZ_Prototype = {-0.3813887f, 30.48126f};
+    private float[] boundX_Prototype_Second = {-17.773f, -54.73305f};
+    private float[] boundZ_Prototype_Second = {7.515912f, 58.59842f};
 
-    private float[] mapBoundX_Prototype = {-91.2f, 391.5f};
-    private float[] mapBoundY_Prototype = {-288.8f, 30.5f};
-    private float[] mapBoundX_Prototype_Second = {-127.3f, -395.6f};
-    private float[] mapBoundY_Prototype_Second = {-217f, 377.9f};
+    private float[] mapBoundX_Prototype = {-37f, 407.4f};
+    private float[] mapBoundY_Prototype = {-244.1f, -22.9f};
+    private float[] mapBoundX_Prototype_Second = {-118.8f, -408f};
+    private float[] mapBoundY_Prototype_Second = {-154.7f, 284f};
 
     private int mapItemCode = 990;
     private int pieceMapItemCode =  99001;
@@ -51,10 +52,20 @@ public class UIMap : MonoBehaviour
     }
 
     private void UpdatePlayerFloor(){
-        for(int i = 0 ; i < playerFloorDivide.Length; i++){
-            playerFloorNum = i + 1;
-            if(playerTransform.localPosition.y < playerFloorDivide[i]){
-                break;
+        if(IdealSceneManager.Instance.GetSceneName() == "Prototype"){
+            for(int i = 0 ; i < playerFloorDivide_1.Length; i++){
+                playerFloorNum = i + 1;
+                if(playerTransform.localPosition.y < playerFloorDivide_1[i]){
+                    break;
+                }
+            }
+        }
+        else if(IdealSceneManager.Instance.GetSceneName() == "Prototype_Second"){
+            for(int i = 0 ; i < playerFloorDivide_2.Length; i++){
+                playerFloorNum = i + 1;
+                if(playerTransform.localPosition.y < playerFloorDivide_2[i]){
+                    break;
+                }
             }
         }
     }
