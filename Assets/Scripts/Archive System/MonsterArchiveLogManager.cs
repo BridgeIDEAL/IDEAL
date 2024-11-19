@@ -143,6 +143,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
         monsterArchiveList.Add(new MonsterArchiveLogs(10, "컴퓨터실 학생", new MonsterArchiveLog[] {
         new MonsterArchiveLog(1001, -1),
+        new MonsterArchiveLog(1002, 0),
         },
         false
         ));

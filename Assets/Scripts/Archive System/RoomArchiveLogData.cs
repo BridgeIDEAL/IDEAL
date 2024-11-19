@@ -50,6 +50,6 @@ public class RoomArchiveLogData
         roomArchiveDictionary.Add(1501, "3층 계단 맞은편에 위치.\n현재는 진입은 불가하나, 피아노 소리가 들린다는 보고 다수.\n현재 탈출 방법으로는 진입할 필요 없으므로 무시할 것.");
 
         roomArchiveDictionary.Add(1601, "3층에 위치.\n현재 탈출 방법으로는 진입할 필요 없으므로 무시할 것.");
-        roomArchiveDictionary.Add(1602, "<b>$attempts차 추가. 전산실을 가기 위해 반드시 지나야 함. 위험은 없는 것으로 추정.</b>");
+        roomArchiveDictionary.Add(1602, "<b>$attempts차 추가. 전산실을 가기 위해 반드시 지나야 함. 앉아 있는 ■■이 있을 경우 주의.</b>");
     }
 }

@@ -165,7 +165,7 @@ public class ProgressManager : MonoBehaviour
 
     private void UpdateMonsterArchiveLog(int checkListNum){
         if(monsterArchiveLogDic.ContainsKey(checkListNum)){
-            MonsterArchiveLogManager.Instance.UpdateArchiveImageData(monsterArchiveLogDic[checkListNum]);
+            MonsterArchiveLogManager.Instance.UpdateArchiveLogData(monsterArchiveLogDic[checkListNum], CountAttempts.Instance.GetAttemptCount());
         }
         else{
             // 있으면 작동하는 거고 없어도 비정상은 아님

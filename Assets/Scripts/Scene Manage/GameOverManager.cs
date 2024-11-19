@@ -91,6 +91,9 @@ public class GameOverManager : MonoBehaviour
                 RoomArchiveLogManager.Instance.UpdateArchiveLogData(1402, CountAttempts.Instance.GetAttemptCount());
                 RoomArchiveLogManager.Instance.UpdateArchiveLogData(1403, CountAttempts.Instance.GetAttemptCount());
                 break;
+            case 4:
+                MonsterArchiveLogManager.Instance.UpdateArchiveLogData(1002, CountAttempts.Instance.GetAttemptCount());
+                break;
         }
     }
 }

@@ -34,5 +34,6 @@ public class MonsterArchiveLogData
         monsterArchiveDictionary.Add(0902, "<b>$attempts차 추가. 학생회에 대해 밝혀진 내용은 아래와 같음.\n1. 학생회는 자인고 홍보 책자를 제작하고 배포한다.\n2. 학■회는 ■든 학■■의 ■적사■을 ■ 수 ■■.\n3. 학생■■ 아■■ 하■■지 못■■ ■는■.</b>");
 
         monsterArchiveDictionary.Add(1001, "컴퓨터실에서 발견 가능.\n일반적으로 실종자에게 관심이 없는 것으로 보임.\n무슨 얘기를 하든 조용히 듣고 지나가는 것을 추천.");
+        monsterArchiveDictionary.Add(1002, "<b>$attempts차 추가: 컴퓨터실의 ■■을 무시하고 전산실에 들어가려다 갑자기 영화가 보고 싶다는 말과 함께 실종자의 신호가 끊김.\n이후 켜진 컴퓨터가 한 대 늘어났다는 것 외에는 실종자의 흔적을 찾을 수 없었음.</b>");
     }
 }
