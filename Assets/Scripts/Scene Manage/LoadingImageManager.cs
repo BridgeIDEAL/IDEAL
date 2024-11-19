@@ -240,7 +240,7 @@ public class LoadingImageManager : MonoBehaviour
             // 키 입력을 받아서 첫 인트로가 아닌 경우 아무 키나 누르면 스킵됨
             // 10글자 넘어야 스킵이 되도록 하여 너무 연달아 스킵 되지 않도록 함
             // 처음에는 문단 단위 스킵 이후에는 페이지 단위 스킵
-            if(Input.anyKey){
+            if(Input.anyKey && CountAttempts.Instance.GetAttemptCount() > 1){
                 skipParagraph = true;
             }
             
