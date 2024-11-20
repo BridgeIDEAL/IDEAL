@@ -234,7 +234,7 @@ public class RoomArchiveLogManager : MonoBehaviour
         foreach(RoomArchiveLogs roomList in roomArchiveList){
             if(roomList.roomID == archiveID / 100){
                 foreach(RoomArchiveLog log in roomList.roomArchiveLogs){
-                    if(log.GetAttempt() == 0){
+                    if(log.GetAttempt() == 0 && log.ID == archiveID){
                         log.SetAttempt(_attempt);
                         // 새로운 데이터가 있다는 것 표시
                         roomList.hasNewData = true;

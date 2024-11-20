@@ -195,7 +195,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
         foreach(MonsterArchiveLogs monsterList in monsterArchiveList){
             if(monsterList.monsterID == archiveID / 100){
                 foreach(MonsterArchiveLog log in monsterList.monsterArchiveLogs){
-                    if(log.GetAttempt() == 0){
+                    if(log.GetAttempt() == 0 && log.ID == archiveID){
                         log.SetAttempt(_attempt);
                         // 새로운 데이터가 있다는 것 표시
                         monsterList.hasNewData = true;
