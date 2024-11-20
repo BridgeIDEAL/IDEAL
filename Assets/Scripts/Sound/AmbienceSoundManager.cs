@@ -18,8 +18,9 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource lastRunAudioSource_1;
     [SerializeField] private AudioSource lastRunAudioSource_2;
 
-    [SerializeField] private AudioSource lookOutAudioSource;
-    [SerializeField] private AudioClip[] lookOutAudioClip = new AudioClip[2];
+    [SerializeField] private AudioSource lookOutAudioSource_1;
+    [SerializeField] private AudioSource lookOutAudioSource_2;
+
     [SerializeField] private AudioSource musicRoomAudioSource;
     [SerializeField] private AudioSource broadCastRoomAudioSource;
     [SerializeField] private AudioSource serverRoomAudioSource;
@@ -103,7 +104,8 @@ public class AmbienceSoundManager : MonoBehaviour
         float chaseAudioVol = chaseAudioSource.volume;
         float lastRunAudioVol_1 = lastRunAudioSource_1.volume;
         float lastRunAudioVol_2 = lastRunAudioSource_2.volume;
-        float lookOutAudioVol = lookOutAudioSource.volume;
+        float lookOutAudioVol_1 = lookOutAudioSource_1.volume;
+        float lookOutAudioVol_2 = lookOutAudioSource_2.volume;
         float musicRoomAudioVol = musicRoomAudioSource.volume;
         float broadCastRoomAudioVol = broadCastRoomAudioSource.volume;
         float serverRoomAudioVol = serverRoomAudioSource.volume;
@@ -121,7 +123,8 @@ public class AmbienceSoundManager : MonoBehaviour
             chaseAudioSource.volume = Mathf.Lerp(chaseAudioVol, 0.0f, stepTimer / fadeTime);
             lastRunAudioSource_1.volume = Mathf.Lerp(lastRunAudioVol_1, 0.0f, stepTimer / fadeTime);
             lastRunAudioSource_2.volume = Mathf.Lerp(lastRunAudioVol_2, 0.0f, stepTimer / fadeTime);
-            lookOutAudioSource.volume = Mathf.Lerp(lookOutAudioVol, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource_1.volume = Mathf.Lerp(lookOutAudioVol_1, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource_2.volume = Mathf.Lerp(lookOutAudioVol_2, 0.0f, stepTimer / fadeTime);
             musicRoomAudioSource.volume = Mathf.Lerp(musicRoomAudioVol, 0.0f, stepTimer / fadeTime);
             broadCastRoomAudioSource.volume = Mathf.Lerp(broadCastRoomAudioVol, 0.0f, stepTimer / fadeTime);
             serverRoomAudioSource.volume = Mathf.Lerp(serverRoomAudioVol, 0.0f, stepTimer / fadeTime);
@@ -140,7 +143,8 @@ public class AmbienceSoundManager : MonoBehaviour
         float chaseAudioVol = chaseAudioSource.volume;
         float lastRunAudioVol_1 = lastRunAudioSource_1.volume;
         float lastRunAudioVol_2 = lastRunAudioSource_2.volume;
-        float lookOutAudioVol = lookOutAudioSource.volume;
+        float lookOutAudioVol_1 = lookOutAudioSource_1.volume;
+        float lookOutAudioVol_2 = lookOutAudioSource_2.volume;
         float musicRoomAudioVol = musicRoomAudioSource.volume;
         float broadCastRoomAudioVol = broadCastRoomAudioSource.volume;
         float serverRoomAudioVol = serverRoomAudioSource.volume;
@@ -165,7 +169,8 @@ public class AmbienceSoundManager : MonoBehaviour
             chaseAudioSource.volume = Mathf.Lerp(chaseAudioVol, 0.0f, stepTimer / fadeTime);
             lastRunAudioSource_1.volume = Mathf.Lerp(lastRunAudioVol_1, 0.0f, stepTimer / fadeTime);
             lastRunAudioSource_2.volume = Mathf.Lerp(lastRunAudioVol_2, 0.0f, stepTimer / fadeTime);
-            lookOutAudioSource.volume = Mathf.Lerp(lookOutAudioVol, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource_1.volume = Mathf.Lerp(lookOutAudioVol_1, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource_2.volume = Mathf.Lerp(lookOutAudioVol_2, 0.0f, stepTimer / fadeTime);
             musicRoomAudioSource.volume = Mathf.Lerp(musicRoomAudioVol, 0.0f, stepTimer / fadeTime);
             broadCastRoomAudioSource.volume = Mathf.Lerp(broadCastRoomAudioVol, 0.0f, stepTimer / fadeTime);
             serverRoomAudioSource.volume = Mathf.Lerp(serverRoomAudioVol, 0.0f, stepTimer / fadeTime);
@@ -244,23 +249,37 @@ public class AmbienceSoundManager : MonoBehaviour
         float outsideVol = outsideAudioSource.volume;
         float stepTimer = 0.0f;
         float fadeTime = soundFadeTime * 2.0f;
-        lookOutAudioSource.volume = 0.0f;
-        lookOutAudioSource.clip = lookOutAudioClip[0];
-        lookOutAudioSource.Play();
-        Invoke("LookOutSecondAudioClipPlay", lookOutAudioClip[0].length);
+        lookOutAudioSource_1.volume = 0.0f;
+        lookOutAudioSource_1.Play();
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, 0.0f, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, 0.0f, stepTimer / fadeTime);
-            lookOutAudioSource.volume = Mathf.Lerp(0.0f, lookOutAudioVolume, stepTimer/ fadeTime);
+            lookOutAudioSource_1.volume = Mathf.Lerp(0.0f, lookOutAudioVolume, stepTimer/ fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
+
+        while(stepTimer <= lookOutAudioSource_1.clip.length * 0.7f){
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        stepTimer = 0.0f;
+        float lookOutVol_1 = lookOutAudioSource_1.volume;
+        float lookOutVol_2 = lookOutAudioSource_2.volume;
+        lookOutAudioSource_2.Play();
+        
+        while(stepTimer <= fadeTime){
+            lookOutAudioSource_1.volume = Mathf.Lerp(lookOutVol_1, 0.0f, stepTimer / fadeTime);
+            lookOutAudioSource_2.volume = Mathf.Lerp(lookOutVol_2, lookOutAudioVolume, stepTimer / fadeTime);
+            
+            stepTimer +=Time.deltaTime;
+            yield return null;
+        }
+        lookOutAudioSource_1.Stop();
+
     }
 
-    void LookOutSecondAudioClipPlay(){
-        lookOutAudioSource.clip = lookOutAudioClip[1];
-        lookOutAudioSource.Play();
-    }
 
     public void LookOutEnd(){
         if(lookoutAudioCoroutine != null){
@@ -272,7 +291,8 @@ public class AmbienceSoundManager : MonoBehaviour
     private IEnumerator LookOutEndCoroutine(){
         float insideVol = insideAudioSource.volume;
         float outsideVol = outsideAudioSource.volume;
-        float lookOutVol = lookOutAudioSource.volume;
+        float lookOutVol_1 = lookOutAudioSource_1.volume;
+        float lookOutVol_2 = lookOutAudioSource_2.volume;
         float outsideDestVol = (currentArea == IdealArea.Outside) ? outsideAudioVolume : 0.0f;
         float insideDestVol = (currentArea == IdealArea.Inside) ? insideAudioVolume : 0.0f;
 
@@ -289,12 +309,14 @@ public class AmbienceSoundManager : MonoBehaviour
         while(stepTimer <=fadeTime){
             insideAudioSource.volume = Mathf.Lerp(insideVol, insideDestVol, stepTimer / fadeTime);
             outsideAudioSource.volume = Mathf.Lerp(outsideVol, outsideDestVol, stepTimer / fadeTime);
-            lookOutAudioSource.volume = Mathf.Lerp(lookOutVol, 0.0f, stepTimer/ fadeTime);
+            lookOutAudioSource_1.volume = Mathf.Lerp(lookOutVol_1, 0.0f, stepTimer/ fadeTime);
+            lookOutAudioSource_2.volume = Mathf.Lerp(lookOutVol_2, 0.0f, stepTimer/ fadeTime);
             chaseAudioSource.volume = Mathf.Lerp(chaseVol, chaseDestVol, stepTimer / fadeTime);
             stepTimer += Time.deltaTime;
             yield return null;
         }
-        lookOutAudioSource.Stop();
+        lookOutAudioSource_1.Stop();
+        lookOutAudioSource_2.Stop();
     }
 
     public void MusicRoomStart(){
