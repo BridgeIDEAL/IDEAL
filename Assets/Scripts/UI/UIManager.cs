@@ -133,9 +133,14 @@ public class UIManager : MonoBehaviour
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
         if(Input.GetKeyDown(KeyCode.M) && (Inventory.Instance.FindItemIndex(mapItemCode) != -1 || Inventory.Instance.FindItemIndex(mapPieceItemCode) != -1)){    // ` 누른 경우 Map 활성화 비활성화
-            UIActives[(int)UIType.MapUI] = true;
+            UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
             SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
-            uIMap.ActiveMap();
+            if(UIActives[(int)UIType.MapUI]) {
+                uIMap.ActiveMap();
+            }
+            else{
+                InActiveMapUI();
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)){
