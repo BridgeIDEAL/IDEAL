@@ -219,6 +219,8 @@ public class MonsterArchiveLogManager : MonoBehaviour
         }
 
         SaveArchiveData();
+
+        // 이 부분에 SteamArchive 9번 체크하는 함수를 호출
     }
 
     public void UpdateArchiveImageData(int _monsterID){
@@ -289,5 +291,18 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
     public bool GetChairManArchiveLogUpdated(){
         return monsterArchiveList[0].isImageActive;
+    }
+
+    public bool IsClearAllArchive(){
+        bool isClearAll = true;
+        foreach(MonsterArchiveLogs logs in monsterArchiveList){
+            foreach(MonsterArchiveLog log in logs.monsterArchiveLogs){
+                if(log.ID == 0){
+                    isClearAll = false;
+                }
+            }
+        }
+
+        return isClearAll;
     }
 }
