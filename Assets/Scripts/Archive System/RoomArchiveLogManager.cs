@@ -258,6 +258,8 @@ public class RoomArchiveLogManager : MonoBehaviour
         }
 
         SaveArchiveData();
+
+        // 이 부분에 SteamArchive 9번 체크하는 함수를 호출
     }
 
     public void UpdateArchiveImageData(int _roomID){
@@ -322,5 +324,18 @@ public class RoomArchiveLogManager : MonoBehaviour
 
     public bool HasNewData(){
         return roomArchiveData.roomHasNewDataList.Count > 0;
+    }
+
+    public bool IsClearAllArchive(){
+        bool isClearAll = true;
+        foreach(RoomArchiveLogs logs in roomArchiveList){
+            foreach(RoomArchiveLog log in logs.roomArchiveLogs){
+                if(log.ID == 0){
+                    isClearAll = false;
+                }
+            }
+        }
+
+        return isClearAll;
     }
 }
