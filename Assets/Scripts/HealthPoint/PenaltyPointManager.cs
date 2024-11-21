@@ -130,6 +130,11 @@ public class PenaltyPointManager : MonoBehaviour
             if(eyeWatchingTimer >= eyeWatchingGameOverTime){
                 eyeWatchingTimer = 0.0f;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(7);
+                if (SteamfeatureController.Instance.FeatureManager.Achievement03.isEyePenlatyDeath == false)
+                {
+                    SteamfeatureController.Instance.FeatureManager.Achievement03.isEyePenlatyDeath = true;
+                    SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                }
             }
 
         }
@@ -160,6 +165,11 @@ public class PenaltyPointManager : MonoBehaviour
             if(soundHearingTimer >= soundHearingGameOverTime){
                 if(!insideSafeZone){
                     IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(6);
+                    if (SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath == false)
+                    {
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath = true;
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                    }
                 }
                 soundHearingTimer = 0.0f;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();

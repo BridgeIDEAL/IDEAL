@@ -27,7 +27,15 @@ public class InteractionDesk : AbstractInteraction
     {
         if(principal!=null)
         {
-            principal.SolveChaseState();
+            if (EntityDataManager.Instance.Controller.IsChase)
+            {
+                if(SteamfeatureController.Instance.FeatureManager.Achievement01.isStudy == false)
+                {
+                    SteamfeatureController.Instance.FeatureManager.Achievement01.isStudy = true;
+                    SteamfeatureController.Instance.FeatureManager.Achievement01.CheckAllConidtion();
+                }
+                principal.SolveChaseState();
+            }
         }
 
         if (audioSource != null)

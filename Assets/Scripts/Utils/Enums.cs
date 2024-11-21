@@ -108,3 +108,16 @@ public enum EntityDialogueType
     CanOnlySayOnce=0,
     CanSayMayTimes=1
 }
+
+public enum AchievementType
+{
+    STUDY_ONDESK=1,
+    TALK_CHAIRMAN=2,
+    DEATH_ALL=3,
+    DEATH_PILL=4,
+    LISTEN_MYSTORY=5,
+    ESCAPE_SCHOOL=6,
+    STUDENT_COUNCIL=7,
+    CAREER_ADVANCE=8,
+    ALL_ARCHIEVE=9
+}

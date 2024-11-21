@@ -5880,6 +5880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020279994}
   - component: {fileID: 1020279995}
+  - component: {fileID: 1020279996}
   m_Layer: 0
   m_Name: SteamfeatureController
   m_TagString: Untagged
@@ -5914,8 +5915,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b627dcc2a5f0af449150a34292da200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steamAppId: 3263940
-  testAchievementID: 
+  testAchievementID: ACHIEV_01
+  featureManager: {fileID: 1020279996}
+--- !u!114 &1020279996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020279992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d067afb6c10cf428b92bebb116a673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1036782988
 GameObject:
   m_ObjectHideFlags: 0

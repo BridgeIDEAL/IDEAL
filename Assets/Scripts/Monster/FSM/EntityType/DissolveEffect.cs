@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class DissolveEffect : MonoBehaviour
 {
     [SerializeField] float dissolveTime;
+    [SerializeField] GameObject glass;
 
     List<Material> dissolveMats = new List<Material>();
     
@@ -27,6 +28,7 @@ public class DissolveEffect : MonoBehaviour
 
     IEnumerator CDissolve(UnityAction _endAction)
     {
+        glass.SetActive(false); 
         float _timer = 0;
         int _matCnt = dissolveMats.Count;
         float _dissolveVal = 0f;
@@ -79,7 +81,7 @@ public class DissolveEffect : MonoBehaviour
         {
             dissolveMats[i].SetFloat("_Split", 1);
         }
-
+        glass.SetActive(true);
         if (_endAction != null)
             _endAction();
     }

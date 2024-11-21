@@ -13,9 +13,9 @@ public class IMChairman : IMStandEntity
             return;
         }
         
-        if (MonsterArchiveLogManager.Instance.GetChairManArchiveLogUpdated())
-            SetActiveState(false);
-        else
+        //if (MonsterArchiveLogManager.Instance.GetChairManArchiveLogUpdated())
+        //    SetActiveState(false);
+        //else
             controller.ActiveEntity(entity_Data.speakerName);
       
         AdditionalSetup();

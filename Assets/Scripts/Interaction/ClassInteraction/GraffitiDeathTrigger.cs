@@ -9,6 +9,11 @@ public class GraffitiDeathTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (SteamfeatureController.Instance.FeatureManager.Achievement03.isBoardDeath == false)
+            {
+                SteamfeatureController.Instance.FeatureManager.Achievement03.isBoardDeath = true;
+                SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+            }
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
         }
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueEvent : MonoBehaviour
+public partial class DialogueEvent : MonoBehaviour
 {
     #region Get & Use Item
     public void GetItem(List<string> _parameterList)

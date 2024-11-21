@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class SteamfeatureController : MonoBehaviour
 {
-    [SerializeField] uint steamAppId = 3263940;
-    [SerializeField] string testAchievementID;
+    bool isConnectSteam = false;
+    const uint steamAppId = 3263940;
+    [SerializeField] string testAchievementID = "ACHIEV_01";
 
     private static SteamfeatureController instance = null;
     public static SteamfeatureController Instance { get { return instance; } private set { instance = value; } }
+
+    [SerializeField] SteamfeatureManager featureManager; 
+    public SteamfeatureManager FeatureManager { get { return featureManager; }  private set { featureManager = value; } }
 
     #region Unity Life Cycle
     private void Awake()
@@ -22,6 +26,11 @@ public class SteamfeatureController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (featureManager == null)
+        {
+            featureManager = GetComponent<SteamfeatureManager>();
+        }
     }
 
     void Start()
@@ -29,45 +38,68 @@ public class SteamfeatureController : MonoBehaviour
         try
         {
             Steamworks.SteamClient.Init(steamAppId);
-            PrintSteamName();
+            isConnectSteam = true;
+            if (Steamworks.SteamClient.IsValid)
+            {
+                isConnectSteam = true;
+            }
+            else
+            {
+                isConnectSteam = false;
+            }
         }
         catch (System.Exception e)
         {
-            Debug.Log(e);
+            Debug.Log(e );
         }
+    }
+
+    void Update()
+    {
+        if(isConnectSteam)
+            Steamworks.SteamClient.RunCallbacks();    
     }
 
     void OnApplicationQuit()
     {
-        Steamworks.SteamClient.Shutdown();
+        if(isConnectSteam)
+            Steamworks.SteamClient.Shutdown();
     }
     #endregion
 
-    /// <summary>
-    /// Use for Test
-    /// </summary>
-    public void PrintSteamName()
+    public void LockAchievement(string _ID)
     {
-        Debug.Log(Steamworks.SteamClient.Name);
-    }
-
-    public void UnlockAchievement(string _ID)
-    {
-        var achievement = new Steamworks.Data.Achievement(_ID);
-        if (achievement.State == true)
+        if (Steamworks.SteamClient.IsValid)
         {
-            Debug.Log("이미 클리어한 업적입니다.");
-            return;
+            var achievement = new Steamworks.Data.Achievement(_ID);
+            achievement.Clear();
         }
-        achievement.Trigger();
     }
 
+    public void UnLockAchievement(string _ID)
+    {
+        if (Steamworks.SteamClient.IsValid)
+        {
+            var achievement = new Steamworks.Data.Achievement(_ID);
+            if (achievement.State == true)
+                return;
+            achievement.Trigger(true);
+        }
+    }
+
+    /// <summary>
+    /// 업적 테스트
+    /// </summary>
     private void OnGUI()
     {
 #if UNITY_EDITOR
-       if(GUI.Button(new Rect(0,0,50,50), "업적 테스트")){
-            UnlockAchievement(testAchievementID);
-       }
+        if (GUI.Button(new Rect(0,0,50,50), "업적 해제")){
+            UnLockAchievement(testAchievementID);
+        }
+        if (GUI.Button(new Rect(50, 0, 50, 50), "업적 잠금"))
+        {
+            LockAchievement(testAchievementID);
+        }
 #endif
     }
 }

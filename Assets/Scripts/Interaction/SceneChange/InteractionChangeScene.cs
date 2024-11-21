@@ -65,6 +65,15 @@ public class InteractionChangeScene : AbstractInteraction
         }
         ProgressManager.Instance.UpdateCheckList(104, 1);
         IdealSceneManager.Instance.metalDoorSound.Play();
+
+        // OnlyChase Disable => Here 
+        if (HealthPointManager.Instance.chased)
+        {
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
+            HealthPointManager.Instance.chased = false;
+            PenaltyPointManager.Instance.SetChase(false);
+        }   
+
         IdealSceneManager.Instance.ChangeAnotherGameScene(currentSceneName, destSceneName, destPosition, destRotation);
         if (successInteractionStr != "")
         {

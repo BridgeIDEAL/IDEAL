@@ -27,6 +27,12 @@ public class LastCutScene : LastObjects
     {
         if (other.CompareTag("Player"))
         {
+            if (SteamfeatureController.Instance.FeatureManager.Achievement06.isEnding == false)
+            {
+                SteamfeatureController.Instance.FeatureManager.Achievement06.isEnding = true;
+                SteamfeatureController.Instance.FeatureManager.Achievement06.CheckAllConidtion();
+            }
+
             AudioSource[] sources = FindObjectsOfType<AudioSource>();
             int sourceCnt = sources.Length;
             for(int i=0; i<sourceCnt; i++)

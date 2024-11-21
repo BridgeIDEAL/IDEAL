@@ -239,6 +239,11 @@ public class PrincipalPatrol : MovableEntity, IPatrol
                 Controller.InActiveExceptOne(this.gameObject);
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
                 jumpscare.ActiveJumpScare();
+                if (SteamfeatureController.Instance.FeatureManager.Achievement03.isPrincipalDeath == false)
+                {
+                    SteamfeatureController.Instance.FeatureManager.Achievement03.isPrincipalDeath = true;
+                    SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                }
             }
         }
     }

@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+public enum ChaseEntityNameType
+{
+    Principal,
+    HeadOfTeacher,
+    ReverseGirl,
+    Guard
+}
+
 public class OnlyChase : MonoBehaviour
 {
+    [SerializeField] ChaseEntityNameType type;
     [SerializeField] ChaseCollisionDetect collisionDetect;
     [SerializeField] JumpScare jumpScare;
     [SerializeField] protected NavMeshAgent agent;
@@ -54,15 +64,33 @@ public class OnlyChase : MonoBehaviour
             jumpScare.ActiveJumpScare();
             EntityDataManager.Instance.Controller.InActiveInteractionEntities();
             EntityDataManager.Instance.Controller.DisableChaseGroupExceptOne(this);
+
+            switch (type)
+            {
+                case ChaseEntityNameType.Principal:
+                    if (SteamfeatureController.Instance.FeatureManager.Achievement03.isPrincipalDeath == false)
+                    {
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.isPrincipalDeath = true;
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                    }
+                    break;
+                case ChaseEntityNameType.HeadOfTeacher:
+                    if (SteamfeatureController.Instance.FeatureManager.Achievement03.isCatchTeacherDeath == false)
+                    {
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.isCatchTeacherDeath = true;
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                    }
+                    break;
+                case ChaseEntityNameType.ReverseGirl:
+                    if (SteamfeatureController.Instance.FeatureManager.Achievement03.isCatchGirlDeath == false)
+                    {
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.isCatchGirlDeath = true;
+                        SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+                    }
+                    break;
+            }
         }
     }
 
     public void Chase() { agent.SetDestination(playerTransform.position); }
-
-    void OnDisable()
-    {
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseEnd();
-            HealthPointManager.Instance.chased = false;
-        PenaltyPointManager.Instance.SetChase(false);
-    }
 }

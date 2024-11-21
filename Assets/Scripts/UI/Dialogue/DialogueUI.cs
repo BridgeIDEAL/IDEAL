@@ -12,6 +12,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] Button[] choiceBtns;
     [SerializeField] char eventTriggerStr = '$';
     [SerializeField] char fontTriggerStr = '^';
+    char achievementStr = '¡Þ';
     [SerializeField] float defaultTypeSpeed = 0.1f;
 
     [Header("DialogueBox")]
@@ -70,6 +71,17 @@ public class DialogueUI : MonoBehaviour
         dialogueTexts[1].text = "";
         string curDialogueLine = _dialogueLine;
         int dialogueLineLen = curDialogueLine.Length;
+
+        // Check Achievement
+        if (curDialogueLine[0] == achievementStr)
+        {
+            Event?.GetAchievement(_dialogueLine);
+            isTyping = false;
+            isPressDialogueSkipBtn = false;
+            if (!preventNextDialogue)
+                NextDialogue();
+            yield break;
+        }
 
         // Check Event
         if (curDialogueLine[0] == eventTriggerStr)
