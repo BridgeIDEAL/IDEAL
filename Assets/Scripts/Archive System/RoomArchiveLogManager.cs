@@ -283,6 +283,10 @@ public class RoomArchiveLogManager : MonoBehaviour
         }
 
         SaveArchiveData();
+
+        if(MonsterArchiveLogManager.Instance.IsClearAllArchive() && RoomArchiveLogManager.Instance.IsClearAllArchive()){
+            SteamfeatureController.Instance.UnLockAchievement("ACHIEV_09");
+        }
     }
 
     public RoomArchiveLogs GetRoomArchiveLogs(int _roomID){
