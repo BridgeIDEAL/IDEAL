@@ -220,7 +220,9 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
         SaveArchiveData();
 
-        // 이 부분에 SteamArchive 9번 체크하는 함수를 호출
+        if(MonsterArchiveLogManager.Instance.IsClearAllArchive() && RoomArchiveLogManager.Instance.IsClearAllArchive()){
+            SteamfeatureController.Instance.UnLockAchievement("ACHIEV_09");
+        }
     }
 
     public void UpdateArchiveImageData(int _monsterID){
