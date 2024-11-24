@@ -157,3 +157,20 @@ public class Achievement_08 : Achievement
         }
     }
 }
+
+public class EndingCreditData
+{
+    public bool isWatchEnding = false;
+    public bool isEnding = false;
+
+    public bool ShowEndingCredit()
+    {
+        if(isEnding== true && isWatchEnding == false)
+        {
+            isWatchEnding = true;
+            SteamfeatureController.Instance.FeatureManager.EndingWriteAllText();
+            return true;
+        }
+        return false;
+    }
+}

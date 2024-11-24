@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using UnityEngine;
 using System.IO;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class SteamfeatureManager : MonoBehaviour
 {
@@ -21,6 +18,8 @@ public class SteamfeatureManager : MonoBehaviour
     Achievement_07 achievement_07;
     Achievement_08 achievement_08;
 
+    EndingCreditData endingCreditData;
+
     public Achievement_01 Achievement01 { get { return achievement_01; }/*  set { achievement_01 = value; }*/}
     public Achievement_02 Achievement02 { get { return achievement_02; }/* set { achievement_02 = value; } */}
     public Achievement_03 Achievement03 { get { return achievement_03; }/* set { achievement_03 = value; } */}
@@ -30,6 +29,7 @@ public class SteamfeatureManager : MonoBehaviour
     public Achievement_07 Achievement07 { get { return achievement_07; }/* set { achievement_07 = value; } */}
     public Achievement_08 Achievement08 { get { return achievement_08; }/* set { achievement_08 = value; } */}
 
+    public EndingCreditData EndingCreditData { get { return endingCreditData; } }
     public void Awake()
     {
         dataPath = Application.persistentDataPath;
@@ -44,6 +44,17 @@ public class SteamfeatureManager : MonoBehaviour
             {
                 CreateAchievementFile(i);
             }
+        }
+
+        string creditDataPath = Application.persistentDataPath + "/EndingCredit.json";
+
+        if (File.Exists(creditDataPath))
+            endingCreditData = JsonUtility.FromJson<EndingCreditData>(File.ReadAllText(creditDataPath));
+        else
+        {
+            endingCreditData = new EndingCreditData();
+            string texts = JsonUtility.ToJson(endingCreditData);
+            File.WriteAllText(creditDataPath, texts);
         }
     }
 
@@ -157,5 +168,12 @@ public class SteamfeatureManager : MonoBehaviour
                 break;
         }
         File.WriteAllText(dataPath + achievementName[_index] + extension, text);
+    }
+
+    public void EndingWriteAllText()
+    {
+        string creditDataPath = Application.persistentDataPath + "/EndingCredit.json";
+        string texts = JsonUtility.ToJson(endingCreditData);
+        File.WriteAllText(creditDataPath, texts);
     }
 }
