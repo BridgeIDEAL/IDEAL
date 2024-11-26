@@ -106,7 +106,7 @@ public class UIEquipment : MonoBehaviour
         if(Input.GetMouseButtonDown(leftClick)){
             UIEquipmentSlot slot = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIRayCaster.RaycastAndGetFirstComponent<UIEquipmentSlot>();
 
-            if(slot != null && slot.HasItem){
+            if(slot != null && slot.HasItem && slot.currentItem.Data.ID == 888){
                 if(pillCoroutine != null){
                     StopCoroutine(pillCoroutine);
                 }
