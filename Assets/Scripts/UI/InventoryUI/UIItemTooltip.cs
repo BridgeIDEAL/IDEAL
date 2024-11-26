@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIItemTooltip : MonoBehaviour
@@ -80,7 +77,7 @@ public class UIItemTooltip : MonoBehaviour
     /// <summary> 툴팁 UI에 아이템 정보 등록 </summary>
     public void SetItemInfo(ItemData data){
         titleText.text = data.Name;
-        contentText.text = data.Tooltip;
+        contentText.text = data.Tooltip.Replace("\\n", "\n");
     }
 
     /// <summary> 툴팁의 위치 조정 </summary>
