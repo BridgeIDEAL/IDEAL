@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class InteractionDoorRotation : AbstractInteraction
 {
+    [SerializeField] private AudioClip openAudioClip;
+    [SerializeField] private AudioClip lockedAudioClip;
     [SerializeField] GameObject doorObject;
     [SerializeField] private Vector3 destRotation;
     [SerializeField] private float openRequiredTime = 0.5f;
@@ -27,6 +29,7 @@ public class InteractionDoorRotation : AbstractInteraction
     protected override void ActInteraction(){
         if(needItem == -1 || Inventory.Instance.FindItemIndex(needItem) != -1 || Inventory.Instance.FindItemIndex(Inventory.MasterMey)!=-1){
             if(audioSource != null){
+                audioSource.clip = openAudioClip;
                 audioSource.Play();
             }
             OpenDoor();
@@ -41,6 +44,8 @@ public class InteractionDoorRotation : AbstractInteraction
             if(failInteractionStr != ""){
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
             }
+            audioSource.clip = lockedAudioClip;
+            audioSource.Play();
         }
     }
 
@@ -62,6 +67,7 @@ public class InteractionDoorRotation : AbstractInteraction
     }
 
     private void Awake(){
+        if(audioSource != null) openAudioClip = audioSource.clip;
         if(isKeyBox){
             if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name) == 1){
                 doorObject.transform.localRotation = Quaternion.Euler(destRotation);
