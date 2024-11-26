@@ -8,12 +8,18 @@ public class EndingCredit : MonoBehaviour
     [SerializeField] RectTransform developerText;
     [SerializeField] RectTransform resourceText;
     [SerializeField] RectTransform endingText;
-
-
     [SerializeField] Text theEnd;
+    [SerializeField] GameObject pressKeyTextObject;
+    
     Color theEndColor;
+
+    bool isEnding = false;
+
+    [SerializeField] EntityDataReset reset;
+
     private void Start()
     {
+        if(pressKeyTextObject.activeSelf) pressKeyTextObject.SetActive(false);
         theEndColor = theEnd.color;
         theEndColor.a =0f;
         theEnd.color = theEndColor;
@@ -27,7 +33,7 @@ public class EndingCredit : MonoBehaviour
     {
         while(true)
         {
-            if(rect.anchoredPosition.y > 1200f)
+            if(rect.anchoredPosition.y > 1600f)
             {
                 rect.gameObject.SetActive(false);
                 yield break;
@@ -62,7 +68,21 @@ public class EndingCredit : MonoBehaviour
             yield return null;
         }
         theEnd.color = theEndColor;
+        pressKeyTextObject.SetActive(true);
+        isEnding = true;
         // 게임 종료
+    }
+
+    private void Update()
+    {
+        if (isEnding)
+        {
+            if (Input.anyKeyDown)
+            {
+                isEnding = false;
+                reset?.InActiveEndingCredit();
+            }
+        }
     }
 }
 

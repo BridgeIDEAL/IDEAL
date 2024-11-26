@@ -33,6 +33,8 @@ public class LastCutScene : LastObjects
                 SteamfeatureController.Instance.FeatureManager.Achievement06.CheckAllConidtion();
             }
 
+            SteamfeatureController.Instance.FeatureManager.EndingCreditData.isEnding = true;
+
             AudioSource[] sources = FindObjectsOfType<AudioSource>();
             int sourceCnt = sources.Length;
             for(int i=0; i<sourceCnt; i++)
