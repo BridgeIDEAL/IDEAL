@@ -9,6 +9,9 @@ public class PlayerSettingData{
     public float masterVolume = Mathf.Log10(0.5f) * 20;
     public float bgmVolume = Mathf.Log10(0.5f) * 20;
     public float sfxVolume = Mathf.Log10(0.5f) * 20;
+    public int resolutionWidth = -1;
+    public int resolutionHeight = -1;
+    public int resolutionRefreshRate = -1;
 }
 
 public class SettingDataManager : MonoBehaviour
@@ -65,7 +68,26 @@ public class SettingDataManager : MonoBehaviour
         idealAudioMixer.SetFloat("SFX", playerSettingData.sfxVolume);
 
         // Window Setting Data Apply
-        Screen.fullScreenMode = playerSettingData.screenMode;
+        Resolution savedResolution = new Resolution();
+        savedResolution.width = playerSettingData.resolutionWidth;
+        savedResolution.height = playerSettingData.resolutionHeight;
+        savedResolution.refreshRate = playerSettingData.resolutionRefreshRate;
+
+        if(CheckUsableResolution(savedResolution)){
+            // Have Saved Resolution
+            Screen.SetResolution(savedResolution.width, savedResolution.height, playerSettingData.screenMode, savedResolution.refreshRate);
+        }
+        else{
+            if(Screen.resolutions.Length > 0){
+                // No Saved Resolution
+                Resolution defaultResolution = Screen.resolutions[Screen.resolutions.Length - 1];
+                SetResolution(defaultResolution);
+            }
+            else{
+                // if No Enable Resolution
+                Screen.fullScreenMode = playerSettingData.screenMode;
+            }
+        }
     }
 
     private void SavePlayerSettingData(){
@@ -111,5 +133,30 @@ public class SettingDataManager : MonoBehaviour
                 break;
         }
         SavePlayerSettingData();
+    }
+
+    public void SetResolution(Resolution resolution){
+        if(CheckUsableResolution(resolution)){
+            Screen.SetResolution(resolution.width, resolution.height, playerSettingData.screenMode, resolution.refreshRate);
+            playerSettingData.resolutionWidth = resolution.width;
+            playerSettingData.resolutionHeight = resolution.height;
+            playerSettingData.resolutionRefreshRate = resolution.refreshRate;
+            Debug.Log("Resolution changed to: " + resolution.width + " x " + resolution.height + " @ " + resolution.refreshRate + "Hz");
+            SavePlayerSettingData();
+        }
+        else{
+            Debug.LogError("Invalid Resolution Change!!!");
+        }
+    }
+
+    private bool CheckUsableResolution(Resolution resolution){
+        Resolution[] resolutions = Screen.resolutions;
+        foreach(Resolution res in resolutions){
+            if(res.width == resolution.width && res.height == resolution.height && res.refreshRate == resolution.refreshRate){
+                return true;
+            }
+        }
+        Debug.LogError("Saved Resolution Invalid");
+        return false;
     }
 }
