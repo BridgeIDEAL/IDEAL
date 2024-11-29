@@ -10,6 +10,7 @@ public class UIScreenSetting : MonoBehaviour
     [SerializeField] private Button closeBookBtn;
 
     [SerializeField] private Slider cameraRotationSlider;
+    [SerializeField] private Slider brightnessSlider;
 
     private Resolution[] availableResolutions;
 
@@ -67,6 +68,10 @@ public class UIScreenSetting : MonoBehaviour
         // 카메라 회전 속도 슬라이더 설정
         cameraRotationSlider.value = SettingDataManager.Instance.playerSettingData.cameraRotationSpeed;
         cameraRotationSlider.onValueChanged.AddListener(SetCameraRotationSpeed);
+
+        // 밝기 슬라이더 설정
+        brightnessSlider.value = SettingDataManager.Instance.playerSettingData.brightness;
+        brightnessSlider.onValueChanged.AddListener(SetBrightness);
     }
 
     public void OnScreenModeChange(int mode)
@@ -92,6 +97,11 @@ public class UIScreenSetting : MonoBehaviour
     public void SetCameraRotationSpeed(float speed)
     {
         SettingDataManager.Instance.SetCameraRotationSpeed(speed);
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        SettingDataManager.Instance.SetBrightness(brightness);
     }
 
     private void Update()

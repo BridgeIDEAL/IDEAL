@@ -13,6 +13,7 @@ public class PlayerSettingData{
     public int resolutionHeight = -1;
     public int resolutionRefreshRate = -1;
     public float cameraRotationSpeed = 1.0f;
+    public float brightness = 0.0f;
 }
 
 public class SettingDataManager : MonoBehaviour
@@ -92,6 +93,9 @@ public class SettingDataManager : MonoBehaviour
 
         // Setting Camera Speed Didn't Apply Yet
         // SettingDataManager는 Lobby에서 생성되므로 Prototype이나 Prototype_Second에 갈때마다 적용시켜줘야함
+
+        // Brightness Aplly
+        IdealSceneManager.Instance.SetPostExposure(playerSettingData.brightness);
     }
 
     public void ApplyCameraRotationSpeed(){
@@ -178,5 +182,11 @@ public class SettingDataManager : MonoBehaviour
         }
         Debug.LogError("Saved Resolution Invalid");
         return false;
+    }
+
+    public void SetBrightness(float brightnessValue){
+        playerSettingData.brightness = brightnessValue;
+        IdealSceneManager.Instance.SetPostExposure(brightnessValue);
+        SavePlayerSettingData();
     }
 }

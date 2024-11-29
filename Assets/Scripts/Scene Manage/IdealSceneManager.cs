@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -38,6 +40,8 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private ConversationPointManager conversationPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
     [SerializeField] private Material radialBlurMaterial;
+    [SerializeField] private VolumeProfile volumeProfile;
+    private ColorAdjustments colorAdjustments;
     public AudioSource metalDoorSound;
     public float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
@@ -69,6 +73,15 @@ public class IdealSceneManager : MonoBehaviour
             lobbyObjectNameList.Add(lobbyObjectList[i].name);
         }
         soundInitVolume = lobbyBGMBox.volume;
+
+        if (volumeProfile.TryGet<ColorAdjustments>(out colorAdjustments))
+        {
+            Debug.Log("Color Adjustments component found in Volume Profile");
+        }
+        else
+        {
+            Debug.LogWarning("Color Adjustments component not found in Volume Profile");
+        }
     }
 
     public string GetSceneName(){
@@ -322,6 +335,15 @@ public class IdealSceneManager : MonoBehaviour
             radialBlurMaterial.SetFloat("fSampleStrength", curEffect);
             stepTimer += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public void SetPostExposure(float postExposurevalue){
+        if(colorAdjustments != null){
+            colorAdjustments.postExposure.value = postExposurevalue;
+        }
+        else{
+            Debug.LogError("Color Adjustments component is not available.");
         }
     }
 
