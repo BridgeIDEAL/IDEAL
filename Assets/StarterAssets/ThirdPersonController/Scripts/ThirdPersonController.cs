@@ -34,6 +34,9 @@ namespace StarterAssets
 		public bool MoveLock = false;
         public bool MannequinRotationLock = true;
 
+        [Tooltip("Camera Rotation Speed")]
+        public float cameraRotationSpeed = 1.0f;
+
         private bool cameraEnforced = false;
 
         private float cameraEnforceRotationTime = 0.7f;
@@ -244,6 +247,7 @@ namespace StarterAssets
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                deltaTimeMultiplier *= cameraRotationSpeed;
 
                 _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
                 _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;

@@ -12,6 +12,7 @@ public class PlayerSettingData{
     public int resolutionWidth = -1;
     public int resolutionHeight = -1;
     public int resolutionRefreshRate = -1;
+    public float cameraRotationSpeed = 1.0f;
 }
 
 public class SettingDataManager : MonoBehaviour
@@ -88,6 +89,19 @@ public class SettingDataManager : MonoBehaviour
                 Screen.fullScreenMode = playerSettingData.screenMode;
             }
         }
+
+        // Setting Camera Speed Didn't Apply Yet
+        // SettingDataManager는 Lobby에서 생성되므로 Prototype이나 Prototype_Second에 갈때마다 적용시켜줘야함
+    }
+
+    public void ApplyCameraRotationSpeed(){
+        if(IdealSceneManager.Instance.CurrentGameManager != null){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.cameraRotationSpeed = playerSettingData.cameraRotationSpeed;
+            Debug.Log("Camera Rotation Speed Applied: " + IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.cameraRotationSpeed);
+        }
+        else{
+            Debug.LogError("GameManager is not exist");
+        }
     }
 
     private void SavePlayerSettingData(){
@@ -113,6 +127,12 @@ public class SettingDataManager : MonoBehaviour
                 Debug.LogError("mode num out of boundary");
                 return;
         }
+        SavePlayerSettingData();
+    }
+
+    public void SetCameraRotationSpeed(float speed){
+        playerSettingData.cameraRotationSpeed = speed;
+        ApplyCameraRotationSpeed();
         SavePlayerSettingData();
     }
 

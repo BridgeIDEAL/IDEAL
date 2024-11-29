@@ -9,6 +9,8 @@ public class UIScreenSetting : MonoBehaviour
     public TMP_Dropdown resolutionModeDropdown;
     [SerializeField] private Button closeBookBtn;
 
+    [SerializeField] private Slider cameraRotationSlider;
+
     private Resolution[] availableResolutions;
 
     void Start()
@@ -60,6 +62,11 @@ public class UIScreenSetting : MonoBehaviour
         screenModeDropdown.onValueChanged.AddListener(delegate { OnScreenModeChange(screenModeDropdown.value); });
         // 해상도 변경 이벤트 리스너 추가
         resolutionModeDropdown.onValueChanged.AddListener(delegate { OnResolutionModeChange(resolutionModeDropdown.value); });
+
+
+        // 카메라 회전 속도 슬라이더 설정
+        cameraRotationSlider.value = SettingDataManager.Instance.playerSettingData.cameraRotationSpeed;
+        cameraRotationSlider.onValueChanged.AddListener(SetCameraRotationSpeed);
     }
 
     public void OnScreenModeChange(int mode)
@@ -80,6 +87,11 @@ public class UIScreenSetting : MonoBehaviour
         {
             Debug.LogError("Invalid resolution index selected!");
         }
+    }
+
+    public void SetCameraRotationSpeed(float speed)
+    {
+        SettingDataManager.Instance.SetCameraRotationSpeed(speed);
     }
 
     private void Update()

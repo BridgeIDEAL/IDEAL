@@ -157,6 +157,8 @@ public class IdealSceneManager : MonoBehaviour
         currentGameManager.scriptHub.thirdPersonController.CameraRotationLock = false;
         currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
+        SettingDataManager.Instance.ApplyCameraRotationSpeed();
+
         PenaltyPointManager.Instance.watchIntroEnded = true;
         prototypeGameManager.scriptHub.ambienceSoundManager.SoundFadeIn(true);
         // Intro 보일 때 LobbyBGMFadeOut 해주므로
@@ -240,6 +242,8 @@ public class IdealSceneManager : MonoBehaviour
             // Ambience Sound -> Inside
             currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
             PenaltyPointManager.Instance.OnChangeScene();
+
+            SettingDataManager.Instance.ApplyCameraRotationSpeed();
             
         }
         else if(currentSceneName == "Prototype_Second"){
@@ -256,6 +260,8 @@ public class IdealSceneManager : MonoBehaviour
             // Ambience Sound -> Inside
             currentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
             PenaltyPointManager.Instance.OnChangeScene();
+
+            SettingDataManager.Instance.ApplyCameraRotationSpeed();
         }
 
         // 화면 fade In 효과 넣기
