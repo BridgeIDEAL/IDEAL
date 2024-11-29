@@ -47,8 +47,8 @@ public class IMOnGuardSitEntity : IMovableEntity
     public override void QuietEnter() { }
     public override void QuietExecute() { }
     public override void QuietExit() { }
-    public override void PenaltyEnter() { IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); sight.HeadToPlayer(); }
+    public override void PenaltyEnter() { IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutStart(); sight.HeadToPlayer(); IdealSceneManager.Instance.RadialBlurActive(true);}
     public override void PenaltyExecute() { }
-    public override void PenaltyExit() { IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd(); }
+    public override void PenaltyExit() { IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.LookOutEnd(); IdealSceneManager.Instance.RadialBlurActive(false);}
     #endregion
 }

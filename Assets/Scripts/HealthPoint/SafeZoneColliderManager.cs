@@ -21,7 +21,7 @@ public class SafeZoneColliderManager : MonoBehaviour
 
         if(other.CompareTag("VHSEffectRoom")){
             // IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay();
-            IdealSceneManager.Instance.RadialBlurActive(true);
+            // IdealSceneManager.Instance.RadialBlurActive(true);
         }
 
         if(other.CompareTag("MedicalRoom")){
@@ -66,7 +66,7 @@ public class SafeZoneColliderManager : MonoBehaviour
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.guardCCTVSound.TurnOffCCTV();
         }
         if(other.CompareTag("VHSEffectRoom")){
-            IdealSceneManager.Instance.RadialBlurActive(true);
+            // IdealSceneManager.Instance.RadialBlurActive(true);
         }
 
         if(other.CompareTag("MusicRoom")){
