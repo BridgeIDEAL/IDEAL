@@ -40,7 +40,10 @@ public class SettingDataManager : MonoBehaviour
         else{
             Destroy(this.gameObject);
         }
+       
+    }
 
+    void Start(){
         playerSettingPath = Path.Combine(Application.persistentDataPath, "PlayerSettingData.json");
 
         // 저장된 파일 불러오기
@@ -51,12 +54,7 @@ public class SettingDataManager : MonoBehaviour
             playerSettingData = new PlayerSettingData();
         }
 
-        SavePlayerSettingData();        
-    }
-
-    void Start(){
-        // Awake에서한 AudioMixer 적용이 잘 안되는 것으로 확인
-        LoadPlayerSettingData();
+        SavePlayerSettingData(); 
     }
 
     private void LoadPlayerSettingData(){
