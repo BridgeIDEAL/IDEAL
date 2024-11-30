@@ -9,11 +9,14 @@ public class PlayerHandLight : MonoBehaviour
     [SerializeField] private ThirdPersonController thirdPersonController;
     // max 값들은 현재 handLight에 들어가 있는 값으로 대체
     [SerializeField] private float maxSpotInnerAngle;   
-    private float minSpotInnerAngle = 16.0f;
+    private float minSpotInnerAngle = 16.0f;    //  현재는 max랑 동일하게 하여 intensity만 조절
     [SerializeField] private float maxSpotOuterAngle;
-    private float minSpotOuterAngle = 25.5f;
+    private float minSpotOuterAngle = 25.5f;    //  현재는 max랑 동일하게 하여 intensity만 조절
     [SerializeField] private float maxIntensity;
     private float minIntensity = 0.0f;
+
+    private float resultIntensity;
+    private float lightChangeSpeed = 30.0f;
 
 
     private float[] blinkTimes = { 0.2f, 0.1f, 0.1f}; // 현재 가장 긴 blinkTime이 처음에 와야 자연스러움
@@ -22,9 +25,12 @@ public class PlayerHandLight : MonoBehaviour
     private float combackBlinkTime = 1.0f;
 
     private bool isLightOn = true;
+    private bool isTurning = false;
     private Transform lightTransform; // 손전등 위치 및 방향
-    [SerializeField] private float fadeStartDistance = 3.0f; // 감쇠 최소 거리, 해당 거리 이하는 distanceMinIntensity
-    [SerializeField] private float fadeEndDistance = 7.0f;  // 감쇠 최대 거리, 해당 거리 이상은 maxIntensity
+    [SerializeField] private float fadeStartDistance; // 감쇠 최소 거리, 해당 거리 이하는 distanceMinIntensity
+    [SerializeField] private float fadeMiddleDistance; // 감쇠 중간 거리
+    [SerializeField] private float fadeEndDistance;  // 감쇠 최대 거리, 해당 거리 이상은 maxIntensity
+    [SerializeField] private float distanceMaxIntensity;
     [SerializeField] private float distanceMinIntensity;
 
     private Coroutine lightCoroutine;
@@ -33,9 +39,9 @@ public class PlayerHandLight : MonoBehaviour
 
     private void Awake(){
         lightTransform = handLight.transform;
-        maxSpotInnerAngle = handLight.innerSpotAngle;
-        maxSpotOuterAngle = handLight.spotAngle;
-        maxIntensity = handLight.intensity;
+
+        minSpotInnerAngle = maxSpotInnerAngle;
+        minSpotOuterAngle = maxSpotOuterAngle;
 
         firstBlinkTime = blinkTimes[0];
     }
@@ -76,6 +82,24 @@ public class PlayerHandLight : MonoBehaviour
 
         // 빛의 강도를 거리 기반으로 조정
         AdjustLightIntensity();
+
+        // 너무 깜빡거리는 문제를 해결하기 위해 fade 효과
+        if(resultIntensity - handLight.intensity > 0){
+            if(resultIntensity - handLight.intensity > lightChangeSpeed * Time.deltaTime){
+                handLight.intensity += lightChangeSpeed * Time.deltaTime;
+            }
+            else{
+                handLight.intensity = resultIntensity;
+            }
+        }
+        else{
+            if(handLight.intensity - resultIntensity > lightChangeSpeed * Time.deltaTime){
+                handLight.intensity -= lightChangeSpeed * Time.deltaTime;
+            }
+            else{
+                handLight.intensity = resultIntensity;
+            }
+        }
     }
 
     public float SeeDistance;
@@ -83,23 +107,32 @@ public class PlayerHandLight : MonoBehaviour
     private void AdjustLightIntensity()
     {
         if (!isLightOn) return;
+        if(isTurning) return;
 
         // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, fadeEndDistance))
+        float radius = 0.5f;
+        if (Physics.SphereCast(ray, radius, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
             SeeDistance = distance;
             SeeHitObject = hit.transform.gameObject.name;
 
+            float intensity;
             // 거리 기반으로 강도 조정
-            float intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, (distance - fadeStartDistance) / (fadeEndDistance - fadeStartDistance));
-            handLight.intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
+            if(distance < fadeMiddleDistance){
+                intensity = Mathf.Lerp(distanceMinIntensity, distanceMaxIntensity, (distance - fadeStartDistance) / (fadeMiddleDistance - fadeStartDistance));
+                resultIntensity = Mathf.Clamp(intensity, distanceMinIntensity, distanceMaxIntensity);
+            }
+            else{
+                intensity = Mathf.Lerp(distanceMaxIntensity, maxIntensity, (distance - fadeMiddleDistance) / (fadeEndDistance - fadeMiddleDistance));
+                resultIntensity = Mathf.Clamp(intensity, distanceMaxIntensity, maxIntensity);
+            }
         }
         else
         {
             // 아무것도 맞지 않았을 때 최대 강도 유지
-            handLight.intensity = maxIntensity;
+            resultIntensity = maxIntensity;
         }
     }
 
@@ -107,13 +140,14 @@ public class PlayerHandLight : MonoBehaviour
         float intensity;
         // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, fadeEndDistance))
+        float radius = 0.5f;
+        if (Physics.SphereCast(ray, radius, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
 
             // 거리 기반으로 강도 조정
-            intensity = Mathf.Lerp(distanceMinIntensity, maxIntensity, (distance - fadeStartDistance) / (fadeEndDistance - fadeStartDistance));
-            intensity = Mathf.Clamp(intensity, distanceMinIntensity, maxIntensity);
+            intensity = Mathf.Lerp(distanceMinIntensity, distanceMaxIntensity, (distance - fadeStartDistance) / (fadeEndDistance - fadeStartDistance));
+            intensity = Mathf.Clamp(intensity, distanceMinIntensity, distanceMaxIntensity);
         }
         else
         {
@@ -124,6 +158,8 @@ public class PlayerHandLight : MonoBehaviour
     }
 
     IEnumerator TurnCoroutine(bool isLightOn){
+        isTurning = true;
+        
         float stepTimer = 0.0f;
         float fadeTime = blinkTimes[0];
 
@@ -138,11 +174,13 @@ public class PlayerHandLight : MonoBehaviour
         while(stepTimer <= fadeTime){
             handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, destSpotInnerAngle, stepTimer / fadeTime);
             handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, destSpotOuterAngle, stepTimer / fadeTime);
-            handLight.intensity = Mathf.Lerp(curIntensity, destIntensity, stepTimer/ fadeTime);
+            resultIntensity = Mathf.Lerp(curIntensity, destIntensity, stepTimer/ fadeTime);
 
             stepTimer += Time.deltaTime;
             yield return null;
         }
+
+        isTurning = false;
     }
 
 
@@ -176,7 +214,7 @@ public class PlayerHandLight : MonoBehaviour
                 while(stepTimer <= blinkTimes[i]){
                     handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, minSpotInnerAngle, stepTimer / blinkTimes[i]);
                     handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, minSpotOuterAngle, stepTimer / blinkTimes[i]);
-                    handLight.intensity = Mathf.Lerp(curIntensity, minIntensity, stepTimer / blinkTimes[i]);
+                    resultIntensity = Mathf.Lerp(curIntensity, minIntensity, stepTimer / blinkTimes[i]);
 
                     stepTimer += Time.deltaTime;
                     yield return null;
@@ -193,7 +231,7 @@ public class PlayerHandLight : MonoBehaviour
                 while(stepTimer <= blinkTimes[i]){
                     handLight.innerSpotAngle = Mathf.Lerp(minSpotInnerAngle, curMaxSpotInnerAngle, stepTimer / blinkTimes[i]);
                     handLight.spotAngle = Mathf.Lerp(minSpotOuterAngle, curMaxSpotOuterAngle, stepTimer / blinkTimes[i]);
-                    handLight.intensity = Mathf.Lerp(minIntensity, curMaxIntensity, stepTimer / blinkTimes[i]);
+                    resultIntensity = Mathf.Lerp(minIntensity, curMaxIntensity, stepTimer / blinkTimes[i]);
 
                     stepTimer += Time.deltaTime;
                     yield return null;
@@ -213,7 +251,7 @@ public class PlayerHandLight : MonoBehaviour
         while(stepTimer <= combackBlinkTime){
             handLight.innerSpotAngle = Mathf.Lerp(curSpotInnerAngle, maxSpotInnerAngle, stepTimer / combackBlinkTime);
             handLight.spotAngle = Mathf.Lerp(curSpotOuterAngle, maxSpotOuterAngle, stepTimer / combackBlinkTime);
-            handLight.intensity = Mathf.Lerp(curIntensity, maxIntensity, stepTimer / firstBlinkTime);
+            resultIntensity = Mathf.Lerp(curIntensity, maxIntensity, stepTimer / firstBlinkTime);
 
             stepTimer += Time.deltaTime;
             yield return null;
