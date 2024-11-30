@@ -17,6 +17,7 @@ public class PlayerHandLight : MonoBehaviour
 
     private float resultIntensity;
     private float lightChangeSpeed = 60.0f;
+    [SerializeField] private float sphereCastRadius = 0.1f;
 
 
     private float[] blinkTimes = { 0.2f, 0.1f, 0.1f}; // 현재 가장 긴 blinkTime이 처음에 와야 자연스러움
@@ -106,8 +107,7 @@ public class PlayerHandLight : MonoBehaviour
 
         // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        float radius = 0.5f;
-        if (Physics.SphereCast(ray, radius, out RaycastHit hit, fadeEndDistance))
+        if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
             SeeDistance = distance;
@@ -135,8 +135,7 @@ public class PlayerHandLight : MonoBehaviour
         float intensity;
         // 손전등 앞의 가장 가까운 오브젝트와 거리 계산
         Ray ray = new Ray(lightTransform.position, lightTransform.forward);
-        float radius = 0.5f;
-        if (Physics.SphereCast(ray, radius, out RaycastHit hit, fadeEndDistance))
+        if (Physics.SphereCast(ray, sphereCastRadius, out RaycastHit hit, fadeEndDistance))
         {
             float distance = hit.distance;
 
