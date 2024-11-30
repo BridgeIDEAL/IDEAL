@@ -1367,6 +1367,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7097280927856975572, guid: 2a477dc6cfd3d2c4cb4d354ab3c7c37c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7097280927856975572, guid: 2a477dc6cfd3d2c4cb4d354ab3c7c37c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.056
+      objectReference: {fileID: 0}
     - target: {fileID: 8346404994260441973, guid: 2a477dc6cfd3d2c4cb4d354ab3c7c37c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1475,13 +1485,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
-  outlineScaleFactor: -1.05
-  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineScaleFactor: -1.5
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
-  planeObject: 0
+  planeObject: 1
   planeValue: -0.0005
   outlineMask: 
 --- !u!114 &510094686
@@ -6279,11 +6289,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1396899227}
     m_Modifications:
+    - target: {fileID: 1058863263058629673, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 234a5edfe9014b34baf0f3c123865747, type: 2}
+    - target: {fileID: 1308530406904484444, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f897f6de2b1a98045b6cf835dffde1bc, type: 2}
     - target: {fileID: 2046799336502279603, guid: 7a37e4cad0efbf6458f17b11d897bad3,
         type: 3}
       propertyPath: destRotation.y
       value: -130
       objectReference: {fileID: 0}
+    - target: {fileID: 3046822675593192612, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 234a5edfe9014b34baf0f3c123865747, type: 2}
     - target: {fileID: 3288141977269708890, guid: 7a37e4cad0efbf6458f17b11d897bad3,
         type: 3}
       propertyPath: m_RootOrder
@@ -6344,6 +6369,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_BuildingA
       objectReference: {fileID: 0}
+    - target: {fileID: 3377437998886858650, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbd70b26b86b0d14681daff56d0231f7, type: 2}
+    - target: {fileID: 6755835218057302789, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f897f6de2b1a98045b6cf835dffde1bc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a37e4cad0efbf6458f17b11d897bad3, type: 3}
 --- !u!4 &1658203828 stripped
