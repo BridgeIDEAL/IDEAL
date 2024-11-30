@@ -2733,14 +2733,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259440929}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.261, z: 0}
+  m_LocalRotation: {x: -0.034636512, y: 0.008546913, z: 0.0002962238, w: 0.9993634}
+  m_LocalPosition: {x: -0.131, y: -0.313, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304010118}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.97, y: 0.98, z: 0}
 --- !u!114 &1259440931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2773,10 +2773,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 4.5
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Intensity: 20
+  m_Range: 30
+  m_SpotAngle: 40
+  m_InnerSpotAngle: 25
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -2837,8 +2837,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handLight: {fileID: 1259440932}
   thirdPersonController: {fileID: 1808215690}
-  fadeStartDistance: 5
-  distanceMinIntensity: 0
+  maxSpotInnerAngle: 25
+  maxSpotOuterAngle: 30
+  maxIntensity: 15
+  fadeStartDistance: 1
+  fadeEndDistance: 5
+  distanceMinIntensity: 0.5
+  SeeDistance: 0
+  SeeHitObject: 
 --- !u!4 &1304010118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8338988566280778637, guid: 64dce48905ffd9b4293e595fa6941544,
@@ -6672,6 +6678,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 21312035680483018, guid: 58e27b6797b626a4087ae497de5bd92b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21312035680483018, guid: 58e27b6797b626a4087ae497de5bd92b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21312035680483018, guid: 58e27b6797b626a4087ae497de5bd92b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21312035680483018, guid: 58e27b6797b626a4087ae497de5bd92b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2951974767514619865, guid: 58e27b6797b626a4087ae497de5bd92b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -8344,6 +8370,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2401336137774037664, guid: baa87726d75ba1e4dbf2976350946a2a,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401336138867494934, guid: baa87726d75ba1e4dbf2976350946a2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2401336139247038986, guid: baa87726d75ba1e4dbf2976350946a2a,
         type: 3}
       propertyPath: m_RootOrder
