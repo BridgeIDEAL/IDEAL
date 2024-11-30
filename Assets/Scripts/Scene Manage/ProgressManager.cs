@@ -116,6 +116,8 @@ public class ProgressManager : MonoBehaviour
 
     public bool needShowChecklistIcon = false;
 
+    public bool isTurnOnLight = false;
+
     private UICheckListManager uICheckListManager;
     void Awake(){
         if(instance == null){

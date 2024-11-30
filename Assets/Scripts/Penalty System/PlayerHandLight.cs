@@ -16,7 +16,7 @@ public class PlayerHandLight : MonoBehaviour
     private float minIntensity = 0.0f;
 
     private float resultIntensity;
-    private float lightChangeSpeed = 30.0f;
+    private float lightChangeSpeed = 60.0f;
 
 
     private float[] blinkTimes = { 0.2f, 0.1f, 0.1f}; // 현재 가장 긴 blinkTime이 처음에 와야 자연스러움
@@ -47,11 +47,6 @@ public class PlayerHandLight : MonoBehaviour
     }
 
     private void Start(){
-        isLightOn = true;
-        if(turnCoroutine != null){
-            StopCoroutine(turnCoroutine);
-        }
-        turnCoroutine = StartCoroutine(TurnCoroutine(true));
     }
 
     private void Update()
@@ -157,8 +152,17 @@ public class PlayerHandLight : MonoBehaviour
         return intensity;
     }
 
+    public void TurnOnLight(bool isTurnOnLight){
+        isLightOn = isTurnOnLight;
+        if(turnCoroutine != null){
+            StopCoroutine(turnCoroutine);
+        }
+        turnCoroutine = StartCoroutine(TurnCoroutine(isTurnOnLight));
+    }
+
     IEnumerator TurnCoroutine(bool isLightOn){
         isTurning = true;
+        ProgressManager.Instance.isTurnOnLight = isLightOn;
         
         float stepTimer = 0.0f;
         float fadeTime = blinkTimes[0];
@@ -179,8 +183,22 @@ public class PlayerHandLight : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+        resultIntensity = destIntensity;
 
         isTurning = false;
+    }
+
+    public void OnSceneChanged(){
+        if(ProgressManager.Instance.isTurnOnLight){
+            isLightOn = true;
+            resultIntensity = GetLightIntensity();
+            handLight.intensity = resultIntensity;
+        }
+        else{
+            isLightOn = false;
+            resultIntensity = minIntensity;
+            handLight.intensity = resultIntensity;
+        }
     }
 
 

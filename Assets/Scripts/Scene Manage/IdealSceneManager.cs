@@ -170,6 +170,8 @@ public class IdealSceneManager : MonoBehaviour
         currentGameManager.scriptHub.thirdPersonController.CameraRotationLock = false;
         currentGameManager.scriptHub.uIManager.uIInputLock = false;
 
+        currentGameManager.scriptHub.playerHandLight.TurnOnLight(true);
+
         SettingDataManager.Instance.ApplyCameraRotationSpeed();
 
         PenaltyPointManager.Instance.watchIntroEnded = true;
@@ -257,6 +259,8 @@ public class IdealSceneManager : MonoBehaviour
             PenaltyPointManager.Instance.OnChangeScene();
 
             SettingDataManager.Instance.ApplyCameraRotationSpeed();
+
+            currentGameManager.scriptHub.playerHandLight.OnSceneChanged();
             
         }
         else if(currentSceneName == "Prototype_Second"){
@@ -275,6 +279,8 @@ public class IdealSceneManager : MonoBehaviour
             PenaltyPointManager.Instance.OnChangeScene();
 
             SettingDataManager.Instance.ApplyCameraRotationSpeed();
+
+            currentGameManager.scriptHub.playerHandLight.OnSceneChanged();
         }
 
         // 화면 fade In 효과 넣기
