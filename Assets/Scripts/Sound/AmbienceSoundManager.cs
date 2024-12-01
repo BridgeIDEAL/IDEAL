@@ -73,28 +73,20 @@ public class AmbienceSoundManager : MonoBehaviour
 
     public void UpdateAreaCondition(bool isColliderEnter, IdealArea areaCondition){
         if(isColliderEnter){
-            // 문 개념으로 ColliderExit 에 적용되도록 수정
+            // Outside에 들어갔으므로  Ouside 앰비언스로 변경
+            currentArea = IdealArea.Outside;
+            if(audioCoroutine != null){
+                StopCoroutine(audioCoroutine);
+            }
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime*2, true));
         }
         else{
-            if(areaCondition == IdealArea.Outside){
-                if(currentArea == IdealArea.Outside){
-                    currentArea = IdealArea.Inside;
-                    if(audioCoroutine != null){
-                        StopCoroutine(audioCoroutine);
-                    }
-                    audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime*2 , true));
-                }
-                else if(currentArea == IdealArea.Inside){
-                    currentArea = IdealArea.Outside;
-                    if(audioCoroutine != null){
-                        StopCoroutine(audioCoroutine);
-                    }
-                    audioCoroutine = StartCoroutine(SoundFadeCoroutine(outsideAudioSource, outsideAudioVolume, soundFadeTime*2, true));
-                }
-                else{
-                    Debug.Log(" Un expected 1");
-                }
+            // Outside에서 나왔으므로 Inside 앰비언스로 변경
+            currentArea = IdealArea.Inside;
+            if(audioCoroutine != null){
+                StopCoroutine(audioCoroutine);
             }
+            audioCoroutine = StartCoroutine(SoundFadeCoroutine(insideAudioSource, insideAudioVolume, soundFadeTime*2 , true));
         }
     }
 

@@ -13,7 +13,9 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
 
         if(other.CompareTag("Outside")){
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.Outside);
+            if(IdealSceneManager.Instance.CurrentGameManager != null){
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(true, IdealArea.Outside);
+            }
         }
         if(other.CompareTag("GuardRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.guardCCTVSound.TurnOnCCTV();
@@ -60,7 +62,9 @@ public class SafeZoneColliderManager : MonoBehaviour
         }
 
         if(other.CompareTag("Outside")){
-            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+            if(IdealSceneManager.Instance.CurrentGameManager != null){
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.UpdateAreaCondition(false, IdealArea.Outside);
+            }   
         }
         if(other.CompareTag("GuardRoom")){
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.guardCCTVSound.TurnOffCCTV();
