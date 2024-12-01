@@ -17,6 +17,9 @@ public class InteractionWatchGuidebook : AbstractInteraction
 
     protected override void ActInteraction() {
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.ActiveGuideBook();
+        if(audioSource != null){
+            audioSource.Play();
+        }
         
         if (activationLogNum != -1) {
             //ActivationLogManager.Instance.AddActivationLog(activationLogNum);
