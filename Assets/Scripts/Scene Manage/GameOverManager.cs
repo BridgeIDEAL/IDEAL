@@ -17,7 +17,7 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private AudioSource gameOverAudio;
     private float pressKeyTime = 1.0f;
     private TextMeshProUGUI endingMentText;
-    private bool isEnd = false;
+    public bool isEnd = false;
     private float stepTimer = 0.0f;
 
     

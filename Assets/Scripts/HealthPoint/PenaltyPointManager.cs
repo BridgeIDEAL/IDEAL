@@ -111,7 +111,10 @@ public class PenaltyPointManager : MonoBehaviour
                 eyePenaltyStepTimer = 0.0f;
             }
         }
-        if(!inPrototypeSecond && !inLobby &&!isChased && !isTimerFreeze && !insideSafeZone) eyePenaltyStepTimer += Time.deltaTime;
+        if(!inLobby &&!isChased && !isTimerFreeze && !insideSafeZone
+        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd) {
+            eyePenaltyStepTimer += Time.deltaTime;
+        }
 
         
         // 패널티 오브젝트가 존재하는 경우
@@ -158,7 +161,10 @@ public class PenaltyPointManager : MonoBehaviour
 
             EntityDataManager.Instance.Controller.InActivePrincipal();
         }
-        if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone) soundPenaltyStepTimer += Time.deltaTime;
+        if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone
+        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd) {
+            soundPenaltyStepTimer += Time.deltaTime;
+        }
 
         if(isSoundHearing){
             soundHearingTimer += Time.deltaTime;
