@@ -29,6 +29,8 @@ public abstract class JumpScare : MonoBehaviour
 
     public void FindFollowCameraNRelease()
     {
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+
         if (virtualCam == null)
         {
             CinemachineBrain brain = Camera.main.GetComponent<CinemachineBrain>();
