@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour
        
         isTalking = true;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.OnActiveDialogue();
         Dialouge_UI.StartDialogue(_storyKey);
     }
 
@@ -136,7 +136,7 @@ public class DialogueManager : MonoBehaviour
         // Lock Player Move & Rotate : Later Delete Annotation
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.CameraEnforceLookAt(_entity.HeadTransform);
-        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.OnActiveDialogue();
         // To Do ~~~ : Prevent Active Another UI
         // Prevent Interaction 
         CurrentTalkEntity.gameObject.layer = defaultLayer;

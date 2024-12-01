@@ -116,7 +116,9 @@ public class UIManager : MonoBehaviour
         #endif
 
         // Inventory UI 관련 코드
-        if(Input.GetKeyDown(KeyCode.Tab)){
+        // Map과 Dialogue가 활성화 되어 있지 않은 경우에만 Inventory UI 활성화
+        if(Input.GetKeyDown(KeyCode.Tab) 
+        && !UIActives[(int)UIType.MapUI] && !isDialogueActive && !UIActives[(int)UIType.SettingUI]){
             UIActives[(int)UIType.InventoryUI] = true;
             isInventoryActive = true;
             inventoryUISound.Play();
@@ -132,7 +134,12 @@ public class UIManager : MonoBehaviour
         }
         SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
 
-        if(Input.GetKeyDown(KeyCode.M) && (Inventory.Instance.FindItemIndex(mapItemCode) != -1 || Inventory.Instance.FindItemIndex(mapPieceItemCode) != -1)){    // ` 누른 경우 Map 활성화 비활성화
+        // M 누른 경우 Map 활성화 비활성화
+        // Inventory, Dialogue, 설정창이 활성화 되어 있지 않은 경우에만 Map UI 활성화
+        if(Input.GetKeyDown(KeyCode.M) 
+        && (Inventory.Instance.FindItemIndex(mapItemCode) != -1 || Inventory.Instance.FindItemIndex(mapPieceItemCode) != -1)
+        && !UIActives[(int)UIType.InventoryUI] && !isDialogueActive && !UIActives[(int)UIType.SettingUI])
+        {
             UIActives[(int)UIType.MapUI] = !UIActives[(int)UIType.MapUI];
             SetUIActive(UIType.MapUI, UIActives[(int)UIType.MapUI]);
             if(UIActives[(int)UIType.MapUI]) {
@@ -146,6 +153,9 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)){
             UIActives[(int)UIType.SettingUI] = !UIActives[(int)UIType.SettingUI];
             SetUIActive(UIType.SettingUI, UIActives[(int)UIType.SettingUI]);
+            if(UIActives[(int)UIType.SettingUI]){
+                CloseInventoryAndMapUI();
+            }
             if(!isDialogueActive) thirdPersonController.MoveLock = UIActives[(int)UIType.SettingUI];
         }
 
@@ -227,5 +237,27 @@ public class UIManager : MonoBehaviour
         UIActives[(int)UIType.GuideBookUI] = false;
         SetUIActive(UIType.GuideBookUI, UIActives[(int)UIType.GuideBookUI]);
         thirdPersonController.MoveLock = false;
+    }
+
+    public void OnActiveDialogue(){
+        isDialogueActive = true;
+        CloseInventoryAndMapUI();
+    }
+
+    private void CloseInventoryAndMapUI(){
+        // MapUI와 Inventory가 켜져 있는 경우 비활성화
+        // MapUI 처리
+        if(UIActives[(int)UIType.MapUI]){
+            InActiveMapUI();
+        }
+
+        // Inventory 처리
+        if(UIActives[(int)UIType.InventoryUI]){
+            UIActives[(int)UIType.InventoryUI] = false;
+            isInventoryActive = false;
+
+            uIInventory.HideHighlightAllSlot();
+            SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
+        }
     }
 }
