@@ -5,6 +5,8 @@ using UnityEngine;
 public class SafeZoneColliderManager : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other){
+        if(IdealSceneManager.Instance.isWatchingIntro) return;
+
         if (other.CompareTag("Rest")) {
             PenaltyPointManager.Instance.GoSafeZone(true);
         }
@@ -54,6 +56,8 @@ public class SafeZoneColliderManager : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
+        if(IdealSceneManager.Instance.isWatchingIntro) return;
+        
         if (other.CompareTag("Rest")) {
             PenaltyPointManager.Instance.GoSafeZone(false);
         }

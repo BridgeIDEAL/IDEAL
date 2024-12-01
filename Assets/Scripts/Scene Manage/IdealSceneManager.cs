@@ -51,6 +51,8 @@ public class IdealSceneManager : MonoBehaviour
     private Coroutine soundCoroutine = null;
     private Coroutine radialBlurCoroutine = null;
 
+    public bool isWatchingIntro = false;
+
     private void Awake() {
         if(instance == null){
             instance = this;
@@ -134,6 +136,7 @@ public class IdealSceneManager : MonoBehaviour
     IEnumerator LoadGameSceneCoroutine(){
         LoadingImageManager.Instance.SetActiveLoadingImage(true);
         LoadingImageManager.Instance.StartIntroText();
+        isWatchingIntro = true;
         yield return null;
 
         AsyncOperation loadPrototype = SceneManager.LoadSceneAsync("Prototype", LoadSceneMode.Single);
@@ -165,6 +168,8 @@ public class IdealSceneManager : MonoBehaviour
         while(!LoadingImageManager.Instance.goNext){
             yield return null;
         }
+
+        isWatchingIntro = false;
         
         currentGameManager.scriptHub.thirdPersonController.MoveLock = false;
         currentGameManager.scriptHub.thirdPersonController.CameraRotationLock = false;
