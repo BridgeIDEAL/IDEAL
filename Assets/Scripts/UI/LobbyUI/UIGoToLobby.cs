@@ -7,6 +7,6 @@ public class UIGoToLobby : MonoBehaviour
     public void GoToLobby(){
         CountAttempts.Instance.AddAttemptCount();
         GuideLogManager.Instance.SavePlayerSaveData();
-        IdealSceneManager.Instance.LoadLobbyScene();
+        IdealSceneManager.Instance.LoadLobbyScene(false);
     }
 }

@@ -358,8 +358,11 @@ public class IdealSceneManager : MonoBehaviour
         }
     }
 
-    public void LoadLobbyScene(){
+    public void LoadLobbyScene(bool isDead){
         SceneManager.LoadScene("Lobby");
+        if(isDead){
+            SettingDataManager.Instance.OpenSFX();
+        }
     }
 
 

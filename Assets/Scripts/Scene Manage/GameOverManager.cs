@@ -47,6 +47,9 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOver(int stateNum=0){
+        
+        SettingDataManager.Instance.LateCloseSFX();
+        
         CheckUpdateLog(stateNum);
         backgroundObject.SetActive(true);
         vhsRawImage.SetActive(true);
@@ -65,6 +68,7 @@ public class GameOverManager : MonoBehaviour
 
     public void GameOverWithVHSEffect(int stateNum = 0){
         gameOverAudio.Play();
+
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay(() =>GameOver(stateNum));
     }
 
@@ -74,8 +78,9 @@ public class GameOverManager : MonoBehaviour
             if(stepTimer >= pressKeyTime){
                 pressKeyTextObject.SetActive(true);
                 if(Input.anyKeyDown){
+                    isEnd = false;
                     gameOverAudio.Stop();
-                    IdealSceneManager.Instance.LoadLobbyScene();
+                    IdealSceneManager.Instance.LoadLobbyScene(true);
                 }
             }
             stepTimer += Time.deltaTime;

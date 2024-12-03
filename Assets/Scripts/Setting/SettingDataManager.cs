@@ -27,6 +27,8 @@ public class SettingDataManager : MonoBehaviour
     }
 
     [SerializeField] private AudioMixer idealAudioMixer;
+    private Coroutine audioMixerCoroutine = null;
+    private float audioMixerCoroutineTime = 0.59f;
 
     private string playerSettingPath;
     public PlayerSettingData playerSettingData = null;
@@ -66,6 +68,7 @@ public class SettingDataManager : MonoBehaviour
         idealAudioMixer.SetFloat("Master", playerSettingData.masterVolume);
         idealAudioMixer.SetFloat("BGM", playerSettingData.bgmVolume);
         idealAudioMixer.SetFloat("SFX", playerSettingData.sfxVolume);
+        idealAudioMixer.SetFloat("GameOver", playerSettingData.sfxVolume);
 
         // Window Setting Data Apply
         Resolution savedResolution = new Resolution();
@@ -123,6 +126,7 @@ public class SettingDataManager : MonoBehaviour
                 break;
             case 2:
                 idealAudioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+                idealAudioMixer.SetFloat("GameOver", Mathf.Log10(volume) * 20);
                 playerSettingData.sfxVolume = Mathf.Log10(volume) * 20;
                 break;
             default:
@@ -186,5 +190,44 @@ public class SettingDataManager : MonoBehaviour
         playerSettingData.brightness = brightnessValue;
         IdealSceneManager.Instance.SetPostExposure(brightnessValue);
         SavePlayerSettingData();
+    }
+
+    public void LateCloseSFX(){
+        Invoke("CloseSFX", 1.5f);
+    }
+
+    private void CloseSFX(){
+        if(audioMixerCoroutine != null){
+            StopCoroutine(audioMixerCoroutine);
+        }
+        audioMixerCoroutine = StartCoroutine(CloseSFXCoroutine());
+    }
+
+    IEnumerator CloseSFXCoroutine(){
+
+        float stepTimer = 0.0f;
+        while(stepTimer < audioMixerCoroutineTime){
+            stepTimer += Time.deltaTime;
+            idealAudioMixer.SetFloat("SFX", Mathf.Lerp(playerSettingData.sfxVolume, -80.0f, stepTimer / audioMixerCoroutineTime));
+            yield return null;
+        }
+    }
+
+    public void OpenSFX(){
+        if(audioMixerCoroutine != null){
+            StopCoroutine(audioMixerCoroutine);
+        }
+        audioMixerCoroutine = StartCoroutine(OpenSFXCoroutine());
+    }
+
+    IEnumerator OpenSFXCoroutine(){
+        float stepTimer = 0.0f;
+        float currentVolume = -80.0f;
+        idealAudioMixer.GetFloat("SFX", out currentVolume);
+        while(stepTimer < audioMixerCoroutineTime){
+            stepTimer += Time.deltaTime;
+            idealAudioMixer.SetFloat("SFX", Mathf.Lerp(currentVolume, playerSettingData.sfxVolume, stepTimer / audioMixerCoroutineTime));
+            yield return null;
+        }
     }
 }
