@@ -14,6 +14,8 @@ public class GraffitiDeathTrigger : MonoBehaviour
                 SteamfeatureController.Instance.FeatureManager.Achievement03.isBoardDeath = true;
                 SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
             }
+            EntityDataManager.Instance.Controller.DisableChaseGroup();
+            EntityDataManager.Instance.Controller.InActiveInteractionEntities();
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
         }
     }
