@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FabManager fab_Manager;
     public FabManager Fab_Manager { get { return fab_Manager; } }
     // Not Use Now
-    private DataManager data = new DataManager();
-    public DataManager Data { get { return data; } }
     private ResourceManager resource = new ResourceManager();
     public ResourceManager Resource { get { return resource; } }
    

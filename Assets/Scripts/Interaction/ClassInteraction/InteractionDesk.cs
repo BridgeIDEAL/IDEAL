@@ -8,7 +8,7 @@ public class InteractionDesk : AbstractInteraction
     [SerializeField] private string afterInteractionStr = "";
     [SerializeField] private int activationLogNum = -1;
     [SerializeField] private float requiredTime = 1.0f;
-    [SerializeField] private int availableCount = 1;
+    //[SerializeField] private int availableCount = 1;
     public override float RequiredTime { get => requiredTime; }
 
     PrincipalPatrol principal = null;

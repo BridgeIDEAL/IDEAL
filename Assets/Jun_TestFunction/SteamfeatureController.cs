@@ -6,7 +6,7 @@ public class SteamfeatureController : MonoBehaviour
 {
     bool isConnectSteam = false;
     const uint steamAppId = 3263940;
-    [SerializeField] string testAchievementID = "ACHIEV_01";
+    //[SerializeField] string testAchievementID = "ACHIEV_01";
 
     private static SteamfeatureController instance = null;
     public static SteamfeatureController Instance { get { return instance; } private set { instance = value; } }
