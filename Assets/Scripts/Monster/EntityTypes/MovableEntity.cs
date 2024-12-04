@@ -86,8 +86,8 @@ public class MovableEntity : BaseEntity
     // Animation
     public virtual void SetAnimation(EntityStateType _currentType, bool _isStart)
     {
-        switch (_currentType)
-        {
+        //switch (_currentType)
+        //{
             //case EntityStateType.Idle:
             //    anim.SetBool("Idle", _isStart);
             //    break;
@@ -105,7 +105,7 @@ public class MovableEntity : BaseEntity
             //    break;
             //default:
             //    break;
-        }
+        //}
     }
 
     // Act
