@@ -27,6 +27,9 @@ public class LastCutScene : LastObjects
     {
         if (other.CompareTag("Player"))
         {
+            EntityDataManager.Instance.Controller.InActiveInteractionEntities();
+            EntityDataManager.Instance.Controller.DisableChaseGroup();
+
             if (SteamfeatureController.Instance.FeatureManager.Achievement06.isEnding == false)
             {
                 SteamfeatureController.Instance.FeatureManager.Achievement06.isEnding = true;
@@ -45,8 +48,7 @@ public class LastCutScene : LastObjects
             front_light.SetActive(true);
 
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
-            EntityDataManager.Instance.Controller.InActiveInteractionEntities();
-            EntityDataManager.Instance.Controller.DisableChaseGroup();
+            
 
             cam.enabled = false;
             listener.enabled = false;
