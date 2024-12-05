@@ -258,6 +258,89 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
+--- !u!1 &1185512564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1185512565}
+  - component: {fileID: 1185512567}
+  - component: {fileID: 1185512566}
+  m_Layer: 0
+  m_Name: Principal_Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1185512565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185512564}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11, y: 0.07, z: -0}
+  m_LocalScale: {x: 0.05, y: 0.010000004, z: 0.05000002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 455248863952755401}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1185512567
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185512564}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1185512566
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185512564}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6e47d89d8e35f6d4dbcab103b1d85895, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1313873808
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +474,7 @@ GameObject:
   - component: {fileID: 1466211196}
   - component: {fileID: 1466211198}
   - component: {fileID: 1466211197}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DetectPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1592,10 +1675,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -2078,10 +2164,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -2520,10 +2609,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -2788,10 +2880,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -4496,10 +4591,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -4738,10 +4836,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -4782,6 +4883,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5930068448056516790}
     m_Modifications:
+    - target: {fileID: 47549411136152147, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1138244910138067155, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2618312981626581709, guid: fd3d69da5b7965149a3866243f2389f1,
         type: 3}
       propertyPath: m_RootOrder
@@ -4812,10 +4923,35 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4573033931612846894, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5140534151730216101, guid: fd3d69da5b7965149a3866243f2389f1,
         type: 3}
       propertyPath: deathIndex
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925292773523413316, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939504217022290740, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8025669251163296704, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8551358168581486793, guid: fd3d69da5b7965149a3866243f2389f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8745032364384056150, guid: fd3d69da5b7965149a3866243f2389f1,
         type: 3}
@@ -5251,10 +5387,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -5525,10 +5664,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -5824,10 +5966,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -6146,10 +6291,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -7415,6 +7563,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0000010999067
       objectReference: {fileID: 0}
+    - target: {fileID: 7661261623479534374, guid: 7f25e4a23df86fb4d88184fdc23857fb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.017
+      objectReference: {fileID: 0}
     - target: {fileID: 8015336939176935599, guid: 7f25e4a23df86fb4d88184fdc23857fb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7943,6 +8096,7 @@ MonoBehaviour:
   entityMeshObjests:
   - {fileID: 4605672228353317104}
   - {fileID: 9079640091890216445}
+  - {fileID: 1185512564}
   waitTime: 0.5
   lookPrincipalTime: 1
 --- !u!195 &1924536872034677836
@@ -8262,10 +8416,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 50e4f257e0ea6a94cbca49ad545e37a6, type: 2}
   outlineScaleFactor: -1.05
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
   outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
   reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 

@@ -10,7 +10,7 @@ public class ChaseCollisionDetect : MonoBehaviour
     int structLayer = 1 << 10;
     int playerLayer = 1 <<3;
     [Header("Collision Detect Value")]
-    [SerializeField] float catchDistance = 3f;
+    float catchDistance = 1.5f;
     [SerializeField] Transform bodyTransform;
     public void Init(Transform playerTransform)
     {
@@ -35,8 +35,8 @@ public class ChaseCollisionDetect : MonoBehaviour
 
     public bool CheckNearPlayer()
     {
-        if (Physics.OverlapSphere(bodyTransform.position, 3f, playerLayer).Length == 0)
-            return false;
-        return true;
+        if(Physics.SphereCast(bodyTransform.position, catchDistance, transform.forward, out RaycastHit hit, catchDistance , playerLayer))
+            return true;
+        return false;
     }
 }
