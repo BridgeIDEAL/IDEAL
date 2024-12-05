@@ -65,7 +65,7 @@ public class InteractionChangeScene : AbstractInteraction
         }
         ProgressManager.Instance.UpdateCheckList(104, 1);
         IdealSceneManager.Instance.metalDoorSound.Play();
-
+        EntityDataManager.Instance.Controller.DisableChaseGroup();
         // OnlyChase Disable => Here 
         if (HealthPointManager.Instance.chased)
         {
