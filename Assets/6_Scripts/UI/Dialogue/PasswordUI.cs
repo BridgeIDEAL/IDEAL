@@ -47,6 +47,7 @@ public class PasswordUI : MonoBehaviour
         indicateText.text = beforeEnterPassword;
         passwordObject.SetActive(true);
         passwordField.text = "";
+        passwordField.ActivateInputField();
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.IsDialogueActive = true;
     }
