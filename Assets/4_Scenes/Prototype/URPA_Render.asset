@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1916131122334344146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d594ee1c643bcc6479b4742a6ceb7e5c, type: 3}
+  m_Name: RetroDither
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    Event: 500
+    blitMaterial: {fileID: 2100000, guid: 1b796c4cccbe65342800871a0c252038, type: 2}
+    blitMaterialPassIndex: 0
+    destination: 0
+    textureId: _RetroBlitPassTexture
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,7 +38,8 @@ MonoBehaviour:
   - {fileID: 1859688734942411171}
   - {fileID: 4351872786576046330}
   - {fileID: 8590009157393898605}
-  m_RendererFeatureMap: a3b909270df1ce19faf88dff3df5643c6ddcd01bd1d73577
+  - {fileID: -1916131122334344146}
+  m_RendererFeatureMap: a3b909270df1ce19faf88dff3df5643c6ddcd01bd1d735772edc3076e58868e5
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
