@@ -22,9 +22,15 @@ public abstract class JumpScare : MonoBehaviour
     /// </summary>
     public virtual void ActiveJumpScare()
     {
+        TurnOffUIs();
         FindFollowCameraNRelease();
         InActiveMeshObjects();
         SetCameraSetting();
+    }
+
+    public virtual void TurnOffUIs()
+    {
+
     }
 
     public void FindFollowCameraNRelease()
