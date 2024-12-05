@@ -7,6 +7,7 @@ public class JumpScareNoAction : JumpScare
     [SerializeField] protected int deathIndex;
     public override void ActiveJumpScare()
     {
+        TurnOffUIs();
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(deathIndex);
     }
 
