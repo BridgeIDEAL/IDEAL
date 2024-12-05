@@ -21,7 +21,7 @@ public class InteractionOutline : MonoBehaviour
     private bool blinkActive = false;
     private Coroutine blinkCoroutine = null;
     private float blinkTime = 0.679f;
-    private float blinkFade = 0.714f;
+    private float blinkFade = 0.3f;
     private float blinkOffTime = 0.59f;
 
     private GameObject outlineObject;
