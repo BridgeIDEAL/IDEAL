@@ -192,6 +192,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   inventoryUISound: {fileID: 5579899625103488691}
+  CameraShake_Lock: 0
   uIInputLock: 0
 --- !u!82 &5579899625103488691
 AudioSource:
@@ -324,6 +325,7 @@ Transform:
   - {fileID: 1202310562472822321}
   - {fileID: 1202310562219597081}
   - {fileID: 3400169195826705998}
+  - {fileID: 5955719052131204511}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -342,6 +344,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   playerCameraRootObject: {fileID: 0}
   cinemachineVirtualCamera: {fileID: 0}
+  cameraShakingManager: {fileID: 0}
   uICanvasObject: {fileID: 0}
   eventSystem: {fileID: 0}
   playerObject: {fileID: 0}
@@ -495,4 +498,50 @@ MonoBehaviour:
   scriptHub: {fileID: 1202310563507045737}
   playerTransform: {fileID: 0}
   cameraTransform: {fileID: 0}
-  eyePenaltyGroups: []
+  eyePenaltyFloors: []
+--- !u!1 &6541266860450522967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5955719052131204511}
+  - component: {fileID: 4005419483063884022}
+  m_Layer: 0
+  m_Name: CameraShakingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5955719052131204511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541266860450522967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1202310563507045750}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4005419483063884022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541266860450522967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ba828f1b555bc42b759f831fa4edda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPerlin: {fileID: 0}
+  uIManager: {fileID: 1202310562472822334}
