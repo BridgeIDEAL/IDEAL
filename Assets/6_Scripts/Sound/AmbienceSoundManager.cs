@@ -91,6 +91,11 @@ public class AmbienceSoundManager : MonoBehaviour
     }
 
     private IEnumerator SoundFadeCoroutine(AudioSource fadeAudioSource, float fadeDestAudioVol, float fadeTime, bool needPlayOn){
+        if(ProgressManager.Instance.lastRunning){
+            // LastRun 중이면 다른 사운드가 켜지지 않도록 함
+            yield break;
+        }
+        
         float outsideAudioVol = outsideAudioSource.volume;
         float insideAudioVol = insideAudioSource.volume;
         float chaseAudioVol = chaseAudioSource.volume;
@@ -130,6 +135,11 @@ public class AmbienceSoundManager : MonoBehaviour
     }
 
     private IEnumerator SoundFadeCoroutine(List<AudioSource> fadeAudioSourceList, List<float> fadeDestAudioVolList, float fadeTime, bool needPlayOn){
+        if(ProgressManager.Instance.lastRunning){
+            // 현재 Lists는 LastRun만 사용하므로 추가 처리 하지 않음
+            // 만약 이 코루틴을 다른 오디오가 사용하면 추가 처리 필요
+        }
+        
         float outsideAudioVol = outsideAudioSource.volume;
         float insideAudioVol = insideAudioSource.volume;
         float chaseAudioVol = chaseAudioSource.volume;
