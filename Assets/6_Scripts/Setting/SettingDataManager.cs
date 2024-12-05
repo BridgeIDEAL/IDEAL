@@ -14,6 +14,7 @@ public class PlayerSettingData{
     public int resolutionRefreshRate = -1;
     public float cameraRotationSpeed = 1.0f;
     public float brightness = 0.0f;
+    public bool isUseRetroFilter = true;
 }
 
 public class SettingDataManager : MonoBehaviour
@@ -97,6 +98,9 @@ public class SettingDataManager : MonoBehaviour
 
         // Brightness Aplly
         IdealSceneManager.Instance.SetPostExposure(playerSettingData.brightness);
+
+        // Retro Filter Apply
+        IdealSceneManager.Instance.RetroFilterActive(playerSettingData.isUseRetroFilter);
     }
 
     public void ApplyCameraRotationSpeed(){
@@ -189,6 +193,12 @@ public class SettingDataManager : MonoBehaviour
     public void SetBrightness(float brightnessValue){
         playerSettingData.brightness = brightnessValue;
         IdealSceneManager.Instance.SetPostExposure(brightnessValue);
+        SavePlayerSettingData();
+    }
+
+    public void SetRetroFilter(bool active){
+        playerSettingData.isUseRetroFilter = active;
+        IdealSceneManager.Instance.RetroFilterActive(active);
         SavePlayerSettingData();
     }
 

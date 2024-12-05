@@ -7,6 +7,7 @@ public class UIScreenSetting : MonoBehaviour
 {
     public TMP_Dropdown screenModeDropdown;
     public TMP_Dropdown resolutionModeDropdown;
+    public TMP_Dropdown retroModeDropdown;
     [SerializeField] private Button closeBookBtn;
 
     [SerializeField] private Slider cameraRotationSlider;
@@ -59,10 +60,27 @@ public class UIScreenSetting : MonoBehaviour
         resolutionModeDropdown.value = savedResolutionIndex; // 저장된 해상도를 선택하거나 기본적으로 가장 높은 해상도를 선택
         resolutionModeDropdown.RefreshShownValue();
 
+        retroModeDropdown.options.Clear();
+        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "활성화" });
+        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "비활성화" });
+        switch(SettingDataManager.Instance.playerSettingData.isUseRetroFilter)
+        {
+            case true:
+                retroModeDropdown.value = 0;
+                break;
+            case false:
+                retroModeDropdown.value = 1;
+                break;
+        }
+        retroModeDropdown.RefreshShownValue();
+
         // 화면 모드 변경 이벤트 리스너 추가
         screenModeDropdown.onValueChanged.AddListener(delegate { OnScreenModeChange(screenModeDropdown.value); });
         // 해상도 변경 이벤트 리스너 추가
         resolutionModeDropdown.onValueChanged.AddListener(delegate { OnResolutionModeChange(resolutionModeDropdown.value); });
+
+        // 레트로 모드 변경 이벤트 리스너 추가
+        retroModeDropdown.onValueChanged.AddListener(delegate { OnRetroModeChange(retroModeDropdown.value); });
 
 
         // 카메라 회전 속도 슬라이더 설정
@@ -92,6 +110,11 @@ public class UIScreenSetting : MonoBehaviour
         {
             Debug.LogError("Invalid resolution index selected!");
         }
+    }
+
+    public void OnRetroModeChange(int mode)
+    {
+        SettingDataManager.Instance.SetRetroFilter(mode == 0);
     }
 
     public void SetCameraRotationSpeed(float speed)

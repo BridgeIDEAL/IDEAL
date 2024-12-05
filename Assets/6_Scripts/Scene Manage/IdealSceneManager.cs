@@ -40,6 +40,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private ConversationPointManager conversationPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
     [SerializeField] private Material radialBlurMaterial;
+    [SerializeField] private UniversalRendererData rendererData;
     [SerializeField] private VolumeProfile volumeProfile;
     private ColorAdjustments colorAdjustments;
     public AudioSource metalDoorSound;
@@ -346,6 +347,14 @@ public class IdealSceneManager : MonoBehaviour
             radialBlurMaterial.SetFloat("fSampleStrength", curEffect);
             stepTimer += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public void RetroFilterActive(bool active){
+        foreach(var featrue in rendererData.rendererFeatures){
+            if(featrue.name == "VHSFilterBlit" || featrue.name == "RetroDither"){
+                featrue.SetActive(active);
+            }
         }
     }
 
