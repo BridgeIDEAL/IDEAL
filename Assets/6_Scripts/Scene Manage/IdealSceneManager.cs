@@ -339,7 +339,7 @@ public class IdealSceneManager : MonoBehaviour
 
     IEnumerator RadialBlurActiveCoroutine(bool active_){
         float stepTimer = 0.0f;
-        float startEffect = active_ ? 0.0f : radialBlurStrength;
+        float startEffect = radialBlurMaterial.GetFloat("fSampleStrength");
         float destEffect = active_ ? radialBlurStrength : 0.0f;
         float curEffect = 0.0f;
         while(stepTimer <= fadeEffectTime){
