@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -10,10 +11,13 @@ public class InteractionOutline : MonoBehaviour
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private float outlineScaleFactor;
     [SerializeField] private Color outlineColor;
+    [SerializeField] private Vector3 outlineObjectPosition = new Vector3(0.0f, 0.0f, 0.0f);
+    [SerializeField] private Vector3 outlineObjectRotation = new Vector3(0.0f, 0.0f, 0.0f);
     [SerializeField] private Vector3 outlineObjectScale = new Vector3(1.0f, 1.0f, 1.0f);
     [SerializeField] private bool reverseY = false;
     [SerializeField] private bool reverseX = false;
     [SerializeField] private bool hasChild = false;
+    [SerializeField] private bool hasGrandChild = false;
     [SerializeField] private bool planeObject = false;
     [SerializeField] private float planeValue = -0.0005f;
     [SerializeField] private bool[] outlineMask;
@@ -39,6 +43,10 @@ public class InteractionOutline : MonoBehaviour
         outlineObject = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
         outlineObject.transform.localScale = new Vector3(1, 1, 1);
 
+        outlineObject.transform.localScale = outlineObjectScale;
+        outlineObject.transform.localPosition = outlineObjectPosition;
+        outlineObject.transform.localRotation = Quaternion.Euler(outlineObjectRotation);
+
         if(planeObject){
             Vector3 localP = outlineObject.transform.localPosition;
             localP.z = planeValue;
@@ -60,8 +68,9 @@ public class InteractionOutline : MonoBehaviour
             Quaternion currentRotation = outlineObject.transform.localRotation;
             outlineObject.transform.localRotation = currentRotation * Quaternion.Euler(180f, 0f, 0f);
         }
-        outlineObject.transform.localScale = outlineObjectScale;
+    
 
+       
         Renderer rend = outlineObject.GetComponent<Renderer>();
 
         if (rend != null)
@@ -97,6 +106,21 @@ public class InteractionOutline : MonoBehaviour
             {
                 Debug.Log("Renderer를 찾을 수 없습니다.");
                 return;
+            }
+        }
+
+        if(hasGrandChild){
+            // 손자 오브젝트에 Outline을 적용하는 경우
+            Transform outlineGrandChild = outlineObject.transform.GetChild(0).GetChild(0);
+            rend = outlineGrandChild.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                rend.material = outlineMat;
+                rend.material.SetColor("_OutlineColor", color);
+                rend.material.SetFloat("_Scale", scaleFactor);
+                rend.shadowCastingMode = ShadowCastingMode.Off;
+                rend.enabled = true;
+                outlineRenderer = rend;
             }
         }
     }
