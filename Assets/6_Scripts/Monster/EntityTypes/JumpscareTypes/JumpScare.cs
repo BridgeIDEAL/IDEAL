@@ -30,7 +30,7 @@ public abstract class JumpScare : MonoBehaviour
 
     public virtual void TurnOffUIs()
     {
-
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIManager.OnJumpScare();
     }
 
     public void FindFollowCameraNRelease()
