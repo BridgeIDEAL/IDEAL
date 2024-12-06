@@ -24,6 +24,8 @@ public class CameraEffectManager : MonoBehaviour
     [SerializeField] private AudioClip[] middleBreathClips;
     [SerializeField] private AudioClip[] endBreathClips;
 
+    [SerializeField] private AudioSource eyeAudioSource;
+
     private AudioClip lastBreathClip = null;
 
     private bool isShowEyePenaltyDeadScene = false;
@@ -176,15 +178,7 @@ public class CameraEffectManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         
         
-        // Vector3 lookAtPosition = playerCameraRootObject.transform.position 
-        //                      + playerCameraRootObject.transform.forward * 1.0f // 전방으로 1만큼 이동
-        //                      + new Vector3(0.0f, -1.0f, 0.0f); // 수직으로 -5만큼 이동
-
-        //  // CameraEnforceLookAt을 해당 위치로 설정
-        // thirdPersonController.CameraEnforceLookAt(lookAtPosition);
-
-        // yield return new WaitForSeconds(0.7f);
-
+        eyeAudioSource.Play();
 
         float stepTimer = 0.0f;
         while(stepTimer <= eyePenaltyDeadTime){
