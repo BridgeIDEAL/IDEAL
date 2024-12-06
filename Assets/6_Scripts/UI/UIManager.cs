@@ -263,19 +263,14 @@ public class UIManager : MonoBehaviour
 
     public void OnJumpScare(){
         uIInputLock = true;
-        // MapUI, Inventory, Setting이 켜져 있는 경우 비활성화
-        // MapUI 처리
-        if(UIActives[(int)UIType.MapUI]){
-            InActiveMapUI();
-        }
+        // MapUI, Inventory, Setting, Interaction이 켜져 있는 경우 비활성화
+        // MapUI Inventory 처리
+        CloseInventoryAndMapUI();
 
-        // Inventory 처리
-        if(UIActives[(int)UIType.InventoryUI]){
-            UIActives[(int)UIType.InventoryUI] = false;
-            isInventoryActive = false;
+        if(UIActives[(int)UIType.InteractionUI]){
+            UIActives[(int)UIType.InteractionUI] = false;
 
-            uIInventory.HideHighlightAllSlot();
-            SetUIActive(UIType.InventoryUI, UIActives[(int)UIType.InventoryUI]);
+            SetUIActive(UIType.InteractionUI, UIActives[(int)UIType.InteractionUI]);
         }
 
         // Setting 처리

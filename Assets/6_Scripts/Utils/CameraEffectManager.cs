@@ -81,6 +81,7 @@ public class CameraEffectManager : MonoBehaviour
 
     IEnumerator ShowEyePenaltyDeadSceneCoroutine(){
         thirdPersonController.MoveLock = true;
+        uIManager.OnJumpScare();
 
 
         if(PenaltyPointManager.Instance.eyePenaltyObject != null){
