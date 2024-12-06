@@ -40,6 +40,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private ConversationPointManager conversationPointManager;
     [SerializeField] private AudioSource lobbyBGMBox;
     [SerializeField] private Material radialBlurMaterial;
+    [SerializeField] private Material colorSplitMaterial;
     [SerializeField] private UniversalRendererData rendererData;
     [SerializeField] private VolumeProfile volumeProfile;
     private ColorAdjustments colorAdjustments;
@@ -103,6 +104,7 @@ public class IdealSceneManager : MonoBehaviour
             GuideLogManager.Instance.guideLogUpdated = false;
 
             radialBlurMaterial.SetFloat("fSampleStrength", 0.0f);
+            colorSplitMaterial.SetFloat("ColorSplitStrength", 0.0f);
 
         }
         else if(scene.name == "Lobby"){
@@ -348,6 +350,10 @@ public class IdealSceneManager : MonoBehaviour
             stepTimer += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void SetColorSplitStrength(float strength){
+        colorSplitMaterial.SetFloat("_ColorSplitStrength", strength);
     }
 
     public void RetroFilterActive(bool active){
