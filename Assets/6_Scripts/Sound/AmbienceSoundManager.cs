@@ -25,6 +25,8 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private AudioSource broadCastRoomAudioSource;
     [SerializeField] private AudioSource serverRoomAudioSource;
 
+    [SerializeField] private AudioSource tinnitusAudioSource;
+
     private Coroutine audioCoroutine;
     public IdealArea currentArea = IdealArea.Outside;
     private bool isChased = false;
@@ -65,6 +67,18 @@ public class AmbienceSoundManager : MonoBehaviour
         }
     }
 
+    
+    public void SetTinnitusSound(float volume){
+        if(!tinnitusAudioSource.isPlaying){
+            tinnitusAudioSource.Play();
+        }
+        tinnitusAudioSource.volume = volume;
+    }
+
+    public void OffTinnitusSound(){
+        tinnitusAudioSource.volume = 0.0f;
+        tinnitusAudioSource.Stop();
+    }
     
     void Update()
     {

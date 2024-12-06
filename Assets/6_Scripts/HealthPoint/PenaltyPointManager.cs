@@ -141,6 +141,7 @@ public class PenaltyPointManager : MonoBehaviour
             CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
             CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
             IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.SetTinnitusSound(eyeWatchingTimer / eyeWatchingGameOverTime * 0.5f);
 
             
             // 제한 시간 보다 더 보는 경우 게임 오버
@@ -162,10 +163,12 @@ public class PenaltyPointManager : MonoBehaviour
                 CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
                 CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
                 IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.SetTinnitusSound(eyeWatchingTimer / eyeWatchingGameOverTime * 0.5f);
             }
             else{
                 eyeWatchingTimer = 0.0f;
                 isTimeWatchPenalty = false;
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.OffTinnitusSound();
             }
         }
         
