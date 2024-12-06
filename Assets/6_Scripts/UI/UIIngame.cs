@@ -9,7 +9,6 @@ public class UIIngame : MonoBehaviour
 {
     [SerializeField] private Image visualFilter;
     [SerializeField] private Image visualFilter_Red;
-    [SerializeField] private Image visualFilter_Green;
     [SerializeField] private Image fadeFilter;
     [SerializeField] private GameObject checkListOn;
     [SerializeField] private GameObject checkListOff;
@@ -40,11 +39,6 @@ public class UIIngame : MonoBehaviour
         visualFilter.color = color;
     }
 
-    public void SetGreenVisualFilter(float ratio){
-        Color color = visualFilter_Green.color;
-        color.a = ratio;
-        visualFilter_Green.color = color;
-    }
 
     public void HurtEffect(){
         if(hurtCoroutine != null){
