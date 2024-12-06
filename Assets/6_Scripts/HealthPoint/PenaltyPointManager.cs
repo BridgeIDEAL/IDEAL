@@ -210,8 +210,12 @@ public class PenaltyPointManager : MonoBehaviour
             if(soundHearingTimer >= soundHearingGameOverTime){
                 if(!insideSafeZone){
                     isSoundPenaltyDeath = true;
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.FadeStopEffectSound(0.5f, 4.0f);
                 }
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.FadeStopEffectSound(0.5f);
+                else{
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.FadeStopEffectSound(0.5f);
+                }
+                
                 isSoundHearing = false;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
                 

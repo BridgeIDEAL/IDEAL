@@ -29,11 +29,13 @@ public class TempEffectSound : MonoBehaviour
         audioSource.Stop();
     }
 
-    public void FadeStopEffectSound(float fadeTime){
-        StartCoroutine(FadeOutEffectSound(fadeTime));
+    public void FadeStopEffectSound(float fadeTime, float delayTime = 0.0f){
+        StartCoroutine(FadeOutEffectSound(fadeTime, delayTime));
     }
 
-    private IEnumerator FadeOutEffectSound(float fadeTime){
+    private IEnumerator FadeOutEffectSound(float fadeTime, float delayTime = 0.0f){
+        yield return new WaitForSeconds(delayTime);
+
         float startVolume = audioSource.volume;
         float stepTimer = 0.0f;
         while(stepTimer < fadeTime){
