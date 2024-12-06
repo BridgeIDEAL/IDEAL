@@ -22,6 +22,7 @@ public class PenaltyPointManager : MonoBehaviour
     public Transform playerTransform;
     private Transform cameraTransform;
     public bool isTimeWatchPenalty = false;
+    public bool isEyePenaltyDeath = false;
     [SerializeField] private float shakingFrequency = 10.0f;
     [SerializeField] private float shakingIntensity = 1.0f;
     public float CurShakingFrequency = 0.0f;
@@ -56,6 +57,7 @@ public class PenaltyPointManager : MonoBehaviour
 
     private bool inPrototypeSecond = false;
     public bool watchIntroEnded = false;
+
 
     public void Init(){
         if(instance == null){
@@ -101,6 +103,7 @@ public class PenaltyPointManager : MonoBehaviour
         inLobby = true;
         inPrototypeSecond = false;
         isTimeWatchPenalty = false;
+        isEyePenaltyDeath = false;
     }
 
     public void OnChangeScene(){
@@ -155,30 +158,27 @@ public class PenaltyPointManager : MonoBehaviour
             
             // 제한 시간 보다 더 보는 경우 게임 오버
             if(eyeWatchingTimer >= eyeWatchingGameOverTime){
-                eyeWatchingTimer = 0.0f;
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(7);
-                if (SteamfeatureController.Instance.FeatureManager.Achievement03.isEyePenlatyDeath == false)
-                {
-                    SteamfeatureController.Instance.FeatureManager.Achievement03.isEyePenlatyDeath = true;
-                    SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
-                }
+                isEyePenaltyDeath = true;
             }
 
         }
         else{
-            if(eyeWatchingTimer > 0.0f){
-                eyeWatchingTimer -= Time.deltaTime;
-                // uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
-                CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
-                CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
-                IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.SetTinnitusSound(eyeWatchingTimer / eyeWatchingGameOverTime * 0.5f);
+            if(!isEyePenaltyDeath){
+                if(eyeWatchingTimer > 0.0f){
+                    eyeWatchingTimer -= Time.deltaTime;
+                    // uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
+                    CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
+                    CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
+                    IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.SetTinnitusSound(eyeWatchingTimer / eyeWatchingGameOverTime * 0.5f);
+                }
+                else{
+                    eyeWatchingTimer = 0.0f;
+                    isTimeWatchPenalty = false;
+                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.OffTinnitusSound();
+                }
             }
-            else{
-                eyeWatchingTimer = 0.0f;
-                isTimeWatchPenalty = false;
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.OffTinnitusSound();
-            }
+            
         }
         
 

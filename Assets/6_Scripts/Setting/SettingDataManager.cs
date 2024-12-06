@@ -203,7 +203,7 @@ public class SettingDataManager : MonoBehaviour
     }
 
     public void LateCloseSFX(){
-        Invoke("CloseSFX", 1.5f);
+        Invoke("CloseSFX", 0.0f);
     }
 
     private void CloseSFX(){

@@ -9,6 +9,7 @@ public class UIIngame : MonoBehaviour
 {
     [SerializeField] private Image visualFilter;
     [SerializeField] private Image visualFilter_Red;
+    [SerializeField] private GameObject Filter_Red;
     [SerializeField] private Image fadeFilter;
     [SerializeField] private GameObject checkListOn;
     [SerializeField] private GameObject checkListOff;
@@ -37,6 +38,16 @@ public class UIIngame : MonoBehaviour
         Color color = visualFilter.color;
         color.a = ratio;
         visualFilter.color = color;
+    }
+
+    public void SetRedVisualFilter(float ratio){
+        Color color = visualFilter_Red.color;
+        color.a = ratio;
+        visualFilter_Red.color = color;
+    }
+
+    public void SetActiveRedFilter(bool active){
+        Filter_Red.SetActive(active);
     }
 
 
