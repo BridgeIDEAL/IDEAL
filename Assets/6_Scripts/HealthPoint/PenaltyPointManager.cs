@@ -209,7 +209,7 @@ public class PenaltyPointManager : MonoBehaviour
                         SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
                     }
                 }
-                IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.FadeStopEffectSound(0.5f);
                 isSoundHearing = false;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
                 
