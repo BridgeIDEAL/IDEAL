@@ -40,8 +40,8 @@ public class CameraEffectManager : MonoBehaviour
     private float eyePenaltyDeadTime = 0.5f;
 
     private bool isShowSoundPenaltyDeadScene = false;
-    private float moveDownTime = 0.5f;
-    private float soundPenaltyDeadTime = 3.5f;
+    private const float moveDownTime = 0.5f;
+    private const float soundPenaltyDeadTime = 3.5f;
 
     private Coroutine breathCoroutine = null;
     public float breathIntensity = 0.0f;
@@ -51,6 +51,8 @@ public class CameraEffectManager : MonoBehaviour
 
     private Coroutine eyeDeathCoroutine = null;
     private Coroutine soundDeathCoroutine = null;
+
+    private List<Transform> chasingEntities = new List<Transform>();
 
 
     void Awake(){
@@ -70,6 +72,14 @@ public class CameraEffectManager : MonoBehaviour
         breathCoroutine = StartCoroutine(BreathCoroutine());
     }
 
+    public void AddChasingEntities(Transform entityTransform){
+        chasingEntities.Add(entityTransform);
+    }
+
+    public void RemoveChasingEntities(Transform entityTransform){
+        chasingEntities.Remove(entityTransform);
+    }
+
     IEnumerator BreathCoroutine(){
         float breathBlur = 0.0f;
         while(true){
@@ -87,7 +97,19 @@ public class CameraEffectManager : MonoBehaviour
                 continue;
             }
 
-            breathIntensity = PenaltyPointManager.Instance.CurSoundPenaltyInstensity;
+            float penaltyIntensity = PenaltyPointManager.Instance.CurSoundPenaltyInstensity;
+            float chaseInensity =0.0f;
+            if(chasingEntities != null){
+                foreach(var entityTransform in chasingEntities){
+                    float thisInensity = 1 - Vector3.Distance(entityTransform.position, playerCameraRootObject.transform.position) / 20.0f;
+                    if(thisInensity > chaseInensity){
+                        chaseInensity = thisInensity;
+                    }
+                }
+            }
+
+
+            breathIntensity = Mathf.Max(penaltyIntensity, chaseInensity);
 
             // breath Source에 재생시킬 clip 설정하기
             if(!breathSource.isPlaying){

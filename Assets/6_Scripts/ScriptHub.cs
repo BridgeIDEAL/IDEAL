@@ -11,6 +11,8 @@ public class ScriptHub : MonoBehaviour
     public Camera playerCamera;
     public GameObject playerCameraRootObject;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
+    public CameraEffectManager cameraEffectManager;
+    
     [Header("Scene Change Object")]
     public GameObject uICanvasObject;
     public GameObject eventSystem;

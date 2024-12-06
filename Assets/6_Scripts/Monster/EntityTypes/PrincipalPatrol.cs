@@ -222,6 +222,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         agent.speed = runSpeed;
         anim.SetFloat("MoveValue", runMotionSpeed);
         EntityDataManager.Instance.Controller.IsChase = true;
+
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.cameraEffectManager.AddChasingEntities(this.transform);
         MonsterArchiveLogManager.Instance.UpdateArchiveImageData(8);
     }
 
@@ -238,6 +240,9 @@ public class PrincipalPatrol : MovableEntity, IPatrol
                 ChangeState(EntityStateType.Quiet);
                 Controller.InActiveExceptOne(this.gameObject);
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+
+                IdealSceneManager.Instance.CurrentGameManager.scriptHub.cameraEffectManager.AddChasingEntities(this.transform);
+
                 jumpscare.ActiveJumpScare();
                 if (SteamfeatureController.Instance.FeatureManager.Achievement03.isPrincipalDeath == false)
                 {
@@ -253,6 +258,8 @@ public class PrincipalPatrol : MovableEntity, IPatrol
         Controller.PrincipalChase = false;
         detectPlayer.IsDetectPlayer = false;
         EntityDataManager.Instance.Controller.IsChase = false;
+
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.cameraEffectManager.RemoveChasingEntities(this.transform);
     }
     #endregion
 

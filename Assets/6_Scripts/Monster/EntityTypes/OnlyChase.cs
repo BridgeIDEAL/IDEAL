@@ -41,6 +41,8 @@ public class OnlyChase : MonoBehaviour
             playerTransform = EntityDataManager.Instance.Controller.PlayerTransform;
         // To Do ~~ ���̷� ����
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.ChaseStart();
+
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.cameraEffectManager.AddChasingEntities(this.transform);
         HealthPointManager.Instance.chased = true;
         PenaltyPointManager.Instance.SetChase(true);
 
