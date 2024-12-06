@@ -102,9 +102,13 @@ public class PenaltyPointManager : MonoBehaviour
 
     public void OnChangeScene(){
         // 유저가 씬을 바꿨을 때 바로 사이렌이 울리면 대처하기 어려우므로
-        if(isSoundHearing || soundPenaltyRespawnTime - soundPenaltyStepTimer < soundPenaltyDelay){
-            isSoundHearing = false;
+        if(soundPenaltyRespawnTime - soundPenaltyStepTimer < soundPenaltyDelay){
             soundPenaltyStepTimer = soundPenaltyRespawnTime - soundPenaltyDelay;
+        }
+
+        // 사운드가 들리는 중이었으면 그 시점부터 다시 재생
+        if(isSoundHearing){
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.PlayEffectSound(TempEffectSounds.WarningSiren, soundHearingTimer);
         }
     }
 

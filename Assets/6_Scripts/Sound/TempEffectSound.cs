@@ -17,6 +17,14 @@ public class TempEffectSound : MonoBehaviour
         audioSource.Play();
     }
 
+    public void PlayEffectSound(TempEffectSounds _EffectSound, float startTime)
+    {
+        audioSource.Stop();
+        audioSource.clip = audioClip[(int)_EffectSound];
+        audioSource.time = startTime;
+        audioSource.Play();
+    }
+
     public void StopEffectSound(){
         audioSource.Stop();
     }

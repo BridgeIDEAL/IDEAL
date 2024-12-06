@@ -51,6 +51,8 @@ public class AmbienceSoundManager : MonoBehaviour
 
     void Start(){
         if(ProgressManager.Instance.lastRunning){
+            lastRunAudioSource_1.time = ProgressManager.Instance.lastRunningTime % lastRunAudioSource_1.clip.length;
+            lastRunAudioSource_2.time = ProgressManager.Instance.lastRunningTime % lastRunAudioSource_2.clip.length;
             LastRunStart();
         }
     }

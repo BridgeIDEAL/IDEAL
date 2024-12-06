@@ -113,6 +113,7 @@ public class ProgressManager : MonoBehaviour
     private int mapCheckListStateNum = 0;
 
     public bool lastRunning = false;
+    public float lastRunningTime = 0.0f;
 
     public bool needShowChecklistIcon = false;
 
@@ -126,6 +127,12 @@ public class ProgressManager : MonoBehaviour
         }
         else{
             Destroy(this.gameObject);
+        }
+    }
+
+    void Update(){
+        if(lastRunning){
+            lastRunningTime += Time.deltaTime;
         }
     }
 
@@ -206,6 +213,7 @@ public class ProgressManager : MonoBehaviour
             watchedMap = false;
             mapCheckListStateNum = 0;
             lastRunning = false;
+            lastRunningTime = 0.0f;
         }
         else{
             uICheckListManager = IdealSceneManager.Instance.CurrentGameManager.scriptHub.uICheckListManager;
