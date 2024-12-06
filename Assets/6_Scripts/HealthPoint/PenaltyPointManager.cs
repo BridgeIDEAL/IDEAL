@@ -21,6 +21,14 @@ public class PenaltyPointManager : MonoBehaviour
     private ThirdPersonController thirdPersonController;
     private Transform playerTransform;
     private Transform cameraTransform;
+    public bool isTimeWatchPenalty = false;
+    [SerializeField] private float shakingFrequency = 10.0f;
+    [SerializeField] private float shakingIntensity = 1.0f;
+    public float CurShakingFrequency = 0.0f;
+    public float CurShakingIntensity = 0.0f;
+
+    [SerializeField] private float colorShiftIntensity = 0.05f;
+
     private EyePenaltyManager eyePenaltyManager;
     private EyePenaltyObject eyePenaltyObject;
 
@@ -89,6 +97,7 @@ public class PenaltyPointManager : MonoBehaviour
         insideSafeZone = false;
         inLobby = true;
         inPrototypeSecond = false;
+        isTimeWatchPenalty = false;
     }
 
     public void OnChangeScene(){
@@ -127,8 +136,13 @@ public class PenaltyPointManager : MonoBehaviour
                 eyeWatchingTimer += Time.deltaTime;
             }
 
-            uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
+            // uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
+            isTimeWatchPenalty = true;
+            CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
+            CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
+            IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
 
+            
             // 제한 시간 보다 더 보는 경우 게임 오버
             if(eyeWatchingTimer >= eyeWatchingGameOverTime){
                 eyeWatchingTimer = 0.0f;
@@ -144,10 +158,14 @@ public class PenaltyPointManager : MonoBehaviour
         else{
             if(eyeWatchingTimer > 0.0f){
                 eyeWatchingTimer -= Time.deltaTime;
-                uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
+                // uIIngame.SetGreenVisualFilter(eyeWatchingTimer / eyeWatchingGameOverTime * 0.7f);
+                CurShakingFrequency = eyeWatchingTimer / eyeWatchingGameOverTime * shakingFrequency;
+                CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
+                IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
             }
             else{
                 eyeWatchingTimer = 0.0f;
+                isTimeWatchPenalty = false;
             }
         }
         

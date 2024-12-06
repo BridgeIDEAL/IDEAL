@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
@@ -33,7 +32,7 @@ public class UIManager : MonoBehaviour
 
     // private FirstPersonController firstPersonController;
     private ThirdPersonController thirdPersonController;
-    private CinemachineVirtualCamera cinemachineVirtualCamera;
+    public bool CameraShake_Lock = false;
     
     private UIInteraction uIInteraction;
 
@@ -64,7 +63,6 @@ public class UIManager : MonoBehaviour
     public void Init() {
 
         thirdPersonController = scriptHub.thirdPersonController;
-        cinemachineVirtualCamera = scriptHub.cinemachineVirtualCamera;
         uIInteraction = scriptHub.uIInteraction;
         uIInventory = scriptHub.uIInventory;
         uIIngame = scriptHub.uIIngame;
@@ -187,14 +185,16 @@ public class UIManager : MonoBehaviour
             || UIActives[(int)UIType.MoveSettingUI]){
             thirdPersonController.CameraRotationLock = true;
             Cursor.lockState = CursorLockMode.None;
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.0f;
+            
+            CameraShake_Lock = true;
             // 상호작용 텍스트 비활성화
             uIInteraction.SetTextActive(false);
         }
         else{
             thirdPersonController.CameraRotationLock = false;
             Cursor.lockState = CursorLockMode.Locked;
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0.3f;
+            
+            CameraShake_Lock = false;
             // 상호작용 텍스트 활성화
             uIInteraction.SetTextActive(true);
         }
