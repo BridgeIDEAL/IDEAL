@@ -344,7 +344,6 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   playerCameraRootObject: {fileID: 0}
   cinemachineVirtualCamera: {fileID: 0}
-  cameraShakingManager: {fileID: 0}
   uICanvasObject: {fileID: 0}
   eventSystem: {fileID: 0}
   playerObject: {fileID: 0}
@@ -510,7 +509,7 @@ GameObject:
   - component: {fileID: 5955719052131204511}
   - component: {fileID: 4005419483063884022}
   m_Layer: 0
-  m_Name: CameraShakingManager
+  m_Name: CameraEffectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,5 +542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ba828f1b555bc42b759f831fa4edda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPerlin: {fileID: 0}
+  cinemachineVirtualCamera: {fileID: 0}
+  volumeProfile: {fileID: 11400000, guid: 64cf534ed3868244d99ebdb93d3998bb, type: 2}
   uIManager: {fileID: 1202310562472822334}

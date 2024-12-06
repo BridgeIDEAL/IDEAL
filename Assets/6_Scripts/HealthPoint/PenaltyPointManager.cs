@@ -19,7 +19,7 @@ public class PenaltyPointManager : MonoBehaviour
     public ScriptHub scriptHub;
     private UIIngame uIIngame;
     private ThirdPersonController thirdPersonController;
-    private Transform playerTransform;
+    public Transform playerTransform;
     private Transform cameraTransform;
     public bool isTimeWatchPenalty = false;
     [SerializeField] private float shakingFrequency = 10.0f;
@@ -29,8 +29,11 @@ public class PenaltyPointManager : MonoBehaviour
 
     [SerializeField] private float colorShiftIntensity = 0.05f;
 
+    [SerializeField] private float depthOfFieldInstensity = 100.0f;
+    public float CurDepthOfFieldInstensity = 0.0f;
+
     private EyePenaltyManager eyePenaltyManager;
-    private EyePenaltyObject eyePenaltyObject;
+    public EyePenaltyObject eyePenaltyObject;
 
     private float eyeObjectRespawnTime = 60.0f;
     public float eyePenaltyStepTimer = 0.0f;
@@ -146,6 +149,8 @@ public class PenaltyPointManager : MonoBehaviour
             CurShakingIntensity = eyeWatchingTimer / eyeWatchingGameOverTime * shakingIntensity;
             IdealSceneManager.Instance.SetColorSplitStrength(eyeWatchingTimer / eyeWatchingGameOverTime * colorShiftIntensity);
             IdealSceneManager.Instance.CurrentGameManager.scriptHub.ambienceSoundManager.SetTinnitusSound(eyeWatchingTimer / eyeWatchingGameOverTime * 0.5f);
+
+            CurDepthOfFieldInstensity = eyeWatchingTimer / eyeWatchingGameOverTime * depthOfFieldInstensity;
 
             
             // 제한 시간 보다 더 보는 경우 게임 오버
