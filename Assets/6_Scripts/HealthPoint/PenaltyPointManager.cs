@@ -38,7 +38,7 @@ public class PenaltyPointManager : MonoBehaviour
 
     private float eyeObjectRespawnTime = 60.0f;
     public float eyePenaltyStepTimer = 0.0f;
-    private float eyeWatchingGameOverTime = 3.0f;
+    private const float eyeWatchingGameOverTime = 3.0f;
     private float eyeWatchingTimer = 0.0f;
 
     
@@ -46,8 +46,9 @@ public class PenaltyPointManager : MonoBehaviour
     public float soundPenaltyStepTimer = 0.0f;
     private float soundPenaltyDelay = 20.0f;
     public bool isSoundHearing = false;
-    private float soundHearingGameOverTime = 10.0f;
+    private const float soundHearingGameOverTime = 10.0f;
     private float soundHearingTimer = 0.0f;
+    public float CurSoundPenaltyInstensity = 0.0f;
     private bool insideSafeZone = false;
 
     private bool isTimerFreeze = false;
@@ -198,6 +199,7 @@ public class PenaltyPointManager : MonoBehaviour
 
         if(isSoundHearing){
             soundHearingTimer += Time.deltaTime;
+            CurSoundPenaltyInstensity = soundHearingTimer / soundHearingGameOverTime * 1.0f;
             if(soundHearingTimer >= soundHearingGameOverTime){
                 if(!insideSafeZone){
                     IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(6);
@@ -207,12 +209,22 @@ public class PenaltyPointManager : MonoBehaviour
                         SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
                     }
                 }
-                soundHearingTimer = 0.0f;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.StopEffectSound();
                 isSoundHearing = false;
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerHandLight.EffectOffLight();
                 
                 EntityDataManager.Instance.Controller.ActivePrincipal();
+            }
+        }
+        else{
+            // need to delete isSoundDead
+            if(soundHearingTimer > 0.0f){
+                soundHearingTimer -= Time.deltaTime * 2.0f;
+                CurSoundPenaltyInstensity = soundHearingTimer / soundHearingGameOverTime * 1.0f;
+            }
+            else{
+                soundHearingTimer = 0.0f;
+                CurSoundPenaltyInstensity = 0.0f;
             }
         }
         

@@ -19,8 +19,19 @@ public class CameraEffectManager : MonoBehaviour
     [SerializeField] UIIngame uIIngame;
     [SerializeField] ThirdPersonController thirdPersonController;
 
+    [SerializeField] private AudioSource breathSource;
+    [SerializeField] private AudioClip[] startBreathClips;
+    [SerializeField] private AudioClip[] middleBreathClips;
+    [SerializeField] private AudioClip[] endBreathClips;
+
+    private AudioClip lastBreathClip = null;
+
     private bool isShowEyePenaltyDeadScene = false;
     private float eyePenaltyDeadTime = 0.5f;
+
+    private Coroutine breathCoroutine = null;
+    public float breathIntensity = 0.0f;
+    private float breathBlurIntensity = 50.0f;
 
     void Awake(){
         cameraPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -32,6 +43,77 @@ public class CameraEffectManager : MonoBehaviour
         {
             Debug.LogWarning("depthOfField component not found in Volume Profile");
         }
+
+        if(breathCoroutine != null){
+            StopCoroutine(breathCoroutine);
+        }
+        breathCoroutine = StartCoroutine(BreathCoroutine());
+    }
+
+    IEnumerator BreathCoroutine(){
+        float breathBlur = 0.0f;
+        while(true){
+            if(isShowEyePenaltyDeadScene){
+                yield return null;
+            }
+
+            breathIntensity = PenaltyPointManager.Instance.CurSoundPenaltyInstensity;
+
+            // breath Source에 재생시킬 clip 설정하기
+            if(!breathSource.isPlaying){
+                int i  = 0;
+                while(true){
+                    breathSource.clip = GetBreathClip();
+                    if(breathSource.clip != lastBreathClip){
+                        lastBreathClip = breathSource.clip;
+                        breathSource.Play();
+                        break;
+                    }
+                    i++;
+                    if(i > 5){
+                        breathSource.clip = lastBreathClip;
+                        breathSource.Play();
+                        break;
+                    }
+                }
+            }
+            breathSource.volume = breathIntensity;
+
+            // breath 주기에 따라 Blur 효과 주도록
+
+            breathBlur = GetCurveValue(breathSource.time / breathSource.clip.length) * breathIntensity  * breathBlurIntensity * 2.0f;
+            if(breathBlur > breathBlurIntensity){
+                breathBlur = breathBlurIntensity;
+            }  
+
+            if(breathBlur > PenaltyPointManager.Instance.CurDepthOfFieldInstensity){
+                depthOfField.focusDistance.value = 1.0f;
+                depthOfField.focalLength.value =  breathBlur;
+            }
+
+            cameraPerlin.m_FrequencyGain = 0.3f + breathIntensity * 6.0f;
+            cameraPerlin.m_AmplitudeGain = 0.5f + breathIntensity * 1.5f;
+            
+
+            yield return null;
+        }
+    }
+
+    private AudioClip GetBreathClip(){
+        if(breathIntensity < 0.3f){
+            return startBreathClips[Random.Range(0, startBreathClips.Length)];
+        }
+        else if(breathIntensity < 0.7f){
+            return middleBreathClips[Random.Range(0, middleBreathClips.Length)];
+        }
+        else{
+            return endBreathClips[Random.Range(0, endBreathClips.Length)];
+        }
+    }
+
+    private float GetCurveValue(float progress)
+    {
+        return 1 - 4 * Mathf.Pow(progress - 0.5f, 2);
     }
 
     void Update(){
