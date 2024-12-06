@@ -23,6 +23,8 @@ public class PenaltyPointManager : MonoBehaviour
     private Transform cameraTransform;
     public bool isTimeWatchPenalty = false;
     public bool isEyePenaltyDeath = false;
+
+    public bool isSoundPenaltyDeath = false;
     [SerializeField] private float shakingFrequency = 10.0f;
     [SerializeField] private float shakingIntensity = 1.0f;
     public float CurShakingFrequency = 0.0f;
@@ -105,6 +107,11 @@ public class PenaltyPointManager : MonoBehaviour
         inPrototypeSecond = false;
         isTimeWatchPenalty = false;
         isEyePenaltyDeath = false;
+        isSoundPenaltyDeath = false;
+        CurShakingFrequency = 0.0f;
+        CurShakingIntensity = 0.0f;
+        CurDepthOfFieldInstensity = 0.0f;
+        CurSoundPenaltyInstensity = 0.0f;
     }
 
     public void OnChangeScene(){
@@ -202,12 +209,7 @@ public class PenaltyPointManager : MonoBehaviour
             CurSoundPenaltyInstensity = soundHearingTimer / soundHearingGameOverTime * 1.0f;
             if(soundHearingTimer >= soundHearingGameOverTime){
                 if(!insideSafeZone){
-                    IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(6);
-                    if (SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath == false)
-                    {
-                        SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath = true;
-                        SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
-                    }
+                    isSoundPenaltyDeath = true;
                 }
                 IdealSceneManager.Instance.CurrentGameManager.scriptHub.playerEffectSound.FadeStopEffectSound(0.5f);
                 isSoundHearing = false;
@@ -217,14 +219,16 @@ public class PenaltyPointManager : MonoBehaviour
             }
         }
         else{
-            // need to delete isSoundDead
-            if(soundHearingTimer > 0.0f){
-                soundHearingTimer -= Time.deltaTime * 2.0f;
-                CurSoundPenaltyInstensity = soundHearingTimer / soundHearingGameOverTime * 1.0f;
-            }
-            else{
-                soundHearingTimer = 0.0f;
-                CurSoundPenaltyInstensity = 0.0f;
+            if(!isSoundPenaltyDeath){
+                float soundDecay = isSoundPenaltyDeath ? 4.0f : 2.0f;
+                if(soundHearingTimer > 0.0f){
+                    soundHearingTimer -= Time.deltaTime * soundDecay;
+                    CurSoundPenaltyInstensity = soundHearingTimer / soundHearingGameOverTime * 1.0f;
+                }
+                else{
+                    soundHearingTimer = 0.0f;
+                    CurSoundPenaltyInstensity = 0.0f;
+                }
             }
         }
         

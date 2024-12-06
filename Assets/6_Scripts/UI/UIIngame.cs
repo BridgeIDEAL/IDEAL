@@ -10,6 +10,7 @@ public class UIIngame : MonoBehaviour
     [SerializeField] private Image visualFilter;
     [SerializeField] private Image visualFilter_Red;
     [SerializeField] private GameObject Filter_Red;
+    [SerializeField] private GameObject Filter_Black;
     [SerializeField] private Image fadeFilter;
     [SerializeField] private GameObject checkListOn;
     [SerializeField] private GameObject checkListOff;
@@ -48,6 +49,10 @@ public class UIIngame : MonoBehaviour
 
     public void SetActiveRedFilter(bool active){
         Filter_Red.SetActive(active);
+    }
+
+    public void SetActiveBlackFilter(bool active){
+        Filter_Black.SetActive(active);
     }
 
 

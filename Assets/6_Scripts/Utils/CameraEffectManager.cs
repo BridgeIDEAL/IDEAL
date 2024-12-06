@@ -6,7 +6,10 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using StarterAssets;
 
-
+[System.Serializable]
+public class SoundPenaltyFootClip{
+    public AudioClip[] clips;
+}
 
 public class CameraEffectManager : MonoBehaviour
 {
@@ -26,14 +29,29 @@ public class CameraEffectManager : MonoBehaviour
 
     [SerializeField] private AudioSource eyeAudioSource;
 
+    [SerializeField] private AudioSource[] SoundPenaltyFootSources;
+    [SerializeField] private SoundPenaltyFootClip[] SoundPenaltyFootClips;
+    [SerializeField] private AudioSource SoundPenaltyBGMSource;
+    [SerializeField] private AudioSource SoundPenaltyDeathSource;
+
     private AudioClip lastBreathClip = null;
 
     private bool isShowEyePenaltyDeadScene = false;
     private float eyePenaltyDeadTime = 0.5f;
 
+    private bool isShowSoundPenaltyDeadScene = false;
+    private float moveDownTime = 0.5f;
+    private float soundPenaltyDeadTime = 3.5f;
+
     private Coroutine breathCoroutine = null;
     public float breathIntensity = 0.0f;
     private float breathBlurIntensity = 50.0f;
+
+    private bool isBreathingStop = false;
+
+    private Coroutine eyeDeathCoroutine = null;
+    private Coroutine soundDeathCoroutine = null;
+
 
     void Awake(){
         cameraPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -55,8 +73,18 @@ public class CameraEffectManager : MonoBehaviour
     IEnumerator BreathCoroutine(){
         float breathBlur = 0.0f;
         while(true){
-            if(isShowEyePenaltyDeadScene){
+            if(isShowEyePenaltyDeadScene || isBreathingStop){
                 yield return null;
+                continue;
+            }
+            if(PenaltyPointManager.Instance.isSoundPenaltyDeath && !isShowSoundPenaltyDeadScene){
+                isShowSoundPenaltyDeadScene = true;
+                if(soundDeathCoroutine != null){
+                    StopCoroutine(soundDeathCoroutine);
+                }
+                soundDeathCoroutine = StartCoroutine(ShowSoundPenaltyDeadSceneCoroutine());
+                yield return null;
+                continue;
             }
 
             breathIntensity = PenaltyPointManager.Instance.CurSoundPenaltyInstensity;
@@ -118,8 +146,84 @@ public class CameraEffectManager : MonoBehaviour
         return 1 - 4 * Mathf.Pow(progress - 0.5f, 2);
     }
 
+    IEnumerator ShowSoundPenaltyDeadSceneCoroutine(){
+        float stepTimer = 0.0f;
+        while(stepTimer < moveDownTime){
+            thirdPersonController.MoveSpeed = Mathf.Lerp(thirdPersonController.DefaultMoveSpeed, 0.0f, stepTimer / moveDownTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        // PenaltyPoint Manager 쪽에서 사운드 패널티 화면 효과는 2.5초 동안 감소하여 0이 되게 설정되어 있음
+
+        // 3개의 발걸음 소리가 랜덤한 방향에서 들림
+        SoundPenaltyFootSources[0].panStereo = Random.Range(-1.0f, 1.0f);
+        SoundPenaltyFootSources[1].panStereo = Random.Range(-1.0f, 1.0f);
+        SoundPenaltyFootSources[2].panStereo = Random.Range(-1.0f, 1.0f);
+
+        SoundPenaltyFootSources[0].volume = 0.0f;
+        SoundPenaltyFootSources[1].volume = 0.0f;
+        SoundPenaltyFootSources[2].volume = 0.0f;
+        SoundPenaltyBGMSource.volume = 0.0f;
+
+        SoundPenaltyFootSources[0].clip = SoundPenaltyFootClips[0].clips[0];
+        SoundPenaltyFootSources[1].clip = SoundPenaltyFootClips[1].clips[0];
+        SoundPenaltyFootSources[2].clip = SoundPenaltyFootClips[2].clips[0];
+
+        SoundPenaltyFootSources[0].Play();
+        SoundPenaltyFootSources[1].Play();
+        SoundPenaltyFootSources[2].Play();
+        SoundPenaltyBGMSource.Play();
+        
+        IdealSceneManager.Instance.RadialBlurActive(true);
+
+        stepTimer = 0.0f;
+        while(stepTimer < soundPenaltyDeadTime){
+            SoundPenaltyBGMSource.volume = Mathf.Lerp(0.0f, 1.0f, stepTimer / soundPenaltyDeadTime);
+            SoundPenaltyFootSources[0].volume = Mathf.Lerp(0.0f, 1.0f, stepTimer / soundPenaltyDeadTime);
+            SoundPenaltyFootSources[1].volume = Mathf.Lerp(0.0f, 1.0f, stepTimer / soundPenaltyDeadTime);
+            SoundPenaltyFootSources[2].volume = Mathf.Lerp(0.0f, 1.0f, stepTimer / soundPenaltyDeadTime);
+
+            for(int i = 0 ; i < 3; i++){
+                if(SoundPenaltyFootSources[i].isPlaying == false){
+                    SoundPenaltyFootSources[i].clip = SoundPenaltyFootClips[i].clips[Random.Range(0, SoundPenaltyFootClips[i].clips.Length)];
+                    SoundPenaltyFootSources[i].Play();
+                }
+            }
+
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        isBreathingStop = true;
+
+        stepTimer = 0.0f;
+        float breathStopTime = breathSource.clip.length - breathSource.time;
+        float breathVolume = breathSource.volume;
+        while(stepTimer < breathStopTime){
+            breathSource.volume = Mathf.Lerp(breathVolume, 0.0f, stepTimer / breathStopTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        uIIngame.SetActiveBlackFilter(true);
+        SoundPenaltyDeathSource.Play();
+        yield return new WaitForSeconds(SoundPenaltyDeathSource.clip.length);
+
+        DeadBySoundPenalty();
+    }
+
+    private void DeadBySoundPenalty(){
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.GameOverWithVHSEffect(6);
+        if (SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath == false)
+        {
+            SteamfeatureController.Instance.FeatureManager.Achievement03.isSirenDeath = true;
+            SteamfeatureController.Instance.FeatureManager.Achievement03.CheckAllConidtion();
+        }
+    }
+
     void Update(){
-        if(isShowEyePenaltyDeadScene) {
+        if(isShowEyePenaltyDeadScene || isShowSoundPenaltyDeadScene) {
             return;
         }
 
@@ -160,7 +264,10 @@ public class CameraEffectManager : MonoBehaviour
     }
 
     private void ShowEyePenaltyDeadScene(){
-        StartCoroutine(ShowEyePenaltyDeadSceneCoroutine());
+        if(eyeDeathCoroutine != null){
+            StopCoroutine(eyeDeathCoroutine);
+        }
+        eyeDeathCoroutine = StartCoroutine(ShowEyePenaltyDeadSceneCoroutine());
     }
 
     IEnumerator ShowEyePenaltyDeadSceneCoroutine(){
