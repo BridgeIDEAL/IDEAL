@@ -44,6 +44,7 @@ public class IdealSceneManager : MonoBehaviour
     [SerializeField] private UniversalRendererData rendererData;
     [SerializeField] private VolumeProfile volumeProfile;
     private ColorAdjustments colorAdjustments;
+    private DepthOfField depthOfField;
     public AudioSource metalDoorSound;
     public float soundFadeTime = 1.4f;
     private float soundInitVolume = 0.0f;
@@ -54,6 +55,13 @@ public class IdealSceneManager : MonoBehaviour
     private Coroutine radialBlurCoroutine = null;
 
     public bool isWatchingIntro = false;
+
+    private void ResetPostProcessingEffect(){
+        radialBlurMaterial.SetFloat("fSampleStrength", 0.0f);
+        colorSplitMaterial.SetFloat("_ColorSplitStrength", 0.0f);
+        depthOfField.focusDistance.value = 5.0f;
+        depthOfField.focalLength.value = 0.0f;
+    }
 
     private void Awake() {
         if(instance == null){
@@ -86,6 +94,17 @@ public class IdealSceneManager : MonoBehaviour
         {
             Debug.LogWarning("Color Adjustments component not found in Volume Profile");
         }
+
+        if (volumeProfile.TryGet<DepthOfField>(out depthOfField))
+        {
+            Debug.Log("depthOfField component found in Volume Profile");
+        }
+        else
+        {
+            Debug.LogWarning("depthOfField component not found in Volume Profile");
+        }
+
+        ResetPostProcessingEffect();
     }
 
     public string GetSceneName(){
@@ -103,11 +122,11 @@ public class IdealSceneManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             GuideLogManager.Instance.guideLogUpdated = false;
 
-            radialBlurMaterial.SetFloat("fSampleStrength", 0.0f);
-            colorSplitMaterial.SetFloat("ColorSplitStrength", 0.0f);
 
         }
         else if(scene.name == "Lobby"){
+            ResetPostProcessingEffect();
+            
             Cursor.lockState = CursorLockMode.None;
 
             
