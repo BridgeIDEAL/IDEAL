@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,7 +64,9 @@ public class InteractionChangeScene : AbstractInteraction
         {
             // PenaltyPointManager.Instance.AddPenaltyPoint(1);
         }
-        ProgressManager.Instance.UpdateCheckList(104, 1);
+        if(ProgressManager.Instance.checkListDic.ContainsKey(104) && ProgressManager.Instance.checkListDic[104] == -1){
+            ProgressManager.Instance.UpdateCheckList(104, 1);
+        }
         IdealSceneManager.Instance.metalDoorSound.Play();
         EntityDataManager.Instance.Controller.DisableChaseGroup();
         // OnlyChase Disable => Here 
