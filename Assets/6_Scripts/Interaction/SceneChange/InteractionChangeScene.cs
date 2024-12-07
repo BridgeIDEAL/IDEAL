@@ -18,7 +18,6 @@ public class InteractionChangeScene : AbstractInteraction
     [Header("Add By Jun : Use SteelDoorItem & Change Guard Monster")]
     [SerializeField] private int needItem;
     [SerializeField] private bool isInBuildingA;
-    private bool onceActiveEvent = true;
     // ~~~End
     public override float RequiredTime { get => 1.0f; }
     [SerializeField] TeleportPoint teleportPoint; // Jun
@@ -48,22 +47,7 @@ public class InteractionChangeScene : AbstractInteraction
                 return;
             }
         }
-
-       
-        if (onceActiveEvent && needItem!=0)
-        {
-            onceActiveEvent = false;
-            //IdealSceneManager.Instance.CurrentGameManager.EntityEM.DespawnEntity("1F_PatrolGuard");
-            //IdealSceneManager.Instance.CurrentGameManager.EntityEM.SpawnEntity("1F_StandGuard");
-        }
-        // ~~~End
         
-        int itemIndex = Inventory.Instance.FindItemIndex(1107); // 교과서 오브젝트 3개 수집 안하고 이동 시 벌점 부과
-        // 아이템이 없을 경우 Inventory.Instance.GetCurrentAmount(itemIndex) == -1
-        if (Inventory.Instance.GetCurrentAmount(itemIndex) < 3 && !isInBuildingA)
-        {
-            // PenaltyPointManager.Instance.AddPenaltyPoint(1);
-        }
         if(ProgressManager.Instance.checkListDic.ContainsKey(104) && ProgressManager.Instance.checkListDic[104] == -1){
             ProgressManager.Instance.UpdateCheckList(104, 1);
         }

@@ -149,6 +149,14 @@ public partial class DialogueEvent : MonoBehaviour
     }
     #endregion
 
+    #region Quest
+    public void Quest(List<string> _parameters)
+    {
+        EventDataManager.Instance.CareerQuest.AcceptDialogueQuest(_parameters[0], true);
+    }
+
+    #endregion
+
     public void PlaySFX(List<string> _parameters)
     {
         int _index = int.Parse(_parameters[0]);

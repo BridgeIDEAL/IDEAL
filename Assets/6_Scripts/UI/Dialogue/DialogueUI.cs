@@ -291,6 +291,9 @@ public class DialogueUI : MonoBehaviour
             case "PlaySFX":
                 Event.PlaySFX(_parameterList);
                 break;
+            case "Quest":
+                Event.Quest(_parameterList);
+                break;
         }
     }
     public void PreventTalk() { preventNextDialogue = true; Invoke("ResumeTalk", 3f); }
