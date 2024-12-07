@@ -97,8 +97,13 @@ MonoBehaviour:
   outlineMaterial: {fileID: 0}
   outlineScaleFactor: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  outlineObjectPosition: {x: 0, y: 0, z: 0}
+  outlineObjectRotation: {x: 0, y: 0, z: 0}
+  outlineObjectScale: {x: 1, y: 1, z: 1}
   reverseY: 0
+  reverseX: 0
   hasChild: 0
+  hasGrandChild: 0
   planeObject: 0
   planeValue: -0.0005
   outlineMask: 
@@ -115,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  openAudioClip: {fileID: 0}
+  lockedAudioClip: {fileID: 0}
   doorObject: {fileID: 8661500488181171899}
   destRotation: {x: 0, y: -140, z: 0}
   openRequiredTime: 0.5
@@ -123,7 +130,8 @@ MonoBehaviour:
   failInteractionStr: "\uC7A0\uACA8 \uC788\uB2E4."
   needItem: -1
   activationLogNum: -1
-  isKeyBox: 1
+  isKeyBox: 0
+  isCabinet: 1
 --- !u!65 &1286577919435210988
 BoxCollider:
   m_ObjectHideFlags: 0
