@@ -38,6 +38,9 @@ public class PenaltyPointManager : MonoBehaviour
     private EyePenaltyManager eyePenaltyManager;
     public EyePenaltyObject eyePenaltyObject;
 
+    
+    private const float eyeObjectRespawnTime_Default = 60.0f;
+    private const float eyeObjectRespawnTime_LastRun = 25.0f;
     private float eyeObjectRespawnTime = 60.0f;
     public float eyePenaltyStepTimer = 0.0f;
     private const float eyeWatchingGameOverTime = 3.0f;
@@ -131,6 +134,9 @@ public class PenaltyPointManager : MonoBehaviour
         if(!watchIntroEnded || scriptHub.ambienceSoundManager.currentArea == IdealArea.Outside){
             return;
         }
+
+        eyeObjectRespawnTime = ProgressManager.Instance.lastRunning ? eyeObjectRespawnTime_LastRun : eyeObjectRespawnTime_Default;
+
         if(eyePenaltyStepTimer >= eyeObjectRespawnTime){
             // 1. 패널티 오브젝트 생성 / 쿨이 돌았을 때만
             eyePenaltyObject = eyePenaltyManager.ActiveEyePenaltyObject();
