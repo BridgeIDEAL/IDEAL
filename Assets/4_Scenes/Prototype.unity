@@ -6742,7 +6742,13 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7628224916544132852, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+        type: 3}
+      propertyPath: abstractInteraction
+      value: 
+      objectReference: {fileID: 1658203833}
+    m_RemovedComponents:
+    - {fileID: 2691585398360298513, guid: 7a37e4cad0efbf6458f17b11d897bad3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7a37e4cad0efbf6458f17b11d897bad3, type: 3}
 --- !u!4 &1658203828 stripped
 Transform:
@@ -6780,6 +6786,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1658203827}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1658203832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5115138419052714302, guid: 7a37e4cad0efbf6458f17b11d897bad3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1658203827}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1658203833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658203832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6afbe674dfb4a04f9e493e790a19574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  failInteractionStr: "\uC9C0\uAE08\uC740 \uC77D\uC744 \uC218 \uC5C6\uB2E4.."
+  isChangeTalkData: 0
+  detectedStr: "\uBB34\uC5B8\uAC00 \uC801\uD78C \uBA54\uBAA8\uB2E4."
 --- !u!114 &1721975327 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8302030102818807674, guid: e66eadb7134c8044d976857ef5b8ed37,
