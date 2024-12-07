@@ -34,7 +34,7 @@ public class JumpScareHeadOfStudentTeacher : JumpScare
         {
             timer += Time.deltaTime;
             virtualCam.transform.rotation = Quaternion.Slerp(stRot, edRot, timer / lookupTime);
-            yield return null;
+           yield return null;
         }
         virtualCam.transform.rotation = edRot;
     }
