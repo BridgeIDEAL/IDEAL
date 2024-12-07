@@ -145,7 +145,8 @@ public class PenaltyPointManager : MonoBehaviour
             }
         }
         if(!inLobby &&!isChased && !isTimerFreeze && !insideSafeZone
-        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd) {
+        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd
+        && !DialogueManager.Instance.IsTalking) {
             eyePenaltyStepTimer += Time.deltaTime;
         }
 
@@ -210,7 +211,8 @@ public class PenaltyPointManager : MonoBehaviour
             EntityDataManager.Instance.Controller.InActivePrincipal();
         }
         if(!inLobby && !isChased && !isTimerFreeze && !insideSafeZone
-        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd) {
+        && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd
+        && !DialogueManager.Instance.IsTalking) {
             soundPenaltyStepTimer += Time.deltaTime;
         }
 
