@@ -54,6 +54,7 @@ public class InteractionDoorRotation : AbstractInteraction
         isOpen = true;
         this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
         if(isKeyBox) InActiveCollider();
+        if(isCabinet) InActiveCollider();
         if(moveCoroutine != null){
             StopCoroutine(moveCoroutine);
         }
