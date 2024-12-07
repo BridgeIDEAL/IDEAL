@@ -16,7 +16,7 @@ public class ProgressManager : MonoBehaviour
     public SortedDictionary<int, string> checkListStr = new SortedDictionary<int, string>{
         // {101, "게시판을 확인하세요."},
         {101, "입구로 들어가 수위와 대화하세요."},
-        {102, "책자 조각을 얻으세요."},
+        {102, "떨어진 책자 지도를 얻으세요."},
         {103, "1층 수위실에서 철문 열쇠를 얻으세요."},
         {104, "다음 동으로 넘어가세요."},
         {105, "3-6열쇠를 찾으세요."},
