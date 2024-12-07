@@ -10,6 +10,7 @@ public enum IdealArea{
 
 public class AmbienceSoundManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip silenceAudioClip;
     [SerializeField] private AudioSource outsideAudioSource;
     [SerializeField] private AudioSource insideAudioSource;
     public GuardCCTVSound guardCCTVSound;
@@ -42,6 +43,12 @@ public class AmbienceSoundManager : MonoBehaviour
     [SerializeField] private float broadCastRoomAudioVolume;
     [SerializeField] private float serverRoomAudioVolume;
     [SerializeField] private float soundFadeTime = 0.7f;
+
+    public void SetSilenceAmbience(){
+        chaseAudioSource.clip = silenceAudioClip;
+        lastRunAudioSource_1.clip = silenceAudioClip;
+        lastRunAudioSource_2.clip = silenceAudioClip;
+    }
 
 
     void Awake(){
