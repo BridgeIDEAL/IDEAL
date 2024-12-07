@@ -13,6 +13,9 @@ public class InteractionPassword : AbstractInteraction
     public bool canTalk = true;
     public string detectedStr = "";
     public override float RequiredTime { get => 1.0f; }
+
+    
+
     #endregion
 
     /****************************************************************************
@@ -22,12 +25,14 @@ public class InteractionPassword : AbstractInteraction
     protected override string GetDetectedString()
     {
         if (detectedStr == "") return "";
-        return $"<sprite=0> {detectedStr}";
+        return $"     {detectedStr}";
     }
 
     protected override void ActInteraction()
     {
         if (!canTalk) return;
+
+        IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIInteraction.MakeRedEmoticon(false);
 
         DialogueManager.Instance.Password_UI.PasswordInteraction = this;
         DialogueManager.Instance.Password_UI.ActivePassword();
@@ -41,6 +46,7 @@ public class InteractionPassword : AbstractInteraction
 
     private void Start()
     {
+        isRedEmoticon = true;
         string _name = Enums.GetString(eventName);
         EventData _data = EventDataManager.Instance.GetEventData(_name);
         if (_data!=null)
