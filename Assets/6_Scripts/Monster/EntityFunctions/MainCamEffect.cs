@@ -7,6 +7,10 @@ using UnityEngine.Events;
 
 public class MainCamEffect : MonoBehaviour
 {
+    [SerializeField] GameObject lightObject;
+    [SerializeField] GameObject legacylightObject;
+
+
     [Header("FallDown Value"), SerializeField] float fallDownDescentTime = 0.1f;
     [SerializeField] float fallDownRotateTime = 0.1f;
     [SerializeField] float yPos = 1.1f;
@@ -73,7 +77,6 @@ public class MainCamEffect : MonoBehaviour
         }
 
         followCamera.transform.rotation = edCamRot;
-
         yield return new WaitForSeconds(waitTime);
 
         if (fallAction != null)
@@ -121,4 +124,6 @@ public class MainCamEffect : MonoBehaviour
             listener.enabled = false;
         this.gameObject.GetComponent<Camera>().enabled = false;
     }
+
+    public void SetActiveLightObject() { lightObject.SetActive(true);  legacylightObject.SetActive(false); }
 }

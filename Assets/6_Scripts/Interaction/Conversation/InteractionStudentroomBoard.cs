@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractionStudentroomBoard : AbstractInteraction
 {
+    [SerializeField] string failInteractionStr;
     #region Class Data
     [SerializeField] bool isChangeTalkData = false;
     protected Entity talkData = null;
@@ -30,6 +31,11 @@ public class InteractionStudentroomBoard : AbstractInteraction
 
     protected override void ActInteraction()
     {    
+        if ( EventDataManager.Instance.CareerQuest.CheckClearQuest() == false)
+        {
+            IdealSceneManager.Instance.CurrentGameManager.scriptHub.interactionManager.uIInteraction.GradientText(failInteractionStr);
+            return;
+        }
         dialogueName = TalkData.speakerName + TalkData.speakIndex;
         DialogueManager.Instance.StartDialogue(dialogueName);
         if (isChangeTalkData && talkData.speakIndex == 1) talkData.speakIndex = 2;

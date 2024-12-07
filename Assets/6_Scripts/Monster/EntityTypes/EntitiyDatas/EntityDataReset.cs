@@ -33,6 +33,8 @@ public class EntityDataReset : MonoBehaviour
 
         EntityDataManager.Instance.ResetData();
         EventDataManager.Instance.ClearEventDatas();
+
+
     }
 
     public void InActiveEndingCredit()

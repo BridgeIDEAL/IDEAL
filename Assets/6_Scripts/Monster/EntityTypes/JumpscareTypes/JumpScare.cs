@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class JumpScare : MonoBehaviour
@@ -36,6 +34,7 @@ public abstract class JumpScare : MonoBehaviour
     public void FindFollowCameraNRelease()
     {
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.thirdPersonController.MoveLock = true;
+        Camera.main.GetComponent<MainCamEffect>().SetActiveLightObject();
 
         if (virtualCam == null)
         {
@@ -46,7 +45,6 @@ public abstract class JumpScare : MonoBehaviour
             //    virtualCam = vCam;
             //}
         }
-
         // Release Follow Cam
         if (virtualCam != null) 
         {

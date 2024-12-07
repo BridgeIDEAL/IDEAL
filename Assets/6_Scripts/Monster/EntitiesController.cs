@@ -227,7 +227,6 @@ public class EntitiesController : MonoBehaviour
             if (chaseGroup[i] == onlyChase)
                 return;
         }
-
         chaseGroup.Add(onlyChase);
     }
 
