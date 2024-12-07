@@ -61,6 +61,13 @@ public class HealthPointManager : MonoBehaviour
             uIMoveSetting = scriptHub.uIMoveSetting;
             interactionDetect = scriptHub.interactionDetect;
             uIIngame = scriptHub.uIIngame;
+            UpdateUIHealthPoint();
+        }
+    }
+
+    private void UpdateUIHealthPoint(){
+        foreach(IdealBodyPart idealBodyPart in System.Enum.GetValues(typeof(IdealBodyPart))){
+            uIHealthPoint.UpdateBodyImage(idealBodyPart, healthPoint[(int)idealBodyPart]);
         }
     }
 
