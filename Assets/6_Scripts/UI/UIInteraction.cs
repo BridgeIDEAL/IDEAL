@@ -11,6 +11,7 @@ public class UIInteraction : MonoBehaviour
     InteractionDetect interactionDetect;
     [SerializeField]
     GameObject interactionTextGameObject;
+    [SerializeField] private GameObject RedEmoticon;
 
     TextMeshProUGUI interactionText;
 
@@ -19,6 +20,11 @@ public class UIInteraction : MonoBehaviour
     private Coroutine textCoroutine;
     private float textCorTime = 1.5f;
     public bool textGradiating = false;
+
+    public void MakeRedEmoticon(bool active){
+        RedEmoticon.SetActive(active);
+    }
+
 
     void Awake(){
         interactionText = interactionTextGameObject.GetComponent<TextMeshProUGUI>();
@@ -53,6 +59,10 @@ public class UIInteraction : MonoBehaviour
         SetTextActive(true);
         float stepTimer = 0.0f;
         textGradiating = true;
+
+        // Gradient가 불리는 경우는 보통 상호작용 성공이므로 RedEmotion은 필요 없음
+        RedEmoticon.SetActive(false);
+        
         while(stepTimer <= textCorTime){
             interactionText.alpha = Mathf.Lerp(1.0f, 0.0f, stepTimer / textCorTime);
             stepTimer += Time.deltaTime;

@@ -169,7 +169,17 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void PrintInteractionText(string textContents){
+    public void PrintInteractionText(string textContents, bool isRedEmoticon){
+        if(isRedEmoticon){
+            uIInteraction.MakeRedEmoticon(true);
+            if(textContents == ""){
+                uIInteraction.MakeRedEmoticon(false);
+            }
+        }
+        else{
+            uIInteraction.MakeRedEmoticon(false);
+        }
+
         uIInteraction.SetTextContents(textContents);
         uIInteraction.SetTextActive(true);
     }
@@ -177,6 +187,7 @@ public class UIManager : MonoBehaviour
     public void DeleteInteractionText(){
         uIInteraction.SetTextContents(null);
         uIInteraction.SetTextActive(false);
+        uIInteraction.MakeRedEmoticon(false);
     }
 
     private void UpdateMouseLock(){
