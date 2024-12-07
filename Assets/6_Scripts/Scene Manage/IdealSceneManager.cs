@@ -56,6 +56,8 @@ public class IdealSceneManager : MonoBehaviour
 
     public bool isWatchingIntro = false;
 
+    public bool isClearLobby = false;
+
     private void ResetPostProcessingEffect(){
         radialBlurMaterial.SetFloat("fSampleStrength", 0.0f);
         colorSplitMaterial.SetFloat("_ColorSplitStrength", 0.0f);
@@ -392,11 +394,12 @@ public class IdealSceneManager : MonoBehaviour
         }
     }
 
-    public void LoadLobbyScene(bool isDead){
+    public void LoadLobbyScene(bool isDead, bool isClear = false){
         SceneManager.LoadScene("Lobby");
         if(isDead){
             SettingDataManager.Instance.OpenSFX();
         }
+        isClearLobby = isClear;
     }
 
 
@@ -409,4 +412,5 @@ public class IdealSceneManager : MonoBehaviour
         Debug.Log("Application.Quit");
 #endif
     }
+
 }

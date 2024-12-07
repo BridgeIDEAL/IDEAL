@@ -18,6 +18,8 @@ public class GameOverManager : MonoBehaviour
     private float pressKeyTime = 1.0f;
     private TextMeshProUGUI endingMentText;
     public bool isEnd = false;
+
+    private int curStateNum = 0;
     private float stepTimer = 0.0f;
 
     
@@ -32,6 +34,7 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOver(string endingMent, int stateNum = 0){
+        curStateNum = stateNum;
         backgroundObject.SetActive(true);
         vhsRawImage.SetActive(true);
         vhsVideoPlayer.SetActive(true);
@@ -47,7 +50,8 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOver(int stateNum=0){
-        
+        curStateNum = stateNum;
+
         SettingDataManager.Instance.LateCloseSFX();
         
         CheckUpdateLog(stateNum);
@@ -67,6 +71,8 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOverWithVHSEffect(int stateNum = 0){
+        curStateNum = stateNum;
+
         gameOverAudio.Play();
 
         IdealSceneManager.Instance.CurrentGameManager.scriptHub.uIIngame.VHSEffectPlay(() =>GameOver(stateNum));
@@ -80,7 +86,8 @@ public class GameOverManager : MonoBehaviour
                 if(Input.anyKeyDown){
                     isEnd = false;
                     gameOverAudio.Stop();
-                    IdealSceneManager.Instance.LoadLobbyScene(true);
+                    bool isGoEasterEgg = (curStateNum == 9);
+                    IdealSceneManager.Instance.LoadLobbyScene(true, isGoEasterEgg);
                 }
             }
             stepTimer += Time.deltaTime;
