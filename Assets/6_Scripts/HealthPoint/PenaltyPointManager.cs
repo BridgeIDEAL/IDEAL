@@ -189,6 +189,10 @@ public class PenaltyPointManager : MonoBehaviour
             
         }
         
+        // 라스트 런에는 사운드 패널티 없음
+        if(ProgressManager.Instance.lastRunning){
+            soundPenaltyStepTimer = 0.0f;
+        }
 
         // Sound Penalty 가능하다면 패널티 적용하기
         if(soundPenaltyStepTimer >= soundPenaltyRespawnTime){
@@ -203,6 +207,8 @@ public class PenaltyPointManager : MonoBehaviour
         && !IdealSceneManager.Instance.CurrentGameManager.scriptHub.gameOverManager.isEnd) {
             soundPenaltyStepTimer += Time.deltaTime;
         }
+
+        
 
         if(isSoundHearing){
             soundHearingTimer += Time.deltaTime;
