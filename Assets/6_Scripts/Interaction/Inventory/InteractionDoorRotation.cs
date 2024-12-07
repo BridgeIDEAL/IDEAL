@@ -18,6 +18,7 @@ public class InteractionDoorRotation : AbstractInteraction
     [SerializeField] private int needItem = -1; // 아이템이 필요 없으면 -1
     [SerializeField] private int activationLogNum = -1;
     [SerializeField] private bool isKeyBox = false;
+    [SerializeField] private bool isCabinet = false;
     
     public override float RequiredTime { get => 1.0f;}
 
@@ -60,6 +61,9 @@ public class InteractionDoorRotation : AbstractInteraction
         if(isKeyBox){
             ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name, 1);
         }
+        else if(isCabinet){
+            ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.parent.parent.name + this.transform.parent.name, 1);
+        }
         else{
             ProgressManager.Instance.SetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.parent.parent.parent.name + this.transform.parent.parent.parent.name, 1);
         }
@@ -70,6 +74,14 @@ public class InteractionDoorRotation : AbstractInteraction
         if(audioSource != null) openAudioClip = audioSource.clip;
         if(isKeyBox){
             if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.name + this.transform.parent.name) == 1){
+                doorObject.transform.localRotation = Quaternion.Euler(destRotation);
+                isOpen = true;
+                this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
+                InActiveCollider();
+            }
+        }
+        else if(isCabinet){
+            if(ProgressManager.Instance.GetDoorLog(SceneManager.GetActiveScene().name + transform.parent.parent.parent.parent.name + this.transform.parent.name) == 1){
                 doorObject.transform.localRotation = Quaternion.Euler(destRotation);
                 isOpen = true;
                 this.gameObject.layer = LayerMask.NameToLayer("InteractionObstacle");
