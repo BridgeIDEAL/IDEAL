@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
 
     /// <summary > 체크리스트 충족하는 아이템 목록 </summary>
     private Dictionary<int, int> checkListItemDic = new Dictionary<int, int>{
-        {99001, 102},
+        {990, 102},
         {401, 103},
         {306, 105},
         {903, 106},
