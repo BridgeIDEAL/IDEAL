@@ -12,17 +12,14 @@ public class PrototypeCheatKey : MonoBehaviour
     bool onceLast = true;
     private void Start()
     {
-#if UNITY_EDITOR
         if (Inventory.Instance.FindItemIndex(Inventory.MasterMey) != -1)
             canGetMasterKey = false;
         else
             canGetMasterKey = true;
-#endif
     }
 
     void Update()
     {
-#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Z) && canGetMasterKey)
         {
             canGetMasterKey = false;
@@ -35,6 +32,5 @@ public class PrototypeCheatKey : MonoBehaviour
             onceLast = false;
             EventDataManager.Instance.TriggerController.TriggerLastEvent();
         }
-#endif
     }
 }
