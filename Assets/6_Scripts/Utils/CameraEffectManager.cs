@@ -98,6 +98,8 @@ public class CameraEffectManager : MonoBehaviour
             }
 
             float penaltyIntensity = PenaltyPointManager.Instance.CurSoundPenaltyInstensity;
+            float lastRunIntensity = ProgressManager.Instance.lastRunning ? 0.25f : 0.0f;
+
             float chaseInensity =0.0f;
             if(chasingEntities != null){
                 foreach(var entityTransform in chasingEntities){
@@ -109,7 +111,7 @@ public class CameraEffectManager : MonoBehaviour
             }
 
 
-            breathIntensity = Mathf.Max(penaltyIntensity, chaseInensity);
+            breathIntensity = Mathf.Max(penaltyIntensity, chaseInensity, lastRunIntensity);
 
             // breath Source에 재생시킬 clip 설정하기
             if(!breathSource.isPlaying){
