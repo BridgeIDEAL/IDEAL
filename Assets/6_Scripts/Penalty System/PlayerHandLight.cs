@@ -38,6 +38,8 @@ public class PlayerHandLight : MonoBehaviour
 
     private Coroutine turnCoroutine;
 
+    private bool isEffectOn = false;
+
     private void Awake(){
         lightTransform = handLight.transform;
 
@@ -58,22 +60,23 @@ public class PlayerHandLight : MonoBehaviour
         // 좌클릭으로 손전등 On/Off
         if (Input.GetMouseButtonDown(0))
         {
-            if (isLightOn)
-            {
-                isLightOn = false;
-                if(turnCoroutine != null){
-                    StopCoroutine(turnCoroutine);
+            if(!isEffectOn){
+                if (isLightOn){
+                    isLightOn = false;
+                    if(turnCoroutine != null){
+                        StopCoroutine(turnCoroutine);
+                    }
+                    turnCoroutine = StartCoroutine(TurnCoroutine(false));
                 }
-                turnCoroutine = StartCoroutine(TurnCoroutine(false));
-            }
-            else
-            {
-                isLightOn = true;
-                if(turnCoroutine != null){
-                    StopCoroutine(turnCoroutine);
+                else{
+                    isLightOn = true;
+                    if(turnCoroutine != null){
+                        StopCoroutine(turnCoroutine);
+                    }
+                    turnCoroutine = StartCoroutine(TurnCoroutine(true));
                 }
-                turnCoroutine = StartCoroutine(TurnCoroutine(true));
             }
+            
         }
 
         // 빛의 강도를 거리 기반으로 조정
@@ -216,6 +219,7 @@ public class PlayerHandLight : MonoBehaviour
     }
 
     private IEnumerator EffectOnLightCorouine(){
+        isEffectOn = true;
         float stepTimer = 0.0f;
 
         // EffectOffLight에서 Coroutine Stop으로 나오게 해줄 것임
@@ -274,5 +278,7 @@ public class PlayerHandLight : MonoBehaviour
             yield return null;
         }
 
+        isEffectOn = false;
+        TurnOnLight(true);
     }
 }
