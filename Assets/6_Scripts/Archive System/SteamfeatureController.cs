@@ -1,12 +1,16 @@
+using Stove.PCSDK.NET;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SteamfeatureController : MonoBehaviour
 {
+    [SerializeField]  PlatformType platformType;
+
+    bool isConnectStove = false;
     bool isConnectSteam = false;
     const uint steamAppId = 3263940;
-    //[SerializeField] string testAchievementID = "ACHIEV_01";
+    //[SerializeField] string testAchievementID = "ACHIEV_02";
 
     private static SteamfeatureController instance = null;
     public static SteamfeatureController Instance { get { return instance; } private set { instance = value; } }
@@ -31,6 +35,12 @@ public class SteamfeatureController : MonoBehaviour
         {
             featureManager = GetComponent<SteamfeatureManager>();
         }
+
+        StovePCResult result = StovePC.GetUser();
+        if (result == StovePCResult.NoError)
+        {
+            isConnectStove = true;
+        } 
     }
 
     void Start()
@@ -54,36 +64,52 @@ public class SteamfeatureController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(isConnectSteam)
+        if(isConnectSteam && platformType == PlatformType.Steam)
             Steamworks.SteamClient.RunCallbacks();    
     }
 
     void OnApplicationQuit()
     {
-        if(isConnectSteam)
+        if(isConnectSteam && platformType == PlatformType.Steam)
             Steamworks.SteamClient.Shutdown();
     }
     #endregion
 
     public void LockAchievement(string _ID)
     {
-        if (Steamworks.SteamClient.IsValid)
+        if (Steamworks.SteamClient.IsValid && platformType == PlatformType.Steam)
         {
             var achievement = new Steamworks.Data.Achievement(_ID);
             achievement.Clear();
+            return;
+        }
+
+        //_ID += "_1";
+        StovePCResult result = StovePC.GetAchievement(_ID);
+        if (result == StovePCResult.NoError && isConnectStove && platformType == PlatformType.Stove)
+        {
+            StoveAchievementHandler.UnlockAchievement(_ID);
         }
     }
 
     public void UnLockAchievement(string _ID)
     {
-        if (Steamworks.SteamClient.IsValid)
+        if (Steamworks.SteamClient.IsValid && platformType == PlatformType.Steam)
         {
             var achievement = new Steamworks.Data.Achievement(_ID);
             if (achievement.State == true)
                 return;
             achievement.Trigger(true);
+            return;
+        }
+
+        _ID += "_1";
+        StovePCResult result = StovePC.GetAchievement(_ID);
+        if (result == StovePCResult.NoError && isConnectStove && platformType == PlatformType.Stove)
+        {
+            StoveAchievementHandler.UnlockAchievement(_ID);
         }
     }
 
@@ -92,14 +118,17 @@ public class SteamfeatureController : MonoBehaviour
     /// </summary>
 //    private void OnGUI()
 //    {
-//#if UNITY_EDITOR
-//        if (GUI.Button(new Rect(0,0,50,50), "업적 해제")){
+//        if (GUI.Button(new Rect(0, 0, 50, 50), "업적 해제"))
+//        {
 //            UnLockAchievement(testAchievementID);
 //        }
 //        if (GUI.Button(new Rect(50, 0, 50, 50), "업적 잠금"))
 //        {
 //            LockAchievement(testAchievementID);
 //        }
+
+//#if UNITY_EDITOR
+
 //#endif
 //    }
 }
