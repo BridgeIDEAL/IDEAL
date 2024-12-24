@@ -16,8 +16,8 @@ public class UIMap : MonoBehaviour
 
     [SerializeField] private UIMapCheckListGroup[] uIMapCheckListGroups;
     private int playerFloorNum = 1;
-    private float[] playerFloorDivide_1 = {6.18f, 9.68f, 13.18f}; // Prototype 층 사이 높이 값
-    private float[] playerFloorDivide_2 = {6.74f, 10.24f } ;// Prototype_Second 층 사이 높이 값
+    private float[] playerFloorDivide_1 = {6.18f, 9.68f, 13.14f, 16.65f}; // Prototype 층 사이 높이 값
+    private float[] playerFloorDivide_2 = {6.74f, 10.24f , 13.7f} ;// Prototype_Second 층 사이 높이 값
     private float[] boundX_Prototype = {-4.469195f, 50.39434f};
     private float[] boundZ_Prototype = {-0.3813887f, 30.48126f};
     private float[] boundX_Prototype_Second = {-17.773f, -54.73305f};
