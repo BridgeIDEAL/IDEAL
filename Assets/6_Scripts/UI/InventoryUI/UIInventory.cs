@@ -101,9 +101,8 @@ public class UIInventory : MonoBehaviour
     }
 
     private RectTransform CloneSlot(){
-        GameObject slotGameObject = Instantiate(slotUIPrefab);
+        GameObject slotGameObject = Instantiate(slotUIPrefab, slotArea);
         RectTransform rt = slotGameObject.GetComponent<RectTransform>();
-        rt.SetParent(slotArea);
         
         return rt;
     }

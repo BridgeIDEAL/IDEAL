@@ -22,9 +22,7 @@ public class UICheckListManager : MonoBehaviour
         checkListDicKeys.Sort();
 
         foreach(int key in checkListDicKeys){
-            GameObject checkListGameObject = Instantiate(uICheckListPrefab);
-            RectTransform rt = checkListGameObject.GetComponent<RectTransform>();
-            rt.SetParent(checkListArea);
+            GameObject checkListGameObject = Instantiate(uICheckListPrefab, checkListArea);
             UICheckList uICheckList = checkListGameObject.GetComponent<UICheckList>();
             uICheckList.SetLogText(ProgressManager.Instance.checkListStr[key]);
             if(ProgressManager.Instance.checkListDic[key] == 1) uICheckList.SetChecked();

@@ -52,9 +52,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
         if(isMonsterView){
             List<MonsterArchiveLogs> monsterArchiveList = MonsterArchiveLogManager.Instance.GetMonsterArchiveList();
             foreach(MonsterArchiveLogs logs in monsterArchiveList){
-                GameObject logGameObject = Instantiate(uIMRArchiveLogPrefab);
-                RectTransform rt = logGameObject.GetComponent<RectTransform>();
-                rt.SetParent(archiveLogArea);
+                GameObject logGameObject = Instantiate(uIMRArchiveLogPrefab, archiveLogArea);
                 UIMRArchiveLog uIMRArchiveLog = logGameObject.GetComponent<UIMRArchiveLog>();
                 mrArchiveLogList.Add(uIMRArchiveLog);
                 uIMRArchiveLog.SetManager(this, logs.monsterID);
@@ -66,9 +64,7 @@ public class UIMRArchiveLogManager : MonoBehaviour
         else{
             List<RoomArchiveLogs> roomArchiveList = RoomArchiveLogManager.Instance.GetRoomArchiveList();
             foreach(RoomArchiveLogs logs in roomArchiveList){
-                GameObject logGameObject = Instantiate(uIMRArchiveLogPrefab);
-                RectTransform rt = logGameObject.GetComponent<RectTransform>();
-                rt.SetParent(archiveLogArea);
+                GameObject logGameObject = Instantiate(uIMRArchiveLogPrefab, archiveLogArea);
                 UIMRArchiveLog uIMRArchiveLog = logGameObject.GetComponent<UIMRArchiveLog>();
                 mrArchiveLogList.Add(uIMRArchiveLog);
                 uIMRArchiveLog.SetManager(this, logs.roomID);
