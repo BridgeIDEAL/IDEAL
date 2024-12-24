@@ -86,20 +86,4 @@ public class SteamfeatureController : MonoBehaviour
             achievement.Trigger(true);
         }
     }
-
-    /// <summary>
-    /// 업적 테스트
-    /// </summary>
-//    private void OnGUI()
-//    {
-//#if UNITY_EDITOR
-//        if (GUI.Button(new Rect(0,0,50,50), "업적 해제")){
-//            UnLockAchievement(testAchievementID);
-//        }
-//        if (GUI.Button(new Rect(50, 0, 50, 50), "업적 잠금"))
-//        {
-//            LockAchievement(testAchievementID);
-//        }
-//#endif
-//    }
 }
