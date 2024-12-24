@@ -31,6 +31,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("DialogueData")]
     [SerializeField] List<TextAsset> dialougeList = new List<TextAsset>();
+
+    //[SerializeField] List<TextAsset> 
     Dictionary<string, Dialogue> dialogueDic = new Dictionary<string, Dialogue>();
     #endregion
 

@@ -1,0 +1,57 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Teacher1",
+      "speakerName": "Faceless Teacher",
+      "storyLines": [
+        "◇5tea1",
+        "$ArchiveLogImage(0,7)$",
+        "Hi, are you new here?",
+        "Good, hope you are a great student.",
+        "Because every student here studies hard.",
+        "Everyone loves class time."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "You must be a good teacher.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "The students must be nice.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Teacher1",
+      "speakerName": "Faceless Teacher",
+      "storyLines": [
+        "Haha, that's right.",
+        "The students are nice as well.",
+        "I'll see you in class.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Teacher1",
+      "speakerName": "Faceless Teacher",
+      "storyLines": [
+        "That is partially true ...",
+        "Sometimes, they need a 'harsh' punishment.",
+        "$UIBox(Dark)$",
+        "^<font=CROOKED>^Actually, teachers work harder than students.^</font>^",
+        "^<font=CROOKED>^Could you give me your left hand?^</font>^",
+        "$PlaySFX(0)$",
+        "$Hurt(LeftArm,1)$",
+        "^<font=CROOKED>^(She slapped my left hand with a tremendous force.)^</font>^",
+        "$Unable(-1)$",
+        "$UIBox(Light)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

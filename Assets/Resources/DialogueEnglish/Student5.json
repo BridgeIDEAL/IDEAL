@@ -1,0 +1,58 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Student5",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "◇5st5",
+        "Aaaaargh!",
+        "WHATSHOULDIDO?",
+        "WHATSHOULDIDO? WHATSHOULDIDO?",
+        "WHATSHOULDIDO? WHATSHOULDIDO? WHATSHOULDIDO?",
+        "Oh, is anything wrong? Do you need some help?",
+        "Huh? Who are you?",
+        "Are you the ^<font=CROOKED>^NEW STUDENT^</font>^?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Yes, I am.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "No, I'm not.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Student5",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "Really? Then clean up this classroom.",
+        "Just do as I say, okay?",
+        "Haha... Now I'm finally free.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Student5",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "$UIBox(Dark)$",
+        "^<font=CROOKED>^Really? What grade are you in?^</font>^",
+        "^<font=CROOKED>^Nah, it actually doesn't matter.^</font>^",
+        "$PlaySFX(1)$",
+        "$Hurt(LeftLeg,1)$",
+        "^<font=CROOKED>^(My left leg got kicked hard.)^</font>^",
+        "^<font=CROOKED>^Clean up here. Be polite to the seniors.^</font>^",
+        "$UIBox(Light)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

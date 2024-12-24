@@ -1,0 +1,122 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "◇5st12",
+        "$CheckList(211)$",
+        "It h..hurts...",
+        "I can't... I can't stay like this anymore...",
+        "Do you ... have any medicine?",
+        "Could you ... bring me some?",
+        "I can't ... go to the infirmary..."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept his offer.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Refuse his offer",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "Thank you hehe... A simple ^<font=CROOKED>^Bruise Cure^</font>^ should be fine...",
+        "$Index(4)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "Please... bring me some medicine..."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept his offer.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Refuse his offer",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "◇5st12",
+        "$CheckList(211)$",
+        "You...you did come back...?",
+        "NOW GIVE ME THE MEDICINE...",
+        "HURRY...",
+        "$UIBox(Dark)$",
+        "$TypeSpeed(0.025)$",
+        "^<font=CROOKED>^NOWNOWNOWNOWNOWNOWNOWNOWNOWNOWNOWNOWNOWNOWNOW^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Pass the medicine.",
+          "nextID": 5
+        },
+        {
+          "choiceText": "Do not pass the medicine.",
+          "nextID": 6
+        }
+      ]
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "$UIBox(Light)$",
+        "$TypeSpeed(0.05)$",
+        "Hehe... thank you...",
+        "I won't be sick now...",
+        "I don't need you now... get out...",
+        "Leave the school without telling anyone...",
+        "(Obtained 1st Grade Student Center Key.)",
+        "$Use(994)$",
+        "$Item(Item_Interaction_TeacherOfficeKey_1)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 6,
+      "storySpeaker": "Student12",
+      "speakerName": "Bruised Boy",
+      "storyLines": [
+        "$ArchiveLog(0,0402)$",
+        "$UIBox(Dark)$",
+        "$TypeSpeed(0.05)$",
+        "^<font=CROOKED>^WHAT...?^</font>^",
+        "^<font=CROOKED>^ARE YOU...PLAYING WITH ME...?^</font>^",
+        "^<font=CROOKED>^DO YOU ... THINK I'M EASY TOO...?^</font>^",
+        "$PlaySFX(0)$",
+        "$Hurt(RightArm,1)$",
+        "^<font=CROOKED>^ENOUGH FOOLING AROUND!^</font>^",
+        "^<font=CROOKED>^GIVE ME THAT AND LEAVE...^</font>^",
+        "^<font=CROOKED>^(Obtained 1st Grade Student Center Key.)^</font>^",
+        "$Use(994)$",
+        "$UIBox(Light)$",
+        "$Item(Item_Interaction_TeacherOfficeKey_1)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "◇5stp",
+        "$CheckList(201)$",
+        "There you are, you're the NEW STUDENT!",
+        "Welcome to Jain High School!",
+        "^<font=CROOKED>^I'll do you a favor, how about you join the Student Council?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Keep listening",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Refuse politely",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "You would have full access to all places,",
+        "and no one would even bother you for anything!",
+        "We do have an empty slot right now!",
+        "Since there were no new humans lately...",
+        "Anyways, what do you think?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept the deal",
+          "nextID": 4
+        },
+        {
+          "choiceText": "Refuse the deal",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "^<font=CROOKED>^I mean, this IS a really lucky opportunity.",
+        "^<font=CROOKED>^Are you really turning me down?",
+        "^<font=CROOKED>^It could be quite helpful for you..."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept the deal",
+          "nextID": 4
+        },
+        {
+          "choiceText": "Refuse stubbornly",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "Good idea.",
+        "We'll do the actual sign-up process in the Student Council Room.",
+        "That's on the second floor.",
+        "Make sure you come back here",
+        "after visiting the places you need to go.",
+        "I'll see you then!",
+        "$SpawnEntity(CStuPresident)$",
+        "$UnableSpawnState(HStuPresident)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "Too bad, guess I should just let you go.",
+        "Good luck out there.",
+        "I'll see you around soon...",
+        "$UnableSpawnState(HStuPresident)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

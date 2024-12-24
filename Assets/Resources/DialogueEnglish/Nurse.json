@@ -1,0 +1,95 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Nurse",
+      "speakerName": "The Nurse",
+      "storyLines": [
+        "◇5nurse",
+        "Hi there.",
+        "Do you need anything?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "I need a bruise cure.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "I need some medicine.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Nurse",
+      "speakerName": "The Nurse",
+      "storyLines": [
+        "$UIBox(Dark)$",
+        "^<font=CROOKED>^A bruise cure?^</font>^",
+        "^<font=CROOKED>^We don't have anything for bruising.^</font>^",
+        "^<font=CROOKED>^Where did you hear that?^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "From my classmate.",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Nurse",
+      "speakerName": "The Nurse",
+      "storyLines": [
+        "Oh, you need some medicine.",
+        "Here, I'll give you a digestive."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Is there another one?",
+          "nextID": 4
+        },
+        {
+          "choiceText": "I need a bruise cure.",
+          "nextID": 2
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "Nurse",
+      "speakerName": "The Nurse",
+      "storyLines": [
+        "You are one picky student ...",
+        "Here's another one.",
+        "This is also a digestive."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Is there no bruise cure?",
+          "nextID": 2
+        }
+      ]
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "Nurse",
+      "speakerName": "The Nurse",
+      "storyLines": [
+        "$UIBox(Light)$",
+        "Hmmm... I guess I can't help it",
+        "Too many students needed bruise cure,",
+        "so we don't usually provide them anymore.",
+        "This is the last one.",
+        "I'll just give it to you,",
+        "since you are the NEW STUDENT.",
+        "Use it only when you really need to.",
+        "(The Nurse put the bruise care on the desk.)",
+        "$SpawnItem(BruiseMedicine)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

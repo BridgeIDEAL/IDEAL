@@ -1,0 +1,46 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Student2",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "◇5st2",
+        "Ugh...",
+        "Help... Please help...",
+        "(Her fingers are sticked inside her ears.)",
+        "(I see something inside her pocket, shall I take it?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Take it.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Ignore it.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Student2",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "(Successfully stole the key piece.)",
+        "$Item(Item_Interaction_StudentRoom_Key_Piece_2)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Student2",
+      "speakerName": "Student girl",
+      "storyLines": [
+        "Let's just leave it that way ..."
+      ],
+      "choiceLine": []
+    }
+  ]
+}

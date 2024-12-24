@@ -1,0 +1,53 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Student1",
+      "speakerName": "Student boy",
+      "storyLines": [
+        "◇5st1",
+        "When will the bell ring today?",
+        "I hope it doesn't ...",
+        "For whom does that bell ring?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "It rings to go home.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "The bell is pretty loud.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Student1",
+      "speakerName": "Student boy",
+      "storyLines": [
+        "Then why don't THOSE BASTARDS go home?",
+        "You also watch out when the bell rings.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Student1",
+      "speakerName": "Student boy",
+      "storyLines": [
+        "Right, the bell is pretty loud.",
+        "There is a way to avoid listening.",
+        "$UIBox(Dark)$",
+        "^<font=CROOKED>^You can just take two fingers out of your hand,^</font>^",
+        "^<font=CROOKED>^and use them as earplugs.^</font>^",
+        "$PlaySFX(0)$",
+        "$UIBox(Light)$",
+        "$Hurt(RightArm,1)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}
