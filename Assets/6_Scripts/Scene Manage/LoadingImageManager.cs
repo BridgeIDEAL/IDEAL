@@ -51,7 +51,7 @@ public class LoadingImageManager : MonoBehaviour
         "\n똝3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.\n<color=#ed2809><u>이를 무시할 경우,\n 자인고등학교는 ■■하게 학생들을 관■?한다는 것을 ■억하십시오.</u></color>똝",
         "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.",
         "똝4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n<color=#ed2809><u>훨씬 더 편안하게 ■■ ■■ 할 수 있을 것입니다.</u></color>똝",
-        "\n\n다시 한번 지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
+        "\n\n당신은 자인고등학교에 있습니다.\n지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
     };
 
     // 특수 기능 기호들이 그대로 출력되면 안되므로
@@ -253,7 +253,7 @@ public class LoadingImageManager : MonoBehaviour
             cnt++;
             previousLetter = letter;
             if(!skipLetter && !artificialSkip){
-                yield return new WaitForSeconds(0.1f); // 타이핑 속도 조절
+                yield return new WaitForSeconds(0.15f); // 타이핑 속도 조절
             }
         }
         skipParagraph = false;

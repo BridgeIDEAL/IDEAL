@@ -111,7 +111,7 @@ public class CameraEffectManager : MonoBehaviour
             }
 
 
-            breathIntensity = Mathf.Max(penaltyIntensity, chaseInensity, lastRunIntensity);
+            breathIntensity = Mathf.Max(penaltyIntensity, chaseInensity, lastRunIntensity, PVManager.Instance.breathValue);
 
             // breath Source에 재생시킬 clip 설정하기
             if(!breathSource.isPlaying){
