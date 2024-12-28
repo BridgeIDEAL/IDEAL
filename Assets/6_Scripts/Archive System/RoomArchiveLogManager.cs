@@ -73,91 +73,91 @@ public class RoomArchiveLogManager : MonoBehaviour
 
     public void GenerateRoomList(){  // attempts -1은 항상 보이는 것 0은 안보이는 것 1이상은 보이는데 attempts를 기록하는 것
         roomArchiveList = new List<RoomArchiveLogs>();
-        roomArchiveList.Add(new RoomArchiveLogs(00, "수위실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(00, "Guard Room", new RoomArchiveLog[] {
         new RoomArchiveLog(0001, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(01, "교장실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(01, "Principal's Office", new RoomArchiveLog[] {
         new RoomArchiveLog(0101, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(02, "이사장실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(02, "Chairman's Office", new RoomArchiveLog[] {
         new RoomArchiveLog(0201, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(03, "행정실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(03, "Administration Office", new RoomArchiveLog[] {
         new RoomArchiveLog(0301, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(04, "자습실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(04, "Study Room", new RoomArchiveLog[] {
         new RoomArchiveLog(0401, -1),
         new RoomArchiveLog(0402, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(05, "매점", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(05, "School Shop", new RoomArchiveLog[] {
         new RoomArchiveLog(0501, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(06, "학생회실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(06, "Student Council Room", new RoomArchiveLog[] {
         new RoomArchiveLog(0601, -1),
         new RoomArchiveLog(0602, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(07, "보건실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(07, "Infirmary", new RoomArchiveLog[] {
         new RoomArchiveLog(0701, -1),
         new RoomArchiveLog(0702, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(08, "과학실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(08, "Science Room", new RoomArchiveLog[] {
         new RoomArchiveLog(0801, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(09, "전산실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(09, "Server Room", new RoomArchiveLog[] {
         new RoomArchiveLog(0901, -1),
         new RoomArchiveLog(0902, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(10, "진로진학부",  new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(10, "Career Counseling Room",  new RoomArchiveLog[] {
         new RoomArchiveLog(1001, -1),
         new RoomArchiveLog(1002, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(11, "방송실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(11, "Broadcasting Room", new RoomArchiveLog[] {
         new RoomArchiveLog(1101, -1),
         new RoomArchiveLog(1102, 0),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(12, "상담실/동아리실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(12, "Counseling/Club Room", new RoomArchiveLog[] {
         new RoomArchiveLog(1201, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(13, "교무실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(13, "Student Center", new RoomArchiveLog[] {
         new RoomArchiveLog(1301, -1),
         new RoomArchiveLog(1302, 0),
         new RoomArchiveLog(1303, 0),
@@ -165,7 +165,7 @@ public class RoomArchiveLogManager : MonoBehaviour
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(14, "옥상", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(14, "The Roof", new RoomArchiveLog[] {
         new RoomArchiveLog(1401, -1),
         new RoomArchiveLog(1402, 0),
         new RoomArchiveLog(1403, 0),
@@ -173,13 +173,13 @@ public class RoomArchiveLogManager : MonoBehaviour
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(15, "음악실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(15, "Music Room", new RoomArchiveLog[] {
         new RoomArchiveLog(1501, -1),
         },
         true
         ));
 
-        roomArchiveList.Add(new RoomArchiveLogs(16, "컴퓨터실", new RoomArchiveLog[] {
+        roomArchiveList.Add(new RoomArchiveLogs(16, "Computer Room", new RoomArchiveLog[] {
         new RoomArchiveLog(1601, -1),
         new RoomArchiveLog(1602, 0),
         },

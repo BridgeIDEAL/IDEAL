@@ -73,46 +73,46 @@ public class MonsterArchiveLogManager : MonoBehaviour
 
     public void GenerateMonsterList(){  // attempts -1은 항상 보이는 것 0은 안보이는 것 1이상은 보이는데 attempts를 기록하는 것
         monsterArchiveList = new List<MonsterArchiveLogs>();
-        monsterArchiveList.Add(new MonsterArchiveLogs(00, "이사장", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(00, "The Chairman", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0001, -1),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(01, "수위", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(01, "The Guard", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0101, -1),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(02, "보건교사", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(02, "The Nurse", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0201, -1),
         new MonsterArchiveLog(0202, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(03, "매점 아주머니", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(03, "Shop Manager", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0301, -1),
         new MonsterArchiveLog(0302, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(04, "멍이 든 학생", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(04, "Bruised Boy", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0401, -1),
         new MonsterArchiveLog(0402, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(05, "무서운 학생", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(05, "The Bullies", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0501, -1),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(06, "학생주임", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(06, "Head Teacher", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0601, -1),
         new MonsterArchiveLog(0602, 0),
         new MonsterArchiveLog(0603, 0),
@@ -120,28 +120,28 @@ public class MonsterArchiveLogManager : MonoBehaviour
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(07, "신입 선생님", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(07, "Faceless Teacher", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0701, -1),
         new MonsterArchiveLog(0702, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(08, "교장 선생님", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(08, "The Principal", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0801, -1),
         new MonsterArchiveLog(0802, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(09, "학생회장", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(09, "The Student President", new MonsterArchiveLog[] {
         new MonsterArchiveLog(0901, -1),
         new MonsterArchiveLog(0902, 0),
         },
         false
         ));
 
-        monsterArchiveList.Add(new MonsterArchiveLogs(10, "컴퓨터실 학생", new MonsterArchiveLog[] {
+        monsterArchiveList.Add(new MonsterArchiveLogs(10, "Computer Boy", new MonsterArchiveLog[] {
         new MonsterArchiveLog(1001, -1),
         new MonsterArchiveLog(1002, 0),
         },
