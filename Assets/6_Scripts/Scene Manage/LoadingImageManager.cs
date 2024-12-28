@@ -41,38 +41,38 @@ public class LoadingImageManager : MonoBehaviour
     };
 
     private string[] introTexts = new string[]{
-        "\n<color=#ed2809><<경고: 해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다.>\n</color>\n<<부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n똝\n• 적은 출혈이나 상처를 동반한 경미한 부상\n• 생명을 위협할만한 심각한 부상\n• 사망\n• ■■■■■■■■■■■ (■■■■■)똝",
-        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.",
-        "똝\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.\n<color=#ed2809>(<u>자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.</u>)</color>똝",
-        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.",
-        "똝1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.\n<color=#ed2809><u>하교 시간 전에 하교를 시도할 경우,\n 자인고등학교는 철저하게 학생들을 관리한다는 것을 기억하십시오.</u></color>똝",
-        "\n2. 하교를 위해서는 방송실에서 직접 하교 종을 울려야 합니다.\n자세한 방법은 똝[tab]똝키를 눌러 체크리스트에서 살펴보십시오.",
-        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.",
-        "\n똝3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.\n<color=#ed2809><u>이를 무시할 경우,\n 자인고등학교는 ■■하게 학생들을 관■?한다는 것을 ■억하십시오.</u></color>똝",
-        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.",
-        "똝4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n<color=#ed2809><u>훨씬 더 편안하게 ■■ ■■ 할 수 있을 것입니다.</u></color>똝",
-        "\n\n다시 한번 지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
+        "\n<color=#ed2809>Warning: If you see this warning, \nwe recommend that you read it carefully.\n</color>\nCareless behaviors can lead to the following consequences.\n똝\n• minor injury with little bleeding or wound\n• serious life-threatening injuries\n• Death\n• ▊■▆■▊▆■▆■▊■ (■▊■▆▊)똝",
+        "\n0. You are at Jain High School. We repeat.\nYou are at Jain High School now.",
+        "똝\n0. You are at Jain High School. We repeat.\nYou are at Jain High School now.\n<color=#ed2809><u>(Jain High School was closed due to an unfortunate fire incident).</u></color>똝",
+        "1. Jain High School manages students thoroughly.\nAll students are not allowed to leave school until the bell rings.",
+        "똝1. Jain High School manages students thoroughly.\nAll students are not allowed to leave school until the bell rings.\n<color=#ed2809><u>If you attempt to leave before dismissal time,\n please remember that Jain High School is a strictly supervised school.</u></color>똝",
+        "\n2. To leave the school, you have to ring the school bell from the broadcast room.\nFor more information, press [TAB] to read the Checklist.",
+        "\n3. Be sure to check the bulletin board next to the main gate before entering.\nCheck the rules of conduct, which will keep you alive while exploring the school.",
+        "\n똝3. Be sure to check the bulletin board next to the main gate before entering.\nCheck the rules of conduct, which will keep you alive while exploring the school.\n<color=#ed2809><u>\n iF YOU IGNORE THIS,\nREMEMBER J■■N HIGH sChoOL ■■■■■■ MA■AG■S sT?dENTS.</u></color>똝",
+        "4. If it is deemed impossible to escape, please check inside your pocket.\nThere will be a special pill prepared for the last moment.\n\nWe strongly recommend that you take the pill for your own sake.",
+        "똝4. If it is deemed impossible to escape, please check inside your pocket.\nThere will be a special pill prepared for the last moment.\n\nWe strongly recommend that you take the pill for your own sake.\n<color=#ed2809><u>You'll be able to ■■ ■■ much more comfortably.</u></color>똝",
+        "\n\nPlease double check if you understood all the instructions\nagain before entering the school.\n\n We ■▊ ■■▆▊ wish you a safe return.",
     };
 
     // 특수 기능 기호들이 그대로 출력되면 안되므로
     private string[] introSkipTexts = new string[]{
-        "\n<color=#ed2809><경고: 해당 경고문이 보이신다면 꼼꼼히 읽을 것을 권고합니다.>\n</color>\n<부주의로 인한 행동은 다음의 결과들을 불러올 수 있습니다.>\n\n• 적은 출혈이나 상처를 동반한 경미한 부상\n• 생명을 위협할만한 심각한 부상\n• 사망\n• ■■■■■■■■■■■ (■■■■■)",
-        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.",
-        "\n0. 당신은 자인고등학교에 있습니다. 반복합니다.\n당신은 지금 자인고등학교에 있습니다.\n<color=#ed2809>(<u>자인고등학교는 20XX년, 불의의 화재 사고로 폐교되었습니다.</u>)</color>",
-        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.",
-        "1. 자인고등학교는 철저하게 학생들을 관리합니다.\n모든 학생들은 하교 시간 전까지는 학교를 나갈 수 없답니다.\n<color=#ed2809><u>하교 시간 전에 하교를 시도할 경우,\n 자인고등학교는 철저하게 학생들을 관리한다는 것을 기억하십시오.</u></color>",
-        "\n2. 하교를 위해서는 방송실에서 직접 하교 종을 울려야 합니다.\n자세한 방법은 [tab]키를 눌러 체크리스트에서 살펴보십시오.",
-        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.",
-        "\n3. 교내 진입 전, 반드시 정문 옆 게시판을 꼼꼼히 확인하십시오.\n교내에서 명심해야 할 행동 수칙을 확인하실 수 있습니다.\n<color=#ed2809><u>이를 무시할 경우,\n 자인고등학교는 ■■하게 학생들을 관■?한다는 것을 ■억하십시오.</u></color>",
-        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.",
-        "4. 만약 탈출이 불가능하다고 판단될 경우, 주머니 속을 확인하십시오.\n알약 하나가 들어있을 것이며,\n\n저희는 해당 알약을 반드시 복용하는 것을 추천드립니다.\n<color=#ed2809><u>훨씬 더 편안하게 ■■ ■■ 할 수 있을 것입니다.</u></color>",
-        "\n\n다시 한번 지침들을 모두 숙지했는지\n확인한 후 입장하시기 바랍니다.\n\n 저희 ■■ ■■■■는 귀하의 무사귀환을 기원합니다.",
+        "\n<color=#ed2809>Warning: If you see this warning, \nwe recommend that you read it carefully.\n</color>\nCareless behaviors can lead to the following consequences.\n\n• minor injury with little bleeding or wound\n• serious life-threatening injuries\n• Death\n• ▊■▆■▊▆■▆■▊■ (■▊■▆▊)",
+        "\n0. You are at Jain High School. We repeat.\nYou are at Jain High School now.",
+        "\n0. You are at Jain High School. We repeat.\nYou are at Jain High School now.\n<color=#ed2809><u>(Jain High School was closed due to an unfortunate fire incident).</u></color>",
+        "1. Jain High School manages students thoroughly.\nAll students are not allowed to leave school until the bell rings.",
+        "1. Jain High School manages students thoroughly.\nAll students are not allowed to leave school until the bell rings.\n<color=#ed2809><u>If you attempt to leave before dismissal time,\n please remember that Jain High School is a strictly supervised school.</u></color>",
+        "\n2. To leave the school, you have to ring the school bell from the broadcast room.\nFor more information, press [TAB] to read the Checklist.",
+        "\n3. Be sure to check the bulletin board next to the main gate before entering.\nCheck the rules of conduct, which will keep you alive while exploring the school.",
+        "\n3. Be sure to check the bulletin board next to the main gate before entering.\nCheck the rules of conduct, which will keep you alive while exploring the school.\n<color=#ed2809><u>\n iF YOU IGNORE THIS,\nREMEMBER J■■N HIGH sChoOL ■■■■■■ MA■AG■S sT?dENTS.</u></color>",
+        "4. If it is deemed impossible to escape, please check inside your pocket.\nThere will be a special pill prepared for the last moment.\n\nWe strongly recommend that you take the pill for your own sake.",
+        "4. If it is deemed impossible to escape, please check inside your pocket.\nThere will be a special pill prepared for the last moment.\n\nWe strongly recommend that you take the pill for your own sake.\n<color=#ed2809><u>You'll be able to ■■ ■■ much more comfortably.</u></color>",
+        "\n\nPlease double check if you understood all the instructions\nagain before entering the school.\n\n We ■▊ ■■▆▊ wish you a safe return.",
     };
 
-    private string stopText = "아무 키나 눌러 경고문 이어서 보기";
-    private string loadedText = "아무 키나 눌러 게임 시작하기";
+    private string stopText = "Press any key to Continue";
+    private string loadedText = "Press any key to Start the Game.";
 
-    private string loadingText = "경고문 불러오는 중";
+    private string loadingText = "Loading Warning Screen";
 
     private bool loadEnded = false;
     public bool goNext = false;
