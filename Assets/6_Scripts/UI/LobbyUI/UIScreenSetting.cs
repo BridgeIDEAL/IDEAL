@@ -19,9 +19,9 @@ public class UIScreenSetting : MonoBehaviour
     {
         // 화면 모드 드롭다운 옵션 설정
         screenModeDropdown.options.Clear();
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "전체화면 모드" });
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "테두리없는 창모드" });
-        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "창모드" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Fullscreen" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Borderless Window" });
+        screenModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Window" });
 
         switch (SettingDataManager.Instance.playerSettingData.screenMode)
         {
@@ -61,8 +61,8 @@ public class UIScreenSetting : MonoBehaviour
         resolutionModeDropdown.RefreshShownValue();
 
         retroModeDropdown.options.Clear();
-        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "활성화" });
-        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "비활성화" });
+        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Enabled" });
+        retroModeDropdown.options.Add(new TMP_Dropdown.OptionData() { text = "Disabled" });
         switch(SettingDataManager.Instance.playerSettingData.isUseRetroFilter)
         {
             case true:
