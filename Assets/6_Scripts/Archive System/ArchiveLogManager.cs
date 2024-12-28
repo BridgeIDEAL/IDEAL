@@ -25,31 +25,31 @@ public class ArchiveLogManager : MonoBehaviour
     // UI 선언 필요
 
     private string[] archiveTexts = {
-        "$attempts번 실종자는 복도를 돌아다니던 중 교장선생님과 마주친 후 신호가 끊김. \n\n이후 자습실 구석 자리에서 피에 젖은 책 더미 외에는 \n해당 실종자와 관련된 흔적을 찾을 수 없었음.",
-        "$attempts번 실종자는 갑자기 ‘교무실에서 왜 사람이...\n분명 아무도 없었는데’라는 말을 반복하던 중 신호가 끊김. \n\n아직 정확한 생사는 불명.",
-        "$attempts번 실종자는 목이 뒤로 꺾인 여학생과 조우한 후로 신호가 끊김. \n\n이후 머리 없이 척추가 뒤로 꺾인 시체가 발견되었는데, 해당 실종자로 추정됨.",
-        "$attempts번 실종자는 교무실에서 열쇠를 집은 뒤 나오려는 순간 신호가 끊김. \n\n간신히 복원한 기록에서는 여성으로 추정되는 비명소리가 들린 것 외에는 실종자의 흔적을 찾을 수 없었음.",
-        "$attempts번 실종자는 컴퓨터실의 ■■을 무시하고 전산실에 들어가려다\n갑자기 영화가 보고 싶다는 말과 함께 신호가 끊김.\n\n이후 컴퓨터실의 켜진 컴퓨터가 한 대 늘어났다는 것을 확인한 것 외에는\n실종자와 관련된 흔적을 찾을 수 없었음.",
-        "$attempts번 실종자는 교실에 들어간 후 칠판에 \n뭔가 있다는 말을 반복하던 중 신호가 끊김. \n\n이후 복원할 수 있던 기록에서 해당 실종자의 이름이 칠판에 쓰여있던 것을 확인",
-        "$attempts번 실종자는 갑자기 누군가 우르르 뛰어오는 \n소리가 들린다는 말과 함께 신호가 끊김.\n\n이후 조사를 통해 빠르게 달려오는 트럭에 치인듯한 \n해당 실종자의 시체 일부를 발견.",
-        "$attempts번 실종자는 눈에서 극심한 고통을 호소하던 중, \n눈을 스스로 뽑아버린 것을 마지막으로 신호가 끊김.",
-        "$attempts번 실종자는 입장 초기에 주어진 알약을 복용 후 \n누군가 실종자에게 말을 거는 듯한 소리와 함께 신호가 끊김.",
-        "$attempts번 실종자는 갑자기 생긴 정문 출구로 자인고등학교를 정상적으로 탈출.\n\n정문 출구와 자인고등학교 내부 환경에 대해서는 추가적인 조사 필요",
-        "$attempts번 실종자는 종소리가 울리기 시작한 이후로 신호가 끊김. \n\n종소리와 학교 내부 환경의 변화에 대한 추가적인 조사 필요."
+        "Missing person $attempts was wandering the halls, \nran into the principal and lost contact. \n\nNo trace  was found afterward, except for a stack of \nblood-soaked books in the corner of a study hall.",
+        "Missing person $attempts repeated, \n“Where did he come from ... \nThere was definitely no one in the Student Center...” \nand then lost signal. \n\nCondition is still unknown.",
+        "Missing person $attempts lost signal after an encounter with \na girl whose neck was bent backwards. \n\nA headless, spine-bent body was later found, \nbelieved to be the missing person.",
+        "Missing Person $attempts lost signal right after picking up \nkeys from the Student Center.  \n\nThe barely reconstructed recordings reveal \nno trace of the missing person, \nexcept for the screams of an unknown female.",
+        "Missing person $attempts lost signal while trying to enter the \nComputer Room by ignoring the computer lab's ■■, \nthen suddenly said he wanted to watch a movie.\n\nNo trace of the missing person found afterward, \nother than one more computer turned on.",
+        "Missing person $attempts lost signal after entering \nthe classroom and repeating that there was \nsomething on the board. \n\nThe missing person's name was written on \nthe board from an afterward record.",
+        "Missing Person $attempts suddenly reported \nsound of someone running toward them \nand the signal was cut off.\n\nLater investigation reveals the missing \nperson's body parts, which appeared to have been \nhit by something like a fast-moving truck.",
+        "Missing person $attempts was complaining of \nexcruciating pain in his eye, \nand the signal was finally cut off \nwhen he gouged out his own eye.",
+        "Missing person $attempts took the pill given at \nthe beginning of the entry and then \nthe signal was cut off with a sound \nas if someone was talking to the missing person.",
+        "Missing person $attempts escaped Jain High School \nsuccessfully through a suddenly created main exit.\n\nFurther investigation is needed into the main exit \nand the environment inside Jain High School.",
+        "Missing person $attempts has been lost \nsince the bell started ringing. \n\nFurther investigation into the bell ringing and \nchanges in the school's internal environment is needed."
     };
 
     private string[] archiveStates = {
-        "사망",
-        "실종",
-        "사망",
-        "실종",
-        "실종",
-        "실종",
-        "사망",
-        "실종",
-        "사망",
-        "생존",
-        "실종",
+        "Death",
+        "Missing",
+        "Death",
+        "Missing",
+        "Missing",
+        "Missing",
+        "Death",
+        "Missing",
+        "Death",
+        "Survival",
+        "Missing",
     };
 
     private void Awake(){
