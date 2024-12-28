@@ -20,6 +20,7 @@ public class InteractionKoreanChecker : MonoBehaviour
 
     void CheckActiveInteractions()
     {
+        Debug.Log("Korean Detect Test Start!! SetActive True Object");
         // Find all active GameObjects in the scene
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
 
@@ -45,6 +46,7 @@ public class InteractionKoreanChecker : MonoBehaviour
 
     void CheckAllInteractions()
     {
+        Debug.Log("Korean Detect Test Start!! All Object");
         // Find all GameObjects in the scene, including inactive ones
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
 
