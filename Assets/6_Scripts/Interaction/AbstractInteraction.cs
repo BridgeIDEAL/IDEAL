@@ -21,6 +21,14 @@ public abstract class AbstractInteraction : MonoBehaviour
 
     protected abstract string GetDetectedString();
 
+    #if UNITY_EDITOR
+
+    public string GetTestDetectedString(){
+        return GetDetectedString();
+    }
+
+    #endif
+
 
     public void DetectedInteraction(){
         ActInteraction();
