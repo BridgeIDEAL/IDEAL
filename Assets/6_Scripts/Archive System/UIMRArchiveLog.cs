@@ -23,11 +23,13 @@ public class UIMRArchiveLog : MonoBehaviour
         NameTMP.text = str; 
     }
     public void SetFontBig(){
-        NameTMP.fontSize = bigFontSize;
+        NameTMP.fontSizeMax = bigFontSize;
+        NameTMP.fontStyle = FontStyles.Bold;
     }
 
     public void SetFontNormal(){
-        NameTMP.fontSize = normalFontSize;
+        NameTMP.fontSizeMax = normalFontSize;
+        NameTMP.fontStyle = FontStyles.Normal;
     }
 
     public void isClicked(){
