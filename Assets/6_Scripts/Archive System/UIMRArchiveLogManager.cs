@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class UIMRArchiveLogManager : MonoBehaviour
 {
     [SerializeField] private bool isMonsterView = true;
-    [SerializeField] private Image backGround;
     [SerializeField] private Button closeBookBtn;
-    [SerializeField] private Sprite monsterBGSprite;
-    [SerializeField] private Sprite roomBGSprite;
+    [SerializeField] private GameObject monsterBGObject;
+    [SerializeField] private GameObject roomBGObject;
     [SerializeField] private int viewIndex = 0;
 
     [SerializeField] private TextMeshProUGUI nameTMP;
@@ -27,6 +26,8 @@ public class UIMRArchiveLogManager : MonoBehaviour
 
     
     void Start(){
+        
+        ChangePage(true);
 
         UpdateScrollLogs();
         // Monster index 0에 대한 정보 보여주기
@@ -148,10 +149,12 @@ public class UIMRArchiveLogManager : MonoBehaviour
     public void ChangePage(bool isMonster){
         isMonsterView = isMonster;
         if(isMonsterView){
-            backGround.sprite = monsterBGSprite;
+            monsterBGObject.SetActive(true);
+            roomBGObject.SetActive(false);
         }
         else{
-            backGround.sprite = roomBGSprite;
+            monsterBGObject.SetActive(false);
+            roomBGObject.SetActive(true);
         }
         UpdateScrollLogs();
         ShowArchiveLog(0);
