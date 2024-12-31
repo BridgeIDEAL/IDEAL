@@ -253,7 +253,7 @@ public class LoadingImageManager : MonoBehaviour
             cnt++;
             previousLetter = letter;
             if(!skipLetter && !artificialSkip){
-                yield return new WaitForSeconds(0.1f); // 타이핑 속도 조절
+                yield return new WaitForSeconds(0.06f); // 타이핑 속도 조절
             }
         }
         skipParagraph = false;
