@@ -32,7 +32,7 @@ public class InteractionKoreanChecker : MonoBehaviour
             if (interaction != null)
             {
                 // Call the GetDetectedString method
-                string detectedString = interaction.GetTestDetectedString();
+                string detectedString =/* interaction.GetTestDetectedString();*/ string.Empty;
 
                 // Check if the string contains any Korean characters
                 if (ContainsKorean(detectedString))
@@ -62,7 +62,7 @@ public class InteractionKoreanChecker : MonoBehaviour
             if (interaction != null)
             {
                 // Call the GetDetectedString method
-                string detectedString = interaction.GetTestDetectedString();
+                string detectedString = /*interaction.GetTestDetectedString();*/ string.Empty;
 
                 // Check if the string contains any Korean characters
                 if (ContainsKorean(detectedString))
