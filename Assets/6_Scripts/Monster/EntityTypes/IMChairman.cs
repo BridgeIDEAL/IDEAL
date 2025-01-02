@@ -17,7 +17,7 @@ public class IMChairman : IMStandEntity
             SetActiveState(false);
         else
             controller.ActiveEntity(entity_Data.speakerName);
-      
+
         AdditionalSetup();
     }
 }

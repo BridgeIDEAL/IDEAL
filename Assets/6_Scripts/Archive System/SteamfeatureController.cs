@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SteamfeatureController : MonoBehaviour
@@ -57,7 +58,7 @@ public class SteamfeatureController : MonoBehaviour
     void Update()
     {
         if(isConnectSteam)
-            Steamworks.SteamClient.RunCallbacks();    
+            Steamworks.SteamClient.RunCallbacks();
     }
 
     void OnApplicationQuit()
