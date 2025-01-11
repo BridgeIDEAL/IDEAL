@@ -299,7 +299,7 @@ public class MonsterArchiveLogManager : MonoBehaviour
         bool isClearAll = true;
         foreach(MonsterArchiveLogs logs in monsterArchiveList){
             foreach(MonsterArchiveLog log in logs.monsterArchiveLogs){
-                if(log.ID == 0){
+                if(log.attempt == 0){
                     isClearAll = false;
                 }
             }

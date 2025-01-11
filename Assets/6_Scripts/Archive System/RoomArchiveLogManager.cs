@@ -334,7 +334,7 @@ public class RoomArchiveLogManager : MonoBehaviour
         bool isClearAll = true;
         foreach(RoomArchiveLogs logs in roomArchiveList){
             foreach(RoomArchiveLog log in logs.roomArchiveLogs){
-                if(log.ID == 0){
+                if(log.attempt == 0){
                     isClearAll = false;
                 }
             }
