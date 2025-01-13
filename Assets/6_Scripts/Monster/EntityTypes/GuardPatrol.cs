@@ -1,0 +1,162 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class GuardPatrol : MovableEntity, IPatrol
+{
+    #region Patrol Val
+    [Header("Patrol")]
+    [SerializeField, Tooltip("Patrol Point : World Pos")] Vector3[] patrolPoints;
+    [SerializeField, Range(0.5f, 1f)] float checkPatrolDistance;
+    int currentPoint;
+    int maxPoint;
+
+    [Header("Dialogue")]
+    [SerializeField] VisibleDetectPlayer detectPlayer;
+    bool onceTalk = true;
+
+    #endregion
+
+    public override void AdditionalInit()
+    {
+        currentPoint = 1;
+        maxPoint = patrolPoints.Length;
+    }
+
+    public override void AdditionalSetup()
+    {
+        if (Entity_Data.speakIndex == -1)
+            onceTalk = false;
+
+        if (Entity_Data == null)
+            return;
+        if(CountAttempts.Instance.GetAttemptCount() == 1)
+        {
+            Entity_Data.speakIndex = 1;
+        }
+        else if(CountAttempts.Instance.GetAttemptCount() == 2)
+        {
+            Entity_Data.speakIndex = 2;
+        }
+        else
+        {
+            Entity_Data.speakIndex = 1;
+        }
+    }
+
+    #region Patrol Interface
+    public void StartPatrol()
+    {
+        agent.SetDestination(patrolPoints[currentPoint]);
+    }
+
+    public void Patrol()
+    {
+        if (agent.remainingDistance < checkPatrolDistance)
+        {
+            SeekNextRoute();
+            return;
+        }
+    }
+
+    public void SeekNextRoute()
+    {
+        currentPoint += 1;
+        if (currentPoint >= maxPoint)
+            currentPoint = 0;
+        agent.SetDestination(patrolPoints[currentPoint]);
+    }
+
+    public void EndPatrol()
+    {
+        agent.ResetPath();
+    }
+    #endregion
+
+    #region Dialogue Method
+    public void DetectPlayer()
+    {
+        if (!detectPlayer.DetectExecute())
+            return;
+        if (onceTalk)
+        {
+            onceTalk = false;
+            Talk();
+        }
+    }
+
+    public void Talk()
+    {
+        string talkID = Entity_Data.speakerName + Entity_Data.speakIndex;
+        DialogueManager.Instance.StartDialogue(talkID, this);
+        StartCoroutine(MoveAndRotateTowardsPlayer());
+        Entity_Data.isSpawn = false;
+    }
+
+    IEnumerator MoveAndRotateTowardsPlayer()
+    {
+        Vector3 startPosition = transform.position;  
+        Vector3 targetPosition = playerTransform.position;
+        Quaternion startRotation = transform.rotation; 
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - startPosition); 
+        
+        float timer  = 0; 
+        while (timer < 1f)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, timer / 1f);
+            timer += Time.deltaTime; 
+            yield return null;  
+        }
+
+        transform.rotation = targetRotation;
+    }
+
+    public override void ChangeState(EntityStateType _changeType)
+    {
+        currentType = _changeType;
+        stateMachine.ChangeState(states[(int)currentType]);
+    }
+    #endregion
+
+    bool isTalk = false;
+
+    #region Idle
+    public override void IdleEnter() { if (isTalk) anim.SetBool("IsWalk", true); else anim.SetBool("IsWalk", false); }
+    public override void IdleExecute() { if (isTalk) Patrol(); else DetectPlayer(); }
+    public override void IdleExit() {EndPatrol(); }
+    #endregion
+
+    #region Talk
+    public override void TalkEnter() { isTalk = true; anim.SetBool("IsWalk", false); }
+    public override void TalkExecute() { }
+    public override void TalkExit() {
+        ProgressManager.Instance.UpdateCheckList(101, 1);
+        ActiveInteraction.Instance.Active_01F_MapBook();
+     }
+    #endregion
+
+    public void CheckPatrolState() 
+    {
+        if(currentType== EntityStateType.Idle)
+            anim.SetBool("Walk", true);
+    }
+
+    #region Quiet
+    public override void QuietEnter() { anim.SetBool("IsWalk", false); }
+    public override void QuietExecute() { }
+    public override void QuietExit() {  }
+    #endregion
+
+    #region Penalty : Not Use
+    public override void PenaltyEnter() { SetAnimation(currentType, true); }
+    public override void PenaltyExecute() { }
+    public override void PenaltyExit() { SetAnimation(currentType, false); }
+    #endregion
+
+    #region Chase : Not Use
+    public override void ChaseEnter() { SetAnimation(currentType, true); }
+    public override void ChaseExecute() { }
+    public override void ChaseExit() { SetAnimation(currentType, false); }
+    #endregion
+}

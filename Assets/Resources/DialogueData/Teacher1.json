@@ -1,0 +1,57 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Teacher1",
+      "speakerName": "신입선생님",
+      "storyLines": [
+        "◇5tea1",
+        "$ArchiveLogImage(0,7)$",
+        "안녕, 전학생이니?",
+        "그래, 공부 열심히 해라",
+        "우리 학교 학생들은 다들 열심히 하거든",
+        "다들 수업시간을 제일 좋아한단다."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수업을 잘 하시나봐요",
+          "nextID": 2
+        },
+        {
+          "choiceText": "학생들이 착한가봐요",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Teacher1",
+      "speakerName": "신입선생님",
+      "storyLines": [
+        "하하, 그렇지",
+        "학생들도 착하고 말이야",
+        "너도 열심히 하렴",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Teacher1",
+      "speakerName": "신입선생님",
+      "storyLines": [
+        "그렇지…",
+        "약간의 체벌도 하지만",
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^선생님들도 수업을 열심히 한단다?^</font>^",
+        "^<font=HanSMemory>^손바닥 좀 대볼래?^</font>^",
+        "$PlaySFX(0)$",
+        "$Hurt(LeftArm,1)$",
+        "^<font=HanSMemory>^엄청난 강도로 왼손을 맞았다.^</font>^",
+        "$Unable(-1)$",
+        "$UIBox(Light)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

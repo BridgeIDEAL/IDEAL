@@ -1,0 +1,362 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class DialogueUI : MonoBehaviour
+{
+    #region Component & Variable
+    [SerializeField] GameObject dialogueBox;
+    [SerializeField, Tooltip("0:Name, 1:Text, 2:Btn")] TextMeshProUGUI[] dialogueTexts;
+    [SerializeField] Button[] choiceBtns;
+    [SerializeField] char eventTriggerStr = '$';
+    [SerializeField] char fontTriggerStr = '^';
+    char achievementStr = '¡Þ';
+    [SerializeField] float defaultTypeSpeed = 0.1f;
+
+    [Header("DialogueBox")]
+    [SerializeField] Image textBoxImage;
+    [SerializeField, Tooltip("0:Light, 1:Dark")] Sprite[] textBoxSprites;
+
+    Dialogue dialogue = new Dialogue();
+    
+    DialogueEvent dialogueEvent ;
+    public DialogueEvent Event { get { if (dialogueEvent == null) dialogueEvent = DialogueManager.Instance.Dialogue_Event; return dialogueEvent; } set { dialogueEvent = value;  } }
+
+    int curDialogueLineIdx = 0;
+    float curTypeSpeed = 0.1f;
+    bool canSkip = false;
+
+    bool isChooseState = false;
+    bool isTyping = false;
+    bool isPressDialogueSkipBtn = false;
+
+    AudioSFXPlayer sfxPlayer =null;
+    #endregion
+
+    #region Dialogue System Method
+    bool preventNextDialogue = false;
+    public bool CanSkip 
+    {   
+        get { return canSkip; } 
+        set 
+        { 
+            canSkip = value;
+            if (canSkip) dialogueTexts[2].gameObject.SetActive(true);
+            else dialogueTexts[2].gameObject.SetActive(false);
+        } 
+    }
+
+    public void StartDialogue(string _key, float _typeSpeed = 0.1f)
+    {
+        dialogue = DialogueManager.Instance.GetDialogue(_key);
+        if (dialogue == null)
+            return;
+
+        if (sfxPlayer == null)
+            sfxPlayer = Camera.main.GetComponentInChildren<AudioSFXPlayer>();
+        dialogueBox.SetActive(true);
+        curTypeSpeed = _typeSpeed;
+        curDialogueLineIdx = 0;
+        dialogueTexts[0].text = dialogue.speakerName;
+        StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
+    }
+
+    public IEnumerator TypeDialogueCor(string _dialogueLine)
+    {
+        // Init
+        CanSkip = false;
+        isTyping = true;
+        dialogueTexts[1].text = "";
+        string curDialogueLine = _dialogueLine;
+        int dialogueLineLen = curDialogueLine.Length;
+
+        // Check Achievement
+        if (curDialogueLine[0] == achievementStr)
+        {
+            Event?.GetAchievement(_dialogueLine);
+            isTyping = false;
+            isPressDialogueSkipBtn = false;
+            if (!preventNextDialogue)
+                NextDialogue();
+            yield break;
+        }
+
+        // Check Event
+        if (curDialogueLine[0] == eventTriggerStr)
+        {
+            // Init Check Event Value
+            string eventName = "";
+            List<string> parameterList = new List<string>();
+            string parameter = "";
+            bool haveParameter = false;
+
+            for (int i = 1; i < dialogueLineLen - 1; i++)
+            {
+                // Receive Parameter && Event
+                if (haveParameter)
+                {
+                    if (curDialogueLine[i] == ',')
+                    {
+                        parameterList.Add(parameter);
+                        parameter = "";
+                    }
+                    else if (curDialogueLine[i] == ')')
+                    {
+                        haveParameter = false;
+                        parameterList.Add(parameter);
+                    }
+                    else
+                    {
+                        parameter += curDialogueLine[i];
+                    }
+                }
+                else
+                {
+                    if (curDialogueLine[i] == '(')
+                        haveParameter = true;
+                    else
+                        eventName += curDialogueLine[i];
+                }
+            }
+            CallDialogueEvent(eventName, parameterList);
+            isTyping = false;
+            isPressDialogueSkipBtn = false;
+            if(!preventNextDialogue)
+                NextDialogue();
+            yield break;
+        }
+        else // Check Dialogue
+        {
+            // Init Check Dialogue Value
+            string type = "";
+            bool haveFontTrigger = false;
+
+            for (int i = 0; i < dialogueLineLen; i++)
+            {
+                if (isPressDialogueSkipBtn && i > 3)
+                {
+                    curDialogueLine=curDialogueLine.Replace("^","");
+                    dialogueTexts[1].text = curDialogueLine;
+                    CanSkip = true;
+                    isTyping = false;
+                    isPressDialogueSkipBtn = false;
+                    break; 
+                }
+
+
+                if (haveFontTrigger)
+                {
+                    if (curDialogueLine[i] == fontTriggerStr)
+                    {
+                        haveFontTrigger = false;
+                        dialogueTexts[1].text += type;
+                        type = "";
+                        yield return new WaitForSeconds(curTypeSpeed);
+                    }
+                    else
+                    {
+                        type += curDialogueLine[i];
+                    }
+                }
+                else
+                {
+                    if (curDialogueLine[i] == fontTriggerStr)
+                    {
+                        haveFontTrigger = true;
+                    }
+                    else
+                    {
+                        dialogueTexts[1].text += curDialogueLine[i];
+                        yield return new WaitForSeconds(curTypeSpeed);
+                    }
+                }
+            }
+        }
+        curDialogueLineIdx += 1;
+        isPressDialogueSkipBtn = false;
+        sfxPlayer.SFXPlay(3);
+        CanSkip = true;
+        isTyping = false;
+    }
+
+    public void EndDialouge()
+    {
+        if (dialogue.choiceLine.Count == 0)
+        {
+            curTypeSpeed = defaultTypeSpeed;
+            dialogue = null;
+            CanSkip = false;
+            DialogueManager.Instance.EndDialogue();
+            dialogueBox.SetActive(false);
+        }
+        else
+        {
+            int choiceCnt = dialogue.choiceLine.Count;
+
+            for (int idx = 0; idx < choiceCnt; idx++)
+            {
+                isChooseState = true;
+                choiceBtns[idx].gameObject.SetActive(true);
+                TextMeshProUGUI text = choiceBtns[idx].GetComponentInChildren<TextMeshProUGUI>();
+                text.text = dialogue.choiceLine[idx].choiceText;
+                int currentIndex = idx;
+                choiceBtns[currentIndex].onClick.RemoveAllListeners();
+                string nextKeyName = dialogue.storySpeaker+dialogue.choiceLine[currentIndex].nextID;
+                choiceBtns[currentIndex].onClick.AddListener(() => ChooseConversation(nextKeyName));
+            }
+        }
+    }
+
+    public void ChooseConversation(string _key)
+    {
+        int choiceCnt = dialogue.choiceLine.Count;
+        for (int idx = 0; idx < choiceCnt; idx++)
+        {
+            choiceBtns[idx].gameObject.SetActive(false);
+        }
+        StartDialogue(_key);
+        isChooseState = false;
+    }
+
+    public void NextDialogue()
+    {
+        curDialogueLineIdx += 1;
+        if (curDialogueLineIdx < dialogue.storyLines.Count)
+            StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
+        else
+            EndDialouge();
+    }
+    #endregion
+
+    #region Dialogue Event
+    public void CallDialogueEvent(string _eventName, List<string> _parameterList)
+    {
+        switch (_eventName)
+        {
+            case "UnableSpawnState":
+                Event.UnableSpawnState(_parameterList);
+                break;
+            case "SpawnEntity":
+                Event.SpawnEntity(_parameterList);
+                break;
+            // Call Here : Relate Text Effect
+            case "TypeSpeed":
+                ChangeTypeSpeed(_parameterList);
+                break;
+            case "Name":
+                ChangeSpeakerName(_parameterList);
+                break;
+            case "UIBox":
+                ChangeUI(_parameterList);
+                break;
+            // Call DialogueEvent Method
+            case "Item":
+                Event.GetItem(_parameterList);
+                break;
+            case "Use":
+                Event.UseItem(_parameterList);
+                break;
+            case "ArchiveLogImage":
+                Event.UpdateArchiveImage(_parameterList);
+                break;
+            case "ArchiveLog":
+                Event.UpdateArchiveLog(_parameterList);
+                break;
+            case "Unable":
+                Event.UnableCommunicate(_parameterList);
+                break;
+            case "Index":
+                Event.DialogueIndexChange(_parameterList);
+                break;
+            case "Hurt":
+                Event.Damaged(_parameterList);
+                break;
+            case "AnimationTrigger":
+                Event.EntityAnimationTrigger(_parameterList);
+                break;
+            case "SpawnItem":
+                Event.SpawnItem(_parameterList);
+                break;
+            case "CheckList":
+                CheckList(_parameterList);
+                break;
+            case "PreventTalk":
+                PreventTalk();
+                break;
+            case "ResumeTalk":
+                ResumeTalk();
+                break;
+            case "PlaySFX":
+                Event.PlaySFX(_parameterList);
+                break;
+            case "Quest":
+                Event.Quest(_parameterList);
+                break;
+        }
+    }
+    public void PreventTalk() { preventNextDialogue = true; Invoke("ResumeTalk", 3f); }
+    public void ResumeTalk() { preventNextDialogue = false; NextDialogue(); }
+
+    public void ChangeSpeakerName(List<string> _parameterList)
+    {
+        dialogueTexts[0].text = _parameterList[0];
+    }
+
+    public void ChangeTypeSpeed (List<string> _parameterList)
+    {
+        float _typeSpeed = float.Parse(_parameterList[0]);
+        curTypeSpeed = _typeSpeed;
+    }
+
+    public void ChangeUI(List<string> _parameterList)
+    {
+        switch (_parameterList[0])
+        {
+            case "Dark":
+                textBoxImage.sprite = textBoxSprites[1];
+                break;
+            case "Light":
+                textBoxImage.sprite = textBoxSprites[0];
+                break;
+        }
+    }
+
+    public void CheckList(List<string> _parameterList){
+        ProgressManager.Instance.UpdateCheckList(int.Parse(_parameterList[0]), 1);
+    }
+    #endregion
+
+    #region Input Dialogue
+
+    public void Execute()
+    {
+        if (isTyping)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                isPressDialogueSkipBtn = true;
+            else if (Input.GetKeyUp(KeyCode.Space))
+                isPressDialogueSkipBtn = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canSkip && dialogue != null)
+        {
+            if (curDialogueLineIdx < dialogue.storyLines.Count)
+                StartCoroutine(TypeDialogueCor(dialogue.storyLines[curDialogueLineIdx]));
+            else
+                EndDialouge();
+        }
+
+        if (isChooseState)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                choiceBtns[0].onClick.Invoke();
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && choiceBtns[1].gameObject.activeSelf)
+                choiceBtns[1].onClick.Invoke();
+        }
+    }
+    #endregion
+
+    
+}

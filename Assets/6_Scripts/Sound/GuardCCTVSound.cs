@@ -1,0 +1,56 @@
+using System.Collections;
+using UnityEngine;
+
+public class GuardCCTVSound : MonoBehaviour
+{
+    [SerializeField]private AudioSource guardCCTVAudioSource;
+    public bool isTurnOn = false;
+    private float guardCCTVVolume = 0.2f;
+    private Coroutine cctvCoroutine;
+    private float fadeTime = 1.0f;
+
+    void Update(){
+
+    }
+
+    public void TurnOnCCTV(){
+        if(cctvCoroutine != null){
+            StopCoroutine(cctvCoroutine);
+        }
+        cctvCoroutine = StartCoroutine(TurnOnCCTVCoroutine());
+    }
+
+    private IEnumerator TurnOnCCTVCoroutine(){
+        isTurnOn = true;
+        guardCCTVAudioSource.volume = 0.0f;
+        float volume = guardCCTVAudioSource.volume;
+        float stepTimer = 0.0f;
+        guardCCTVAudioSource.Play();
+        while(stepTimer <= fadeTime){
+            guardCCTVAudioSource.volume = Mathf.Lerp(volume, guardCCTVVolume, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        guardCCTVAudioSource.volume = guardCCTVVolume;
+    }
+
+    public void TurnOffCCTV(){
+        if(cctvCoroutine != null){
+            StopCoroutine(cctvCoroutine);
+        }
+        cctvCoroutine = StartCoroutine(TurnOffCCTVCoroutine());
+    }
+
+    private IEnumerator TurnOffCCTVCoroutine(){
+        isTurnOn = false;
+        float volume = guardCCTVAudioSource.volume;
+        float stepTimer = 0.0f;
+        while(stepTimer <= fadeTime){
+            guardCCTVAudioSource.volume = Mathf.Lerp(volume, 0.0f, stepTimer / fadeTime);
+            stepTimer += Time.deltaTime;
+            yield return null;
+        }
+        guardCCTVAudioSource.volume = 0.0f;
+        guardCCTVAudioSource.Stop();
+    }
+}

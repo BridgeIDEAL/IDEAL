@@ -1,0 +1,82 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "CStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "$ArchiveLog(0,0902)$",
+        "^<font=CROOKED>^Hey, aren't you that NEW STUDENT?",
+        "^<font=CROOKED>^Here to enroll for the Student Council?",
+        "^<font=CROOKED>^I will explain once more about the Student Council.",
+        "^<font=CROOKED>^Repeat after me.",
+        "^<font=CROOKED>^Number 1, the Council keeps peace in the school.",
+        "^<font=CROOKED><size=32>^Number 2. the Council keeps track of students, and eliminate them if required.",
+        "^<font=CROOKED>^Number 3. the Council stops anyone from leaving the school.",
+        "◇7sc",
+        "^<font=CROOKED>^Not that hard, isn't it?",
+        "^<font=CROOKED>^Now that you are one of us,",
+        "^<font=CROOKED>^WOULD YOU SPARE ONE OF YOUR LEGS FOR ME?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept with pleasure.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Refuse politely.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "CStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "$ArchiveLog(1,0602)$",
+        "$Hurt(RightLeg,1)$",
+        "$PlaySFX(1)$",
+        "(The School President detached my leg with ease.)",
+        "Thanks! ■■■ will love to hear this.",
+        "Right, weren't you looking for the BroadcastRoom password?",
+        "Go check the board right next to you.",
+        "See you later then!",
+        "$Unable(-1)$"
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "CStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "^<font=CROOKED>^You came here all to say NO?",
+        "^<font=CROOKED>^Now I am in no mood to stay friendly."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Accept unwillingly.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Refuse stubbornly.",
+          "nextID": 4
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "CStuPresident",
+      "speakerName": "The School President",
+      "storyLines": [
+        "Ok, I understand.",
+        "Instead, I'll take your leg as an exchange.",
+        "$Hurt(RightLeg,1)$",
+        "$PlaySFX(1)$",
+        "(The School President detached my leg with ease.)",
+        "Now get the hell out of here, you ■■■■■!",
+        "$Unable(-1)$"
+      ]
+    }
+  ]
+}

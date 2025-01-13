@@ -1,0 +1,188 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "◇5shop",
+        "$ArchiveLogImage(0,3)$",
+        "Why, hello there.",
+        "I've never seen you before.",
+        "I'll make it cheap, pick anything."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Choose Melon Bread.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "Choose Redbean Bread.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "Oops, sorry, we're out of Melon Bread.",
+        "I'll give you sweet Redbean Bread instead~"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Choose Redbean Bread.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "Sweet Redbean Bread? Here you are~",
+        "^<font=CROOKED>^You can pay with BOTH ARMS AND A LEG.^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Okay.",
+          "nextID": 4
+        },
+        {
+          "choiceText": "Too expensive.",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "$ArchiveLog(0,0302)$",
+        "$PlaySFX(1)$",
+        "$Hurt(RightArm,2)$",
+        "$Hurt(LeftArm,2)$",
+        "$Hurt(LeftLeg,2)$",
+        "(Obtained Sweet Redbean Bread.)",
+        "$SpawnEntity(Teacher2)$",
+        "$Item(SweetBeanBread)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "Oh, really?",
+        "I guess you're not that stupid.",
+        "Too bad, you can only pay with ^<font=CROOKED>^BOTH ARMS^</font>^."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "Okay.",
+          "nextID": 6
+        },
+        {
+          "choiceText": "Still too expensive.",
+          "nextID": 7
+        }
+      ]
+    },
+    {
+      "storyID": 6,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "$PlaySFX(1)$",
+        "$Hurt(RightArm,2)$",
+        "$Hurt(LeftArm,2)$",
+        "(Obtained Sweet Redbean Bread.)",
+        "$Item(SweetBeanBread)$",
+        "$SpawnEntity(Teacher2)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 7,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "^<font=CROOKED>^You ... better be careful.^</font>^",
+        "^<font=CROOKED>^Too many bargains could be harmful.^</font>^",
+        "^<font=CROOKED>^Now, give me BOTH YOUR FINGERS instead.^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "A little cheaper, please.",
+          "nextID": 9
+        },
+		    {
+          "choiceText": "Okay.",
+          "nextID": 8
+        }
+      ]
+    },
+    {
+      "storyID": 8,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "$PlaySFX(1)$",
+        "$Hurt(RightArm,1)$",
+        "$Hurt(LeftArm,1)$",
+        "(Obtained Sweet Redbean Bread.)",
+        "$Item(SweetBeanBread)$",
+        "$SpawnEntity(Teacher2)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 9,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "$UIBox(Dark)$",
+        "$AnimationTrigger(ShopManager,Talk_Tri)$",
+        "^<font=CROOKED>^ARE YOU GOING TO BUY IT OR NOT?^</font>^",
+        "^<font=CROOKED>^I ALREADY MADE IT CHEAP ENOUGH!^</font>^",
+        "^<font=CROOKED>^WHEN ARE YOU GOING TO BE SATISFIED?^</font>^",
+        "^<font=CROOKED>^THAT'S IT, I'M DONE.^</font>^",
+        "^<font=CROOKED>^BOTH ARMS AND LEGS, OR I'M NOT SELLING.^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "No choice but to buy.",
+          "nextID": 10
+        }
+      ]
+    },
+    {
+      "storyID": 10,
+      "storySpeaker": "ShopManager",
+      "speakerName": "Shop Manager",
+      "storyLines": [
+        "$ArchiveLog(0,0402)$",
+        "$UIBox(Light)$",
+        "$PlaySFX(1)$",
+        "$Hurt(RightLeg,2)$",
+        "$Hurt(RightArm,2)$",
+        "$Hurt(LeftArm,2)$",
+        "$Hurt(LeftLeg,1)$",
+        "(Obtained Sweet Redbean Bread.)",
+        "$Item(SweetBeanBread)$",
+        "Ahem, I'll leave little bit of your left leg as a gift.",
+        "Now get out of here!",
+        "$SpawnEntity(Teacher2)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

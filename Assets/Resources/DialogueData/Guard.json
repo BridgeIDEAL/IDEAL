@@ -1,0 +1,45 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Guard",
+      "speakerName": "수위",
+      "storyLines": [
+        "거기 너! 누구야!",
+        "뭐라고? ^<font=HanSMemory>^전학생?^</font>^",
+        "흠… 오늘 ^<font=HanSMemory>^전학생^</font>^은 들은적이 없는데",
+        "잠깐 확인해보고 올테니 기다리고 있어라.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Guard",
+      "speakerName": "수위",
+      "storyLines": [
+        "거기 너! 누구야!",
+        "뭐라고? ^<font=HanSMemory>^전학생?^</font>^",
+        "$UIBox(Dark)$",
+        "^<font=HanSMemory>^저번 회차에 죽었을텐데, 또 오셨네?^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "...지금 뭐라고 하셨어요?",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Guard",
+      "speakerName": "수위",
+      "storyLines": [
+        "죽은 게 아니라 살아나간거였나?",
+        "내가 뭔가 착각했나보군.",
+        "아무튼, 전학수속을 밟아야 하니 잠깐 기다리고 있게.",
+        "$UIBox(Light)$"
+      ]
+    }
+  ]
+}

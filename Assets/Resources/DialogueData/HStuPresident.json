@@ -1,0 +1,96 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "◇5stp",
+        "$CheckList(201)$",
+        "거기 너, 너가 그 전학생이구나!",
+        "자인고에 온 걸 환영해!",
+        "^<font=HanSMemory>^혹시 학생회에 가입할 생각은 없니?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "얘기를 더 듣는다",
+          "nextID": 2
+        },
+        {
+          "choiceText": "정중히 거절한다",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "학생회가 된다면 학교 시설을 마음대로 쓸 수 있지",
+        "너가 원하는 때 돌아다녀도 아무도 뭐라 안 할 거야.",
+        "마침 지금 사람이 부족했거든.",
+        "최근에 들어온 사람들이 좀 없었어서 말이지...",
+        "아무튼, 어떡할래?"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수락한다",
+          "nextID": 4
+        },
+        {
+          "choiceText": "거절한다",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "^<font=HanSMemory>^이거 정말 좋은 기회인데",
+        "^<font=HanSMemory>^거절하는거야?",
+        "^<font=HanSMemory>^너한테 분명 도움이 될텐데 ..."
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "수락한다",
+          "nextID": 4
+        },
+        {
+          "choiceText": "거절한다",
+          "nextID": 5
+        }
+      ]
+    },
+    {
+      "storyID": 4,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "잘 생각했어",
+        "본격적인 가입 절차는 학생회실에서 진행할게.",
+        "2층에 학생회실 있으니까",
+        "들렀다 와야 할 곳들 갔다가 꼭 다시 찾아와~",
+        "그러면 그 때 보자!",
+        "$SpawnEntity(CStuPresident)$",
+        "$UnableSpawnState(HStuPresident)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 5,
+      "storySpeaker": "HStuPresident",
+      "speakerName": "학생회장",
+      "storyLines": [
+        "그래? 아쉽네. 넌 어쩔 수 없겠다.",
+        "알아서 잘 해봐. 나중에 꼭 다시 보자~",
+        "$UnableSpawnState(HStuPresident)$",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

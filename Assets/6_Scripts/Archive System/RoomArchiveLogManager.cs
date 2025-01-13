@@ -1,0 +1,345 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+[System.Serializable]
+public class RoomArchiveLogs{
+    public int roomID;
+    public string roomName;
+    public RoomArchiveLog[] roomArchiveLogs;
+    public bool isImageActive;
+    public bool hasNewData;
+
+    public RoomArchiveLogs(int _roomID, string _roomName, RoomArchiveLog[] _roomArchiveLogs, bool _isImageActive, bool _hasNewData = false){
+        this.roomID = _roomID;
+        this.roomName = _roomName;
+        this.roomArchiveLogs = _roomArchiveLogs;
+        this.isImageActive = _isImageActive;
+        this.hasNewData = _hasNewData;
+    }
+}
+
+[System.Serializable]
+public class RoomArchiveData{
+    public List<RoomArchiveLog> roomArchiveChangeList = new List<RoomArchiveLog>();
+    public List<int> roomImageActiveList = new List<int>();
+    public List<int> roomHasNewDataList = new List<int>();
+}
+
+public class RoomArchiveLogManager : MonoBehaviour
+{
+    private static RoomArchiveLogManager instance = null;
+    public static RoomArchiveLogManager Instance{
+        get{
+            if(instance == null) return null;
+            return instance;
+        }
+    }
+
+    private string roomArchiveDataPath;
+    private RoomArchiveData roomArchiveData;
+    private List<RoomArchiveLogs> roomArchiveList = new List<RoomArchiveLogs>();
+
+    private RoomArchiveLogData roomLogData = new RoomArchiveLogData();
+
+
+    private void Awake(){
+        if(Instance == null){
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else{
+            Destroy(this.gameObject);
+        }
+
+        roomArchiveDataPath = Path.Combine(Application.persistentDataPath, "RoomArchiveLogData.json");
+
+        roomLogData.GenerateDictionary();
+    }
+
+    private void Start(){
+        if (File.Exists(roomArchiveDataPath)){
+            LoadArchiveData();
+            GenerateRoomList();
+            ApplySavedData();
+        }
+        else{
+            roomArchiveData = new RoomArchiveData();
+            GenerateRoomList();
+            SaveArchiveData();
+        }
+    }
+
+    public void GenerateRoomList(){  // attempts -1은 항상 보이는 것 0은 안보이는 것 1이상은 보이는데 attempts를 기록하는 것
+        roomArchiveList = new List<RoomArchiveLogs>();
+        roomArchiveList.Add(new RoomArchiveLogs(00, "수위실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0001, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(01, "교장실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0101, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(02, "이사장실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0201, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(03, "행정실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0301, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(04, "자습실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0401, -1),
+        new RoomArchiveLog(0402, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(05, "매점", new RoomArchiveLog[] {
+        new RoomArchiveLog(0501, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(06, "학생회실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0601, -1),
+        new RoomArchiveLog(0602, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(07, "보건실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0701, -1),
+        new RoomArchiveLog(0702, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(08, "과학실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0801, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(09, "전산실", new RoomArchiveLog[] {
+        new RoomArchiveLog(0901, -1),
+        new RoomArchiveLog(0902, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(10, "진로진학부",  new RoomArchiveLog[] {
+        new RoomArchiveLog(1001, -1),
+        new RoomArchiveLog(1002, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(11, "방송실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1101, -1),
+        new RoomArchiveLog(1102, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(12, "상담실/동아리실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1201, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(13, "교무실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1301, -1),
+        new RoomArchiveLog(1302, 0),
+        new RoomArchiveLog(1303, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(14, "옥상", new RoomArchiveLog[] {
+        new RoomArchiveLog(1401, -1),
+        new RoomArchiveLog(1402, 0),
+        new RoomArchiveLog(1403, 0),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(15, "음악실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1501, -1),
+        },
+        true
+        ));
+
+        roomArchiveList.Add(new RoomArchiveLogs(16, "컴퓨터실", new RoomArchiveLog[] {
+        new RoomArchiveLog(1601, -1),
+        new RoomArchiveLog(1602, 0),
+        },
+        true
+        ));
+
+    }
+
+    private void LoadArchiveData(){
+        string loadJson = File.ReadAllText(roomArchiveDataPath);
+        roomArchiveData = JsonUtility.FromJson<RoomArchiveData>(loadJson);
+    }
+
+    public void SaveArchiveData(){
+        string json = JsonUtility.ToJson(roomArchiveData, true);
+        File.WriteAllText(roomArchiveDataPath, json);
+    }
+
+    private void ApplySavedData(){
+        foreach(RoomArchiveLog savedLog in roomArchiveData.roomArchiveChangeList){
+            int roomID_ = savedLog.GetID() / 100;
+            foreach(RoomArchiveLogs roomList in roomArchiveList){
+                if(roomList.roomID == roomID_){
+                    foreach(RoomArchiveLog log in roomList.roomArchiveLogs){
+                        if(log.GetAttempt() == 0){
+                            log.SetAttempt(savedLog.GetAttempt());
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach(int imageNum in roomArchiveData.roomImageActiveList){
+            foreach(RoomArchiveLogs roomList in roomArchiveList){
+                if(roomList.roomID == imageNum){
+                    roomList.isImageActive = true;
+                }
+            }
+        }
+
+        foreach(int hasNewDataNum in roomArchiveData.roomHasNewDataList){
+            foreach(RoomArchiveLogs roomList in roomArchiveList){
+                if(roomList.roomID == hasNewDataNum){
+                    roomList.hasNewData = true;
+                }
+            }
+        }
+    }
+
+    public void UpdateArchiveLogData(int archiveID, int _attempt){
+        // Update roomArchiveList
+        foreach(RoomArchiveLogs roomList in roomArchiveList){
+            if(roomList.roomID == archiveID / 100){
+                foreach(RoomArchiveLog log in roomList.roomArchiveLogs){
+                    if(log.GetAttempt() == 0 && log.ID == archiveID){
+                        log.SetAttempt(_attempt);
+                        // 새로운 데이터가 있다는 것 표시
+                        roomList.hasNewData = true;
+                        roomArchiveData.roomHasNewDataList.Add(roomList.roomID);
+                        // 아래에서 해당 내용 같이 저장
+                    }
+                }
+            }
+        }
+
+        // Update roomArchiveData
+        bool noDataInSavedData = true;
+        foreach(RoomArchiveLog savedLog in roomArchiveData.roomArchiveChangeList){
+            if(savedLog.GetID() == archiveID){
+                noDataInSavedData = false;
+            }
+        }
+
+        if(noDataInSavedData){
+            roomArchiveData.roomArchiveChangeList.Add(new RoomArchiveLog(archiveID, _attempt));
+        }
+
+        SaveArchiveData();
+
+        // 이 부분에 SteamArchive 9번 체크하는 함수를 호출
+    }
+
+    public void UpdateArchiveImageData(int _roomID){
+        // Update roomArchiveList
+        foreach(RoomArchiveLogs roomList in roomArchiveList){
+            if(roomList.roomID == _roomID){
+                roomList.isImageActive = true;
+            }
+        }
+
+        // Update roomArchiveData
+        bool noDataInSavedData = true;
+        foreach(int imageNum in roomArchiveData.roomImageActiveList){
+            if(imageNum == _roomID){
+                noDataInSavedData = false;
+            }
+        }
+
+        if(noDataInSavedData){
+            roomArchiveData.roomImageActiveList.Add(_roomID);
+        }
+
+        SaveArchiveData();
+
+        if(MonsterArchiveLogManager.Instance.IsClearAllArchive() && RoomArchiveLogManager.Instance.IsClearAllArchive()){
+            SteamfeatureController.Instance.UnLockAchievement("ACHIEV_09");
+        }
+    }
+
+    public RoomArchiveLogs GetRoomArchiveLogs(int _roomID){
+        foreach (RoomArchiveLogs logs in roomArchiveList){
+            if(logs.roomID == _roomID){
+                return logs;
+            }
+        }
+        return null;
+    }
+
+    public string GetRoomArchiveText(int logID){
+        if(roomLogData.roomArchiveDictionary.ContainsKey(logID)){
+            return roomLogData.roomArchiveDictionary[logID];
+        }
+        else{
+            return "데이터가 존재하지 않습니다.";
+        }
+    }
+
+    public List<RoomArchiveLogs> GetRoomArchiveList(){
+        return roomArchiveList;
+    }
+
+    public void WatchRoomLog(int _roomID){
+        // RoomArchiveList (인게임용)에 대한 적용
+        foreach(RoomArchiveLogs logs in roomArchiveList){
+            if(logs.roomID == _roomID){
+                logs.hasNewData = false;
+            }
+        }
+
+        // RoomArchiveData (저장용) 에 대한 적용
+        for(int i = 0; i < roomArchiveData.roomHasNewDataList.Count; i++){
+            roomArchiveData.roomHasNewDataList.RemoveAt(i);
+        }
+        SaveArchiveData();
+    }
+
+    public bool HasNewData(){
+        return roomArchiveData.roomHasNewDataList.Count > 0;
+    }
+
+    public bool IsClearAllArchive(){
+        bool isClearAll = true;
+        foreach(RoomArchiveLogs logs in roomArchiveList){
+            foreach(RoomArchiveLog log in logs.roomArchiveLogs){
+                if(log.attempt == 0){
+                    isClearAll = false;
+                }
+            }
+        }
+
+        return isClearAll;
+    }
+}

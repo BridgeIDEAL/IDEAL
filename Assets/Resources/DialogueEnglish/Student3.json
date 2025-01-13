@@ -1,0 +1,50 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Student3",
+      "speakerName": "Computer boy",
+      "storyLines": [
+        "◇5st3",
+        "$ArchiveLogImage(0,10)$",
+        "$Quest(computerboy)$",
+        "Your shoes are worn out.",
+        "^<font=CROOKED>^Do you need new shoes?^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "I need them.",
+          "nextID": 2
+        },
+        {
+          "choiceText": "It's okay.",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Student3",
+      "speakerName": "Computer boy",
+      "storyLines": [
+        "Oh, I'm not the one giving them.",
+        "There's ^<font=CROOKED>^CAREER COUNSELING ROOM^</font>^ on the 4th floor.",
+        "You can get new shoes there.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Student3",
+      "speakerName": "Computer boy",
+      "storyLines": [
+        "Oh, but if you happen to need them later,",
+        "4층에 ^<font=CROOKED>^진로진학부 교무실^</font>^ 있지?",
+        "There's ^<font=CROOKED>^CAREER COUNSELING ROOM^</font>^ on the 4th floor.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    }
+  ]
+}

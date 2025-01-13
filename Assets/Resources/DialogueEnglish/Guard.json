@@ -1,0 +1,45 @@
+{
+  "dialogues": [
+    {
+      "storyID": 1,
+      "storySpeaker": "Guard",
+      "speakerName": "Guard",
+      "storyLines": [
+        "Hey there! Who's there!",
+        "What? a ^<font=CROOKED>^NEW STUDENT?^</font>^",
+        "Hmm... I haven't heard of any ^<font=CROOKED>^NEW STUDENTS^</font>^ today.",
+        "Stay here, I'll check and come back.",
+        "$Unable(-1)$"
+      ],
+      "choiceLine": []
+    },
+    {
+      "storyID": 2,
+      "storySpeaker": "Guard",
+      "speakerName": "Guard",
+      "storyLines": [
+        "Hey there! Who's there!",
+        "What? a ^<font=CROOKED>^NEW STUDENT?^</font>^",
+        "$UIBox(Dark)$",
+        "^<font=CROOKED>^I thought you were dead last time, how are you here again?^</font>^"
+      ],
+      "choiceLine": [
+        {
+          "choiceText": "...What did you just say?",
+          "nextID": 3
+        }
+      ]
+    },
+    {
+      "storyID": 3,
+      "storySpeaker": "Guard",
+      "speakerName": "Guard",
+      "storyLines": [
+        "Are you telling me you made it out last time?",
+        "I must be mistaken then.",
+        "Anyway, I have to check the transfer process, so stay here.",
+        "$UIBox(Light)$"
+      ]
+    }
+  ]
+}
